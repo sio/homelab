@@ -1,0 +1,10 @@
+#!/bin/bash
+set -e  # Exit immediately if a pipeline returns non-zero status
+
+
+echo "running post-receive hook..."
+unset GIT_DIR
+
+
+# Update local copy of the files
+git -C "$HOME/common" pull origin
