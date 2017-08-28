@@ -60,7 +60,8 @@ colorhash() {
 
 
 makeprompt() {
-    echo -n '\n'$(color "1;3`usercolor`m" '[\u@\h]')$(color "34m" ' $PWD/\n')$(color "1;34m" '\$ ')
+    local usrclr=$(usercolor)
+    echo -n '\n'$(color "1;3${usrclr}m" '[\u@\h]')$(color "34m" ' $PWD/\n')$(color "1;3${usrclr}m" '\$ ')
 }
 
 
