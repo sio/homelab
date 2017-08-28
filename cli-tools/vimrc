@@ -3,7 +3,8 @@ set tabstop=4      " show tabs as 4 spaces
 set shiftwidth=4   " when indenting with > use spaces
 set expandtab      " insert spaces on Tab keypress
 
-
+" Automatically continue comment blocks
+set formatoptions+=r
 
 
 " Setting some decent VIM settings for programming
