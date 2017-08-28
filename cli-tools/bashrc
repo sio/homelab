@@ -1,0 +1,5 @@
+# Add these lines to the end of ~/.bashrc
+
+COMMON="$HOME/common"
+
+source "$COMMON/cli-tools/bash_prompt"

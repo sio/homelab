@@ -1,0 +1,67 @@
+#
+# Build a pretty prompt for bash
+#
+# To invoke add `source bash_prompt` to your ~/.bashrc
+#
+
+
+color() {
+    # Build colored text with proper escape sequences
+    #
+    # Usage:
+    #     color code text
+    # code
+    #     Color code, e.g. "1;34m"
+    # text
+    #     String to be colored
+    #
+    # ASCII colors (foreground: 30-37, background: 40-47)
+    #   0: black,   1: red,       2: green,    3: yellow,
+    #   4: blue,    5: magenta,   6: cyan,     7: white
+
+    start='\033['
+    end=''
+    revert='\033[0m'
+
+    color="$1"
+    value="$2"
+    echo -n "$start$color$end$value$revert"
+}
+
+
+usercolor() {
+    # Return a color code for each user
+    #
+    # Generated from username and hostname, always red for root
+
+    user=$(id -u -n)
+    if [ "$user" = "root" ]
+    then
+        color=1
+    else
+        host=$(hostname)
+        color=$(colorhash "$user$host")
+    fi
+    echo -n $color
+}
+
+
+colorhash() {
+    # Reduce a string to a color code. Black, white and red
+    # are considered reserved and are never returned.
+    #
+    # Usage:
+    #   colorhash text
+
+    number=5  # available colors: green, yellow, blue, magenta, cyan
+    hash=$(echo "$*" | sum -s | cut -d\  -f1)
+    echo -n $(("$hash" % "$number" + 2))
+}
+
+
+makeprompt() {
+    echo -n '\n'$(color "1;3`usercolor`m" '[\u@\h]')$(color "34m" ' \w/\n')$(color "1;34m" '\$ ')
+}
+
+
+PS1=$(makeprompt)
