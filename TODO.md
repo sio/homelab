@@ -9,10 +9,11 @@
 [ ] Check open ports, uninstall mail server
     [ ] `ss -lnp` shows running network sevices
     [ ] Do a `nmap` scan from outside
+        [ ] Deactivate 111/tcp: rpcbind
 [ ] Deactivate Telnet
 [ ] Firewall: ufw or iptables
-    [ ] Deny all incoming except for ssh and www
-[ ] Install python 3
+    [ ] Deny all incoming except ssh and www
+[ ] Install Python 3
 [ ] Install Apache + mod_wsgi
 [ ] Configure web server
     [ ] mod_security?
