@@ -35,7 +35,7 @@ usercolor() {
     # Generated from username and hostname, always red for root
 
     local user=$(id -u -n)
-    if [ "$user" = "root" ]
+    if [ "x$user" = "xroot" ]
     then
         local color=1
     else
