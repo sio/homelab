@@ -59,7 +59,7 @@ _colorhash() {
 
     local number=5  # available colors: green, yellow, blue, magenta, cyan
     local hash=$(echo "$*" | sum -s | cut -d\  -f1)
-    echo -n $(("$hash" % "$number" + 2))
+    echo -n $(($hash % $number + 2))
 }
 
 
