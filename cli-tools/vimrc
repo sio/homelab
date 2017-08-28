@@ -1,3 +1,11 @@
+" Indent with spaces
+set tabstop=4      " show tabs as 4 spaces
+set shiftwidth=4   " when indenting with > use spaces
+set expandtab      " insert spaces on Tab keypress
+
+
+
+
 " Setting some decent VIM settings for programming
 
 set ai                          " set auto-indenting on for programming
