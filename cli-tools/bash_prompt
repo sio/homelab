@@ -19,12 +19,12 @@ color() {
     #   0: black,   1: red,       2: green,    3: yellow,
     #   4: blue,    5: magenta,   6: cyan,     7: white
 
-    start='\033['
-    end=''
-    revert='\033[0m'
+    local start='\033['
+    local end=''
+    local revert='\033[0m'
 
-    color="$1"
-    value="$2"
+    local color="$1"
+    local value="$2"
     echo -n "$start$color$end$value$revert"
 }
 
@@ -34,13 +34,13 @@ usercolor() {
     #
     # Generated from username and hostname, always red for root
 
-    user=$(id -u -n)
+    local user=$(id -u -n)
     if [ "$user" = "root" ]
     then
-        color=1
+        local color=1
     else
-        host=$(hostname)
-        color=$(colorhash "$user$host")
+        local host=$(hostname)
+        local color=$(colorhash "$user$host")
     fi
     echo -n $color
 }
@@ -53,8 +53,8 @@ colorhash() {
     # Usage:
     #   colorhash text
 
-    number=5  # available colors: green, yellow, blue, magenta, cyan
-    hash=$(echo "$*" | sum -s | cut -d\  -f1)
+    local number=5  # available colors: green, yellow, blue, magenta, cyan
+    local hash=$(echo "$*" | sum -s | cut -d\  -f1)
     echo -n $(("$hash" % "$number" + 2))
 }
 
