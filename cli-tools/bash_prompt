@@ -6,7 +6,7 @@
 
 
 _color() {
-    # Build colored text with proper escape sequences
+    # Build colored prompt components with proper escape sequences
     #
     # Usage:
     #     color code text
@@ -18,10 +18,14 @@ _color() {
     # ASCII colors (foreground: 30-37, background: 40-47)
     #   0: black,   1: red,       2: green,    3: yellow,
     #   4: blue,    5: magenta,   6: cyan,     7: white
+    #
+    # Note: \[ and \] are important for shell to properly calculate
+    # length of the prompt. Otherwise there might be some garbage
+    # left after some interactive operations, e.g. reverse-history-search.
 
-    local start='\033['
-    local end=''
-    local revert='\033[0m'
+    local start='\[\033['
+    local end='\]'
+    local revert='\[\033[0m\]'
 
     local color="$1"
     local value="$2"
@@ -67,7 +71,7 @@ _git_current_branch() {
 
 _makeprompt() {
     local usrclr=$(_usercolor)
-    echo -n '\n'$(_color "1;3${usrclr}m" '[\u@\h]')$(_color "34m" ' $PWD/\n')$(_color "1;3${usrclr}m" '\$ ')
+    echo -n '\n\n'$(_color "1;3${usrclr}m" '[\u@\h]')$(_color "34m" ' $PWD/\n')$(_color "1;3${usrclr}m" '\$ ')
 }
 
 
