@@ -14,6 +14,7 @@
 [ ] Firewall: ufw or iptables
     [ ] Deny all incoming except ssh and www
 [ ] Install Python 3
+[ ] Check libsqlite3 version (>=3.8.11)
 [ ] Install Apache + mod_wsgi
 [ ] Configure web server
     [ ] mod_security?
