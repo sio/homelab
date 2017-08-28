@@ -65,7 +65,7 @@ _colorhash() {
 
 _git_current_branch() {
     local branch=$(git branch 2>/dev/null | cut -d\  -f2)
-    echo -n "($branch)"
+    [ ! -z "$branch" ] && echo -n "($branch)"
 }
 
 
