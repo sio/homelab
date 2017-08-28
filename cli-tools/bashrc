@@ -4,3 +4,4 @@ COMMON="$HOME/common"
 
 source "$COMMON/cli-tools/bash_prompt"
 source "$COMMON/cli-tools/bash_aliases"
+source "$COMMON/cli-tools/bash_env"
