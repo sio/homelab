@@ -71,7 +71,13 @@ _git_current_branch() {
 
 _makeprompt() {
     local usrclr=$(_usercolor)
-    echo -n '\n\n'$(_color "1;3${usrclr}m" '[\u@\h]')$(_color "34m" ' $PWD/\n')$(_color "1;3${usrclr}m" '\$ ')
+
+    local newlines='\n\n'
+    local who=$(_color "1;3${usrclr}m" '[\u@\h]')
+    local path=$(_color "34m" '$PWD/')
+    local bang=$(_color "1;3${usrclr}m" '\$ ')
+    local gitbranch=$(_color "33m" '`_git_current_branch`')
+    echo -n "$newlines$who $path\n$bang"
 }
 
 
