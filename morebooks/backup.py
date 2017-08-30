@@ -11,7 +11,7 @@ from toolpot.scripting import archive, make_name, rotate
 BACKUP_NAME = "morebooks"
 DATA = ["$HOME/data/uploads", "$HOME/data/database.sqlite"]
 DESTINATION = "$HOME/data/backup"
-SERVER = "apache"
+SERVER = "apache2"
 
 
 def main():
