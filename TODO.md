@@ -22,3 +22,4 @@
 [ ] Move morebooks app and data
 [ ] Set up cron schedule for backups
 [ ] Configure DNS for morebooks.ml
+[ ] Change timezone & setup ntp client
