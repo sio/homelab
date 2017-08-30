@@ -7,7 +7,7 @@ set -e
 
 
 # Configuration
-CONTROL="systemctl"
+CONTROL="sudo systemctl"
 SERVER="apache2"
 WORKDIR=$(dirname "$0")
 
