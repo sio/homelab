@@ -20,7 +20,7 @@ $CONTROL stop $SERVER
 set +e  # Allow uninstall to fail if hlc is not installed
 pip3 uninstall -y HomeLibraryCatalog
 set -e
-pip3 install -r "$WORKDIR/requirements.txt"
+pip3 install --user -r "$WORKDIR/requirements.txt"
 
 
 # Back up valuable data
