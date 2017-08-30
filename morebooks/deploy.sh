@@ -15,10 +15,12 @@ WORKDIR=$(dirname "$0")
 # Stop web server to release all locks it might have imposed
 $CONTROL stop $SERVER
 
-2
+
 # Update HomeLibraryCatalog to the latest git version
-pip uninstall -y HomeLibraryCatalog
-pip install -r "$WORKDIR/requirements.txt"
+set +e  # Allow uninstall to fail if hlc is not installed
+pip3 uninstall -y HomeLibraryCatalog
+set -e
+pip3 install -r "$WORKDIR/requirements.txt"
 
 
 # Back up valuable data
