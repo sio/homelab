@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 # Run whitespace checks according to core.whitespace value
 git diff --cached --check
