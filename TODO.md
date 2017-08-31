@@ -24,3 +24,14 @@
 [ ] Set up cron schedule for backups
 [ ] Configure DNS for morebooks.ml
 [ ] Change timezone & setup ntp client
+
+
+# Hosting requirements
+[x] Linux
+[x] Python3 with pip
+[x] WSGI-compatible web server
+[x] Cron
+[x] SSH access (non-root)
+[x] Disk space: 1GB+
+[x] RAM: 512MB+
+[x] Custom domain name via CNAME
