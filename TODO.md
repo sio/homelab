@@ -3,6 +3,7 @@
 [x] Perform dist-upgrade
 [x] Create a non-root user account
 [x] Secure sshd acccess
+[ ] Configure locale (UTF-8)
 [x] Set up git repo for common files
 [x] Schedule daily package list update
 [x] Check ssh logs
