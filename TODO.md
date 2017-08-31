@@ -3,7 +3,7 @@
 [x] Perform dist-upgrade
 [x] Create a non-root user account
 [x] Secure sshd acccess
-[ ] Configure locale (UTF-8)
+[x] Configure locale (UTF-8)
 [x] Set up git repo for common files
 [x] Schedule daily package list update
 [x] Check ssh logs
@@ -21,7 +21,7 @@
 [ ] Configure web server
     [ ] mod_security?
 [ ] Move morebooks app and data
-    [ ] Install build dependencies for lxml and Pillow
+    [x] Install build dependencies for lxml and Pillow
 [ ] Set up cron schedule for backups
 [ ] Configure DNS for morebooks.ml
 [ ] Change timezone & setup ntp client
