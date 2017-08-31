@@ -17,7 +17,7 @@ $CONTROL stop $SERVER
 
 
 # Update HomeLibraryCatalog to the latest git version
-set +e  # Allow uninstall to fail if hlc is not installed
+set +e  # ignore uninstall errors
 pip3 uninstall -y HomeLibraryCatalog
 set -e
 pip3 install --user -r "$WORKDIR/requirements.txt"
@@ -27,5 +27,5 @@ pip3 install --user -r "$WORKDIR/requirements.txt"
 python3 "$WORKDIR/backup.py"
 
 
-# Restart the web server
+# Start the web server
 $CONTROL start $SERVER
