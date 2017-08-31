@@ -20,6 +20,7 @@
 [ ] Configure web server
     [ ] mod_security?
 [ ] Move morebooks app and data
+    [ ] Install build dependencies for lxml and Pillow
 [ ] Set up cron schedule for backups
 [ ] Configure DNS for morebooks.ml
 [ ] Change timezone & setup ntp client
