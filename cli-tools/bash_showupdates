@@ -1,0 +1,13 @@
+_show_updates() {
+    # Show cached search results for upgradable packages
+    # List of upgradable packages is meant to be written by cron job
+
+    local FILE="$HOME/.aptitude.upgradable"
+    local UPDATES
+    test -e "$FILE" && UPDATES=$(cat "$FILE")
+    if [ ${#UPDATES} -gt 0 ]
+    then
+        echo -e "\nPACKAGE UPDATES AVAILABLE:\n$UPDATES"
+    fi
+}
+_show_updates

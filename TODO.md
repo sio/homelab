@@ -6,6 +6,7 @@
 [x] Configure locale (UTF-8)
 [x] Set up git repo for common files
 [x] Schedule daily package list update
+    [x] Notify user about available updates
 [x] Check ssh logs
     [-] Change sshd port or install fail2ban
 [x] Check open ports, uninstall mail server
