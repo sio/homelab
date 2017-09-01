@@ -7,6 +7,11 @@ set expandtab      " insert spaces on Tab keypress
 set formatoptions+=r
 
 
+
+" ---
+" The rest of this config was copied from Git for Windows
+" ---
+
 " Setting some decent VIM settings for programming
 
 set ai                          " set auto-indenting on for programming
