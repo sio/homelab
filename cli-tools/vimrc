@@ -6,6 +6,8 @@ set expandtab      " insert spaces on Tab keypress
 " Automatically continue comment blocks
 set formatoptions+=r
 
+" Highlight search matches (use :noh or :nohlsearch to clear marks)
+set hlsearch
 
 
 " ---
