@@ -4,7 +4,7 @@ set shiftwidth=4   " when indenting with > use spaces
 set expandtab      " insert spaces on Tab keypress
 
 " Automatically continue comment blocks
-set formatoptions+=r
+set formatoptions+=cro
 
 " Highlight search matches (use :noh or :nohlsearch to clear marks)
 set hlsearch
