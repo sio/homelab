@@ -1,18 +1,8 @@
-" Indent with spaces
-set tabstop=4      " show tabs as 4 spaces
-set shiftwidth=4   " when indenting with > use spaces
-set expandtab      " insert spaces on Tab keypress
-
-" Automatically continue comment blocks
-set formatoptions+=cro
-
-" Highlight search matches (use :noh or :nohlsearch to clear marks)
-set hlsearch
-
-
-" ---
-" The rest of this config was copied from Git for Windows
-" ---
+"
+"
+" This config was copied from Git for Windows
+"
+"
 
 " Setting some decent VIM settings for programming
 
@@ -56,3 +46,21 @@ if has("autocmd")
 
       autocmd Syntax gitcommit setlocal textwidth=74
 endif " has("autocmd")
+
+
+"
+"
+" My configuration goes below
+"
+"
+
+" Indent with spaces
+set tabstop=4      " show tabs as 4 spaces
+set shiftwidth=4   " when indenting with > use spaces
+set expandtab      " insert spaces on Tab keypress
+
+" Automatically continue comment blocks
+set formatoptions+=cro
+
+" Highlight search matches (use :noh or :nohlsearch to clear marks)
+set hlsearch
