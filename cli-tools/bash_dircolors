@@ -1,0 +1,4 @@
+#
+# Force colored ls output
+#
+eval $(TERM=xterm dircolors -b)
