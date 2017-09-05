@@ -25,7 +25,7 @@
     [x] Install build dependencies for lxml and Pillow
 [ ] Set up cron schedule for backups
 [ ] Configure DNS for morebooks.ml
-[ ] Change timezone & setup ntp client
+[x] Change timezone & setup ntp client
     [x] OpenVZ VPS share clock with host, no need
         for separate ntp client
 
