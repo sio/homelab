@@ -20,7 +20,7 @@
 [-] Check libsqlite3 version (>=3.8.11)
 [x] Install Apache + mod_wsgi
 [x] Configure web server
-    [ ] mod_security?
+    [-] mod_security?
 [ ] Move morebooks app and data
     [x] Install build dependencies for lxml and Pillow
 [x] Set up cron schedule for backups
