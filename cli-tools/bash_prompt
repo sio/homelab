@@ -44,7 +44,7 @@ _usercolor() {
         local color=1
     else
         local host=$(hostname)
-        local color=$(_colorhash "$user$host")
+        local color=$(_colorhash "$user@$host")
     fi
     echo -n $color
 }
