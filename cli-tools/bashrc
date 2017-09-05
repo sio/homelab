@@ -1,9 +1,33 @@
-# Add these lines to the end of ~/.bashrc
+#
+# Source this file from your ~/.bashrc
+#
 
-COMMON="$HOME/common"
 
-source "$COMMON/cli-tools/bash_prompt"
-source "$COMMON/cli-tools/bash_aliases"
-source "$COMMON/cli-tools/bash_env"
-source "$COMMON/cli-tools/bash_showupdates"
-source "$COMMON/cli-tools/bash_dircolors"
+# COMMON variable must contain the proper path to the shared config directory,
+# unless the files are placed into default location (~/common).
+test -z "$COMMON" && COMMON="$HOME/common"
+
+
+# This function can be used to reload settings within running bash session
+_load_shell_settings() {
+    local SOURCES  # paths relative to $COMMON
+    SOURCES=(
+        "cli-tools/bash_prompt"
+        "cli-tools/bash_aliases"
+        "cli-tools/bash_env"
+        "cli-tools/bash_showupdates"
+        "cli-tools/bash_dircolors"
+    )
+
+    if [ -d "$COMMON" ]
+    then
+        for ITEM in "${SOURCES[@]}"
+        do
+            source "$COMMON/$ITEM"
+        done
+    else
+        echo "ERROR: \$COMMON is not a directory: $COMMON"
+        return 1
+    fi
+}
+_load_shell_settings
