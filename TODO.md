@@ -19,11 +19,11 @@
 [x] Install Python 3
 [-] Check libsqlite3 version (>=3.8.11)
 [x] Install Apache + mod_wsgi
-[ ] Configure web server
+[x] Configure web server
     [ ] mod_security?
 [ ] Move morebooks app and data
     [x] Install build dependencies for lxml and Pillow
-[ ] Set up cron schedule for backups
+[x] Set up cron schedule for backups
 [ ] Configure DNS for morebooks.ml
 [x] Change timezone & setup ntp client
     [x] OpenVZ VPS share clock with host, no need
