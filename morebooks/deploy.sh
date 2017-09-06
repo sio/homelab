@@ -17,9 +17,7 @@ $CONTROL stop $SERVER
 
 
 # Update HomeLibraryCatalog to the latest git version
-set +e  # ignore uninstall errors
-pip3 uninstall -y HomeLibraryCatalog
-set -e
+pip3 uninstall -y HomeLibraryCatalog || true  # ignore uninstall errors
 pip3 install --user -r "$WORKDIR/requirements.txt"
 
 
