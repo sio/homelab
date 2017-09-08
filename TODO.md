@@ -36,6 +36,7 @@
     [ ] Mirror backups to remote location
 [ ] Test deployed application
 [ ] Configure DNS for morebooks.ml
+[ ] Enable SSL with Certbot (Let's Encrypt!)
 
 
 # Hosting requirements
