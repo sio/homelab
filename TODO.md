@@ -33,9 +33,9 @@
         [x] Copy data from the latest backup
 [x] Backup:
     [x] Set up cron schedule for local backups
-    [ ] Mirror backups to remote location
-[ ] Test deployed application
-[ ] Configure DNS for morebooks.ml
+    [x] Mirror backups to remote location
+[x] Test deployed application
+[x] Configure DNS for morebooks.ml
 [ ] Enable SSL with Certbot (Let's Encrypt!)
 
 
