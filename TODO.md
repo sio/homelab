@@ -39,11 +39,12 @@
 [ ] Enable SSL with Certbot (Let's Encrypt!)
     [x] Allow https in firewall
     [x] Make sure web server listens on port 443
+    [x] Enable ssl module in Apache
     [x] Test web site with snakeoil certificate
     [x] Try `certbot --staging --apache` until it works
     [x] Delete fake certificates from --staging runs
     [x] Run certbot to get a real certificate
-    [ ] Enable redirect from http to https
+    [x] Enable redirect from http to https
     [ ] Schedule certificate renewal with cron
 
 
