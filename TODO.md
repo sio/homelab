@@ -1,4 +1,4 @@
-# Migrate morebooks.ml to WootHosting VPS
+# DONE: Migrate morebooks.ml to WootHosting VPS
 [x] Obtain login credentials for new VPS
 [x] Operating system administration:
     [x] Perform dist-upgrade
@@ -35,17 +35,17 @@
     [x] Set up cron schedule for local backups
     [x] Mirror backups to remote location
 [x] Test deployed application
-[x] Configure DNS for morebooks.ml
-[ ] Enable SSL with Certbot (Let's Encrypt!)
+[x] Configure DNS for morebooks.ml and www.morebooks.ml
+[x] Enable SSL with Certbot (Let's Encrypt!)
     [x] Allow https in firewall
     [x] Make sure web server listens on port 443
     [x] Enable ssl module in Apache
     [x] Test web site with snakeoil certificate
     [x] Try `certbot --staging --apache` until it works
     [x] Delete fake certificates from --staging runs
-    [x] Run certbot to get a real certificate
+    [x] Run certbot to get a real certificate for both www and no-www
     [x] Enable redirect from http to https
-    [ ] Schedule certificate renewal with cron
+    [x] Schedule certificate renewal with cron
 
 
 # Hosting requirements
