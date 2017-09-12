@@ -5,3 +5,4 @@ alias ll='ls -l'
 alias ls='ls -F -h --color=auto --show-control-chars'
 alias grep='grep --color=auto'
 alias bones="grep -Ev '^\s*#'"
+alias show="tail -v -n+1"
