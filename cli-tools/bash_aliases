@@ -1,8 +1,16 @@
 # Invoke by adding `source bash_aliases` to ~/.bashrc
 
+
+# Improved file listing
 alias la='ls -A'
 alias ll='ls -l'
 alias ls='ls -F -h --color=auto --show-control-chars'
+
+# Colored grep whenever possible
 alias grep='grep --color=auto'
+
+# Strip comments from file and print it to stdout
 alias bones="grep -Ev '^\s*#'"
+
+# Pretty print files to stdout, add filename headers
 alias show="tail -v -n+1"
