@@ -59,6 +59,7 @@ set tabstop=4      " show tabs as 4 spaces
 set shiftwidth=4   " when indenting with > use spaces
 set expandtab      " insert spaces on Tab keypress
 set softtabstop=4  " backspace deletes 4 spaces if present
+autocmd Filetype make setlocal noexpandtab " Makefile requires Tab indentation
 
 " Automatically continue comment blocks
 set formatoptions+=cro
