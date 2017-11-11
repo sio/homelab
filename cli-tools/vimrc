@@ -99,3 +99,11 @@ inoremap <Up> <C-o>gk
 
 " Break lines by words instead of characters
 set linebreak
+
+" Deal with russian keymap in normal mode
+set langmap=ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz
+
+" The following lines require changing layout with Ctrl-6. Inconvenient, but works.
+set keymap=russian-jcukenwin
+set iminsert=0
+set imsearch=0
