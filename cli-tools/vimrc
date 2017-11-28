@@ -107,3 +107,7 @@ set langmap=ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNO
 set keymap=russian-jcukenwin
 set iminsert=0
 set imsearch=0
+
+" Enable syntax highlighting for Power Query
+autocmd BufNewFile,BufRead *.pq set filetype=javascript
+autocmd BufNewFile,BufRead *.m set filetype=javascript
