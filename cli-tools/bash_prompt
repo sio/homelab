@@ -64,7 +64,8 @@ _colorhash() {
 
 
 _git_current_branch() {
-    local branch=$(git branch 2>/dev/null | cut -d\  -f2)
+    local branch=$(git branch 2>/dev/null)
+    [ ! -z "$branch" ] && branch=$(echo "$branch"| cut -d\  -f2 | xargs)
     [ ! -z "$branch" ] && echo -n "($branch)"
 }
 
@@ -78,7 +79,7 @@ _makeprompt() {
     local path=$(_color "32m" '$PWD'"$trailing_slash")
     local bang=$(_color "1;3${usrclr}m" '\$ ')
     local gitbranch=$(_color "33m" '`_git_current_branch`')
-    echo -n "$newlines$who $path\n$bang"
+    echo -n "$newlines$who $path $gitbranch\n$bang"
 }
 
 
