@@ -111,3 +111,6 @@ set imsearch=0
 " Enable syntax highlighting for Power Query
 autocmd BufNewFile,BufRead *.pq set filetype=javascript
 autocmd BufNewFile,BufRead *.m set filetype=javascript
+
+" Enable cursor movement with mouse clicks
+set mouse=a
