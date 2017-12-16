@@ -1,0 +1,11 @@
+# KEYBOARD CONFIGURATION FILE
+# /etc/default/keyboard - in Debian
+
+# Consult the keyboard(5) manual page.
+
+XKBMODEL="pc105"
+XKBLAYOUT="us,ru"
+XKBVARIANT=","
+XKBOPTIONS="grp:alt_shift_toggle,grp:caps_toggle,compose:menu,grp_led:scroll"
+
+BACKSPACE="guess"
