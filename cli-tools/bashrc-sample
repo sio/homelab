@@ -1,3 +1,6 @@
 # Example of incorporating these scripts into your config
 COMMON='/home/user/.common'
 source "$COMMON/cli-tools/bashrc"
+
+# Close shell session after 5 minutes (300 sec)
+#TMOUT=300
