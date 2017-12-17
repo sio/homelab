@@ -1,0 +1,13 @@
+#!/bin/bash
+#
+# Make sure that root shell session has an inactivity timeout
+#
+# Source this file from your ~/.bashrc to enable this behavior
+#
+if [ "_$USER" = "_root" ]
+then
+    if [ -z "$TMOUT" ]
+    then
+        TMOUT=300  # seconds
+    fi
+fi

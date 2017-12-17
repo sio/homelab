@@ -17,6 +17,7 @@ _load_shell_settings() {
         "cli-tools/bash_env"
         "cli-tools/bash_showupdates"
         "cli-tools/bash_dircolors"
+        "cli-tools/bash_tmout"
     )
 
     if [ -d "$COMMON" ]
