@@ -1,4 +1,6 @@
 # Modules to load into initramfs
+# These lines are to be placed into /etc/initramfs-tools/modules,
+# use update-initramfs to apply changes
 
 # KMS - for enabling boot splash on Intel video card
 intel_agp
