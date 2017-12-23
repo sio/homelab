@@ -1,0 +1,6 @@
+# Minimal configuration for xxkb
+# Enables remembering keyboard layout per window
+
+XXkb.mainwindow.type: tray
+XXkb.mainwindow.enable: false
+XXkb.button.enable: false
