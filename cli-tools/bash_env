@@ -1,2 +1,7 @@
+# Comfortable default text editor
 export VISUAL='vim'
 export EDITOR="$VISUAL"
+
+# Force Qt5 to mimic GTK theme
+#export QT_STYLE_OVERRIDE=gtk # this breaks smplayer
+export QT_QPA_PLATFORMTHEME=gtk2

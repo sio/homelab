@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# Extra setup for X session startup
+#
+# This file is meant to be placed to ~/.xsessionrc
+COMMON="$HOME/.common"
+. "$COMMON/cli-tools/bash_env"
