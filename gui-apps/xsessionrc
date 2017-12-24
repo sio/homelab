@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Extra setup for X session startup
+# Extra setup for X session startup. Works for XFCE/lightdm combination
 #
 # This file is meant to be placed to ~/.xsessionrc
 COMMON="$HOME/.common"
