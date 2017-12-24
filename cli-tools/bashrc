@@ -24,7 +24,7 @@ _load_shell_settings() {
     then
         for ITEM in "${SOURCES[@]}"
         do
-            source "$COMMON/$ITEM"
+            source "$COMMON/$ITEM"  # source is bash builtin, POSIX standard is .
         done
     else
         echo "ERROR: \$COMMON is not a directory: $COMMON"

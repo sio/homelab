@@ -1,3 +1,3 @@
 # Example of incorporating these scripts into your config
 COMMON='/home/user/.common'
-source "$COMMON/cli-tools/bashrc"
+. "$COMMON/cli-tools/bashrc"
