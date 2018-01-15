@@ -17,6 +17,6 @@ alias show="tail -v -n+1"
 
 # Show file listing when changing current directory
 _cd() {
-    cd "$@" && ls
+    builtin cd "$@" && ls
 }
 alias cd=_cd
