@@ -14,3 +14,9 @@ alias bones="grep -Ev '^\s*#'"
 
 # Pretty print files to stdout, add filename headers
 alias show="tail -v -n+1"
+
+# Show file listing when changing current directory
+_cd() {
+    cd $* && ls
+}
+alias cd=_cd
