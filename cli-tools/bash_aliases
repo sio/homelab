@@ -21,7 +21,7 @@ _cd() {
     then
         builtin cd
     else
-        cd $* && ls
+        builtin cd $* && ls
     fi
 }
 alias cd=_cd
