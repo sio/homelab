@@ -17,12 +17,12 @@ alias show="tail -v -n+1"
 
 # Show file listing when changing current directory
 _cd() {
-    if [ -z "$*" ]
+    local CMD="builtin cd"
+    if [ ! -z "$*" ]
     then
-        builtin cd
-    else
-        builtin cd $* && ls
+        CMD="$CMD $*"
     fi
+    $CMD && ls
 }
 alias cd=_cd
 complete -d cd  # autocomplete only directories
