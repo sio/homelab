@@ -1,0 +1,5 @@
+#!/bin/sh
+# Startup script for xxkb, add a delay to wait for the rest of DE to load
+
+sleep 5
+exec xxkb
