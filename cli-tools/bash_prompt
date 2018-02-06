@@ -74,7 +74,7 @@ _exit_code() {
     local exit="$?"
     if [ ! "$exit" -eq 0 ]
     then
-        echo -n "[exit:$exit] "
+        echo -ne "Exit code: $exit\n "
     fi
 }
 
@@ -88,8 +88,8 @@ _makeprompt() {
     local path=$(_color "32m" '$PWD'"$trailing_slash")
     local bang=$(_color "1;3${usrclr}m" '\$ ')
     local gitbranch=$(_color "33m" '`_git_current_branch`')
-    local exitcode=$(_color "1;31m" '`_exit_code`')
-    echo -n "$newlines$who $exitcode$path $gitbranch\n$bang"
+    local exitcode=$(_color "31m" '`_exit_code`')
+    echo -n "$exitcode$newlines$who $path $gitbranch\n$bang"
 }
 
 
