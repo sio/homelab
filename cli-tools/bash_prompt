@@ -74,7 +74,7 @@ _exit_code() {
     local exit="$?"
     if [ ! "$exit" -eq 0 ]
     then
-        echo -ne "Exit code: $exit\n "
+        echo -ne "Exit code: $exit\n\r"
     fi
 }
 
