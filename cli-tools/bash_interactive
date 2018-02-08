@@ -1,0 +1,17 @@
+#
+# Settings for using bash as interactive shell
+#
+
+
+# Readline settings
+#
+# ~/.inputrc is the proper location for those, but managing another config file
+# for a couple of lines of code is an overkill
+if [[ $- == *i* ]]  # check for interactive mode
+then
+    bind "set completion-ignore-case on"
+    bind "set colored-stats on"
+    bind "set colored-completion-prefix on"
+    bind '"\e[A": history-search-backward'
+    bind '"\e[B": history-search-forward'
+fi
