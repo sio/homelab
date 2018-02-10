@@ -1,2 +1,3 @@
 30 */3 * * *    /home/sio/common/cron/check-updates.sh
 05 4   * * *    /usr/bin/python3 /home/sio/common/morebooks/backup.py
+* */1 * * *     touch /home/sio/application/wsgi.py
