@@ -6,7 +6,7 @@
 
 Xft.antialias: 1
 Xft.hinting: 1
-Xft.autohint: 1
+Xft.autohint: 0
 Xft.hintstyle: hintmedium
 Xft.rgba: rgb
 Xft.lcdfilter: lcddefault
