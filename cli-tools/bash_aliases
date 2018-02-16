@@ -30,3 +30,9 @@ _cd() {
 alias cd=_cd
 complete -d cd  # autocomplete only directories
 complete -d _cd
+
+# Pretty diff like `git diff`
+_diff() {
+    command diff --color=always $* | less -rXF
+}
+alias diff=_diff
