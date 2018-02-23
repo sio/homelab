@@ -114,3 +114,7 @@ autocmd BufNewFile,BufRead *.m set filetype=javascript
 
 " Enable cursor movement with mouse clicks
 set mouse=a
+
+" Use system clipboard by default
+" (requires vim-gtk, use vim --version | grep clipboard to check for support)
+set clipboard=unnamedplus
