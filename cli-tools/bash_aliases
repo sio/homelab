@@ -19,13 +19,11 @@ alias show="tail -v -n+1"
 _cd() {
     local CMD="builtin cd"
     local DEST
-    if [ ! -z "$*" ]
+    if [ "$#" -eq 0 ]
     then
-        DEST="$*"
-    else
-        DEST="$HOME"
+        set -- "$HOME"  # set default argument value for function
     fi
-    $CMD "$DEST" && ls
+    $CMD "$@" && ls
 }
 alias cd=_cd
 complete -d cd  # autocomplete only directories
@@ -33,6 +31,6 @@ complete -d _cd
 
 # Pretty diff like `git diff`
 _diff() {
-    command diff --color=always $* | less -rXF
+    command diff --color=always "$@" | less -rXF
 }
 alias diff=_diff
