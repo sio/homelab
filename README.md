@@ -2,7 +2,7 @@
 Configuration files (dotfiles) and other common files shared between
 my local and remote machines (mostly server-side stuff)
 
-These files are meant to be placed into "$HOME/common" directory on all of
+These files are meant to be placed into "$HOME/.common" directory on all of
 my Unix-like machines. Some kind of schedule has to be set up on each machine
 to fetch changes from origin repository on a regular basis.
 
