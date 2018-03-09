@@ -117,4 +117,4 @@ set mouse=a
 
 " Use system clipboard by default
 " (requires vim-gtk, use vim --version | grep clipboard to check for support)
-set clipboard=unnamedplus
+"set clipboard=unnamedplus  " disabled because this causes issues with vim's usual copy-paste
