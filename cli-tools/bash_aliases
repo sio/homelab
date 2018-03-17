@@ -34,3 +34,18 @@ _diff() {
     command diff --color=always "$@" | less -rXF
 }
 alias diff=_diff
+
+# Make directory and cd into it
+mkcd() {
+    [ ! -d "$1" ] && mkdir -p "$1"
+    cd "$1"
+}
+
+# Touch file and create required parent directories
+# https://stackoverflow.com/a/19288855/3275560
+mktouch() {
+    for f in "$@"; do
+        mkdir -p -- "$(dirname -- "$f")"
+        touch -- "$f"
+    done
+}
