@@ -73,6 +73,12 @@ set formatoptions+=cro
 " Highlight search matches (use :noh or :nohlsearch to clear marks)
 set hlsearch
 
+" Comfortable search
+set ignorecase
+set smartcase
+set scrolloff=5
+set incsearch
+
 " Smart Home key
 " http://vim.wikia.com/wiki/Smart_home
 function! SmartHome()
