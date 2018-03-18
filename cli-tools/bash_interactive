@@ -15,3 +15,10 @@ then
     bind '"\e[A": history-search-backward'
     bind '"\e[B": history-search-forward'
 fi
+
+
+# History settings
+shopt -s histappend  # upon exit, append history instead of overwriting
+HISTSIZE=100000
+HISTFILESIZE=$HISTSIZE
+HISTCONTROL=ignorespace
