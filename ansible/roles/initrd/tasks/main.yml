@@ -1,0 +1,9 @@
+---
+- name: put modules in initramfs
+  lineinfile:
+    name: '{{ initrd_module_list }}'
+    state: present
+    line: '{{ item }}'
+    create: yes
+  with_items: '{{ modules }}'
+  notify: update initramfs
