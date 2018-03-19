@@ -1,0 +1,57 @@
+#
+# Set Linux kernel parameters in Grub defaults and update Grub configuration if
+# needed
+#
+# NOTE:
+#   If the same parameter is passed to the kernel twice, the last value is
+#   used.  That means we don't have to clean up old values in this task, just
+#   save the new ones!
+
+---
+- hosts: localhost
+  become: yes
+  tasks:
+    - name: Straighten all escaped line breaks
+      replace:
+        name: '{{ grub_defaults }}'
+        regexp: '\\\n'
+
+    - name: Check that kernel parameters are defined
+      check_mode: yes
+      changed_when: false
+      lineinfile:
+        name: '{{ grub_defaults }}'
+        regexp: '(^s*{{ grub_kernel_line }}.*\".*\"\s*$)'
+        line: '\1'
+      register: grub_has_kernel_params
+
+    - name: Add kernel parameters line
+      lineinfile:
+        name: '{{ grub_defaults }}'
+        line: '{{ grub_kernel_line }}=""'
+      when: grub_has_kernel_params.msg == 'line added'
+
+    - name: Set Linux kernel parameters
+      lineinfile:
+        name: '{{ grub_defaults }}'
+        backrefs: yes
+        backup: yes
+        regexp: '^s*({{ grub_kernel_line }}(?!.*\b{{  item }}\b).*)(\"\s*)$'
+        line: '\1 {{ item }}\2'
+      with_items: '{{ grub_kernel_params }}'
+
+  handlers:
+    - name: update grub
+      command: '{{ grub_update_cmd }}'
+      register: cmd_result
+      failed_when: '{{ cmd_result.rc not in grub_update_retcodes }}'
+  vars:
+    - grub_defaults: /tmp/grub-defaults
+    - grub_update_cmd: touch /tmp/grub-update-simulated
+    - grub_update_retcodes: [0, ]
+    - grub_kernel_line: GRUB_CMDLINE_LINUX_DEFAULT
+    - grub_kernel_params:
+        - quiet
+        - hello
+        - world
+        - zswap.enabled=1
