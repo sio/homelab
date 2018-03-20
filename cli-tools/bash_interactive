@@ -21,4 +21,4 @@ fi
 shopt -s histappend  # upon exit, append history instead of overwriting
 HISTSIZE=100000
 HISTFILESIZE=$HISTSIZE
-HISTCONTROL=ignorespace
+HISTCONTROL=ignorespace:ignoredups
