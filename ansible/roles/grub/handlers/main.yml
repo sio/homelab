@@ -1,0 +1,5 @@
+---
+- name: update grub
+  command: '{{ grub_update_cmd }}'
+  register: cmd_result
+  failed_when: '{{ cmd_result.rc not in grub_update_retcodes }}'
