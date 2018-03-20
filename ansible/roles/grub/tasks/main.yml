@@ -10,12 +10,12 @@
 #     - splash
 #
 ---
-- name: Straighten all escaped line breaks
+- name: straighten all escaped line breaks
   replace:
     name: '{{ grub_defaults }}'
     regexp: '\\\n'
 
-- name: Check that kernel parameters are defined
+- name: check that kernel parameters are defined
   check_mode: yes
   changed_when: false
   lineinfile:
@@ -24,13 +24,13 @@
     line: '\1'
   register: grub_has_kernel_params
 
-- name: Add kernel parameters line
+- name: add kernel parameters line
   lineinfile:
     name: '{{ grub_defaults }}'
     line: '{{ grub_kernel_line }}=""'
   when: grub_has_kernel_params.msg == 'line added'
 
-- name: Set Linux kernel parameters
+- name: set linux kernel parameters
   lineinfile:
     name: '{{ grub_defaults }}'
     backrefs: yes

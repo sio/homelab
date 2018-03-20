@@ -1,5 +1,5 @@
 ---
-- name: Upgrade Debian system (safe-upgrade)
+- name: upgrade debian system (safe-upgrade)
   apt:
     update_cache: yes
     upgrade: safe
