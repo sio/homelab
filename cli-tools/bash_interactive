@@ -19,6 +19,7 @@ fi
 
 # History settings
 shopt -s histappend  # upon exit, append history instead of overwriting
+shopt -s cmdhist     # save multiline commands, add semicolons automatically
 HISTSIZE=100000
 HISTFILESIZE=$HISTSIZE
-HISTCONTROL=ignorespace:ignoredups
+HISTCONTROL=ignorespace:erasedups  # save only last occurence of command
