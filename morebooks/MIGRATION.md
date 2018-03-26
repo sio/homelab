@@ -1,3 +1,13 @@
+# Plans for moving to another hosting provider
+### Provider candidates
+- Aruba.it - recommended by multiple users at linux.org.ru (Cloud VPS Small -
+  for 1 euro per month)
+
+### Reproducible setup and configuration
+- [ ] Write ansible roles and playbooks
+- [ ] Test setup in virtual machine / container
+
+
 # DONE: Migrate morebooks.ml to WootHosting VPS
 - [x] Obtain login credentials for new VPS
 - [x] Operating system administration:
