@@ -1,5 +1,12 @@
 #!/bin/sh
-# Startup script for xxkb, add a delay to wait for the rest of DE to load
+# Startup script for xxkb
 
+# Add a delay to wait for the rest of DE to load
 sleep 5
-exec xxkb
+
+# Restart xxkb if it crashes
+while true
+do
+    xxkb
+    sleep 1
+done
