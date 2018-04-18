@@ -5,7 +5,7 @@ _show_updates() {
     local FILE="$HOME/.aptitude.upgradable"
     local UPDATES
     test -e "$FILE" && UPDATES=$(cat "$FILE")
-    if [ ! -z "$UPDATES" ]
+    if [ ! -z "$UPDATES" ] && [[ $- == *i* ]]
     then
         echo -e "\nPACKAGE UPDATES AVAILABLE:\n$UPDATES"
     fi
