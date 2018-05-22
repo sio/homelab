@@ -127,3 +127,12 @@ set mouse=a
 " Use system clipboard by default
 " (requires vim-gtk, use vim --version | grep clipboard to check for support)
 "set clipboard=unnamedplus  " disabled because this causes issues with vim's usual copy-paste
+
+" F2 toggles paste mode (to disable auto-indenting when copy-pasting code from system clibpboard)
+nnoremap <F2> :set invpaste paste?<CR>
+set pastetoggle=<F2>
+set showmode
+
+" Enable indent folding, all folds are opened by default
+set foldmethod=indent
+set foldlevelstart=99
