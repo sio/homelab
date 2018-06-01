@@ -105,5 +105,12 @@ _makeprompt() {
 }
 
 
-export _NESTED_LEVEL=$(("$_NESTED_LEVEL"+1))
+if [[ "$(ps -o comm= $PPID)" == *sh ]]
+then  # Increment only for sessions started by another shell
+    _NESTED_LEVEL=$(("$_NESTED_LEVEL"+1))
+else
+    _NESTED_LEVEL=1
+fi
+export _NESTED_LEVEL
+
 PS1=$(_makeprompt)
