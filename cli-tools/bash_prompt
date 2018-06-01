@@ -29,7 +29,10 @@ _color() {
 
     local color="$1"
     local value="$2"
-    echo -n "$start$color$end$value$revert"
+    if [ ! -z "$value" ]
+    then
+        echo -n "$start$color$end$value$revert"
+    fi
 }
 
 
