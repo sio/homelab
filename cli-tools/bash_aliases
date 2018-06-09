@@ -49,3 +49,30 @@ mktouch() {
         touch -- "$f"
     done
 }
+
+# Run the same git subcommand in all git repos down the tree from current
+# directory
+gitall() {
+    local DIR
+    local FIRST=1
+    local COMMAND
+
+    if [[ -z "$@" ]]
+    then
+        COMMAND="status"  # default subcommand when invoked without arguments
+    else
+        COMMAND="$@"
+    fi
+
+    find -type d -name .git -print0 2>/dev/null | while read -d $'\0' DIR
+    do
+        if [[ "$FIRST" -eq 0 ]]
+        then
+            echo -e "\n\n"
+        else
+            FIRST=0
+        fi
+        command ls --color=auto -d "${DIR::(-4)}"
+        git -C "$DIR/.." "$COMMAND"
+    done
+}
