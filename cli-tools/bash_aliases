@@ -73,6 +73,6 @@ gitall() {
             FIRST=0
         fi
         command ls --color=auto -d "${DIR::(-4)}"
-        git -C "$DIR/.." "$COMMAND"
+        git -C "$DIR/.." $COMMAND
     done
 }
