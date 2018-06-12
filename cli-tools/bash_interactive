@@ -14,6 +14,10 @@ then
     bind "set colored-completion-prefix on"
     bind '"\e[A": history-search-backward'
     bind '"\e[B": history-search-forward'
+    bind 'set show-all-if-ambiguous on'
+    bind 'set show-all-if-unmodified on'
+    bind 'set menu-complete-display-prefix on'
+    bind 'TAB:menu-complete'
 fi
 
 
