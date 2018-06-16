@@ -2,6 +2,7 @@
 ### Provider candidates
 - Aruba.it - recommended by multiple users at linux.org.ru (Cloud VPS Small -
   for 1 euro per month)
+- Scaleway - 1.99 euro/month VPS. High quality, good reviews
 
 ### Reproducible setup and configuration
 - [ ] Write ansible roles and playbooks
