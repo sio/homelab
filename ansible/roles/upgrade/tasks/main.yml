@@ -1,4 +1,10 @@
 ---
+- name: install aptitude
+  apt:
+    name: aptitude
+    state: present
+  when: ansible_pkg_mgr == "apt"
+
 - name: upgrade debian system (safe-upgrade)
   apt:
     update_cache: yes
