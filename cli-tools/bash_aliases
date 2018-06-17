@@ -76,3 +76,11 @@ gitall() {
         git -C "$DIR/.." $COMMAND
     done
 }
+
+# Set terminal title from shell
+# https://stackoverflow.com/a/1687708
+title() {
+    echo -ne '\033k'"$@"'\033\\'
+    echo -ne '\033]2;'"$@"'\007'
+    echo ''
+}
