@@ -13,6 +13,7 @@ Define WSGI_USER  {{ username }}
 Define WSGI_GROUP {{ username }}
 Define WSGI_DIR   {{ path.app }}
 Define STATIC_DIR {{ path.static }}
+Define PY_VENV    {{ path.venv }}
 Define SSL_CERT   /etc/letsencrypt/live/{{ url }}/fullchain.pem
 Define SSL_KEY    /etc/letsencrypt/live/{{ url }}/privkey.pem
 Define GOOGLE_KEY {{ google_key }}
@@ -54,6 +55,7 @@ Define GOOGLE_KEY {{ google_key }}
     WSGIDaemonProcess ${URL} \
                       user=${WSGI_USER} \
                       group=${WSGI_GROUP} \
+                      python-home=${PY_VENV} \
                       processes=2 \
                       threads=15 \
                       display-name=(${URL})
