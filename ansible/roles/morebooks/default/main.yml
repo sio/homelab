@@ -1,0 +1,12 @@
+url: morebooks.ml
+server: apache2
+google_key: google-test-key
+packages:
+  - apache2
+  - libapache2-mod-wsgi-py3
+  - pip3
+  - python3
+  - ufw
+build-deps:
+  - python3-lxml
+  - python3-pil
