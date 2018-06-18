@@ -1,0 +1,40 @@
+#
+# Create and maintain project file layout
+#
+---
+- name: create all required directories
+  file:
+    path: '{{ item.value }}'
+    state: directory
+    mode: 0700
+    owner: '{{ username }}'
+    group: '{{ username }}'
+  with_dict: '{{ path }}'
+
+- name: copy project files
+  copy:
+    src: '{{ item.src }}'
+    dest:  '{{ item.dest  | default(path.app + "/") }}'
+    mode:  '{{ item.mode  | default("0644") }}'
+    owner: '{{ item.owner | default(username) }}'
+    group: '{{ item.group | default(username) }}'
+  with_items:
+    - src: 'files/requirements.txt'
+    - src: 'files/wsgi.py'
+    - src: 'files/wsgi_test.py'
+
+- name: configure project with file templates
+  template:
+    src: '{{ item.src }}'
+    dest:  '{{ item.dest }}'
+    mode:  '{{ item.mode  | default("0644") }}'
+    owner: '{{ item.owner | default(username) }}'
+    group: '{{ item.group | default(username) }}'
+  with_items:
+    - src: 'templates/backup.py.j2'
+      dest: '{{ path.app }}/backup.py'
+      mode: 0755
+    - src: 'templates/hlc.json.j2'
+      dest: '{{ path.app }}/hlc.json'
+    - src: 'templates/vhost.conf.j2'
+      dest: '/tmp/apache-virt-host.conf'  # TODO: replace with proper path, add owner:group
