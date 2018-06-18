@@ -1,16 +1,22 @@
+#
+# Set up and maintain a server for http://morebooks.ml
+#
+# Order of includes matters! Some tasks rely on the results of tasks from files
+# included earlier.
+#
 ---
-- name: application user account
-  user:
-    name: '{{ username }}'
-    state: present
+# System wide configuration
+- include_tasks: os.yml
 
-- name: set system locale
-  debconf:
-    name: locales
-    question: locales/default_environment_locale
-    value: '{{ locale }}'
-    vtype: select
+# Set up the firewall
+- include_tasks: firewall.yml
 
-- name: set system timezone
-  timezone:
-    name: '{{ timezone }}'
+# File layout for HomeLibraryCatalog
+- include_tasks: layout.yml
+
+# Force app update from latest git if necessary
+- include_tasks: deploy.yml
+  when: '{{ deploy|default(False) }}'
+
+# Idempotent deployment
+- include_tasks: hlc.yml

@@ -2,6 +2,17 @@
 # Configure the operating system
 #
 ---
+- name: set system locale
+  debconf:
+    name: locales
+    question: locales/default_environment_locale
+    value: '{{ locale }}'
+    vtype: select
+
+- name: set system timezone
+  timezone:
+    name: '{{ timezone }}'
+
 - name: install software packages
   package:
     name: item
@@ -14,3 +25,8 @@
     state: build-dep
   with_items: '{{ build_deps }}'
   when: ansible_pkg_mgr == 'apt'
+
+- name: application user account
+  user:
+    name: '{{ username }}'
+    state: present
