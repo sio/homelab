@@ -33,7 +33,7 @@
   with_items:
     - src: 'templates/backup.py.j2'
       dest: '{{ path.app }}/backup.py'
-      mode: 0755
+      mode: '0755'
     - src: 'templates/hlc.json.j2'
       dest: '{{ path.app }}/hlc.json'
     - src: 'templates/vhost.conf.j2'
