@@ -7,7 +7,7 @@
     name: pip
     state: latest
     virtualenv: '{{ path.venv }}'
-    virtualenv_command: 'python3 -m venv'
+    virtualenv_command: '/usr/bin/python3 -m venv'
 
 - name: install packages from requirements.txt
   pip:

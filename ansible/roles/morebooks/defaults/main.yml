@@ -14,6 +14,7 @@ packages:
   - apache2
   - libapache2-mod-wsgi-py3
   - python3-pip
+  - python3-venv
   - python3
   - ufw
 build_deps:
