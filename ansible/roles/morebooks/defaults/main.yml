@@ -17,6 +17,7 @@ packages:
   - python3-venv
   - python3
   - ufw
+  - git
 build_deps:
   - python3-lxml
   - python3-pil
