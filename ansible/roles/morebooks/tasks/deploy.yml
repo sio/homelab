@@ -1,0 +1,20 @@
+#
+# Execute these tasks before pip.yml to trigger deployment from
+# latest git version
+#
+# when: '{{ deploy|default(False) }}'
+---
+- name: stop the web server
+  service:
+    name: '{{ server }}'
+    state: stopped
+
+- name: uninstall HomeLibraryCatalog
+  pip:
+    name: HomeLibraryCatalog
+    state: absent
+    virtualenv: '{{ path.venv }}'
+
+- name: back up application data
+  command: '{{ path.app|quote }}/backup.py'
+
