@@ -1,5 +1,5 @@
 #
-# Execute these tasks before pip.yml to trigger deployment from
+# Execute these tasks before `hlc.yml` to trigger deployment from
 # latest git version
 #
 # when: '{{ deploy|default(False) }}'

@@ -1,0 +1,21 @@
+#
+# Install HomeLibraryCatalog with pip
+#
+---
+- name: create Python virtual environment and update pip
+  pip:
+    name: pip
+    state: latest
+    virtualenv: '{{ path.venv }}'
+    virtualenv_command: 'python3 -m venv'
+
+- name: install packages from requirements.txt
+  pip:
+    requirements: '{{ path.app }}/requirements.txt'
+    virtualenv: '{{ path.venv }}'
+
+- name: run the web server
+  service:
+    name: '{{ server }}'
+    state: started
+    enabled: yes
