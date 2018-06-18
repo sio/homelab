@@ -6,11 +6,11 @@
   package:
     name: item
     state: present
-  with_items: {{ packages }}
+  with_items: '{{ packages }}'
 
 - name: install required build-dependencies
   apt:
     name: item
     state: build-dep
-  with_items: {{ build_deps }}
+  with_items: '{{ build_deps }}'
   when: ansible_pkg_mgr == 'apt'
