@@ -6,17 +6,17 @@
 #
 ---
 # System wide configuration
-- include_tasks: os.yml
+- include: os.yml
 
 # Set up the firewall
-- include_tasks: firewall.yml
+- include: firewall.yml
 
 # File layout for HomeLibraryCatalog
-- include_tasks: layout.yml
+- include: layout.yml
 
 # Force app update from latest git if necessary
-- include_tasks: deploy.yml
+- include: deploy.yml
   when: '{{ deploy|default(False) }}'
 
 # Idempotent deployment
-- include_tasks: hlc.yml
+- include: hlc.yml
