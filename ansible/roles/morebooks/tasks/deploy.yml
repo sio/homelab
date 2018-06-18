@@ -9,12 +9,17 @@
     name: '{{ server }}'
     state: stopped
 
+- name: check if virtual envirorment has been created
+  stat:
+    path: '{{ path.venv }}/bin }}'
+  register: venv
+
 - name: uninstall HomeLibraryCatalog
   pip:
     name: HomeLibraryCatalog
     state: absent
     virtualenv: '{{ path.venv }}'
+  when: venv.stat.isdir is defined and venv.stat.isdir
 
 - name: back up application data
   command: '{{ path.app|quote }}/backup.py'
-
