@@ -1,0 +1,80 @@
+#
+# Virtual host configuration for Apache web server with mod_wsgi
+#
+
+# WARNING!
+#
+# THIS FILE IS MAINTAINED WITH ANSIBLE
+# LOCAL CHANGES WILL BE OVERWRITTEN!
+
+Define URL        {{ url }}
+Define ADMIN      sio.wtf@gmail.com
+Define WSGI_USER  {{ username }}
+Define WSGI_GROUP {{ username }}
+Define WSGI_DIR   {{ path.app }}
+Define STATIC_DIR {{ path.static }}
+Define PY_VENV    {{ path.venv }}
+Define SSL_CERT   /etc/letsencrypt/live/{{ url }}/fullchain.pem
+Define SSL_KEY    /etc/letsencrypt/live/{{ url }}/privkey.pem
+Define GOOGLE_KEY {{ google_key }}
+
+# The following options control the restart of apache2 process, not the
+# wsgi application
+#MaxRequestsPerChild 1
+#MaxConnectionsPerChild 1
+
+<VirtualHost *:443>
+
+    ServerName ${URL}
+    ServerAdmin ${ADMIN}
+
+    SSLEngine On
+    SSLCertificateFile ${SSL_CERT}
+    SSLCertificateKeyFile ${SSL_KEY}
+
+    ErrorLog  ${APACHE_LOG_DIR}/${URL}-errors.log
+    CustomLog ${APACHE_LOG_DIR}/${URL}-access.log combined
+
+    <Directory ${STATIC_DIR}>
+        Options FollowSymlinks
+        Require all granted
+    </Directory>
+
+    DocumentRoot ${STATIC_DIR}
+    Alias /robots.txt ${STATIC_DIR}/robots.txt
+    Alias /favicon.ico ${STATIC_DIR}/favicon.ico
+    Alias /${GOOGLE_KEY} ${STATIC_DIR}/${GOOGLE_KEY}
+    #Alias /media/ ${STATIC_DIR}/media/
+
+    <Directory ${WSGI_DIR}>
+        Options FollowSymlinks
+        Require all granted
+    </Directory>
+
+    WSGIScriptAlias / ${WSGI_DIR}/wsgi.py
+    WSGIDaemonProcess ${URL} \
+                      user=${WSGI_USER} \
+                      group=${WSGI_GROUP} \
+                      python-home=${PY_VENV} \
+                      processes=2 \
+                      threads=15 \
+                      display-name=(${URL})
+    WSGIProcessGroup ${URL}
+
+    LogLevel info
+
+</VirtualHost>
+
+
+<VirtualHost *:80>
+    ServerName ${URL}
+    Redirect permanent / https://${URL}/
+</VirtualHost>
+
+
+<VirtualHost *:80 *:443>
+    ServerName www.${URL}
+    Redirect permanent / https://${URL}/
+</VirtualHost>
+
+# vim: syntax=apache
