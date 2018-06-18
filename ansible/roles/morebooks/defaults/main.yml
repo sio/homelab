@@ -1,0 +1,8 @@
+---
+username: 'morebooks'
+locale: 'en_US.UTF-8'
+timezone: 'Europe/Moscow'
+path:
+  app:    '/home/{{ username }}/application'
+  data:   '/home/{{ username }}/data'
+  static: '/home/{{ username }}/static'
