@@ -6,6 +6,7 @@ path:
   app:    '/home/{{ username }}/application'
   data:   '/home/{{ username }}/data'
   static: '/home/{{ username }}/static'
+  venv:   '/home/{{ username }}/virtualenv'
 url: morebooks.ml
 server: apache2
 google_key: google-test-key
