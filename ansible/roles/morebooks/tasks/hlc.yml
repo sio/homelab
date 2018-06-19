@@ -19,3 +19,18 @@
     name: '{{ server }}'
     state: started
     enabled: yes
+
+- name: schedule application data backup
+  cron:
+    name: 'backup application data every day'
+    job: '{{ path.app|quote }}/backup.py'
+    hour: '4'
+    minute: '05'
+
+- name: schedule wsgi workers restart
+  cron:
+    name: 'restart wsgi workers every hour'
+    job: 'touch {{ path.app|quote }}/wsgi.py'
+    user: '{{ username }}'
+    hour: '*/1'
+    minute: '0'

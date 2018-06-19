@@ -1,6 +1,12 @@
 ---
 - hosts: all
+  pre_tasks:
+    - name: remember unprivileged account used for remote access
+      become: false
+      set_fact:
+        admin_unprivileged: '{{ ansible_user_id }}'
   become: yes
   roles:
     - upgrade
+    - motd
     - morebooks

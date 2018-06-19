@@ -1,18 +1,30 @@
 ---
-username: 'morebooks'
-locale: 'en_US.UTF-8'
-timezone: 'Europe/Moscow'
+# HomeLibraryCatalog
+url: morebooks.ml
+server: apache2
 path:
   app:    '/home/{{ username }}/application'
   data:   '/home/{{ username }}/data'
   static: '/home/{{ username }}/static'
   venv:   '/home/{{ username }}/virtualenv'
-url: morebooks.ml
-server: apache2
-google_key: google-test-key
+google_key: google684a6a967bc36817.html
+
+# Paths to public keys on control machine
+ssh_public_keys:
+  - '~/.ssh/id_rsa.pub'
+  - '~/.ssh/{{ url }}.pub'
+
+# Operating system configuration
+username: 'morebooks'
+locale: 'en_US.UTF-8'
+charset: 'UTF-8'
+timezone: 'Europe/Moscow'
+
+# Dependencies
 packages:
   - apache2
   - libapache2-mod-wsgi-py3
+  - python-certbot-apache
   - python3-pip
   - python3-venv
   - python3

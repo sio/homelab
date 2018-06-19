@@ -1,0 +1,59 @@
+#
+# Protect the system
+#
+---
+- name: enable firewall (ufw)
+  service:
+    name: ufw
+    state: started
+    enabled: yes
+
+- name: allow SSH access (rate-limited)
+  ufw:
+    port: ssh
+    rule: limit
+    proto: tcp
+
+- name: allow HTTP and HTTPS access
+  ufw:
+    port: '{{ item }}'
+    rule: allow
+    proto: tcp
+  with_items:
+    - http
+    - https
+
+- name: block outgoing mail
+  ufw:
+    port: smtp
+    rule: deny
+    direction: out
+
+- name: deny all incoming requests by default
+  ufw:
+    state: enabled  # also reloads firewall
+    policy: deny
+
+- name: install ssh keys
+  authorized_key:
+    user: '{{ admin_unprivileged }}'
+    state: present
+    key: '{{ lookup("file", item) }}'
+  when: item is exists
+  with_items: '{{ ssh_public_keys }}'
+
+- name: disable root login via ssh
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: '^PermitRootLogin'
+    line: 'PermitRootLogin no'
+    state: present
+  notify: restart ssh server
+
+- name: disable password auth via ssh
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: '^PasswordAuthentication'
+    line: 'PasswordAuthentication no'
+    state: present
+  notify: restart ssh server
