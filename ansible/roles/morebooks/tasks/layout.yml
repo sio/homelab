@@ -36,8 +36,13 @@
       mode: '0755'
     - src: 'templates/hlc.json.j2'
       dest: '{{ path.app }}/hlc.json'
-    - src: 'templates/vhost.conf.j2'
-      dest: '/tmp/apache-virt-host.conf'  # TODO: replace with proper path, add owner:group
+
+- name: configure web server
+  template:
+    src: 'templates/vhost.conf.j2'
+    dest: '/tmp/apache-virt-host.conf'  # TODO: replace with proper path, add owner:group
+    mode:  '0644'
+  notify: reload web server
 
 - name: add google site verification token
   copy:

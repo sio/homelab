@@ -1,0 +1,5 @@
+---
+- name: reload web server
+  service:
+    name: '{{ server }}'
+    state: reloaded
