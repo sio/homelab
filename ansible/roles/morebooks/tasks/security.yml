@@ -39,7 +39,8 @@
     user: '{{ admin_unprivileged }}'
     state: present
     key: '{{ lookup("file", item) }}'
-  when: item is exists
+  when: item|expanduser is exists
+  register: keys
   with_items: '{{ ssh_public_keys }}'
 
 - name: disable root login via ssh
@@ -57,3 +58,5 @@
     line: 'PasswordAuthentication no'
     state: present
   notify: restart ssh server
+  # Run this task only if at least one key was installed
+  when: "{{ keys.results|reject('skipped')|list|count|bool }}"
