@@ -3,4 +3,5 @@
   become: yes
   roles:
     - upgrade
+    - motd
     - morebooks
