@@ -9,6 +9,11 @@ path:
   venv:   '/home/{{ username }}/virtualenv'
 google_key: google684a6a967bc36817.html
 
+# Paths to public keys on control machine
+ssh_public_keys:
+  - '~/.ssh/id_rsa.pub'
+  - '~/.ssh/{{ url }}.pub'
+
 # Operating system configuration
 username: 'morebooks'
 locale: 'en_US.UTF-8'

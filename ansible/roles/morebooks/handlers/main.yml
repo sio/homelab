@@ -3,3 +3,8 @@
   service:
     name: '{{ server }}'
     state: reloaded
+
+- name: restart ssh server
+  service:
+    name: ssh
+    state: restarted

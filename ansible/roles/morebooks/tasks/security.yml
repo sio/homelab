@@ -1,5 +1,5 @@
 #
-# Protect the system with simple firewall
+# Protect the system
 #
 ---
 - name: enable firewall (ufw)
@@ -34,3 +34,25 @@
     state: enabled  # also reloads firewall
     policy: deny
 
+- name: install ssh keys
+  authorized_key:
+    user: '{{ admin_unprivileged }}'
+    state: present
+    key: '{{ lookup("file", item) }}'
+  with_items: '{{ ssh_public_keys }}'
+
+- name: disable root login via ssh
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: '^PermitRootLogin'
+    line: 'PermitRootLogin no'
+    state: present
+  notify: restart ssh server
+
+- name: disable password auth via ssh
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: '^PasswordAuthentication'
+    line: 'PasswordAuthentication no'
+    state: present
+  notify: restart ssh server
