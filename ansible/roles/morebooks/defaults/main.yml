@@ -12,6 +12,7 @@ google_key: google684a6a967bc36817.html
 # Operating system configuration
 username: 'morebooks'
 locale: 'en_US.UTF-8'
+charset: 'UTF-8'
 timezone: 'Europe/Moscow'
 
 # Dependencies

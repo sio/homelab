@@ -2,12 +2,19 @@
 # Configure the operating system
 #
 ---
-- name: set system locale
+- name: set default system locale
   debconf:
     name: locales
     question: locales/default_environment_locale
     value: '{{ locale }}'
     vtype: select
+
+- name: generate required locales
+  debconf:
+    name: locales
+    question: locales/locales_to_be_generated
+    value: 'en_US.UTF-8 UTF-8, {{ locale }} {{ charset }}'
+    vtype: multiselect
 
 - name: set system timezone
   timezone:
