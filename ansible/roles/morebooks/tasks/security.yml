@@ -39,6 +39,7 @@
     user: '{{ admin_unprivileged }}'
     state: present
     key: '{{ lookup("file", item) }}'
+  when: item is exists
   with_items: '{{ ssh_public_keys }}'
 
 - name: disable root login via ssh
