@@ -20,3 +20,6 @@
 
 # Idempotent deployment
 - include: hlc.yml
+
+# Enable HTTPS
+- include: ssl.yml

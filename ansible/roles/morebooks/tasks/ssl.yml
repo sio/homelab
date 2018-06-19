@@ -1,0 +1,12 @@
+#
+# Enable HTTPS access to the website
+#
+---
+- name: enable SSL support in Apache
+  apache2_module:
+    name: ssl
+    state: present
+  when: server == 'apache2'
+  notify: reload web server
+
+# TODO: certbot with Let's Encrypt
