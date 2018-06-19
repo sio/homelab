@@ -8,8 +8,8 @@
 # System wide configuration
 - include: os.yml
 
-# Set up the firewall
-- include: firewall.yml
+# Security settings
+- include: security.yml
 
 # File layout for HomeLibraryCatalog
 - include: layout.yml
