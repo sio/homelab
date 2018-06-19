@@ -7,7 +7,7 @@ path:
   data:   '/home/{{ username }}/data'
   static: '/home/{{ username }}/static'
   venv:   '/home/{{ username }}/virtualenv'
-google_key: google-test-key
+google_key: google684a6a967bc36817.html
 
 # Operating system configuration
 username: 'morebooks'

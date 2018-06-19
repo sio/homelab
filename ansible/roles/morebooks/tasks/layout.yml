@@ -38,3 +38,8 @@
       dest: '{{ path.app }}/hlc.json'
     - src: 'templates/vhost.conf.j2'
       dest: '/tmp/apache-virt-host.conf'  # TODO: replace with proper path, add owner:group
+
+- name: add google site verification token
+  copy:
+    dest: '{{ path.static }}/{{ google_key }}'
+    content: 'google-site-verification: {{ google_key }}'
