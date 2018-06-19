@@ -4,4 +4,4 @@
     dest: /etc/motd
     block: '{{ motd }}'
     create: yes
-    marker: '- - - - - - - - - - - - - - - - - - - - - - - -'
+    marker: '- - - - - - - - - - - - - - - - - - - - - - - - - - - - {mark}'
