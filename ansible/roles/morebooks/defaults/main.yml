@@ -19,6 +19,7 @@ timezone: 'Europe/Moscow'
 packages:
   - apache2
   - libapache2-mod-wsgi-py3
+  - python-certbot-apache
   - python3-pip
   - python3-venv
   - python3
