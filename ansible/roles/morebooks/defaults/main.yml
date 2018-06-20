@@ -16,6 +16,7 @@ ssh_public_keys:
 
 # Operating system configuration
 username: 'morebooks'
+email_admin: 'sio.wtf@gmail.com'
 locale: 'en_US.UTF-8'
 charset: 'UTF-8'
 timezone: 'Europe/Moscow'

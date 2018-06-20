@@ -6,14 +6,16 @@
   command: >  # TODO: disable --staging
     certbot certonly
     --staging
-    --apache
+    --standalone
     --agree-tos
     --non-interactive
+    --email {{ email_admin|quote }}
     --cert-name {{ url|quote }}
     --domains {{ url|quote }},www.{{ url|quote }}
+    --pre-hook 'systemctl stop {{ server }}'
+    --post-hook 'systemctl start {{ server }}'
   args:
     creates: '/etc/letsencrypt/live/{{ url }}/*.pem'
-  when: server == 'apache2'
 
 - name: schedule certificate renewal
   cron:
@@ -22,7 +24,6 @@
       certbot renew
       --agree-tos
       --non-interactive
-      --renew-hook "systemctl restart {{ server }}"
     hour: '2,14'
     minute: '16'
 
