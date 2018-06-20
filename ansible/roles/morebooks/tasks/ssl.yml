@@ -2,13 +2,6 @@
 # Enable HTTPS access to the website
 #
 ---
-- name: enable SSL support in Apache
-  apache2_module:
-    name: ssl
-    state: present
-  when: server == 'apache2'
-  notify: reload web server
-
 - name: obtain SSL certificate
   command: >  # TODO: disable --staging
     certbot certonly
@@ -20,7 +13,7 @@
     --domains {{ url|quote }},www.{{ url|quote }}
   args:
     creates: '/etc/letsencrypt/live/{{ url }}/*.pem'
-  when: false and server == 'apache2'  # TODO: temporarily disabled
+  when: server == 'apache2'
 
 - name: schedule certificate renewal
   cron:
@@ -32,3 +25,10 @@
       --renew-hook "systemctl restart {{ server }}"
     hour: '2,14'
     minute: '16'
+
+- name: enable SSL support in Apache
+  apache2_module:
+    name: ssl
+    state: present
+  when: server == 'apache2'
+  notify: reload web server
