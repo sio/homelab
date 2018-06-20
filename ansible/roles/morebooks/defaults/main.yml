@@ -30,6 +30,7 @@ packages:
   - python3
   - ufw
   - git
+  - ntp
 build_deps:
   - python3-lxml
   - python3-pil

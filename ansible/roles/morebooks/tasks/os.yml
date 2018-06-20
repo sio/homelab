@@ -49,3 +49,10 @@
   user:
     name: '{{ username }}'
     state: present
+
+- name: ensure correct timekeeping
+  # no problem if clock is managed by host, ntpd will just log errors
+  service:
+    name: ntp
+    state: started
+    enabled: yes
