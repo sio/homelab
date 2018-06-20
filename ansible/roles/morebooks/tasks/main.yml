@@ -11,6 +11,9 @@
 # Security settings
 - include: security.yml
 
+# Enable HTTPS
+- include: ssl.yml
+
 # File layout for HomeLibraryCatalog
 - include: layout.yml
 
@@ -20,6 +23,3 @@
 
 # Idempotent deployment
 - include: hlc.yml
-
-# Enable HTTPS
-- include: ssl.yml
