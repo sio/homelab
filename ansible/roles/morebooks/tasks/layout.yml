@@ -40,8 +40,9 @@
 - name: configure web server
   template:
     src: 'templates/vhost.conf.j2'
-    dest: '/tmp/apache-virt-host.conf'  # TODO: replace with proper path, add owner:group
+    dest: '/etc/apache2/sites-enabled/{{ url }}.conf'
     mode:  '0644'
+  when: server == 'apache2'
   notify: reload web server
 
 - name: add google site verification token
