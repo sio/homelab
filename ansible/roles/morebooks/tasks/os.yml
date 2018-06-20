@@ -9,12 +9,19 @@
     value: '{{ locale }}'
     vtype: select
 
-- name: generate required locales
+- name: select locales to generate
   debconf:
     name: locales
     question: locales/locales_to_be_generated
     value: 'en_US.UTF-8 UTF-8, {{ locale }} {{ charset }}'
     vtype: multiselect
+
+- name: generate locales
+  locale_gen:
+    name: '{{ item }}'
+  with_items:
+    - en_US.UTF-8  # a sensible fallback
+    - '{{ locale }}'
 
 - name: set system timezone
   timezone:
