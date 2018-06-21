@@ -68,7 +68,7 @@ gitall() {
     do
         if [[ "$FIRST" -eq 0 ]]
         then
-            echo -e "\n\n"
+            echo -ne "\n\n"
         else
             FIRST=0
         fi
