@@ -4,6 +4,7 @@ url: morebooks.ml
 server: apache2
 path:
   app:    '/home/{{ username }}/application'
+  backup: '/home/{{ username }}/data/backup'
   data:   '/home/{{ username }}/data'
   static: '/home/{{ username }}/static'
   venv:   '/home/{{ username }}/virtualenv'
