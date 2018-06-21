@@ -46,7 +46,7 @@
 - name: disable root login via ssh
   lineinfile:
     dest: /etc/ssh/sshd_config
-    regexp: '^PermitRootLogin'
+    regexp: '^\w*PermitRootLogin'
     line: 'PermitRootLogin no'
     state: present
   notify: restart ssh server
@@ -54,7 +54,7 @@
 - name: disable password auth via ssh
   lineinfile:
     dest: /etc/ssh/sshd_config
-    regexp: '^PasswordAuthentication'
+    regexp: '^\w*PasswordAuthentication'
     line: 'PasswordAuthentication no'
     state: present
   notify: restart ssh server
