@@ -15,7 +15,7 @@
   copy:
     src: '{{ item.src }}'
     dest:  '{{ item.dest  | default(path.app + "/") }}'
-    mode:  '{{ item.mode  | default("0644") }}'
+    mode:  '{{ item.mode  | default("0600") }}'
     owner: '{{ item.owner | default(username) }}'
     group: '{{ item.group | default(username) }}'
   with_items:
@@ -27,13 +27,13 @@
   template:
     src: '{{ item.src }}'
     dest:  '{{ item.dest }}'
-    mode:  '{{ item.mode  | default("0644") }}'
+    mode:  '{{ item.mode  | default("0600") }}'
     owner: '{{ item.owner | default(username) }}'
     group: '{{ item.group | default(username) }}'
   with_items:
     - src: 'templates/backup.py.j2'
       dest: '{{ path.app }}/backup.py'
-      mode: '0755'
+      mode: '0700'
     - src: 'templates/hlc.json.j2'
       dest: '{{ path.app }}/hlc.json'
 
@@ -41,10 +41,13 @@
   template:
     src: 'templates/webserver.conf.j2'
     dest: '{{ server_config }}'
-    mode:  '0644'
+    mode:  '0600'
   notify: reload web server
 
 - name: add google site verification token
   copy:
     dest: '{{ path.static }}/{{ google_key }}'
     content: 'google-site-verification: {{ google_key }}'
+    owner: '{{ username }}'
+    group: '{{ username }}'
+    mode: '0600'
