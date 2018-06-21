@@ -1,3 +1,0 @@
-# Allow user to restart web server
-sio ALL=(root) NOPASSWD: /bin/systemctl start apache2, /bin/systemctl stop apache2, /bin/systemctl status apache2, /bin/systemctl restart apache2
-
