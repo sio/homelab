@@ -39,10 +39,9 @@
 
 - name: configure web server
   template:
-    src: 'templates/vhost.conf.j2'
-    dest: '/etc/apache2/sites-enabled/{{ url }}.conf'
+    src: 'templates/webserver.conf.j2'
+    dest: '{{ server_config }}'
     mode:  '0644'
-  when: server == 'apache2'
   notify: reload web server
 
 - name: add google site verification token

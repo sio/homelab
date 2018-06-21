@@ -2,6 +2,7 @@
 # HomeLibraryCatalog
 url: morebooks.ml
 server: apache2
+server_config: '/etc/apache2/sites-enabled/{{ url }}.conf'
 path:
   app:    '/home/{{ username }}/application'
   backup: '/home/{{ username }}/data/backup'
