@@ -2,12 +2,6 @@
 # Protect the system
 #
 ---
-- name: enable firewall (ufw)
-  service:
-    name: ufw
-    state: started
-    enabled: yes
-
 - name: allow SSH access (rate-limited)
   ufw:
     port: ssh
@@ -33,6 +27,12 @@
   ufw:
     state: enabled  # also reloads firewall
     policy: deny
+
+- name: enable firewall (ufw)
+  service:
+    name: ufw
+    state: started
+    enabled: yes
 
 - name: install ssh keys
   authorized_key:
