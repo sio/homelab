@@ -28,6 +28,17 @@ The role accepts a list of modules as a variable and makes sure all of them
 are in initramfs. No reboot is performed, though.
 
 
+### morebooks - Setup a server for HomeLibraryCatalog web app
+
+Deploys a server with HomeLibraryCatalog running. Targets clean Debian stable
+installation.
+
+
+### motd - Notify ssh users that computer is managed with Ansible
+
+Adds a short message to /etc/motd to discourage manual system administration.
+
+
 ### upgrade - Apply all package updates
 
 No reboot is performed, but a check and a handler may be added later.
