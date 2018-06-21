@@ -45,14 +45,21 @@
   register: deps
   changed_when: 'not(deps.stdout_lines|last|match("^0 .*, 0 .*, 0 .*"))'
 
-- name: application user account
-  user:
-    name: '{{ username }}'
-    state: present
-
 - name: ensure correct timekeeping
   # no problem if clock is managed by host, ntpd will just log errors
   service:
     name: ntp
     state: started
     enabled: yes
+
+- name: application user group
+  group:
+    name: '{{ username }}'
+    state: present
+
+- name: application user account
+  user:
+    name: '{{ username }}'
+    state: present
+    groups: '{{ username }}'
+    append: yes
