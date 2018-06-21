@@ -43,7 +43,7 @@
   # Check explicitly for the following line in stdout:
   #   0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded
   register: deps
-  changed_when: 'not(deps.stdout_lines|last|match("^0 .*, 0 .*, 0 .* 0 "))'
+  changed_when: 'not(deps.stdout_lines|last|match("^0 .*, 0 .*, 0 .*"))'
 
 - name: application user account
   user:
