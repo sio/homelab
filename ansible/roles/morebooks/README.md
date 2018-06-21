@@ -4,7 +4,8 @@ This role configures a clean Debian install to serve the HomeLibraryCatalog web
 application.
 
 Most of the configurable values are listed in [defaults](defaults/main.yml), you
-can override them with your own.
+can override them with your own. You **need to override** the personification
+parameters listed at the beginning of the file to deploy a different web site.
 
 Variables that are not defined by default:
 

@@ -1,38 +1,49 @@
 ---
-# Personification
+#
+# PERSONIFICATION
+#
+#   Override these values!
+#
+url: morebooks.ml
+email_admin: sio.wtf@gmail.com
+google_key: google684a6a967bc36817.html
 hlc:
   title: 'Книжная квартирка'
   cookie_key: 'RZQL51П*0027-/'
   id_key: '18251'
+timezone: Europe/Moscow
 
-# HomeLibraryCatalog
-url: morebooks.ml
+#
+# PATHS TO PUBLIC KEYS ON CONTROL MACHINE
+#
+#   Sensible defaults. You might want to change them though.
+#
+ssh_public_keys:
+  - '~/.ssh/id_rsa.pub'
+  - '~/.ssh/{{ url }}.pub'
+
+#
+# WEB SERVER AND HOMELIBRARYCATALOG SETUP
+#
+#   Change these values only if you understand the consequences.
+#
 server: apache2
 server_config: '/etc/apache2/sites-enabled/{{ url }}.conf'
+ssl:
+  cert: '/etc/letsencrypt/live/{{ url }}/fullchain.pem'
+  key:  '/etc/letsencrypt/live/{{ url }}/privkey.pem'
 path:
   app:    '/home/{{ username }}/application'
   backup: '/home/{{ username }}/data/backup'
   data:   '/home/{{ username }}/data'
   static: '/home/{{ username }}/static'
   venv:   '/home/{{ username }}/virtualenv'
-ssl:
-  cert: '/etc/letsencrypt/live/{{ url }}/fullchain.pem'
-  key:  '/etc/letsencrypt/live/{{ url }}/privkey.pem'
-google_key: google684a6a967bc36817.html
 
-# Paths to public keys on control machine
-ssh_public_keys:
-  - '~/.ssh/id_rsa.pub'
-  - '~/.ssh/{{ url }}.pub'
-
-# Operating system configuration
-username: 'morebooks'
-email_admin: 'sio.wtf@gmail.com'
-locale: 'en_US.UTF-8'
-charset: 'UTF-8'
-timezone: 'Europe/Moscow'
-
-# Dependencies
+#
+# DEPENDENCIES
+#
+#   You shouldn't need to change these.
+#
 packages:
   - apache2
   - libapache2-mod-wsgi-py3
@@ -46,3 +57,12 @@ packages:
 build_deps:
   - python3-lxml
   - python3-pil
+
+#
+# OPERATING SYSTEM CONFIGURATION
+#
+#   Sensible defaults. There is little to no reason in overriding them.
+#
+username: 'hlc'
+locale: 'en_US.UTF-8'
+charset: 'UTF-8'
