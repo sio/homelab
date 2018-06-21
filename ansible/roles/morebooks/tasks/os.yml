@@ -59,7 +59,10 @@
 
 - name: application user account
   user:
-    name: '{{ username }}'
+    name: '{{ item }}'
     state: present
     groups: '{{ username }}'
     append: yes
+  with_items:
+    - '{{ username }}'
+    - '{{ admin_unprivileged }}'

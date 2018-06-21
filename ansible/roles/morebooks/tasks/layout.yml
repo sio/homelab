@@ -6,7 +6,7 @@
   file:
     path: '{{ item.value }}'
     state: directory
-    mode: 0700
+    mode: '0750'
     owner: '{{ username }}'
     group: '{{ username }}'
   with_dict: '{{ path }}'
