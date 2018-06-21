@@ -1,5 +1,5 @@
 #
-# Set up and maintain a server for http://morebooks.ml
+# Set up and maintain a server for HomeLibraryCatalog
 #
 # Order of includes matters! Some tasks rely on the results of tasks from files
 # included earlier.
