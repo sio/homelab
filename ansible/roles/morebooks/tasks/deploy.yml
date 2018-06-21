@@ -9,7 +9,7 @@
     name: '{{ server }}'
     state: stopped
 
-- name: check if virtual envirorment has been created
+- name: check if virtual environment has been created
   stat:
     path: '{{ path.venv }}/bin }}'
   register: venv
