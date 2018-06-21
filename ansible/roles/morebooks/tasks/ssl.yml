@@ -15,7 +15,7 @@
     --pre-hook 'systemctl stop {{ server }}'
     --post-hook 'systemctl start {{ server }}'
   args:
-    creates: '/etc/letsencrypt/live/{{ url }}/*.pem'
+    creates: '{{ ssl.cert }}'
 
 - name: schedule certificate renewal
   cron:

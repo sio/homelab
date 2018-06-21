@@ -2,12 +2,12 @@
     "WARNING": "THIS FILE IS MAINTAINED WITH ANSIBLE. LOCAL CHANGES WILL BE OVERWRITTEN!",
 
     "app": {
-        "title": "Книжная квартирка",
+        "title": "{{ hlc.title }}",
         "data_dir": "{{ path.data }}",
         "verbosity": 5
     },
     "webui": {
-        "cookie_key": "RZQL51П*0027-/",
-        "id_key": 18251
+        "cookie_key": "{{ hlc.cookie_key }}",
+        "id_key": {{ hlc.id_key }}
     }
 }

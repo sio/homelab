@@ -1,4 +1,10 @@
 ---
+# Personification
+hlc:
+  title: 'Книжная квартирка'
+  cookie_key: 'RZQL51П*0027-/'
+  id_key: '18251'
+
 # HomeLibraryCatalog
 url: morebooks.ml
 server: apache2
@@ -9,6 +15,9 @@ path:
   data:   '/home/{{ username }}/data'
   static: '/home/{{ username }}/static'
   venv:   '/home/{{ username }}/virtualenv'
+ssl:
+  cert: '/etc/letsencrypt/live/{{ url }}/fullchain.pem'
+  key:  '/etc/letsencrypt/live/{{ url }}/privkey.pem'
 google_key: google684a6a967bc36817.html
 
 # Paths to public keys on control machine
