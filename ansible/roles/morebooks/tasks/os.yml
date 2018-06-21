@@ -6,6 +6,10 @@
 - debug:
     var: ansible_user
 - debug:
+    var: admin_unprivileged
+- debug:
+    var: ansible_ssh_user
+- debug:
     var: hostvars[inventory_hostname].ansible_user
   failed_when: true
 
