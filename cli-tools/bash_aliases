@@ -84,3 +84,22 @@ title() {
     echo -ne '\033]2;'"$@"'\007'
     echo ''
 }
+
+# Cross-platform file opener
+start() {
+    local CMD
+    local OPENERS
+
+    OPENERS=(
+        'xdg-open'    # linux
+        'start'       # windows
+    )
+    for CMD in "${OPENERS[@]}"
+    do
+        if $(which "$CMD" >/dev/null 2>&1)
+        then
+            command "$CMD" "$@"
+            break
+        fi
+    done
+}
