@@ -2,6 +2,13 @@
 # Configure the operating system
 #
 ---
+# TODO: This might be a better way to set_fact admin_unprivileged.
+- debug:
+    var: ansible_user
+- debug:
+    var: hostvars[inventory_hostname].ansible_user
+  failed_when: true
+
 - name: set default system locale
   debconf:
     name: locales
