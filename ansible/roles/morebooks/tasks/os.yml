@@ -2,16 +2,9 @@
 # Configure the operating system
 #
 ---
-# TODO: This might be a better way to set_fact admin_unprivileged.
-- debug:
-    var: ansible_user
-- debug:
-    var: admin_unprivileged
-- debug:
-    var: ansible_ssh_user
-- debug:
-    var: hostvars[inventory_hostname].ansible_user
-  failed_when: true
+- name: remember unprivileged account used for remote access
+  set_fact:
+    admin_unprivileged: '{{ admin_unprivileged|default(ansible_user) }}'
 
 - name: set default system locale
   debconf:
