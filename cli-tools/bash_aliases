@@ -22,6 +22,12 @@ _cd() {
     if [ "$#" -eq 0 ]
     then
         set -- "$HOME"  # set default argument value for function
+    else
+        if [ -f "$@" ]  # if target is a file instead of directory, cd its parent dir
+        then
+            DEST=$(dirname "$@")
+            set -- "$DEST"
+        fi
     fi
     $CMD "$@" && ls
 }
