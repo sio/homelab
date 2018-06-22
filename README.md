@@ -27,10 +27,6 @@ Hook samples and other reusable files
 ### gui-apps/
 sSttings for apps with graphical user interface
 
-### morebooks/
-Application behind morebooks.ml. **DEPRECATED** - this directory was replaced by
-the corresponding ansible role
-
 ### packages/
 Package lists for common scenarios
 
