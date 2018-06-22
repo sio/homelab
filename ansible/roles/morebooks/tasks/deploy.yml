@@ -11,7 +11,7 @@
 
 - name: check if virtual environment has been created
   stat:
-    path: '{{ path.venv }}/bin }}'
+    path: '{{ path.venv }}/bin'
   register: venv
 
 - name: uninstall HomeLibraryCatalog
