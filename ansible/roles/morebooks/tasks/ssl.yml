@@ -3,9 +3,8 @@
 #
 ---
 - name: obtain SSL certificate
-  command: >  # TODO: disable --staging
+  command: >
     certbot certonly
-    --staging
     --standalone
     --agree-tos
     --non-interactive
