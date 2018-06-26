@@ -1,0 +1,12 @@
+#
+# Restore application data from the latest backup if doing a clean install
+#
+---
+- name: restore application data from the latest backup
+  unarchive:  # backups must be sortable by filename
+    src: '{{ lookup("fileglob", restore_from) | sort | last }}'
+    dest: '{{ path.data }}'
+    creates: '{{ path.data }}/database.sqlite'
+    owner: '{{ username }}'
+    group: '{{ username }}'
+  when: restore_from is defined
