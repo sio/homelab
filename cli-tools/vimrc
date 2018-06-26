@@ -139,3 +139,6 @@ set showmode
 " Enable indent folding, all folds are opened by default
 set foldmethod=indent
 set foldlevelstart=99
+
+" Do not hide tabs if there are many of them
+set tabpagemax=100
