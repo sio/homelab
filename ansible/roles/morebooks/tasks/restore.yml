@@ -4,7 +4,7 @@
 ---
 - name: restore application data from the latest backup
   unarchive:  # backups must be sortable by filename
-    src: '{{ lookup("fileglob", restore_from) | sort | last }}'
+    src: '{{ lookup("fileglob", restore_from + "/*", wantlist=True)|sort|last }}'
     dest: '{{ path.data }}'
     creates: '{{ path.data }}/database.sqlite'
     owner: '{{ username }}'
