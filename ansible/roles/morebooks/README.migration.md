@@ -1,4 +1,4 @@
-# DONE: Migrate morebooks.ml to WootHosting VPS
+# DONE: Migrate morebooks.ml to WootHosting VPS (September 2017)
 - [x] Obtain login credentials for new VPS
 - [x] Operating system administration:
     - [x] Perform dist-upgrade
