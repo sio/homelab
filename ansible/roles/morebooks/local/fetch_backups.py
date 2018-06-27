@@ -1,38 +1,32 @@
 #!/usr/bin/env python3
 """
 Fetch backups from remote server and deduplicate local copy
-
-All dependencies are packaged for Debian (except for toolpot):
-    - python3-paramiko
-    - python3-scp
 """
 
 REMOTE_SOURCE = '/home/hlc/data/backup/*'
 REMOTE_USER = 'test'
-REMOTE_HOST = 'test-vm'
-REMOTE_PORT = 22
+REMOTE_HOST = '192.168.122.80'
+REMOTE_KEY  = '/home/user/.ssh/morebooks-laptopmini'
 LOCAL_DESTINATION = '/tmp/morebooks-backup/'
 
 
+import os
+from subprocess import Popen
 from toolpot.scripting import remove_duplicates
-from paramiko import SSHClient
-from scp import SCPClient
 
 
 def main():
-    ssh = SSHClient()
-    ssh.load_system_host_keys()
-    ssh.connect(REMOTE_HOST, username=REMOTE_USER)
-    with SCPClient(ssh.get_transport()) as scp:
-        scp.get(
-            REMOTE_SOURCE,
-            LOCAL_DESTINATION,
-            recursive=True,
-            preserve_times=True,
-        )
-    ssh.close()
-
-    remove_duplicates(LOCAL_DESTINATION)
+    scp = Popen([
+        'scp',
+        '{user}@{host}:{path}'.format(
+            user=REMOTE_USER,
+            host=REMOTE_HOST,
+            path=REMOTE_SOURCE,
+        ),
+        LOCAL_DESTINATION,
+    ])
+    if not scp.wait():
+        remove_duplicates(LOCAL_DESTINATION)
 
 
 if __name__ == '__main__':
