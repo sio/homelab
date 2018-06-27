@@ -68,7 +68,7 @@ _colorhash() {
 
 _git_current_branch() {
     local branch=$(git branch 2>/dev/null)
-    [ ! -z "$branch" ] && branch=$(echo "$branch"|head -n1|cut -d\  -f2-| xargs)
+    [ ! -z "$branch" ] && branch=$(echo "$branch"|grep -E '^\* '|cut -d\  -f2-| xargs)
     [ ! -z "$branch" ] && echo -n " ($branch)"
 }
 
