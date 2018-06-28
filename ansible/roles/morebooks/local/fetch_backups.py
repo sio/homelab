@@ -1,4 +1,11 @@
 #!/usr/bin/env python3
+
+# THIS IS JUST AN EXAMPLE
+#
+# This script is meant to be executed on the control machine or any other
+# machine that has access to the server. Ansible does not automate setup and
+# configuration of this script
+
 """
 Fetch backups from remote server and deduplicate local copy
 """
