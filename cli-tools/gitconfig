@@ -1,0 +1,8 @@
+[core]
+    quotepath = false  # proper display of UTF-8 filepaths
+
+[user]
+	email = sio.wtf@gmail.com
+	name  = Vitaly Potyarkin
+
+# vim: syntax=gitconfig
