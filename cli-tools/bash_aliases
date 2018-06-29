@@ -56,9 +56,19 @@ mktouch() {
     done
 }
 
-# Run the same git subcommand in all git repos down the tree from current
-# directory
+# Manipulate multiple git repos
 gitall() {
+    if [ "_$1" == "_clone" ]
+    then
+        _gitallclone "${@:2}"
+    else
+        _gitall "$@"
+    fi
+}
+_gitall() {
+    # Run the same git subcommand in all git repos down the tree from current
+    # directory
+
     local DIR
     local FIRST=1
     local COMMAND
@@ -80,6 +90,29 @@ gitall() {
         fi
         command ls --color=auto -d "${DIR::(-4)}"
         git -C "$DIR/.." $COMMAND
+    done
+}
+_gitallclone() {
+    # Clone multiple git repositories (primarily for backup and archiving
+    # purposes)
+    #
+    # Files with lists of URLs have to be supplied as arguments. Each list is
+    # cloned to a corresponding directory.
+    for FILE in "${@}"
+    do
+        echo -e "\n---\n\nSTART CLONING REPOS FROM LIST: $FILE\n"
+        LIST=$(basename "$FILE")
+        DIR="${LIST%.*}"  # without extension
+
+        grep -Ev '^\s*#|^\s*$' "$FILE" | while read URL
+        do
+            [ -d "$DIR" ] || mkdir "$DIR"
+            pushd "$DIR" > /dev/null
+            git clone "$URL" || true
+            echo
+            popd > /dev/null
+        done
+        echo -e "FINISHED CLONING REPOS FROM LIST: $FILE"
     done
 }
 
