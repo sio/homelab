@@ -13,7 +13,7 @@ alias grep='grep --color=auto'
 alias bones="grep -Ev '^\s*#|^\s*$'"
 
 # Pretty print files to stdout, add filename headers
-alias show="tail -v -n+1"
+alias show="tail -v -n+0"
 
 # Show file listing when changing current directory
 _cd() {
