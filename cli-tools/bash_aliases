@@ -123,19 +123,21 @@ title() {
 
 # Cross-platform file opener
 start() {
-    local CMD
-    local OPENERS
-
-    OPENERS=(
-        'xdg-open'    # linux
-        'start'       # windows
-    )
-    for CMD in "${OPENERS[@]}"
+    local TARGET
+    for TARGET in "${@}"
     do
-        if $(which "$CMD" >/dev/null 2>&1)
-        then
-            command "$CMD" "$@"
-            break
-        fi
+        case "$OSTYPE" in
+            msys*)
+                # Windows doesn't like slashes in path, we work around that by
+                # changing into the directory first and opening the file from
+                # within.
+                pushd "$(dirname "$TARGET")" >/dev/null
+                command start "$(basename "$TARGET")"
+                popd >/dev/null
+                ;;
+            *)
+                xdg-open "$TARGET"
+                ;;
+        esac
     done
 }
