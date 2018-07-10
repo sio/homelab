@@ -71,13 +71,10 @@ _gitall() {
 
     local DIR
     local FIRST=1
-    local COMMAND
 
     if [[ -z "$@" ]]
     then
-        COMMAND="status"  # default subcommand when invoked without arguments
-    else
-        COMMAND="$@"
+        set -- "status"  # default subcommand when invoked without arguments
     fi
 
     find -type d -name .git -print0 2>/dev/null | while read -d $'\0' DIR
@@ -89,7 +86,7 @@ _gitall() {
             FIRST=0
         fi
         command ls --color=auto -d "${DIR::(-4)}"
-        git -C "$DIR/.." $COMMAND
+        git -C "$DIR/.." "$@"
     done
 }
 _gitallclone() {
