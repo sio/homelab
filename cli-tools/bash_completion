@@ -65,14 +65,15 @@ _complete_partial() {
         then  # skip non-directory paths when looking for directory
             continue
         fi
-        if [[ -z "$QUOTE" && ! -z "$LINE" ]]
+        if [[ -z "$LINE" ]]
+        then  # skip empty suggestions
+            continue
+        fi
+        if [[ -z "$QUOTE"  ]]
         then  # escape special characters unless user has opened a quote
             LINE=$(printf "%q" "$LINE")
         fi
-        if [[ ! -z "$LINE" ]]
-        then
-            COMPREPLY+=("$LINE")
-        fi
+        COMPREPLY+=("$LINE")
     done <<< $(compgen -G "$WILDCARDS" "$WILDCARDS" 2>/dev/null)
     return 0  # do not clutter $? value (last exit code)
 }
