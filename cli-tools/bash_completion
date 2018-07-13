@@ -59,3 +59,12 @@ complete -o bashdefault -o default -o nospace -D -F _complete_partial_file
 
 # Optional. Make sure `cd` is autocompleted only with directories
 complete -o bashdefault -o default -o nospace -F _complete_partial_dir cd
+
+# Readline configuration for better user experience
+bind 'TAB:menu-complete'
+bind 'set colored-completion-prefix on'
+bind 'set colored-stats on'
+bind 'set completion-ignore-case on'
+bind 'set menu-complete-display-prefix on'
+bind 'set show-all-if-ambiguous on'
+bind 'set show-all-if-unmodified on'
