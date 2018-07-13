@@ -65,7 +65,7 @@ _complete_partial() {
         then  # skip non-directory paths when looking for directory
             continue
         fi
-        if [ -z "$QUOTE" ]
+        if [[ -z "$QUOTE" && ! -z "$LINE" ]]
         then  # escape special characters unless user has opened a quote
             LINE=$(printf "%q" "$LINE")
         fi
