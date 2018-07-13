@@ -10,7 +10,7 @@ _put_wildcards_into_path() {
 
 
 #
-# Bash completion function for expanding incomplete paths
+# Bash completion function for expanding partial paths
 #
 # This is a generic worker. It accepts 'file' or 'directory' as the first
 # argument to specify desired completion behavior
@@ -47,6 +47,7 @@ _complete_partial() {
         fi
         COMPREPLY+=("$LINE")
     done <<< $(compgen -G "$WILDCARDS" "$WILDCARDS" 2>/dev/null)
+    return 0  # do not clutter $? value (last exit code)
 }
 
 
