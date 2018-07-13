@@ -7,18 +7,15 @@
 #
 # ~/.inputrc is the proper location for those, but managing another config file
 # for a couple of lines of code is an overkill
-if [[ $- == *i* ]]  # check for interactive mode
-then
-    bind "set completion-ignore-case on"
-    bind "set colored-stats on"
-    bind "set colored-completion-prefix on"
-    bind '"\e[A": history-search-backward'
-    bind '"\e[B": history-search-forward'
-    bind 'set show-all-if-ambiguous on'
-    bind 'set show-all-if-unmodified on'
-    bind 'set menu-complete-display-prefix on'
-    bind 'TAB:menu-complete'
-fi
+bind "set completion-ignore-case on"
+bind "set colored-stats on"
+bind "set colored-completion-prefix on"
+bind '"\e[A": history-search-backward'
+bind '"\e[B": history-search-forward'
+bind 'set show-all-if-ambiguous on'
+bind 'set show-all-if-unmodified on'
+bind 'set menu-complete-display-prefix on'
+bind 'TAB:menu-complete'
 
 
 # History settings

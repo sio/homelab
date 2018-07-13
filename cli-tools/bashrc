@@ -21,12 +21,16 @@ _load_shell_settings() {
         "cli-tools/bash_interactive"
     )
 
-    if [ -d "$COMMON" ]
+    if [[ -d "$COMMON" && $- == *i* ]]
     then
         for ITEM in "${SOURCES[@]}"
         do
             source "$COMMON/$ITEM"  # source is bash builtin, POSIX standard is .
         done
+    elif [[ -d "$COMMON" ]]
+    then
+        # Load only environment variables in non-interactive mode
+        source "cli-tools/bash_env"
     else
         echo "ERROR: \$COMMON is not a directory: $COMMON"
         return 1
