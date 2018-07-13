@@ -69,7 +69,10 @@ _complete_partial() {
         then  # escape special characters unless user has opened a quote
             LINE=$(printf "%q" "$LINE")
         fi
-        COMPREPLY+=("$LINE")
+        if [[ ! -z "$LINE" ]]
+        then
+            COMPREPLY+=("$LINE")
+        fi
     done <<< $(compgen -G "$WILDCARDS" "$WILDCARDS" 2>/dev/null)
     return 0  # do not clutter $? value (last exit code)
 }
