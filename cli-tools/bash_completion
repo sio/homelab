@@ -1,0 +1,61 @@
+#!/usr/bin/env bash
+
+#
+# Take a single incomplete path and fill it with wildcards
+# e.g. /u/s/app/ -> /u*/s*/app*
+#
+_put_wildcards_into_path() {
+    echo "$@" | sed -e 's:\([^\*]\)/:\1*/:g' -e 's:\([^\/\*]\)$:\1*:g' -e 's:\/$::g'
+}
+
+
+#
+# Bash completion function for expanding incomplete paths
+#
+# This is a generic worker. It accepts 'file' or 'directory' as the first
+# argument to specify desired completion behavior
+#
+_complete_partial() {
+    local WILDCARDS ACTION LINE OPTION INPUT UNQUOTED_INPUT QUOTE
+
+    ACTION="$1"
+    INPUT="${COMP_WORDS[$COMP_CWORD]}"
+
+    # Detect and strip opened quotes
+    if [[ "${INPUT:0:1}" == "'" || "${INPUT:0:1}" == '"' ]]
+    then
+        QUOTE="${INPUT:0:1}"
+        INPUT="${INPUT:1}"
+    else
+        QUOTE=""
+    fi
+
+    # Add wildcards to each path element
+    WILDCARDS=$(_put_wildcards_into_path "$INPUT")
+
+    # Collect completion options
+    COMPREPLY=()
+    while read -r -d $'\n' LINE
+    do
+        if [[ "_$ACTION" == "_directory" && ! -d "$LINE" ]]
+        then  # skip non-directory paths when looking for directory
+            continue
+        fi
+        if [ -z "$QUOTE" ]
+        then  # escape special characters unless user has opened a quote
+            LINE=$(printf "%q" "$LINE")
+        fi
+        COMPREPLY+=("$LINE")
+    done <<< $(compgen -G "$WILDCARDS" "$WILDCARDS" 2>/dev/null)
+}
+
+
+# Wrappers
+_complete_partial_dir() { _complete_partial directory; }
+_complete_partial_file() { _complete_partial file; }
+
+# Enable enhanced completion
+complete -o bashdefault -o default -o nospace -D -F _complete_partial_file
+
+# Optional. Make sure `cd` is autocompleted only with directories
+complete -o bashdefault -o default -o nospace -F _complete_partial_dir cd
