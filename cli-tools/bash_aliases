@@ -32,8 +32,6 @@ _cd() {
     $CMD "$@" && ls
 }
 alias cd=_cd
-complete -d cd  # autocomplete only directories
-complete -d _cd
 
 # Pretty diff like `git diff`
 _diff() {
