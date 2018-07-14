@@ -54,6 +54,10 @@ _complete_partial() {
     local WILDCARDS ACTION LINE OPTION INPUT UNQUOTED_INPUT QUOTE
 
     ACTION="$1"
+    if [[ "_$1" == "_-d" ]]
+    then  # _filedir compatibility
+        ACTION="directory"
+    fi
     INPUT="${COMP_WORDS[$COMP_CWORD]}"
 
     # Detect and strip opened quotes
@@ -99,6 +103,18 @@ complete -o bashdefault -o default -o nospace -D -F _complete_partial_file
 
 # Optional. Make sure `cd` is autocompleted only with directories
 complete -o bashdefault -o default -o nospace -F _complete_partial_dir cd
+
+# Override bash-completion's _filedir (if it's in use)
+# https://salsa.debian.org/debian/bash-completion
+_filedir_original_code=$(declare -f _filedir|tail -n+2)
+if [[ ! -z "$_filedir_original_code" ]]
+then
+    eval "_filedir_original() $_filedir_original_code"
+    _filedir() {
+        _filedir_original "$@"
+        _complete_partial "$@"
+    }
+fi
 
 # Readline configuration for better user experience
 bind 'TAB:menu-complete'
