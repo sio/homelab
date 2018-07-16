@@ -19,7 +19,7 @@ _load_shell_settings() {
         "cli-tools/bash_dircolors"
         "cli-tools/bash_tmout"
         "cli-tools/bash_interactive"
-        "cli-tools/bash_completion"
+        "imported/bash-complete-partial-path/bash_completion"
     )
 
     if [[ -d "$COMMON" && $- == *i* ]]
