@@ -139,3 +139,6 @@ start() {
         esac
     done
 }
+
+# Do not clutter asciicasts with nesting levels
+alias asciinema='_NESTED_LEVEL=0 asciinema'
