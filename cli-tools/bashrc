@@ -31,9 +31,9 @@ _load_shell_settings() {
     elif [[ -d "$COMMON" ]]
     then
         # Load only environment variables in non-interactive mode
-        source "cli-tools/bash_env"
+        source "$COMMON/cli-tools/bash_env"
     else
-        echo "ERROR: \$COMMON is not a directory: $COMMON"
+        echo "ERROR: \$COMMON is not a directory: $COMMON" &>2
         return 1
     fi
 }
