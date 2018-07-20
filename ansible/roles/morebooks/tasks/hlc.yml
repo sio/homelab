@@ -4,10 +4,13 @@
 ---
 - name: create Python virtual environment and update pip
   pip:
-    name: pip
+    name: '{{ item }}'
     state: latest
     virtualenv: '{{ path.venv }}'
     virtualenv_command: '/usr/bin/python3 -m venv'
+  with_items:
+    - pip
+    - setuptools
 
 - name: install packages from requirements.txt
   pip:
