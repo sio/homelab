@@ -7,6 +7,8 @@
       with his implementation, but the idea is good.
         - How to handle duplicates? If two files point at the same target -
           which one will be linked
+        - There definitely needs to be a way to specify which topics are
+          enabled. TODO: see how Bash-it does that
         - `script/bootstrap` is nice, but it's a technical debt to manage.
           Maybe use ansible instead? That takes care of linking two files
           (lineinfile)
