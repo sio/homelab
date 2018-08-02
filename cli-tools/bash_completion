@@ -1,0 +1,2 @@
+source "$COMMON/imported/bash-complete-partial-path/bash_completion"
+_bcpp --defaults
