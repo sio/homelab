@@ -14,6 +14,7 @@ bind '"\e[B": history-search-forward'
 # History settings
 shopt -s histappend  # upon exit, append history instead of overwriting
 shopt -s cmdhist     # save multiline commands, add semicolons automatically
+HISTFILE="$HOME/.history.bash"  # non-default location does not get overwritten when experimenting
 HISTSIZE=100000
 HISTFILESIZE=$HISTSIZE
 HISTCONTROL=ignorespace:ignoredups:erasedups  # save only last occurence of command
