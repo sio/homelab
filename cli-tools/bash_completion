@@ -1,2 +1,14 @@
+# Enable parts of bash-completion package
+# https://salsa.debian.org/debian/bash-completion
+COMPLETION_EXTRAS=(
+    "/usr/share/bash-completion/completions/git"
+)
+for file in "${COMPLETION_EXTRAS[@]}"
+do
+    [ -s "$file" ] && source "$file"
+done
+
+# Enhanced file path completion in bash
+# https://github.com/sio/bash-complete-partial-path
 source "$COMMON/imported/bash-complete-partial-path/bash_completion"
 _bcpp --defaults
