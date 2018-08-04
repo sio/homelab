@@ -7,6 +7,7 @@ for file in "${COMPLETION_EXTRAS[@]}"
 do
     [ -s "$file" ] && source "$file"
 done
+unset file COMPLETION_EXTRAS
 
 # Enhanced file path completion in bash
 # https://github.com/sio/bash-complete-partial-path
