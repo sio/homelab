@@ -48,6 +48,7 @@ mkcd() {
 # Touch file and create required parent directories
 # https://stackoverflow.com/a/19288855/3275560
 mktouch() {
+    local f
     for f in "$@"; do
         mkdir -p -- "$(dirname -- "$f")"
         touch -- "$f"
@@ -93,6 +94,7 @@ _gitallclone() {
     #
     # Files with lists of URLs have to be supplied as arguments. Each list is
     # cloned to a corresponding directory.
+    local FILE LIST DIR URL
     for FILE in "${@}"
     do
         echo -e "\n---\n\nSTART CLONING REPOS FROM LIST: $FILE\n"

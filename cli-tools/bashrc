@@ -10,6 +10,7 @@ test -z "$COMMON" && COMMON="$HOME/common"
 
 # This function can be used to reload settings within running bash session
 _load_shell_settings() {
+    local ITEM
     local SOURCES  # paths relative to $COMMON
     SOURCES=(
         "cli-tools/bash_prompt"
