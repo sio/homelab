@@ -8,9 +8,14 @@
         - How to handle duplicates? If two files point at the same target -
           which one will be linked
         - There definitely needs to be a way to specify which topics are
-          enabled. TODO: see how Bash-it does that
+          enabled. Bash-it does that with symlinks from `enabled/` to
+          `available/`, like Apache in Debian.
         - `script/bootstrap` is nice, but it's a technical debt to manage.
           Maybe use ansible instead? That takes care of linking two files
           (lineinfile)
+    - Implementation possibilites:
+        - Python: most pleasant coding experience
+        - Bash: works everywhere
+        - Ansible: declarative, easy replication across machines
 
 - How do I copy from tmux to system clipboard when mouse mode is enabled?
