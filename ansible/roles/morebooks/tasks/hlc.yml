@@ -16,6 +16,7 @@
   pip:
     requirements: '{{ path.app }}/requirements.txt'
     virtualenv: '{{ path.venv }}'
+  notify: reload web server
 
 - name: run the web server
   service:

@@ -10,3 +10,4 @@
     owner: '{{ username }}'
     group: '{{ username }}'
   when: restore_from is defined
+  notify: reload web server
