@@ -8,3 +8,7 @@
   service:
     name: ssh
     state: restarted
+
+- name: reload firewall
+  ufw:
+    state: reloaded
