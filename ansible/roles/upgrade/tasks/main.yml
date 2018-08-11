@@ -3,11 +3,13 @@
   apt:
     name: aptitude
     state: present
+    update_cache: yes
+    cache_valid_time: 3600
   when: ansible_pkg_mgr == "apt"
 
 - name: upgrade debian system (safe-upgrade)
   apt:
-    update_cache: yes
     upgrade: safe
+    update_cache: yes
     cache_valid_time: 3600
   when: ansible_pkg_mgr == "apt"
