@@ -3,10 +3,28 @@
 - Aruba.it - recommended by multiple users at linux.org.ru (Cloud VPS Small -
   for 1 euro per month)
 - Scaleway - 1.99 euro/month VPS. High quality, good reviews
+- Hetzner Cloud - 2.98 euro/month for 2GB RAM, 20GB disk
 
-### Reproducible setup and configuration
-- [ ] Write ansible roles and playbooks
-- [ ] Test setup in virtual machine / container
+
+# DONE: Migrate morebooks.ml to Scaleway (August 2018)
+
+Woothosting is clearly not meeting the advertised VPS specs. It is slow and
+sometimes unavailable. Paying for the next year is not an option.
+
+The server has been moved to Scaleway cloud instance ARM64-2GB for 2.99 euro/mo.
+Full specs: 4 ARMv8 cores (64-bit), 2GB RAM, 50GB storage (network attached
+storage on SSDs), 200 Mbit/s unmetered connection. Cheaper plans would also meet
+the requirements but they do not offer Debian image, and I did not want to
+maintain Ubuntu or Fedora.
+
+Migration itself happened on August, 11th and took about an hour thanks to
+ansible playbook. The only issue encountered was an outdated `stretch/updates`
+entry in sources.list which had prevented updating apt cache.
+
+
+# DONE: Reproducible setup and configuration
+- [x] Write ansible roles and playbooks
+- [x] Test setup in virtual machine / container
 
 
 # DONE: Migrate morebooks.ml to WootHosting VPS (September 2017)
