@@ -1,0 +1,40 @@
+#
+# Install HomeLibraryCatalog with pip
+#
+---
+- name: create Python virtual environment and update pip
+  pip:
+    name: '{{ item }}'
+    state: latest
+    virtualenv: '{{ path.venv }}'
+    virtualenv_command: '/usr/bin/python3 -m venv'
+  with_items:
+    - pip
+    - setuptools
+
+- name: install packages from requirements.txt
+  pip:
+    requirements: '{{ path.app }}/requirements.txt'
+    virtualenv: '{{ path.venv }}'
+  notify: reload web server
+
+- name: run the web server
+  service:
+    name: '{{ server }}'
+    state: started
+    enabled: yes
+
+- name: schedule application data backup
+  cron:
+    name: 'backup application data every day'
+    job: '{{ path.app|quote }}/backup.py'
+    hour: '4'
+    minute: '05'
+
+- name: schedule wsgi workers restart
+  cron:
+    name: 'restart wsgi workers every hour'
+    job: 'touch {{ path.app|quote }}/wsgi.py'
+    user: '{{ username }}'
+    hour: '*/1'
+    minute: '0'

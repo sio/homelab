@@ -1,2 +1,0 @@
-git+git://github.com/sio/HomeLibraryCatalog.git
-git+git://github.com/sio/toolpot.git

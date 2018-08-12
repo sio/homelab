@@ -1,0 +1,46 @@
+#
+# Define kernel parameters in Grub defaults file and update Grub configuration
+# if needed
+#
+# Required kernel parameters must be defined in `grub_kernel_params` variable.
+# Example:
+#   grub_kernel_params:
+#     - zswap.enabled=1
+#     - quiet
+#     - splash
+#
+---
+- name: straighten all escaped line breaks
+  replace:
+    name: '{{ grub_defaults }}'
+    regexp: '\\\n'
+
+- name: check that kernel parameters are defined
+  check_mode: yes
+  changed_when: false
+  lineinfile:
+    name: '{{ grub_defaults }}'
+    regexp: (^s*{{ grub_kernel_line }}.*[\"\'].*[\"\']\s*$)
+    line: '\1'
+  register: grub_has_kernel_params
+
+- name: add kernel parameters line
+  lineinfile:
+    name: '{{ grub_defaults }}'
+    line: '{{ grub_kernel_line }}=""'
+  when: grub_has_kernel_params.msg == 'line added'
+
+- name: set linux kernel parameters
+  lineinfile:
+    name: '{{ grub_defaults }}'
+    backrefs: yes
+    backup: yes
+    regexp: ^s*({{ grub_kernel_line }}(?!.*\b{{  item }}\b).*)([\"\']\s*)$
+    line: '\1 {{ item }}\2'
+  with_items: '{{ grub_kernel_params }}'
+  notify: update grub
+
+  # NOTE:
+  # If the same parameter is passed to the kernel twice, the last value is
+  # used.  That means we don't have to clean up old values in this task, just
+  # save the new ones!

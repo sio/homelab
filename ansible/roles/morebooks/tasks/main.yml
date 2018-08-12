@@ -1,0 +1,29 @@
+#
+# Set up and maintain a server for HomeLibraryCatalog
+#
+# Order of includes matters! Some tasks rely on the results of tasks from files
+# included earlier.
+#
+---
+# System wide configuration
+- include: os.yml
+
+# Security settings
+- include: security.yml
+
+# Enable HTTPS
+- include: ssl.yml
+
+# File layout for HomeLibraryCatalog
+- include: layout.yml
+
+# Restore application data from the latest backup if doing a clean install
+- include: restore.yml
+  when: restore_from is defined
+
+# Force app update from latest git if necessary
+- include: deploy.yml
+  when: '{{ deploy|default(False) }}'
+
+# Idempotent deployment
+- include: hlc.yml

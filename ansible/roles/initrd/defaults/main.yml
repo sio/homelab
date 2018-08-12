@@ -1,0 +1,14 @@
+#
+# Default values for `initrd` role
+#
+---
+
+# Path to initrd module list
+initrd_module_list: /etc/initramfs-tools/modules
+
+# Command line to update initramfs
+initrd_update_cmd: update-initramfs -u
+
+# Acceptable exit codes for the command above
+initrd_update_retcodes:
+  - 0

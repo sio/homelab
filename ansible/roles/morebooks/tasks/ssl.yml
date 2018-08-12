@@ -1,0 +1,34 @@
+#
+# Enable HTTPS access to the website
+#
+---
+- name: obtain SSL certificate
+  command: >
+    certbot certonly
+    --standalone
+    --agree-tos
+    --non-interactive
+    --email {{ email_admin|quote }}
+    --cert-name {{ url|quote }}
+    --domains {{ url|quote }},www.{{ url|quote }}
+    --pre-hook 'systemctl stop {{ server }}'
+    --post-hook 'systemctl start {{ server }}'
+  args:
+    creates: '{{ ssl.cert }}'
+
+- name: schedule certificate renewal
+  cron:
+    name: 'renew letsencrypt certificates'
+    job: >
+      certbot renew
+      --agree-tos
+      --non-interactive
+    hour: '2,14'
+    minute: '16'
+
+- name: enable SSL support in Apache
+  apache2_module:
+    name: ssl
+    state: present
+  when: server == 'apache2'
+  notify: reload web server

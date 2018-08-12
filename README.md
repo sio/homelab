@@ -11,6 +11,10 @@ part of shared configuration.
 
 
 ## Directory structure
+
+### ansible/
+Playbooks and roles for automating remote computer maintenance
+
 ### cli-tools/
 Configuration files for command line tools (bash, vim, etc)
 
@@ -22,9 +26,6 @@ Hook samples and other reusable files
 
 ### gui-apps/
 sSttings for apps with graphical user interface
-
-### morebooks/
-Application behind morebooks.ml
 
 ### packages/
 Package lists for common scenarios

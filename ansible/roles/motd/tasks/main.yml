@@ -1,0 +1,7 @@
+---
+- name: add message to /etc/motd
+  blockinfile:
+    dest: /etc/motd
+    block: '{{ motd }}'
+    create: yes
+    marker: '- - - - - - - - - - - - - - - - - - - - - - - - - - - - {mark}'

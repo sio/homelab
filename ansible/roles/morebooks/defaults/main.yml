@@ -1,0 +1,83 @@
+---
+#
+# OPTIONAL PARAMETERS
+#
+# admin_unprivileged
+#   Unprivileged account name used to access the server via SSH. Defaults to
+#   the inventory value of `ansible_user` at the time of invocation.
+# deploy
+#   If set to True, forces (re)deployment of HomeLibraryCatalog from GitHub
+#   master branch. Use this to update HomeLibraryCatalog to the latest version.
+# restore_from
+#   Local directory with application data archives (sqlite db + file uploads).
+#   When setting up a new server this directory will be used to restore the
+#   latest backup from archive. Backups must be sortable by file name.
+#
+
+#
+# PERSONIFICATION
+#
+#   Override these values!
+#
+url: morebooks.ml
+email_admin: sio.wtf@gmail.com
+google_key: google684a6a967bc36817.html
+hlc:
+  title: 'Книжная квартирка'
+  cookie_key: 'RZQL51П*0027-/'
+  id_key: '18251'
+timezone: Europe/Moscow
+
+#
+# PATHS TO PUBLIC KEYS ON CONTROL MACHINE
+#
+#   Sensible defaults. You might want to change them though.
+#
+ssh_public_keys:
+  - '~/.ssh/id_rsa.pub'
+  - '~/.ssh/{{ url }}.pub'
+
+#
+# WEB SERVER AND HOMELIBRARYCATALOG SETUP
+#
+#   Change these values only if you understand the consequences.
+#
+server: apache2
+server_config: '/etc/apache2/sites-enabled/{{ url }}.conf'
+ssl:
+  cert: '/etc/letsencrypt/live/{{ url }}/fullchain.pem'
+  key:  '/etc/letsencrypt/live/{{ url }}/privkey.pem'
+path:
+  app:    '/home/{{ username }}/application'
+  backup: '/home/{{ username }}/data/backup'
+  data:   '/home/{{ username }}/data'
+  static: '/home/{{ username }}/static'
+  venv:   '/home/{{ username }}/virtualenv'
+
+#
+# DEPENDENCIES
+#
+#   You shouldn't need to change these.
+#
+packages:
+  - apache2
+  - libapache2-mod-wsgi-py3
+  - python-certbot-apache
+  - python3-pip
+  - python3-venv
+  - python3
+  - ufw
+  - git
+  - ntp
+build_deps:
+  - python3-lxml
+  - python3-pil
+
+#
+# OPERATING SYSTEM CONFIGURATION
+#
+#   Sensible defaults. There is little to no reason in overriding them.
+#
+username: 'hlc'
+locale: 'en_US.UTF-8'
+charset: 'UTF-8'

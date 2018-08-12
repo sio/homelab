@@ -1,0 +1,20 @@
+---
+
+# Full path to Grub defaults
+grub_defaults: /etc/default/grub
+
+# Command line that updates Grub configuration
+grub_update_cmd: update-grub
+
+# List of accepted exit codes for the command above
+grub_update_retcodes: [0, ]
+
+# Configuration variable for kernel parameters
+grub_kernel_line: GRUB_CMDLINE_LINUX_DEFAULT
+
+# List of kernel parameters to apply (should be defined when invoking the role)
+#  grub_kernel_params:
+#    - quiet
+#    - hello
+#    - world
+#    - zswap.enabled=1

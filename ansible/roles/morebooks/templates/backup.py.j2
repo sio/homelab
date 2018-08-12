@@ -1,6 +1,12 @@
+#!{{ path.venv }}/bin/python
 """
 Backup script for HomeLibraryCatalog instance deployed to VPS
 """
+
+# WARNING!
+#
+# THIS FILE IS MAINTAINED WITH ANSIBLE
+# LOCAL CHANGES WILL BE OVERWRITTEN!
 
 
 import os.path
@@ -8,10 +14,10 @@ from toolpot.linux.systemd import control, control_isrunning
 from toolpot.scripting import archive, make_name, rotate
 
 
-BACKUP_NAME = "morebooks"
-DATA = ["$HOME/data/uploads", "$HOME/data/database.sqlite"]
-DESTINATION = "$HOME/data/backup"
-SERVER = "apache2"
+BACKUP_NAME = "{{ url }}"
+DATA = ["{{ path.data }}/uploads", "{{ path.data }}/database.sqlite"]
+DESTINATION = "{{ path.backup }}"
+SERVER = "{{ server }}"
 
 
 def main():
@@ -28,3 +34,6 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+# vim: syntax=python

@@ -1,0 +1,8 @@
+#
+# Handlers for initrd tasks
+#
+---
+- name: update initramfs
+  command: '{{ initrd_update_cmd }}'
+  register: cmd_result
+  failed_when: '{{ cmd_result.rc not in initrd_update_retcodes }}'

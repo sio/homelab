@@ -2,16 +2,21 @@
 # Virtual host configuration for Apache web server with mod_wsgi
 #
 
+# WARNING!
+#
+# THIS FILE IS MAINTAINED WITH ANSIBLE
+# LOCAL CHANGES WILL BE OVERWRITTEN!
 
-Define URL        morebooks.ml
-Define ADMIN      sio.wtf@gmail.com
-Define WSGI_USER  sio
-Define WSGI_GROUP sio
-Define WSGI_DIR   /home/sio/application
-Define STATIC_DIR /home/sio/application_static
-Define SSL_CERT   /etc/letsencrypt/live/morebooks.ml/fullchain.pem
-Define SSL_KEY    /etc/letsencrypt/live/morebooks.ml/privkey.pem
-Define GOOGLE_KEY google684a6a967bc36817.html
+Define URL        {{ url }}
+Define ADMIN      {{ email_admin }}
+Define WSGI_USER  {{ username }}
+Define WSGI_GROUP {{ username }}
+Define WSGI_DIR   {{ path.app }}
+Define STATIC_DIR {{ path.static }}
+Define PY_VENV    {{ path.venv }}
+Define SSL_CERT   {{ ssl.cert }}
+Define SSL_KEY    {{ ssl.key }}
+Define GOOGLE_KEY {{ google_key }}
 
 # The following options control the restart of apache2 process, not the
 # wsgi application
@@ -50,6 +55,7 @@ Define GOOGLE_KEY google684a6a967bc36817.html
     WSGIDaemonProcess ${URL} \
                       user=${WSGI_USER} \
                       group=${WSGI_GROUP} \
+                      python-home=${PY_VENV} \
                       processes=2 \
                       threads=15 \
                       display-name=(${URL})
