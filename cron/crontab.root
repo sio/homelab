@@ -1,2 +1,0 @@
-@daily /usr/bin/aptitude update
-16 2,14 * * * certbot renew --renew-hook "systemctl restart apache2"
