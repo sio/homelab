@@ -36,6 +36,30 @@ set -o pipefail
 DOTFILES=$(readlink -m "$(dirname "$0")")
 DOTFILES_BACKUP="$HOME/.dotfiles-overwritten/"
 SUFFIXES="link|append|copy"
+COLUMNS=$(tput cols)
+
+
+main() {
+    if [[ -s "$1" ]]  # list of topics
+    then
+        local topic
+        grep -Ev '^\s*#|^\s*$' "$1" | while read -r topic
+        do
+            install_topic "$topic"
+        done
+    elif [[ ! -z "$1" && -d "$DOTFILES/$1" ]]  # single topic
+    then
+        install_topic "$1"
+    else
+        printf "%s\n" \
+            "Usage: $(basename "$0") TOPIC|FILENAME" \
+            "    Install dotfiles from $DOTFILES" \
+            "" \
+            "Install dotfiles either for a single TOPIC or for several topics listed" \
+            "in FILENAME (one topic per line, blank lines and lines starting with hash" \
+            "symbol are ignored)"
+    fi
+}
 
 
 install_topic() {
@@ -176,3 +200,7 @@ _relative_dotfile_path() {
     local absolute=$(readlink -m "$1")
     echo "${absolute/#$DOTFILES\//}"
 }
+
+
+# Invoke commandline interface
+main "$@"
