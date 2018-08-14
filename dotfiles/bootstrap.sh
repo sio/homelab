@@ -195,17 +195,24 @@ get_target() {
 
 
 get_action() {
-    local dotfile suffix
+    local dotfile suffix reply
     dotfile=$(relative_dotfile_path "$1")
     suffix="${dotfile##*.}"
 
     if [[ $suffix =~ ^($SUFFIXES)$ ]]
     then
-        echo "$suffix"
+        reply="$suffix"
     else
         echo "Invalid dotfile suffix: $suffix ($dotfile)" >&2
         return 1
     fi
+
+    if [[ "$OSTYPE" == "msys" && "$reply" == "link" ]]
+    then
+        reply="copy"  # Windows can't handle symlinks easily
+    fi
+
+    echo "$reply"
 }
 
 
