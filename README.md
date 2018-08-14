@@ -7,7 +7,8 @@ my Unix-like machines. Some kind of schedule has to be set up on each machine
 to fetch changes from origin repository on a regular basis.
 
 Creating symbolic links from appropriate places enables all or
-part of shared configuration.
+part of shared configuration. See [bootstrap.sh](dotfiles/bootstrap.sh) for more
+information
 
 
 ## Directory structure
@@ -15,23 +16,21 @@ part of shared configuration.
 ### ansible/
 Playbooks and roles for automating remote computer maintenance
 
-### cli-tools/
-Configuration files for command line tools (bash, vim, etc)
-
-### cron/
-Simple repeated tasks to be scheduled with cron
-
-### git/
-Hook samples and other reusable files
-
-### gui-apps/
-sSttings for apps with graphical user interface
+### dotfiles/
+Configuration files for command line and graphic tools, easily installed with a
+bootstrap script.
 
 ### packages/
 Package lists for common scenarios
 
+### snippets/
+Git hooks samples and other reusable files
 
-## Licence and copyright
+### submodules/
+Code from other repos that is required by this one
+
+
+## License and copyright
 Copyright 2017 Vitaly Potyarkin
 
 ```
