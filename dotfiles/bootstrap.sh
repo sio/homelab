@@ -23,8 +23,9 @@
 #        Will be ignored
 #
 # The script depends on the following tools:
-#     - GNU coreutils: fmt, ln, mkdir, cp, readlink
+#     - GNU coreutils: fmt, ln, mkdir, cp, readlink, tr (and others)
 #     - GNU find
+#     - GNU grep
 
 
 # Fail loudly on any error
