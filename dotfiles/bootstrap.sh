@@ -114,7 +114,16 @@ install_file() {
         copy)
             cp -v "$file" "$destination" ;;
         append)
-            echo "\'$file\' -> \'$destination\'"
+            local newline="^"
+            local pattern=$(tr '\n' "$newline" < "$file")
+            touch "$destination"
+            if tr '\n' "$newline" < "$destination" | grep -qF "$pattern"
+            then
+                :  # already appended
+            else
+                cat "$file" >> "$destination"
+            fi
+            echo "'$file' -> '$destination'"
             ;;
         esac
     }
