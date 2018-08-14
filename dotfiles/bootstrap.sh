@@ -45,7 +45,7 @@ COLUMNS=$(tput cols)
 
 main() {
     local topic item
-    if [[ -s "$1" ]]  # topic lists
+    if [[ -f "$1" ]]  # topic lists
     then
         for item in "$@"
         do
