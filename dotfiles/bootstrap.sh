@@ -29,6 +29,7 @@
 
 # Fail loudly on any error
 set -e
+set -o pipefail
 
 
 # Global parameters
