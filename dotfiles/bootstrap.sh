@@ -91,11 +91,9 @@ install_topic() {
             -regex ".*\.($SUFFIXES)" \
     )
 
-    if [[ ! -z "$files" ]]
-    then
-        echo -e "\nCONFIGURING TOPIC: $topic"
-    fi
+    [[ -z "$files" ]] && return
 
+    echo -e "\nCONFIGURING TOPIC: $topic"
     ifs_backup="$IFS"
     IFS=$'\n'
     for file in $files
