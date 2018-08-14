@@ -1,0 +1,2 @@
+PREFIX=/etc/X11/xorg.conf.d
+SCOPE=system

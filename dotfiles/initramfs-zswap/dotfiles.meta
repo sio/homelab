@@ -1,0 +1,2 @@
+PREFIX=/etc/initramfs-tools
+SCOPE=system
