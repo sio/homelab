@@ -11,28 +11,29 @@ test -z "$COMMON" && COMMON="$HOME/common"
 # This function can be used to reload settings within running bash session
 _load_shell_settings() {
     local ITEM
-    local SOURCES  # paths relative to $COMMON
+    local SOURCES
+    local PREFIX="/dotfiles/bash/"
     SOURCES=(
-        "cli-tools/bash_prompt"
-        "cli-tools/bash_aliases"
-        "cli-tools/bash_env"
-        "cli-tools/bash_showupdates"
-        "cli-tools/bash_dircolors"
-        "cli-tools/bash_tmout"
-        "cli-tools/bash_interactive"
-        "cli-tools/bash_completion"
+        "bash_prompt"
+        "bash_aliases"
+        "bash_env"
+        "bash_showupdates"
+        "bash_dircolors"
+        "bash_tmout"
+        "bash_interactive"
+        "bash_completion"
     )
 
     if [[ -d "$COMMON" && $- == *i* ]]
     then
         for ITEM in "${SOURCES[@]}"
         do
-            source "$COMMON/$ITEM"  # source is bash builtin, POSIX standard is .
+            source "$COMMON$PREFIX/$ITEM"  # source is bash builtin, POSIX standard is .
         done
     elif [[ -d "$COMMON" ]]
     then
         # Load only environment variables in non-interactive mode
-        source "$COMMON/cli-tools/bash_env"
+        source "$COMMON$PREFIX/bash_env"
     else
         echo "ERROR: \$COMMON is not a directory: $COMMON" &>2
         return 1
