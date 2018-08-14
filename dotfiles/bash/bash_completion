@@ -11,5 +11,5 @@ unset file COMPLETION_EXTRAS
 
 # Enhanced file path completion in bash
 # https://github.com/sio/bash-complete-partial-path
-source "$COMMON/imported/bash-complete-partial-path/bash_completion"
+source "$COMMON/submodules/bash-complete-partial-path/bash_completion"
 _bcpp --defaults
