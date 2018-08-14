@@ -41,24 +41,35 @@ COLUMNS=$(tput cols)
 
 
 main() {
-    if [[ -s "$1" ]]  # list of topics
+    local topic item
+    if [[ -s "$1" ]]  # topic lists
     then
-        local topic
-        grep -Ev '^\s*#|^\s*$' "$1" | while read -r topic
+        for item in "$@"
         do
-            install_topic "$topic"
+            grep -Ev '^\s*#|^\s*$' "$item" | while read -r topic
+            do
+                install_topic "$topic"
+            done
         done
-    elif [[ ! -z "$1" && -d "$DOTFILES/$1" ]]  # single topic
+    elif [[ ! -z "$1" && -d "$DOTFILES/$1" ]]  # topic names
     then
-        install_topic "$1"
+        for item in "$@"
+        do
+            install_topic "$item"
+        done
     else
         printf "%s\n" \
-            "Usage: $(basename "$0") TOPIC|FILENAME" \
-            "    Install dotfiles from $DOTFILES" \
+            "Usage: $(basename "$0") TOPIC [TOPIC2 ...] or" \
+            "       $(basename "$0") FILENAME [FILENAME2 ...]" \
             "" \
-            "Install dotfiles either for a single TOPIC or for several topics listed" \
-            "in FILENAME (one topic per line, blank lines and lines starting with hash" \
-            "symbol are ignored)"
+            "Bootstrap script for $DOTFILES" \
+            "" \
+            "Install dotfiles either for individual TOPICs provided as arguments" \
+            "or for everal topics listed in FILENAMEs (one topic per line, blank "\
+            "lines and lines starting with hash symbol are ignored)" \
+            "" \
+            "All arguments have to be either TOPICs or FILENAMEs. Mixing argument" \
+            "types is not supported and will lead to an error"
     fi
 }
 
