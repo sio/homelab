@@ -71,7 +71,7 @@ install_topic() {
 
 install_file() {
     local file="$1"
-    local action target destination overwritten
+    local action target destination overwritten output
 
     if [[ -z "$file" ]]
     then
@@ -106,9 +106,6 @@ install_file() {
         overwritten=""
     fi
 
-    # Inform user about what's going on
-    echo -e "\n[$action$overwritten]"
-
     # Perform actual action
     execute_action() {
         case "$action" in
@@ -121,8 +118,12 @@ install_file() {
             ;;
         esac
     }
+
+    # Execute verbosely
+    echo -e "\n  [$action$overwritten]"
     mkdir -p "$(dirname "$destination")"
-    echo "  $(execute_action)" | fmt -c
+    output=$(execute_action)  # separate statement to propagate errors properly
+    echo "    $output" | fmt -c -w "$COLUMNS"
 }
 
 
