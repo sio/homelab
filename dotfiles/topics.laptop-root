@@ -1,0 +1,6 @@
+initramfs-kms-intel
+initramfs-zswap
+keyboard
+modprobe
+xfce-flags
+xorg.conf.d
