@@ -41,12 +41,23 @@ install_topic() {
     local topic="$1"
     local file files ifs_backup
 
+    if [[ -z "$topic" ]]
+    then
+        echo "install_topic() requires topic name as an argument" >&2
+        return 1
+    fi
+
     files=$( \
         find \
             "$DOTFILES/$topic" \
             -regextype posix-egrep \
             -regex ".*\.($SUFFIXES)" \
     )
+
+    if [[ ! -z "$files" ]]
+    then
+        echo -e "\nCONFIGURING TOPIC: $topic"
+    fi
 
     ifs_backup="$IFS"
     IFS=$'\n'
@@ -61,6 +72,12 @@ install_topic() {
 install_file() {
     local file="$1"
     local action target destination overwritten
+
+    if [[ -z "$file" ]]
+    then
+        echo "install_file() requires file name as an argument" >&2
+        return 1
+    fi
 
     action=$(get_action "$file")
     target=$(get_target "$file")
