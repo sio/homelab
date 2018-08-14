@@ -3,8 +3,11 @@
 # Setup script for the dotfiles
 #
 # Dotfiles are organized by topic.
-# Topics suffixed with `.system` are treated as targeting /etc/ directory
-# instead of $HOME.
+#
+# If topic directory contains a file named `dotfiles.meta`, it will be sourced
+# upon installing that topic. Use this to specify non-standard target directory
+# for dotfiles (PREFIX) instead of $HOME or to mark the topic that requires
+# root privileges (SCOPE=system).
 #
 # File suffixes correspond to bootstrap actions:
 #     .copy - for files to be copied over to new location
@@ -17,9 +20,9 @@
 #        Will be symlinked from ~/.vimrc
 #     topic-bar/bashrc.copy
 #        Will be copied over to ~/.bashrc
-#     topic-baz.system/etc/default/keyboard.copy
+#     topic-baz/etc/default/keyboard.copy with PREFIX=/etc
 #        Will be copied to /etc/default/keyboard
-#     topic-baz.system/file/without/valid/suffix
+#     topic-baz/file/without/valid/suffix
 #        Will be ignored
 #
 # The script depends on the following tools:
@@ -76,7 +79,7 @@ main() {
 
 install_topic() {
     local topic="$1"
-    local file files ifs_backup
+    local file files ifs_backup meta
 
     if [[ -z "$topic" ]]
     then
@@ -93,6 +96,15 @@ install_topic() {
 
     [[ -z "$files" ]] && return
 
+    # Initialize extra metadata
+    local PREFIX="$HOME"
+    local SCOPE="user"
+
+    # Load custom metadata
+    meta="$DOTFILES/$topic/dotfiles.meta"
+    [[ -s "$meta" ]] && source "$meta"
+
+    # Install all files
     echo -e "\nCONFIGURING TOPIC: $topic"
     ifs_backup="$IFS"
     IFS=$'\n'
@@ -118,17 +130,18 @@ install_file() {
     target=$(get_target "$file")
 
     # Handle system-wide actions
-    if [[ "$action" == *-system ]]
+    if [[ "$SCOPE" == "system" && "$user" != "root" ]]
     then
-        destination="/etc/$target"
-        if [[ "$user" != "root" ]]
-        then
-            echo "Must be root to change system configuration" >&2
-            return 1
-        fi
-        action="${action%%-*}"  # strip -system suffix
-    else
+        echo "Must be root to change system configuration" >&2
+        return 1
+    fi
+
+    # Calculate destination
+    if [[ "$PREFIX" == "$HOME" ]]
+    then
         destination="$HOME/.$target"
+    else
+        destination="$PREFIX/$target"
     fi
 
     # Backup existing files before overwriting
@@ -182,24 +195,17 @@ get_target() {
 
 
 get_action() {
-    local dotfile reply suffix
+    local dotfile suffix
     dotfile=$(relative_dotfile_path "$1")
     suffix="${dotfile##*.}"
 
     if [[ $suffix =~ ^($SUFFIXES)$ ]]
     then
-        reply="$suffix"
+        echo "$suffix"
     else
         echo "Invalid dotfile suffix: $suffix ($dotfile)" >&2
         return 1
     fi
-
-    if [[ "${dotfile%%/*}" == *.system ]]
-    then
-        reply="$reply-system"
-    fi
-
-    echo "$reply"
 }
 
 
