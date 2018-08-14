@@ -104,6 +104,13 @@ install_topic() {
     meta="$DOTFILES/$topic/dotfiles.meta"
     [[ -s "$meta" ]] && source "$meta"
 
+    # Handle system-wide actions
+    if [[ "$SCOPE" == "system" && "$user" != "root" ]]
+    then
+        echo "Must be root to change system configuration" >&2
+        return 1
+    fi
+
     # Install all files
     echo -e "\nCONFIGURING TOPIC: $topic"
     ifs_backup="$IFS"
@@ -128,13 +135,6 @@ install_file() {
 
     action=$(get_action "$file")
     target=$(get_target "$file")
-
-    # Handle system-wide actions
-    if [[ "$SCOPE" == "system" && "$user" != "root" ]]
-    then
-        echo "Must be root to change system configuration" >&2
-        return 1
-    fi
 
     # Calculate destination
     if [[ "$PREFIX" == "$HOME" ]]
