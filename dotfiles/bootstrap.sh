@@ -69,7 +69,7 @@ install_topic() {
 
     if [[ -z "$topic" ]]
     then
-        echo "install_topic() requires topic name as an argument" >&2
+        echo "$FUNCNAME() requires topic name as an argument" >&2
         return 1
     fi
 
@@ -101,7 +101,7 @@ install_file() {
 
     if [[ -z "$file" ]]
     then
-        echo "install_file() requires file name as an argument" >&2
+        echo "$FUNCNAME() requires file name as an argument" >&2
         return 1
     fi
 
@@ -162,10 +162,9 @@ install_file() {
 }
 
 
-# Calculate (relative) target path for a dotfile
 get_target() {
     local dotfile reply
-    dotfile=$(_relative_dotfile_path "$1")
+    dotfile=$(relative_dotfile_path "$1")
 
     reply="${dotfile%.*}"  # remove action suffix
     reply="${reply#*/}"  # remove topic
@@ -173,10 +172,9 @@ get_target() {
 }
 
 
-# Select action required to install the dotfile
 get_action() {
     local dotfile reply suffix
-    dotfile=$(_relative_dotfile_path "$1")
+    dotfile=$(relative_dotfile_path "$1")
     suffix="${dotfile##*.}"
 
     if [[ $suffix =~ ^($SUFFIXES)$ ]]
@@ -196,8 +194,7 @@ get_action() {
 }
 
 
-# Make relative dotfile path
-_relative_dotfile_path() {
+relative_dotfile_path() {
     local absolute=$(readlink -m "$1")
     echo "${absolute/#$DOTFILES\//}"
 }
