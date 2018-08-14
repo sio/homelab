@@ -137,7 +137,7 @@ install_file() {
     if [[ -e "$destination" ]]
     then
         mkdir -p "$DOTFILES_BACKUP"
-        cp --parents "$destination" "$DOTFILES_BACKUP"
+        cp --backup=numbered --parents "$destination" "$DOTFILES_BACKUP"
         overwritten=", old file backed up"
     else
         overwritten=""
