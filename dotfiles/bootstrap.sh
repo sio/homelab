@@ -137,7 +137,7 @@ install_file() {
     target=$(get_target "$file")
 
     # Calculate destination
-    if [[ "$PREFIX" == "$HOME" ]]
+    if [[ "$PREFIX" == "$HOME" ]] # PREFIX value is set in install_topic()
     then
         destination="$HOME/.$target"
     else
