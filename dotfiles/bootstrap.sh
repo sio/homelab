@@ -105,7 +105,7 @@ install_topic() {
     [[ -s "$meta" ]] && source "$meta"
 
     # Handle system-wide actions
-    if [[ "$SCOPE" == "system" && "$user" != "root" ]]
+    if [[ "$SCOPE" == "system" && "$USER" != "root" ]]
     then
         echo "Must be root to change system configuration" >&2
         return 1
