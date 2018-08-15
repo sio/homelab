@@ -19,4 +19,7 @@ See [bootstrap.sh](./bootstrap.sh) for more information.
 
 ### Topics that are not yet added to the dotfiles repo
 
-- *None listed at the moment*
+- **xfce-settings** - window manager/panel/terminal settings (theme), keyboard
+  shortcuts, power manager settings, etc.
+  See `~/.config/xfce4/xfconf/xfce-perchannel-xml/` and decide which files to
+  include in this repo.
