@@ -1,7 +1,7 @@
 #
 # Build a pretty prompt for bash
 #
-# To invoke add `source bash_prompt` to your ~/.bashrc
+# To invoke add `source prompt` to your ~/.bashrc
 #
 
 

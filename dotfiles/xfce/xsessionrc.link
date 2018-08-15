@@ -4,4 +4,4 @@
 #
 # This file is meant to be placed to ~/.xsessionrc
 COMMON="$HOME/.common"
-. "$COMMON/dotfiles/bash/bash_env"
+. "$COMMON/dotfiles/bash/env"

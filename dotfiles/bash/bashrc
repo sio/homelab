@@ -14,14 +14,14 @@ _load_shell_settings() {
     local SOURCES
     local PREFIX="/dotfiles/bash/"
     SOURCES=(
-        "bash_prompt"
-        "bash_aliases"
-        "bash_env"
-        "bash_showupdates"
-        "bash_dircolors"
-        "bash_tmout"
-        "bash_interactive"
-        "bash_completion"
+        "prompt"
+        "aliases"
+        "env"
+        "showupdates"
+        "dircolors"
+        "tmout"
+        "interactive"
+        "completion"
     )
 
     if [[ -d "$COMMON" && $- == *i* ]]
@@ -33,7 +33,7 @@ _load_shell_settings() {
     elif [[ -d "$COMMON" ]]
     then
         # Load only environment variables in non-interactive mode
-        source "$COMMON$PREFIX/bash_env"
+        source "$COMMON$PREFIX/env"
     else
         echo "ERROR: \$COMMON is not a directory: $COMMON" &>2
         return 1
