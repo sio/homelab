@@ -20,7 +20,7 @@
 #        Will be symlinked from ~/.vimrc
 #     topic-bar/bashrc.copy
 #        Will be copied over to ~/.bashrc
-#     topic-baz/etc/default/keyboard.copy with PREFIX=/etc
+#     topic-baz/default/keyboard.copy with PREFIX=/etc
 #        Will be copied to /etc/default/keyboard
 #     topic-baz/file/without/valid/suffix
 #        Will be ignored
