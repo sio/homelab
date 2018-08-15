@@ -1,2 +1,9 @@
+#
+# REUSABLE CONFIG FILES FOR MY LAPTOP
+#
+# Use `./bootstrap.sh topics.laptop` to put all config files in their places.
+# Check individual topic directories to see what configuration will be applied.
+#
+
 fonts
 xfce

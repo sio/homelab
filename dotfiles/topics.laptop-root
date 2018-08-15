@@ -1,3 +1,10 @@
+#
+# REUSABLE CONFIG FILES FOR MY LAPTOP (system-wide configuration)
+#
+# Use `./bootstrap.sh topics.laptop-root` to put all config files in their places.
+# Check individual topic directories to see what configuration will be applied.
+#
+
 initramfs-kms-intel
 initramfs-zswap
 keyboard

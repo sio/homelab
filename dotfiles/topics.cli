@@ -1,3 +1,10 @@
+#
+# ESSENTIAL CONFIGURATION TOPICS FOR ALL SYSTEMS (COMMAND-LINE TOOLS)
+#
+# Use `./bootstrap.sh topics.cli` to put all config files in their places.
+# Check individual topic directories to see what configuration will be applied.
+#
+
 ansible
 bash
 git
