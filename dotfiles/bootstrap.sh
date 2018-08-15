@@ -68,7 +68,7 @@ main() {
             "Bootstrap script for $DOTFILES" \
             "" \
             "Install dotfiles either for individual TOPICs provided as arguments" \
-            "or for everal topics listed in FILENAMEs (one topic per line, blank "\
+            "or for several topics listed in FILENAMEs (one topic per line, blank"\
             "lines and lines starting with hash symbol are ignored)" \
             "" \
             "All arguments have to be either TOPICs or FILENAMEs. Mixing argument" \
