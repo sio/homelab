@@ -23,3 +23,10 @@ See [bootstrap.sh](./bootstrap.sh) for more information.
   shortcuts, power manager settings, etc.
   See `~/.config/xfce4/xfconf/xfce-perchannel-xml/` and decide which files to
   include in this repo.
+
+### Extra functionality for bootstrap.sh
+
+- **Config templates** - add another supported action for `bootstrap.sh` that
+  would generate the configuration file from a template. This has not been done
+  yet because I am not aware of any simple templating engine for bash, and other
+  options (like Jinja2) would make the script less portable
