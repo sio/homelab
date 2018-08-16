@@ -1,5 +1,5 @@
 ---
-- hosts: all
+- hosts: morebooks.ml
   become: yes
   roles:
     - upgrade
