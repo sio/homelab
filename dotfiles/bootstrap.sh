@@ -87,13 +87,16 @@ install_topic() {
         return 1
     fi
 
+    # Notify user what's happening
+    echo -e "\nCONFIGURING TOPIC: $topic"
+
+    # Locate relevant files
     files=$( \
         find \
             "$DOTFILES/$topic" \
             -regextype posix-egrep \
             -regex ".*\.($SUFFIXES)" \
     )
-
     [[ -z "$files" ]] && return
 
     # Initialize extra metadata
@@ -112,7 +115,6 @@ install_topic() {
     fi
 
     # Install all files
-    echo -e "\nCONFIGURING TOPIC: $topic"
     ifs_backup="$IFS"
     IFS=$'\n'
     for file in $files
