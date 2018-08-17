@@ -1,0 +1,8 @@
+# Dummy anacron imitation for user's scheduled tasks
+@reboot     run-parts "$HOME/.cron.d/reboot"
+@yearly     run-parts "$HOME/.cron.d/yearly"
+@annually   run-parts "$HOME/.cron.d/annually"
+@monthly    run-parts "$HOME/.cron.d/monthly"
+@weekly     run-parts "$HOME/.cron.d/weekly"
+@daily      run-parts "$HOME/.cron.d/daily"
+@hourly     run-parts "$HOME/.cron.d/hourly"

@@ -1,0 +1,14 @@
+PREFIX="$HOME/.cron.d"
+
+# This is not an usual `dotfiles.meta`.
+#
+# It injects arbitrary shell code into the bootstrapping process. That is an
+# intended side effect of `bootstrap.sh`, after all you should install only the
+# dotfiles you REALLY trust.
+
+# Save user's crontab before overwriting it
+mkdir -p "$PREFIX"
+crontab -l > "$PREFIX/crontab"
+
+# Install new user crontab (overwrites all existing entries)
+crontab "$DOTFILES/$topic/crontab.copy"

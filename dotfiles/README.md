@@ -13,8 +13,6 @@ See [bootstrap.sh](./bootstrap.sh) for more information.
 
 ### Topics that are not bootstrappable at the moment
 
-- **cron-user** - look into installing cron actions into directories, not with
-  crontab
 - **ssh-client** - the config file is not really generic, needs more thinking
 
 ### Topics that are not yet added to the dotfiles repo
