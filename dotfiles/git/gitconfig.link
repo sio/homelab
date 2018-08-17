@@ -5,4 +5,7 @@
     email = sio.wtf@gmail.com
     name  = Vitaly Potyarkin
 
+[alias]
+    graph = log --oneline --decorate --graph
+
 # vim: syntax=gitconfig
