@@ -11,4 +11,4 @@ mkdir -p "$PREFIX"
 crontab -l > "$PREFIX/crontab"
 
 # Install new user crontab (overwrites all existing entries)
-crontab "$DOTFILES/$topic/crontab.copy"
+crontab "$DOTFILES/$topic/crontab.link"

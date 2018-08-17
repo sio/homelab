@@ -1,0 +1,3 @@
+#!/bin/sh
+# Force update crontab regularly
+crontab "$HOME/.cron.d/crontab"
