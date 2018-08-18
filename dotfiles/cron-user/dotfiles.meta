@@ -8,7 +8,7 @@ PREFIX="$HOME/.cron.d"
 
 # Save user's crontab before overwriting it
 mkdir -p "$PREFIX"
-rm "$PREFIX/crontab" || true  # remove link if exists already
+rm "$PREFIX/crontab" >/dev/null 2>&1|| true  # remove link if exists already
 crontab -l > "$PREFIX/crontab"
 
 # Install new user crontab (overwrites all existing entries)
