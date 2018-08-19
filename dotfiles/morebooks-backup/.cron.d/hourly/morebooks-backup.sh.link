@@ -1,0 +1,7 @@
+#!/bin/sh
+TARGET="$HOME/backup/morebooks"
+SCRIPT="$HOME/bin/morebooks-backup.py"
+
+# Check for marker - if it's older than one day or is missing, fetch backups
+TEST=$(find "$TARGET" -name marker -mtime -1)
+[ -z "$TEST" ] && "$SCRIPT"
