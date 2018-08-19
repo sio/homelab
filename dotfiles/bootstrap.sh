@@ -100,7 +100,7 @@ install_topic() {
     [[ -z "$files" ]] && return
 
     # Initialize extra metadata
-    local PREFIX="$HOME"
+    local PREFIX=""
     local SCOPE="user"
 
     # Load custom metadata
@@ -139,7 +139,7 @@ install_file() {
     target=$(get_target "$file")
 
     # Calculate destination
-    if [[ "$PREFIX" == "$HOME" ]] # PREFIX value is set in install_topic()
+    if [[ -z "$PREFIX" ]] # PREFIX value is set in install_topic()
     then
         destination="$HOME/.$target"
     else
