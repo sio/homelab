@@ -4,8 +4,8 @@
 
 
 # COMMON variable must contain the proper path to the shared config directory,
-# unless the files are placed into default location (~/common).
-test -z "$COMMON" && COMMON="$HOME/common"
+# unless the files are placed into default location (~/.common).
+test -z "$COMMON" && COMMON="$HOME/.common"
 
 
 # This function can be used to reload settings within running bash session

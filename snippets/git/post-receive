@@ -7,4 +7,4 @@ unset GIT_DIR
 
 
 # Update local copy of the files
-git -C "$HOME/common" pull origin
+git -C "$COMMON" pull origin
