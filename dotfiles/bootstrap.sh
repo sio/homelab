@@ -2,12 +2,16 @@
 
 # Setup script for the dotfiles
 #
-# Dotfiles are organized by topic.
+# Dotfiles are organized into directories by topic.
 #
 # If topic directory contains a file named `dotfiles.meta`, it will be sourced
-# upon installing that topic. Use this to specify non-standard target directory
+# upon installing that topic. Use it to specify non-standard target directory
 # for dotfiles (PREFIX) instead of $HOME or to mark the topic that requires
-# root privileges (SCOPE=system).
+# root privileges (SCOPE=system). To avoid adding a dot to the dotfile name
+# when installing it, add explicit PREFIX="$HOME" (or other directory) to
+# `dotfiles.meta`. This file may also be used to inject arbitrary shell code
+# into topic installation process - use that feature with care and NEVER
+# install dotfiles from untrusted sources.
 #
 # File suffixes correspond to bootstrap actions:
 #     .copy - for files to be copied over to new location
