@@ -30,6 +30,18 @@ Git hooks samples and other reusable files
 Code from other repos that is required by this one
 
 
+## List of private information
+
+In case I ever want to publish this repo, here is the list of sensitive
+information that should not be published.
+
+* `ansible/roles/morebooks/defaults/main.yml` - cookie key and ID key for
+  current hlc instance, Google site verification token for my account
+* `dotfiles/git/gitconfig.link` - my name and email
+* `dotfiles/morebooks-backup/bin/morebooks-backup.py.link` - valid user name for
+  logging into morebooks.ml
+
+
 ## License and copyright
 Copyright 2017 Vitaly Potyarkin
 
