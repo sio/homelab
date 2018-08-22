@@ -142,3 +142,8 @@ set foldlevelstart=99
 
 " Do not hide tabs if there are many of them
 set tabpagemax=100
+
+" Do not write any temp files
+set nobackup
+set nowritebackup
+set noswapfile
