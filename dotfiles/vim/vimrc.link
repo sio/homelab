@@ -147,3 +147,9 @@ set tabpagemax=100
 set nobackup
 set nowritebackup
 set noswapfile
+
+" Join comments and indentation when joining lines.
+" https://github.com/joshkel/dotfiles
+if v:version >= 704
+    set formatoptions+=j
+end
