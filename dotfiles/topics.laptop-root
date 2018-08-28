@@ -8,6 +8,6 @@
 initramfs-kms-intel
 initramfs-zswap
 keyboard
-modprobe
+modprobe-nouveau
 xfce-flags
-xorg.conf.d
+xorg-laptop-asus
