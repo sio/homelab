@@ -48,7 +48,7 @@ COLUMNS=$(tput cols)
 
 
 main() {
-    local topic item
+    local topic item retcode
     if [[ -f "$1" ]]  # topic lists
     then
         for item in "$@"
@@ -65,6 +65,13 @@ main() {
             install_topic "$item"
         done
     else
+        if [[ ! -z "$*" && ! "$*" =~ ^(-h|--help|--usage)$ ]]
+        then
+            printf "Invalid command line arguments: $*\n\n" >&2
+            retcode=1
+        else
+            retcode=0
+        fi
         printf "%s\n" \
             "Usage: $(basename "$0") TOPIC [TOPIC2 ...] or" \
             "       $(basename "$0") FILENAME [FILENAME2 ...]" \
@@ -77,6 +84,7 @@ main() {
             "" \
             "All arguments have to be either TOPICs or FILENAMEs. Mixing argument" \
             "types is not supported and will lead to an error"
+        return "$retcode"
     fi
 }
 
