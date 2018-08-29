@@ -62,7 +62,7 @@ set softtabstop=4  " backspace deletes 4 spaces if present
 autocmd Filetype make setlocal noexpandtab " Makefile requires Tab indentation
 
 " Wrap lines automatically for Markdown files
-au FileType markdown set textwidth=80
+au FileType markdown set textwidth=78
 
 " yaml indentation
 au FileType yaml setlocal tabstop=2 shiftwidth=2 softtabstop=2
