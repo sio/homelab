@@ -181,7 +181,7 @@ tree() {
 
         [[ ! -z "$arg" ]] && pushd "$arg" >/dev/null  # use last argument as directory name
         find ./ "${search[@]}" -print \
-            | sed -e 's;[^/]*/;`----;g;s;`*----`;   ;g;s;  -; `-;g;s;\(----\)\([^-]\);\1 \2;g' \
+            | sed -e 's;[^/]*/;`----;g;s;`*----`;  ;g;s; -; `-;g;s;\(`----*\)\([^-]\);\1 \2;g' \
             | tail -n+2
         [[ ! -z "$arg" ]] && popd >/dev/null
     fi
