@@ -145,26 +145,42 @@ start() {
 # Do not clutter asciicasts with nesting levels
 alias asciinema='_NESTED_LEVEL=0 asciinema'
 
-# tree replacement for Msys on Windows
+# Tree implementation (for Msys on Windows and any OS that's missing it)
+#
+# Only -a and -d keys are supported. Shortcuts (-ad, -da) are not supported
 tree() {
     if which tree &>/dev/null
     then
         command tree "$@"
     else
-        local arg search
+        local arg args search
 
-        search=""
-        for arg in "$@"
+        arg=""
+        args=()
+        search=( ! -path \*/\.\* )  # array of extra arguments for `find`
+
+        for arg in "$@"  # this loop may clear default search options
+        do
+            if [[ "$arg" == "-a" ]]
+            then
+                search=()
+            else
+                args+=("$arg")
+            fi
+        done
+
+        arg=""
+        for arg in "${args[@]}"  # this loop only adds search options
         do
             if [[ "$arg" == "-d" ]]
             then
-                search="-type d"
+                search+=( -type d )
                 arg=""
             fi
         done
 
         [[ ! -z "$arg" ]] && pushd "$arg" >/dev/null  # use last argument as directory name
-        find ./ $search -print \
+        find ./ "${search[@]}" -print \
             | sed -e 's;[^/]*/;`----;g;s;`*----`;   ;g;s;  -; `-;g;s;\(----\)\([^-]\);\1 \2;g' \
             | tail -n+2
         [[ ! -z "$arg" ]] && popd >/dev/null
