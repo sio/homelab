@@ -73,7 +73,7 @@ _gitall() {
 
     if [[ -z "$@" ]]
     then
-        set -- "status"  # default subcommand when invoked without arguments
+        set -- "status" "-sb" # default subcommand when invoked without arguments
     fi
 
     find -type d -name .git -print0 2>/dev/null | while read -d $'\0' DIR
