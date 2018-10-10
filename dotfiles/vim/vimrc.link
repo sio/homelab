@@ -158,3 +158,28 @@ end
 " http://vim.wikia.com/wiki/Fix_syntax_highlighting
 noremap <F12> <Esc>:syntax sync fromstart<CR>
 inoremap <F12> <C-o>:syntax sync fromstart<CR>
+
+" Toggle syntax highlighting for 1C files
+"
+" Syntax definition rules can be found in `syntax/` directory of
+" https://github.com/andreevlex/vim-language-1c-bsl
+function! Syntax1CToggle()
+    if !exists("b:Syntax1CLangs")
+        let b:Syntax1CLangs = ['bsl', 'sdbl', 'text']
+    endif
+
+    let current = index(b:Syntax1CLangs, &syntax)
+    if current >= 0
+        let target = b:Syntax1CLangs[(current+1) % len(b:Syntax1CLangs)]
+    else
+        if &syntax != ""
+            call add(b:Syntax1CLangs, &syntax)
+        endif
+        let target = b:Syntax1CLangs[0]
+    endif
+
+    echo "Switching syntax from '" . &syntax . "' to '" . target . "'"
+    let &syntax=target
+endfunction
+noremap <F1> <Esc>:call Syntax1CToggle()<CR>
+inoremap <F1> <C-o>:call Syntax1CToggle()<CR>
