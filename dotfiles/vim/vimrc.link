@@ -159,10 +159,11 @@ end
 noremap <F12> <Esc>:syntax sync fromstart<CR>
 inoremap <F12> <C-o>:syntax sync fromstart<CR>
 
-" Toggle syntax highlighting for 1C files
+" Syntax highlighting for 1C files
 "
-" Syntax definition rules can be found in `syntax/` directory of
+" Language definition rules can be found in `syntax/` directory of
 " https://github.com/andreevlex/vim-language-1c-bsl
+autocmd BufNewFile,BufRead *.*Module.txt set syntax=bsl
 function! Syntax1CToggle()
     if !exists("b:Syntax1CLangs")
         let b:Syntax1CLangs = ['bsl', 'sdbl', 'text']
