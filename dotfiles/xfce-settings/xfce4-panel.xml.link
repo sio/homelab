@@ -43,7 +43,7 @@
     </property>
     <property name="plugin-5" type="string" value="clock">
       <property name="mode" type="uint" value="2"/>
-      <property name="tooltip-format" type="string" value="%H:%M"/>
+      <property name="tooltip-format" type="string" value="%d.%m.%Y"/>
       <property name="digital-format" type="string" value="%H:%M"/>
       <property name="timezone" type="string" value="Europe/Moscow"/>
     </property>
