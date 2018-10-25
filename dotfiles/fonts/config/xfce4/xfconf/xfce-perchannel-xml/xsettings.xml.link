@@ -25,7 +25,7 @@ Other are only available with `xfconf-query`, e.g. `lcdfilter`:
     <property name="DPI" type="int" value="-1"/>
     <property name="Antialias" type="int" value="1"/>
     <property name="Hinting" type="int" value="1"/>
-    <property name="HintStyle" type="string" value="hintfull"/>
+    <property name="HintStyle" type="string" value="hintmedium"/>
     <property name="RGBA" type="string" value="rgb"/>
     <property name="Lcdfilter" type="string" value="lcdlight"/>
   </property>

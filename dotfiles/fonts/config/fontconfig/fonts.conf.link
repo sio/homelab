@@ -35,7 +35,7 @@ experience
 
   <match target="font">
     <edit name="hintstyle" mode="assign">
-      <const>hintfull</const>
+      <const>hintmedium</const>
     </edit>
   </match>
 

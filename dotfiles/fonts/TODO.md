@@ -1,1 +1,0 @@
-Try hintslight with lcddefault
