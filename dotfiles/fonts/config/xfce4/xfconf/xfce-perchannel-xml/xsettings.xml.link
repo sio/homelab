@@ -27,7 +27,7 @@ Other are only available with `xfconf-query`, e.g. `lcdfilter`:
     <property name="Hinting" type="int" value="1"/>
     <property name="HintStyle" type="string" value="hintfull"/>
     <property name="RGBA" type="string" value="rgb"/>
-    <property name="Lcdfilter" type="string" value="lcddefault"/>
+    <property name="Lcdfilter" type="string" value="lcdlight"/>
   </property>
   <property name="Gtk" type="empty">
     <property name="CanChangeAccels" type="empty"/>
