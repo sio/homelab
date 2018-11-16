@@ -2,21 +2,12 @@
 # Protect the system
 #
 ---
+
 - name: allow SSH access (rate-limited)
   ufw:
     port: ssh
     rule: limit
     proto: tcp
-  notify: reload firewall
-
-- name: allow HTTP and HTTPS access
-  ufw:
-    port: '{{ item }}'
-    rule: allow
-    proto: tcp
-  with_items:
-    - http
-    - https
   notify: reload firewall
 
 - name: block outgoing mail

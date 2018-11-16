@@ -2,15 +2,6 @@
 # Configure the operating system
 #
 ---
-- name: use application user for remote access (fallback)
-  set_fact:
-    admin_unprivileged: '{{ username }}'
-  when: (not admin_unprivileged is defined) and (ansible_user == 'root')
-
-- name: select unprivileged account for remote access
-  set_fact:
-    admin_unprivileged: '{{ admin_unprivileged|default(ansible_user) }}'
-
 - name: set default system locale
   debconf:
     name: locales
@@ -74,4 +65,3 @@
     append: yes
   with_items:
     - '{{ username }}'
-    - '{{ admin_unprivileged }}'

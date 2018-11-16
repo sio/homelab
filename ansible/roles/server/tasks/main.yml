@@ -1,0 +1,19 @@
+#
+# Set up generic Debian server
+#
+---
+
+# Create necessary users and groups
+- include: users.yml
+
+# Configure system locale
+- include: locale.yml
+
+# Install essential packages
+- include: packages.yml
+
+# Configure system time settings and timezone
+- include: timekeeping.yml
+
+# Secure the server
+- include: security.yml

@@ -1,0 +1,11 @@
+#
+# Install essential packages
+#
+---
+
+- name: install essential packages
+  package:
+    name: '{{ item }}'
+    state: present
+  with_items: '{{ packages }}'
+

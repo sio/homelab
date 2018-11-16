@@ -1,0 +1,31 @@
+---
+#
+# OPTIONAL PARAMETERS
+#
+# admin_unprivileged
+#   Unprivileged account name used to access the server via SSH. Defaults to
+#   the inventory value of `ansible_user` at the time of invocation. Falls
+#   back to 'unprivileged' when `ansible_user` is root.
+
+
+# Paths to public keys on control machine.
+ssh_public_keys:
+  - '~/.ssh/id_rsa.pub'
+  - '~/.ssh/{{ ansible_hostname }}.pub'
+  - '~/.ssh/{{ ansible_fqdn }}.pub'
+  - '~/.ssh/{{ ansible_nodename }}.pub'
+
+# List of essential packages
+packages:
+  - git
+  - ntp
+  - python3
+  - python3-pip
+  - python3-venv
+  - ufw
+
+# Locale and timezone
+locale:
+  name: 'en_US.UTF-8'
+  charset: 'UTF-8'
+timezone: Europe/Moscow

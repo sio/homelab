@@ -1,0 +1,14 @@
+#
+# Configure system time settings and timezone
+#
+---
+
+- name: set system timezone
+  timezone:
+    name: '{{ timezone }}'
+
+- name: ensure correct timekeeping
+  service:
+    name: ntp  # no problem if clock is managed by host, ntpd will just log errors
+    state: started
+    enabled: yes
