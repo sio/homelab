@@ -1,0 +1,19 @@
+#
+# Install transmission torrent client (headless)
+#
+---
+
+# Tweak system settings for torrenting
+- include: system.yml
+
+# Install and configure daemon
+- include: install.yml
+
+# Install watchdir scripts
+- include: watchdir.yml
+
+# Launch daemon and scripts on OS startup
+- include: startup.yml
+
+# Change security settings
+- include: firewall.yml

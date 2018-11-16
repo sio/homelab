@@ -1,0 +1,17 @@
+#
+# Tweak system settings for torrenting
+#
+---
+
+- name: read kernel parameters from file
+  include_vars:
+    file: files/sysctl.yml
+    name: transmission_sysctl
+
+- name: set kernel networking parameters
+  sysctl:
+    name: '{{ item.key }}'
+    value: '{{ item.value }}'
+    state: present
+    reload: yes
+  with_dict: '{{ transmission_sysctl }}'

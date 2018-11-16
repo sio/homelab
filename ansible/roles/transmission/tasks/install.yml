@@ -1,0 +1,49 @@
+#
+# Install and configure daemon
+#
+---
+
+- name: create transmission user group
+  group:
+    name: '{{ transmission_user }}'
+    state: present
+
+- name: create transmission user
+  user:
+    name: '{{ transmission_user }}'
+    state: present
+    groups: '{{ transmission_user }}'
+    append: yes
+
+- name: install transmission
+  package:
+    name: '{{ item }}'
+    state: present
+  with_items:
+    - transmission-daemon
+    - transmission-cli
+
+- name: calculate configuration directory path
+  set_fact:
+    transmission_config: '/home/{{ transmission_user }}/transmission-config/'
+
+- name: check if transmission settings need to be updated
+  template:
+    src: templates/settings.json.j2
+    dest: '{{ transmission_config }}'
+  check_mode: yes
+  register: transmission_config_check
+
+- name: stop transmission-daemon before applying new config
+  service:
+    name: '{{ transmission_daemon_name }}'
+    state: stopped
+  when: transmission_config_check.changed
+
+- name: copy transmission settings
+  template:
+    src: templates/settings.json.j2
+    dest: '{{ transmission_config }}'
+    mode: '0644'
+    owner: '{{ transmission_user }}'
+    group: '{{ transmission_user }}'

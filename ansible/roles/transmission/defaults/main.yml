@@ -1,0 +1,14 @@
+---
+
+transmission_user: seedbox
+transmission_port: 51413
+transmission_port_rpc: 9091
+
+transmission_watch:
+  - name: default
+    torrents: /storage/torrents/watch
+    destination: /storage/torrents/download
+    extras:
+
+transmission_daemon_name: transmission-seedbox
+transmission_watch_prefix: transmission-watch

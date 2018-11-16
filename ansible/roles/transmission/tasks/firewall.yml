@@ -1,0 +1,14 @@
+#
+# Change security settings
+#
+---
+
+- name: open ports for RPC and peering
+  ufw:
+    port: '{{ item }}'
+    rule: allow
+    proto: any
+  with_items:
+    - '{{ transmission_port }}'
+    - '{{ transmission_port_rpc }}'
+  notify: reload firewall
