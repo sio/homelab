@@ -1,4 +1,7 @@
 ---
+# System wide limit on number of open files. Default: 47804
+'fs.file-max': 102400
+
 #
 # https://github.com/rakshasa/rtorrent/wiki/Performance-Tuning
 #
