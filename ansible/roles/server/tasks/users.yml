@@ -5,26 +5,26 @@
 
 - name: use fallback value for remote managing user
   set_fact:
-    admin_unprivileged: 'unprivileged'
-  when: (not admin_unprivileged is defined) and (ansible_user == 'root')
+    server_remote_user: 'unprivileged'
+  when: (not server_remote_user is defined) and (ansible_user == 'root')
 
 - name: select unprivileged account for remote access
   set_fact:
-    admin_unprivileged: '{{ admin_unprivileged|default(ansible_user) }}'
+    server_remote_user: '{{ server_remote_user|default(ansible_user) }}'
 
 - name: create remote managing user
   user:
-    name: '{{ admin_unprivileged }}'
+    name: '{{ server_remote_user }}'
     state: present
-    groups: '{{ admin_unprivileged }}'
+    groups: '{{ server_remote_user }}'
     append: yes
 
 - name: install ssh keys
   authorized_key:
-    user: '{{ admin_unprivileged }}'
+    user: '{{ server_remote_user }}'
     state: present
     key: '{{ lookup("file", item) }}'
-  with_items: '{{ ssh_public_keys }}'
+  with_items: '{{ server_keys_public }}'
   when: item|expanduser is exists
   register: keys
   failed_when: not keys.results|reject('skipped')|list|count|bool

@@ -7,14 +7,14 @@
   debconf:
     name: locales
     question: locales/default_environment_locale
-    value: '{{ locale }}'
+    value: '{{ server_locale.name }}'
     vtype: select
 
 - name: select locales to generate
   debconf:
     name: locales
     question: locales/locales_to_be_generated
-    value: 'en_US.UTF-8 UTF-8, {{ locale }} {{ charset }}'
+    value: 'en_US.UTF-8 UTF-8, {{ server_locale.name }} {{ server_locale.charset }}'
     vtype: multiselect
 
 - name: generate locales
@@ -22,5 +22,5 @@
     name: '{{ item }}'
   with_items:
     - en_US.UTF-8  # a sensible fallback
-    - '{{ locale }}'
+    - '{{ server_locale.name }}'
 

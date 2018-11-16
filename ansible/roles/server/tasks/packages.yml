@@ -7,5 +7,5 @@
   package:
     name: '{{ item }}'
     state: present
-  with_items: '{{ packages }}'
+  with_items: '{{ server_packages }}'
 

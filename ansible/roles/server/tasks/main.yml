@@ -15,5 +15,5 @@
 # Configure system time settings and timezone
 - include: timekeeping.yml
 
-# Secure the server
+# Protect the system
 - include: security.yml

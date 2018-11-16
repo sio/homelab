@@ -5,7 +5,7 @@
 
 - name: set system timezone
   timezone:
-    name: '{{ timezone }}'
+    name: '{{ server_timezone }}'
 
 - name: ensure correct timekeeping
   service:
