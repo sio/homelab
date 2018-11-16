@@ -33,4 +33,8 @@
   with_items: '{{ server_keys_public }}'
   when: item|expanduser is exists
   register: keys
-  failed_when: not keys.results|reject('skipped')|list|count|bool
+
+- name: check that at least one key was installed
+  fail:
+    msg: no ssh key were installed for '{{ server_remote_user }}'
+  when: keys.results|reject('skipped')|list|count == 0
