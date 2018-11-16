@@ -1,0 +1,22 @@
+[Unit]
+Description=Watch directory for new torrent files ({{ item.name }})
+After=network.target
+RequiresMountsFor=\
+    {{ item.torrents | quote }} \
+    {{ item.destination | quote }}
+
+
+[Service]
+Type=simple
+Restart=always
+ExecStart=\
+    {{ transmission_watch_venv }}/bin/transmission-watch \
+        {{ item.torrents | quote }} \
+        {{ item.destination | quote }} \
+        {{ item.extras | default('') }}
+User={{ transmission_user }}
+Group={{ transmission_user }}
+
+
+[Install]
+WantedBy=multi-user.target
