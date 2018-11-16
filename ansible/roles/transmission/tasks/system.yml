@@ -3,6 +3,16 @@
 #
 ---
 
+- name: enable TCP-LP congestion algorithm
+  modprobe:  # https://www.irif.fr/~jch//software/bittorrent/tcp-congestion-control.html
+    name: tcp_lp
+    state: present
+
+- name: enable kernel modules after reboot
+  copy:
+    content: tcp_lp
+    dest: /etc/modprobe.d/tcplp.conf
+
 - name: read kernel parameters from file
   include_vars:
     file: files/sysctl.yml
