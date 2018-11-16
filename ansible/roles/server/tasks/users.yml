@@ -12,6 +12,11 @@
   set_fact:
     server_remote_user: '{{ server_remote_user|default(ansible_user) }}'
 
+- name: create user group for remote user
+  group:
+    name: '{{ server_remote_user }}'
+    state: present
+
 - name: create remote managing user
   user:
     name: '{{ server_remote_user }}'
