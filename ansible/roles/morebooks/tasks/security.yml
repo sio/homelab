@@ -2,13 +2,6 @@
 # Protect the system
 #
 ---
-- name: allow SSH access (rate-limited)
-  ufw:
-    port: ssh
-    rule: limit
-    proto: tcp
-  notify: reload firewall
-
 - name: allow HTTP and HTTPS access
   ufw:
     port: '{{ item }}'
@@ -18,38 +11,3 @@
     - http
     - https
   notify: reload firewall
-
-- name: block outgoing mail
-  ufw:
-    port: smtp
-    rule: deny
-    direction: out
-  notify: reload firewall
-
-- name: deny all incoming requests by default
-  ufw:
-    state: enabled  # also reloads firewall
-    policy: deny
-  notify: reload firewall
-
-- name: enable firewall (ufw)
-  service:
-    name: ufw
-    state: started
-    enabled: yes
-
-- name: disable root login via ssh
-  lineinfile:
-    dest: /etc/ssh/sshd_config
-    regexp: '^\w*PermitRootLogin'
-    line: 'PermitRootLogin no'
-    state: present
-  notify: restart ssh server
-
-- name: disable password auth via ssh
-  lineinfile:
-    dest: /etc/ssh/sshd_config
-    regexp: '^\w*PasswordAuthentication'
-    line: 'PasswordAuthentication no'
-    state: present
-  notify: restart ssh server
