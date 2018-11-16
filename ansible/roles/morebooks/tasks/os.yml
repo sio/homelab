@@ -27,9 +27,17 @@
 
 - name: application user account
   user:
-    name: '{{ item }}'
+    name: '{{ username }}'
     state: present
     groups: '{{ username }}'
     append: yes
+
+- name: allow HTTP and HTTPS access
+  ufw:
+    port: '{{ item }}'
+    rule: allow
+    proto: tcp
   with_items:
-    - '{{ username }}'
+    - http
+    - https
+  notify: reload firewall
