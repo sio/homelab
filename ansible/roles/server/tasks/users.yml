@@ -11,6 +11,7 @@
 - name: select unprivileged account for remote access
   set_fact:
     server_remote_user: '{{ server_remote_user|default(ansible_user) }}'
+  failed_when: server_remote_user == 'root'
 
 - name: create user group for remote user
   group:
