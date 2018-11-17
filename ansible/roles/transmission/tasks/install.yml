@@ -52,7 +52,7 @@
 - name: copy transmission settings
   template:
     src: templates/settings.json.j2
-    dest: '{{ transmission_config }}'
+    dest: '{{ transmission_config }}/settings.json'
     mode: '0644'
     owner: '{{ transmission_user }}'
     group: '{{ transmission_user }}'
