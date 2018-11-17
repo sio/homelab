@@ -27,6 +27,14 @@
   set_fact:
     transmission_config: '/home/{{ transmission_user }}/transmission-config/'
 
+- name: create configuration directory
+  file:
+    path: '{{ transmission_config }}'
+    state: directory
+    mode: '0755'
+    owner: '{{ transmission_user }}'
+    group: '{{ transmission_user }}'
+
 - name: check if transmission settings need to be updated
   template:
     src: templates/settings.json.j2
@@ -39,6 +47,7 @@
     name: '{{ transmission_daemon_name }}'
     state: stopped
   when: transmission_config_check.changed
+  failed_when: False
 
 - name: copy transmission settings
   template:
