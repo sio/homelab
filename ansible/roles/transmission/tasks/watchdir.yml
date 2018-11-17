@@ -19,7 +19,7 @@
 
 - name: remove outdated watchdir package
   pip:
-    name: https://github.com/sio/watchdir/archive/master.zip
+    name: watchdir
     state: absent
     virtualenv: '{{ transmission_watch_venv }}'
   when: deploy|default(False)
