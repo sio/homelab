@@ -28,4 +28,4 @@
   pip:
     name: https://github.com/sio/watchdir/archive/master.zip
     state: present
-    virtualenv: transmission_watch_venv
+    virtualenv: '{{ transmission_watch_venv }}'
