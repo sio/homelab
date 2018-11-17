@@ -29,6 +29,7 @@
     name: transmission-daemon
     state: stopped
     enabled: no
+  when: transmission_daemon_name != 'transmission-daemon'
 
 - name: start transmission and watchers
   systemd:
