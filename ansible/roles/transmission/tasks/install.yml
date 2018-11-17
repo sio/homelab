@@ -53,6 +53,12 @@
   template:
     src: templates/settings.json.j2
     dest: '{{ transmission_config }}/settings.json'
-    mode: '0644'
+    mode: '0600'  # important! transmission-daemon overwrites otherwise
     owner: '{{ transmission_user }}'
     group: '{{ transmission_user }}'
+  register: transmission_settings_diff
+
+- name: show settings changes (if any)
+  debug:
+    var: transmission_settings_diff
+  when: transmission_settings_diff.changed
