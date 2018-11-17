@@ -17,13 +17,12 @@
 - name: calculate names for transmission watcher services
   set_fact:
     transmission_watch_services: >-
-      ( transmission_watch
+      {{
+      transmission_watch
       | map(attribute="name")
-      | zip_longest([], fillvalue=transmission_watch_prefix)
-      | map("reverse")
-      | map("join", "-")
+      | map("regex_replace", "(.*)", transmission_watch_prefix + "-\1")
       | list
-      )
+      }}
 
 - name: disable distribution default service
   service:
