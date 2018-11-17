@@ -38,7 +38,7 @@
 - name: check if transmission settings need to be updated
   template:
     src: templates/settings.json.j2
-    dest: '{{ transmission_config }}'
+    dest: '{{ transmission_config }}/settings.json'
   check_mode: yes
   register: transmission_config_check
 
