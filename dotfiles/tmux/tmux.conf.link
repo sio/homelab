@@ -6,6 +6,7 @@
 # vim-style keybindings by default
 setw -g mode-keys vi
 
+
 # Ctrl+A is more convenient to press, and it doesn't interfere with VIM
 set-option -g prefix C-a
 bind-key a send-prefix
@@ -40,3 +41,10 @@ if-shell -b '[ "$(echo "$TMUX_VERSION >= 2.1" | bc)" = 1 ]' \
 # UTF8 is autodetected in 2.2 onwards, but errors if explicitly set
 if-shell -b '[ "$(echo "$TMUX_VERSION < 2.2" | bc)" = 1 ]' \
   "set -g utf8 on; set -g status-utf8 on; set -g mouse-utf8 on"
+
+
+# Enable copying to system clipboard
+# https://unix.stackexchange.com/a/131187/5255
+bind -t vi-copy y copy-pipe "xclip -in -selection clipboard"
+# In newer Tmux (>=2.5) the following must be used
+#bind -T copy-mode-vi y send-keys -X copy-pipe-and-cancel 'xclip -in -selection clipboard'
