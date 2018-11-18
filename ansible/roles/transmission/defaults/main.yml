@@ -5,10 +5,23 @@ transmission_port: 51413
 transmission_port_rpc: 9091
 
 transmission_watch:
+  # First destination will be treated as the default.
+  # `extras` value will be passed to transmission-remote as is.
+  #
+  # Unfortunately --uplimit modifies global speed limit intead of limits for
+  # the torrent being added:
+  # https://forum.transmissionbt.com/viewtopic.php?t=19339
   - name: default
-    torrents: /storage/torrents/watch
-    destination: /storage/torrents/download
-    extras:
+    torrents: /storage/torrents/download
+    destination: /storage/data/download
+    extras: --bandwidth-low --seedratio 2
+  - name: music
+    torrents: /storage/torrents/music
+    destination: /storage/data/music
+  - name: longterm
+    torrents: /storage/torrents/longterm
+    destination: /storage/data/longterm
+    extras: --bandwidth-low
 
 transmission_daemon_name: transmission-seedbox
 transmission_watch_prefix: transmission-watch

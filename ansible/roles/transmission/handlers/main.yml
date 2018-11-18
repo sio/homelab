@@ -3,3 +3,16 @@
 - name: reload firewall
   ufw:
     state: reloaded
+
+- name: restart watchers
+  systemd:
+    name: '{{ item }}'
+    state: restarted
+    daemon_reload: yes
+  with_items: '{{ transmission_watch_services }}'
+
+- name: restart transmission
+  systemd:
+    name: '{{ transmission_daemon_name }}'
+    state: restarted
+    daemon_reload: yes
