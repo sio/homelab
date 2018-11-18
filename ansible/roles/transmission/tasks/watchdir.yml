@@ -29,3 +29,17 @@
     name: https://github.com/sio/watchdir/archive/master.zip
     state: present
     virtualenv: '{{ transmission_watch_venv }}'
+
+- name: create all watch directories
+  file:
+    path: '{{ item }}'
+    state: directory
+    mode: '0755'
+    owner: '{{ transmission_user }}'
+    group: '{{ transmission_user }}'
+  with_items: >-
+    {{
+    transmission_watch|map(attribute="torrents")|list
+    +
+    transmission_watch|map(attribute="destination")|list
+    }}
