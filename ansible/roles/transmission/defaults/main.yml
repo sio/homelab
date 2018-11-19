@@ -24,6 +24,8 @@ transmission_instance:
     # Unfortunately --uplimit modifies global speed limit intead of limits for
     # the torrent being added:
     # https://forum.transmissionbt.com/viewtopic.php?t=19339
+  # override:  # override some values in settings.json just for this instance
+  #   upload_limit:
 
 transmission_daemon_prefix: transmission-daemon
 transmission_watch_prefix: transmission-watch
