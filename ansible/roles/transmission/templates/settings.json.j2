@@ -66,8 +66,8 @@
     "start-added-torrents": true,
     "trash-original-torrent-files": false,
     "umask": 18,
-    "upload-limit": {{ transmission_instance.override.upload_limit|default(0) }},
-    "upload-limit-enabled": {{ bool(transmission_instance.override.upload_limit|default(False))|ternary('true', 'false') }},
+    "upload-limit": {{ transmission_instance.get('override',{}).get('upload_limit', 0) }},
+    "upload-limit-enabled": {{ transmission_instance.get('override',{}).get('upload_limit',False)|ternary('true', 'false') }},
     "upload-slots-per-torrent": 10,
     "utp-enabled": true
 }
