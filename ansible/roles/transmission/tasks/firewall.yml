@@ -9,6 +9,6 @@
     rule: allow
     proto: any
   with_items:
-    - '{{ transmission_port }}'
-    - '{{ transmission_port_rpc }}'
+    - '{{ transmission_instance.port }}'
+    - '{{ transmission_instance.port_rpc }}'
   notify: reload firewall

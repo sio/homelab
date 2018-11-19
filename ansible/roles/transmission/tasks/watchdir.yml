@@ -39,7 +39,7 @@
     group: '{{ transmission_user }}'
   with_items: >-
     {{
-    transmission_watch|map(attribute="torrents")|list
+    transmission_instance.watch|map(attribute="torrents")|list
     +
-    transmission_watch|map(attribute="destination")|list
+    transmission_instance.watch|map(attribute="destination")|list
     }}

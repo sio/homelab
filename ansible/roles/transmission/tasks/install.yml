@@ -27,6 +27,10 @@
   set_fact:
     transmission_config: '/home/{{ transmission_user }}/transmission-config/'
 
+- name: calculate daemon name
+  set_fact:
+    transmission_daemon_name: '{{ transmission_daemon_prefix + "-" + transmission_instance.name }}'
+
 - name: create configuration directory
   file:
     path: '{{ transmission_config }}'

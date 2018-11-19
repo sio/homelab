@@ -13,14 +13,14 @@
   template:
     src: templates/watchdir.service.j2
     dest: '/etc/systemd/system/{{ transmission_watch_prefix }}-{{ item.name }}.service'
-  with_items: '{{ transmission_watch }}'
+  with_items: '{{ transmission_instance.watch }}'
   notify: restart watchers
 
 - name: calculate names for transmission watcher services
   set_fact:
     transmission_watch_services: >-
       {{
-      transmission_watch
+      transmission_instance.watch
       | map(attribute="name")
       | map("regex_replace", "(.*)", transmission_watch_prefix + "-\1")
       | list
