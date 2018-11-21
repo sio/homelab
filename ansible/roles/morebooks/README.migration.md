@@ -1,9 +1,13 @@
 # Plans for moving to another hosting provider
+
 ### Provider candidates
+
 - Aruba.it - recommended by multiple users at linux.org.ru (Cloud VPS Small -
   for 1 euro per month)
 - Scaleway - 1.99 euro/month VPS. High quality, good reviews
-- Hetzner Cloud - 2.98 euro/month for 2GB RAM, 20GB disk
+- Hetzner Cloud - 2.49 euro/month for 2GB RAM, 20GB disk, 20TB traffic
+- OVH Cloud - 2.94 euro/month (3.35 USD/mo) for 2GB RAM, 20GB SSD, 100 Mbit/s
+  unmetered
 
 
 # DONE: Migrate morebooks.ml to Scaleway (August 2018)
@@ -23,11 +27,17 @@ entry in sources.list which had prevented updating apt cache.
 
 
 # DONE: Reproducible setup and configuration
+
 - [x] Write ansible roles and playbooks
 - [x] Test setup in virtual machine / container
 
 
 # DONE: Migrate morebooks.ml to WootHosting VPS (September 2017)
+
+Red Hat has discontinued OpenShift v2 in favor of v3 which has stricter
+limitations for free tier. Server was moved to WootHosting (yearly offer at
+LowEndBox)
+
 - [x] Obtain login credentials for new VPS
 - [x] Operating system administration:
     - [x] Perform dist-upgrade
@@ -78,6 +88,7 @@ entry in sources.list which had prevented updating apt cache.
 
 
 # Hosting requirements
+
 - [x] Linux
 - [x] Python3 with pip
 - [x] WSGI-compatible web server
