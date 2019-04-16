@@ -187,3 +187,20 @@ tree() {
     fi
     return 0
 }
+
+
+# Seamless integration with per-app Python virtual environments
+for VENV in ~/bin/*.venv
+do
+    APPNAME="${VENV##*/}"  # Dirname from path
+    APPNAME="${APPNAME/.venv/}"  # Remove .venv suffix
+    if [[ -s "$VENV/bin/$APPNAME" ]]
+    then
+        alias "$APPNAME"="$VENV/bin/$APPNAME"  # Unix-like systems
+    elif [[ -s "$VENV/Scripts/$APPNAME.exe" ]]
+    then
+        alias "$APPNAME"="$VENV/Scripts/$APPNAME.exe"  # Windows
+    fi
+    unset APPNAME
+    unset VENV
+done
