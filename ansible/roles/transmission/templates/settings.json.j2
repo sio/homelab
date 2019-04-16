@@ -61,13 +61,11 @@
     "seed-queue-size": 10,
     "speed-limit-down": 100,
     "speed-limit-down-enabled": false,
-    "speed-limit-up": 100,
-    "speed-limit-up-enabled": false,
+    "speed-limit-up": {{ transmission_instance.get('override',{}).get('upload_limit', 0) }},
+    "speed-limit-up-enabled": {{ transmission_instance.get('override',{}).get('upload_limit',False)|ternary('true', 'false') }},
     "start-added-torrents": true,
     "trash-original-torrent-files": false,
     "umask": 18,
-    "upload-limit": {{ transmission_instance.get('override',{}).get('upload_limit', 0) }},
-    "upload-limit-enabled": {{ transmission_instance.get('override',{}).get('upload_limit',False)|ternary('true', 'false') }},
     "upload-slots-per-torrent": 10,
     "utp-enabled": true
 }
