@@ -25,7 +25,7 @@
 
 - name: calculate configuration directory path
   set_fact:
-    transmission_config: '/home/{{ transmission_user }}/transmission-config/'
+    transmission_config: '/home/{{ transmission_user }}/transmission-config/{{ transmission_instance.name }}'
 
 - name: calculate daemon name
   set_fact:
