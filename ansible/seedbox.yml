@@ -12,10 +12,10 @@
         overrride:
           upload_limit: 3125 # KB/s = 25 Mbit/s
         watch:
-          name: main
-          torrents: /storage/torrents/main
-          destination: /storage/data/main
-          extras: --bandwidth-low --seedratio 2
+          - name: main
+            torrents: /storage/torrents/main
+            destination: /storage/data/main
+            extras: --bandwidth-low --seedratio 2
     - role: transmission
       transmission_instance:
         name: longterm
@@ -24,16 +24,16 @@
         overrride:
           upload_limit: 6250 # KB/s = 50 Mbit/s
         watch:
-          name: longterm
-          torrents: /storage/torrents/longterm
-          destination: /storage/data/longterm
+          - name: longterm
+            torrents: /storage/torrents/longterm
+            destination: /storage/data/longterm
     - role: transmission
       transmission_instance:
         name: music
         port: 51002
         port_rpc: 9002
         watch:
-          name: music
-          torrents: /storage/torrents/music
-          destination: /storage/data/music
+          - name: music
+            torrents: /storage/torrents/music
+            destination: /storage/data/music
 
