@@ -12,6 +12,7 @@
   user:
     name: '{{ transmission_user }}'
     state: present
+    shell: /usr/sbin/nologin
     groups: '{{ transmission_user }}'
     append: yes
 

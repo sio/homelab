@@ -29,6 +29,7 @@
   user:
     name: '{{ username }}'
     state: present
+    shell: /usr/sbin/nologin
     groups: '{{ username }}'
     append: yes
 
