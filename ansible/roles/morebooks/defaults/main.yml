@@ -2,9 +2,6 @@
 #
 # OPTIONAL PARAMETERS
 #
-# admin_unprivileged
-#   Unprivileged account name used to access the server via SSH. Defaults to
-#   the inventory value of `ansible_user` at the time of invocation.
 # deploy
 #   If set to True, forces (re)deployment of HomeLibraryCatalog from GitHub
 #   master branch. Use this to update HomeLibraryCatalog to the latest version.
@@ -26,16 +23,6 @@ hlc:
   title: 'Книжная квартирка'
   cookie_key: 'RZQL51П*0027-/'
   id_key: '18251'
-timezone: Europe/Moscow
-
-#
-# PATHS TO PUBLIC KEYS ON CONTROL MACHINE
-#
-#   Sensible defaults. You might want to change them though.
-#
-ssh_public_keys:
-  - '~/.ssh/id_rsa.pub'
-  - '~/.ssh/{{ url }}.pub'
 
 #
 # WEB SERVER AND HOMELIBRARYCATALOG SETUP
@@ -63,12 +50,6 @@ packages:
   - apache2
   - libapache2-mod-wsgi-py3
   - python-certbot-apache
-  - python3-pip
-  - python3-venv
-  - python3
-  - ufw
-  - git
-  - ntp
 build_deps:
   - python3-lxml
   - python3-pil
@@ -79,5 +60,3 @@ build_deps:
 #   Sensible defaults. There is little to no reason in overriding them.
 #
 username: 'hlc'
-locale: 'en_US.UTF-8'
-charset: 'UTF-8'

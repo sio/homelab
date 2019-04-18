@@ -2,40 +2,6 @@
 # Configure the operating system
 #
 ---
-- name: use application user for remote access (fallback)
-  set_fact:
-    admin_unprivileged: '{{ username }}'
-  when: (not admin_unprivileged is defined) and (ansible_user == 'root')
-
-- name: select unprivileged account for remote access
-  set_fact:
-    admin_unprivileged: '{{ admin_unprivileged|default(ansible_user) }}'
-
-- name: set default system locale
-  debconf:
-    name: locales
-    question: locales/default_environment_locale
-    value: '{{ locale }}'
-    vtype: select
-
-- name: select locales to generate
-  debconf:
-    name: locales
-    question: locales/locales_to_be_generated
-    value: 'en_US.UTF-8 UTF-8, {{ locale }} {{ charset }}'
-    vtype: multiselect
-
-- name: generate locales
-  locale_gen:
-    name: '{{ item }}'
-  with_items:
-    - en_US.UTF-8  # a sensible fallback
-    - '{{ locale }}'
-
-- name: set system timezone
-  timezone:
-    name: '{{ timezone }}'
-
 - name: install software packages
   package:
     name: '{{ item }}'
@@ -54,13 +20,6 @@
   register: deps
   changed_when: 'not(deps.stdout_lines|last|match("^0 .*, 0 .*, 0 .*"))'
 
-- name: ensure correct timekeeping
-  # no problem if clock is managed by host, ntpd will just log errors
-  service:
-    name: ntp
-    state: started
-    enabled: yes
-
 - name: application user group
   group:
     name: '{{ username }}'
@@ -68,10 +27,17 @@
 
 - name: application user account
   user:
-    name: '{{ item }}'
+    name: '{{ username }}'
     state: present
     groups: '{{ username }}'
     append: yes
+
+- name: allow HTTP and HTTPS access
+  ufw:
+    port: '{{ item }}'
+    rule: allow
+    proto: tcp
   with_items:
-    - '{{ username }}'
-    - '{{ admin_unprivileged }}'
+    - http
+    - https
+  notify: reload firewall

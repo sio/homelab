@@ -2,21 +2,12 @@
 # Protect the system
 #
 ---
+
 - name: allow SSH access (rate-limited)
   ufw:
     port: ssh
     rule: limit
     proto: tcp
-  notify: reload firewall
-
-- name: allow HTTP and HTTPS access
-  ufw:
-    port: '{{ item }}'
-    rule: allow
-    proto: tcp
-  with_items:
-    - http
-    - https
   notify: reload firewall
 
 - name: block outgoing mail
@@ -38,15 +29,6 @@
     state: started
     enabled: yes
 
-- name: install ssh keys
-  authorized_key:
-    user: '{{ admin_unprivileged }}'
-    state: present
-    key: '{{ lookup("file", item) }}'
-  when: item|expanduser is exists
-  register: keys
-  with_items: '{{ ssh_public_keys }}'
-
 - name: disable root login via ssh
   lineinfile:
     dest: /etc/ssh/sshd_config
@@ -62,5 +44,3 @@
     line: 'PasswordAuthentication no'
     state: present
   notify: restart ssh server
-  # Run this task only if at least one key was installed
-  when: "{{ keys.results|reject('skipped')|list|count|bool }}"

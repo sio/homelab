@@ -8,9 +8,6 @@
 # System wide configuration
 - include: os.yml
 
-# Security settings
-- include: security.yml
-
 # Enable HTTPS
 - include: ssl.yml
 

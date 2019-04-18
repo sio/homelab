@@ -1,0 +1,31 @@
+---
+#
+# OPTIONAL PARAMETERS
+#
+# server_remote_user
+#   Unprivileged account name used to access the server via SSH. Defaults to
+#   the inventory value of `ansible_user` at the time of invocation. Falls
+#   back to 'unprivileged' when `ansible_user` is root.
+
+
+# Paths to public keys on control machine.
+server_keys_public:
+  - '~/.ssh/id_rsa.pub'
+  - '~/.ssh/{{ ansible_hostname }}.pub'
+  - '~/.ssh/{{ ansible_fqdn }}.pub'
+  - '~/.ssh/{{ ansible_nodename }}.pub'
+
+# List of essential packages
+server_packages:
+  - git
+  - ntp
+  - python3
+  - python3-pip
+  - python3-venv
+  - ufw
+
+# Locale and timezone
+server_locale:
+  name: 'en_US.UTF-8'
+  charset: 'UTF-8'
+server_timezone: Europe/Moscow

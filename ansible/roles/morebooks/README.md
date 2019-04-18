@@ -9,9 +9,6 @@ parameters listed at the beginning of the file to deploy a different web site.
 
 Variables that are not defined by default:
 
-- **admin_unprivileged** -
-  Unprivileged account name used to access the server via SSH. Defaults to the
-  inventory value of `ansible_user` at the time of invocation.
 - **deploy** -
   If set to True, forces (re)deployment of HomeLibraryCatalog from GitHub master
   branch. Use this to update HomeLibraryCatalog to the latest version.

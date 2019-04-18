@@ -1,0 +1,45 @@
+#
+# Install watchdir scripts
+#
+---
+
+- name: calculate virtual environment location
+  set_fact:
+    transmission_watch_venv: '/home/{{ transmission_user }}/watchdir-venv'
+
+- name: create Python virtual environment and update pip
+  pip:
+    name: '{{ item }}'
+    state: latest
+    virtualenv: '{{ transmission_watch_venv }}'
+    virtualenv_command: '/usr/bin/python3 -m venv'
+  with_items:
+    - pip
+    - setuptools
+
+- name: remove outdated watchdir package
+  pip:
+    name: watchdir
+    state: absent
+    virtualenv: '{{ transmission_watch_venv }}'
+  when: deploy|default(False)
+
+- name: install watchdir from GitHub
+  pip:
+    name: https://github.com/sio/watchdir/archive/master.zip
+    state: present
+    virtualenv: '{{ transmission_watch_venv }}'
+
+- name: create all watch directories
+  file:
+    path: '{{ item }}'
+    state: directory
+    mode: '0755'
+    owner: '{{ transmission_user }}'
+    group: '{{ transmission_user }}'
+  with_items: >-
+    {{
+    transmission_instance.watch|map(attribute="torrents")|list
+    +
+    transmission_instance.watch|map(attribute="destination")|list
+    }}

@@ -1,0 +1,40 @@
+#
+# Create necessary users and groups
+#
+---
+
+- name: use fallback value for remote managing user
+  set_fact:
+    server_remote_user: 'unprivileged'
+  when: (not server_remote_user is defined) and (ansible_user == 'root')
+
+- name: select unprivileged account for remote access
+  set_fact:
+    server_remote_user: '{{ server_remote_user|default(ansible_user) }}'
+  failed_when: server_remote_user == 'root'
+
+- name: create user group for remote user
+  group:
+    name: '{{ server_remote_user }}'
+    state: present
+
+- name: create remote managing user
+  user:
+    name: '{{ server_remote_user }}'
+    state: present
+    groups: '{{ server_remote_user }}'
+    append: yes
+
+- name: install ssh keys
+  authorized_key:
+    user: '{{ server_remote_user }}'
+    state: present
+    key: '{{ lookup("file", item) }}'
+  with_items: '{{ server_keys_public }}'
+  when: item|expanduser is exists
+  register: keys
+
+- name: check that at least one key was installed
+  fail:
+    msg: no ssh key were installed for '{{ server_remote_user }}'
+  when: keys.results|reject('skipped')|list|count == 0

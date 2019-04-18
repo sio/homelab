@@ -1,0 +1,24 @@
+[Unit]
+Description=Transmission BitTorrent Daemon
+After=network.target
+
+
+[Service]
+Type=notify
+Restart=always
+ExecStart=\
+    /usr/bin/transmission-daemon \
+        --foreground \
+        --log-error \
+        --config-dir {{ transmission_config | quote }}
+ExecStop=/bin/kill -s STOP $MAINPID
+ExecReload=/bin/kill -s HUP $MAINPID
+User={{ transmission_user }}
+Group={{ transmission_user }}
+Nice=10
+IOSchedulingPriority=7
+
+
+[Install]
+WantedBy=multi-user.target
+

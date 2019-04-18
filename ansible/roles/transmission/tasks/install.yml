@@ -1,0 +1,69 @@
+#
+# Install and configure daemon
+#
+---
+
+- name: create transmission user group
+  group:
+    name: '{{ transmission_user }}'
+    state: present
+
+- name: create transmission user
+  user:
+    name: '{{ transmission_user }}'
+    state: present
+    groups: '{{ transmission_user }}'
+    append: yes
+
+- name: install transmission
+  package:
+    name: '{{ item }}'
+    state: present
+  with_items:
+    - transmission-daemon
+    - transmission-cli
+
+- name: calculate configuration directory path
+  set_fact:
+    transmission_config: '/home/{{ transmission_user }}/transmission-config/{{ transmission_instance.name }}'
+
+- name: calculate daemon name
+  set_fact:
+    transmission_daemon_name: '{{ transmission_daemon_prefix + "-" + transmission_instance.name }}'
+
+- name: create configuration directory
+  file:
+    path: '{{ transmission_config }}'
+    state: directory
+    mode: '0755'
+    owner: '{{ transmission_user }}'
+    group: '{{ transmission_user }}'
+
+- name: check if transmission settings need to be updated
+  template:
+    src: templates/settings.json.j2
+    dest: '{{ transmission_config }}/settings.json'
+  check_mode: yes
+  register: transmission_config_check
+
+- name: stop transmission-daemon before applying new config
+  service:
+    name: '{{ transmission_daemon_name }}'
+    state: stopped
+  when: transmission_config_check.changed
+  failed_when: False
+
+- name: copy transmission settings
+  template:
+    src: templates/settings.json.j2
+    dest: '{{ transmission_config }}/settings.json'
+    mode: '0600'  # important! transmission-daemon overwrites otherwise
+    owner: '{{ transmission_user }}'
+    group: '{{ transmission_user }}'
+    backup: yes
+  register: transmission_settings_diff
+
+- name: show settings changes (if any)
+  debug:
+    var: transmission_settings_diff
+  when: transmission_settings_diff.changed
