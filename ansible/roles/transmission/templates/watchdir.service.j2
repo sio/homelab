@@ -16,6 +16,7 @@ ExecStart=\
         {{ item.extras | default('') }}
 User={{ transmission_user }}
 Group={{ transmission_user }}
+Environment=TR_HOST=localhost:{{ transmission_instance.port_rpc }}
 
 
 [Install]
