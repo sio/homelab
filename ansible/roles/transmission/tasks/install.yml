@@ -36,7 +36,7 @@
   file:
     path: '{{ transmission_config }}'
     state: directory
-    mode: '0755'
+    mode: '0775'
     owner: '{{ transmission_user }}'
     group: '{{ transmission_user }}'
 

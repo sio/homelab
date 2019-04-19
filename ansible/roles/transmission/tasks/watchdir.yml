@@ -34,7 +34,7 @@
   file:
     path: '{{ item }}'
     state: directory
-    mode: '0755'
+    mode: '0775'
     owner: '{{ transmission_user }}'
     group: '{{ transmission_user }}'
   with_items: >-
