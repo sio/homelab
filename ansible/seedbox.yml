@@ -4,6 +4,8 @@
   roles:
     - upgrade
     - motd
+    - role: munin_fdcount
+      munin_fdcount_target: transmission-daemon
     - role: transmission
       transmission_instance:
         name: main
