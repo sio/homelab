@@ -22,6 +22,14 @@
   # TODO: /etc/munin/plugin/
   notify: restart Munin node
 
+- name: allow LAN access to web interface
+  ufw:
+    port: 4948
+    rule: allow
+    proto: tcp
+    src: 192.168.0.0/16
+  notify: reload firewall
+
 - name: start services
   service:
     name: '{{ item }}'
