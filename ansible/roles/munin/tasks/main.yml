@@ -9,22 +9,33 @@
   with_items:
     - munin
     - munin-node
+    - apache2
+    - libcgi-fast-perl
+    - libapache2-mod-fcgid
+  notify: restart web server
 
 - name: configure master
-  # TODO: /etc/munin/munin.conf
+  # Debian default is fine: /etc/munin/munin.conf
   notify: restart Munin master
 
 - name: configure node
-  # TODO: /etc/munin/munin-node.conf
+  # Debian default is fine: /etc/munin/munin-node.conf
   notify: restart Munin node
 
 - name: enable generic plugins
   # TODO: /etc/munin/plugin/
   notify: restart Munin node
 
+- name: configure web server
+  file:
+    src: /etc/munin/apache24.conf
+    dest: /etc/apache2/sites-enabled/munin.conf
+    state: link
+  notify: restart web server
+
 - name: allow LAN access to web interface
   ufw:
-    port: 4948
+    port: 80
     rule: allow
     proto: tcp
     src: 192.168.0.0/16
@@ -37,3 +48,4 @@
   with_items:
     - munin
     - munin-node
+    - apache2
