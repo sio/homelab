@@ -46,6 +46,5 @@
     name: '{{ item }}'
     state: started
   with_items:
-    - munin
     - munin-node
     - apache2
