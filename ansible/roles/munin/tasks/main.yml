@@ -14,17 +14,17 @@
     - libapache2-mod-fcgid
   notify: restart web server
 
-- name: configure master
-  # Debian default is fine: /etc/munin/munin.conf
-  notify: restart Munin master
-
-- name: configure node
-  # Debian default is fine: /etc/munin/munin-node.conf
-  notify: restart Munin node
-
-- name: enable generic plugins
-  # TODO: /etc/munin/plugin/
-  notify: restart Munin node
+#- name: configure master
+#  # Debian default is fine: /etc/munin/munin.conf
+#  notify: restart Munin master
+#
+#- name: configure node
+#  # Debian default is fine: /etc/munin/munin-node.conf
+#  notify: restart Munin node
+#
+#- name: enable generic plugins
+#  # TODO: /etc/munin/plugin/
+#  notify: restart Munin node
 
 - name: configure web server
   file:
