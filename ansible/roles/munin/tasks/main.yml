@@ -1,0 +1,31 @@
+#
+# Install and configure Munin
+#
+---
+- name: install required packages
+  package:
+    name: '{{ item }}'
+    state: present
+  with_items:
+    - munin
+    - munin-node
+
+- name: configure master
+  # TODO: /etc/munin/munin.conf
+  notify: restart Munin master
+
+- name: configure node
+  # TODO: /etc/munin/munin-node.conf
+  notify: restart Munin node
+
+- name: enable generic plugins
+  # TODO: /etc/munin/plugin/
+  notify: restart Munin node
+
+- name: start services
+  service:
+    name: '{{ item }}'
+    state: started
+  with_items:
+    - munin
+    - munin-node

@@ -1,0 +1,2 @@
+# REQUIRED VARIABLES
+#   munin_fdcount_target: executable name to monitor processes for
