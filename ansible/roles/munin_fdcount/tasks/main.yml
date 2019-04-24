@@ -2,7 +2,7 @@
 - name: install fdcount plugin
   get_url:
     url: https://github.com/sio/munin_plugin_fdcount/raw/master/fdcount.py
-    dest: '/etc/munin/plugin/fdcount_{{ munin_fdcount_target }}'
+    dest: '/etc/munin/plugins/fdcount_{{ munin_fdcount_target }}'
     mode: '0755'
   notify: restart Munin node
 
