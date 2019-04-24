@@ -33,6 +33,13 @@
     state: link
   notify: restart web server
 
+- name: allow LAN access to Munin reports
+  replace:
+    dest: /etc/munin/apache24.conf
+    regexp: 'Require\s+local'
+    replace: 'Require ip 192.168.0.0/16'
+  notify: restart web server
+
 - name: allow LAN access to web interface
   ufw:
     port: 80
