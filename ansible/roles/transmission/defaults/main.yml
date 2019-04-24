@@ -6,7 +6,7 @@ transmission_instance:
   name: main
   port: 51413
   port_rpc: 9091
-  watch:
+  watch:  # empty list disables watchdirs
     - name: default
       torrents: /storage/torrents/download
       destination: /storage/data/download

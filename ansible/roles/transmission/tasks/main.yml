@@ -11,6 +11,7 @@
 
 # Install watchdir scripts
 - include: watchdir.yml
+  when: '{{ transmission_instance.watch|length > 0 }}'
 
 # Launch daemon and scripts on OS startup
 - include: startup.yml
