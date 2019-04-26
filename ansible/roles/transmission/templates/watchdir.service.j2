@@ -18,6 +18,7 @@ ExecStart=\
         {{ item.extras | default('') }}
 User={{ transmission_user }}
 Group={{ transmission_user }}
+NoNewPrivileges=true
 Environment=TR_HOST=localhost:{{ transmission_instance.port_rpc }}
 
 

@@ -17,6 +17,7 @@ ExecStop=/bin/kill -s STOP $MAINPID
 ExecReload=/bin/kill -s HUP $MAINPID
 User={{ transmission_user }}
 Group={{ transmission_user }}
+NoNewPrivileges=true
 Nice=10
 IOSchedulingPriority=7
 
