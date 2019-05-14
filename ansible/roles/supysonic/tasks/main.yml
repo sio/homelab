@@ -11,8 +11,9 @@
     - ffmpeg
 
 - name: create application user group
-  group: '{{ supysonic_user }}'
-  state: present
+  group:
+    name: '{{ supysonic_user }}'
+    state: present
 
 - name: create application user account
   user:
