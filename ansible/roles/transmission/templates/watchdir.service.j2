@@ -12,7 +12,7 @@ RequiresMountsFor=\
 Type=simple
 Restart=always
 ExecStart=\
-    {{ transmission_watch_venv }}/bin/transmission-watch \
+    {{ transmission_watch_venv | quote }}/bin/transmission-watch \
         {{ item.torrents | quote }} \
         {{ item.destination | quote }} \
         {{ item.extras | default('') }}
