@@ -1,0 +1,18 @@
+# {{ ansible_managed }}
+
+[Unit]
+Description=Watch directory for new music (supysonic)
+After=network.target
+RequiresMountsFor={{ supysonic_music_dir | quote }}
+
+
+[Service]
+Type=simple
+Restart=always
+ExecStart={{ supysonic_venv | quote }}/bin/supysonic-watcher
+User={{ supysonic_user }}
+NoNewPrivileges=true
+
+
+[Install]
+WantedBy=multi-user.target

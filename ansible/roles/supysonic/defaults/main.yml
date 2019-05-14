@@ -1,0 +1,5 @@
+---
+# REQUIRED VARIABLES
+#   supysonic_music_dir: path to music directory
+#   supysonic_url: url under which this supysonic instance will be available
+supysonic_user: music

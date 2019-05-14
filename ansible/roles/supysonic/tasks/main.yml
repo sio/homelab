@@ -1,0 +1,92 @@
+---
+
+- name: install required packages
+  package:
+    name: '{{ item }}'
+    state: present
+  with_items:
+    - python3
+    - apache2
+    - libapache2-mod-wsgi-py3
+    - ffmpeg
+
+- name: create application user group
+  group: '{{ supysonic_user }}'
+  state: present
+
+- name: create application user account
+  user:
+    name: '{{ supysonic_user }}'
+    state: present
+    shell: /usr/sbin/nologin
+    groups: '{{ supysonic_user }}'
+    append: yes
+
+- name: calculate path to virtual environment
+  set_fact:
+    supysonic_venv: '/home/{{ supysonic_user }}/supysonic_venv'
+
+- name: create Python virtual environment
+  pip:
+    name: '{{ item }}'
+    state: latest
+    virtualenv: '{{ supysonic_venv }}'
+    virtualenv_command: '/usr/bin/python3 -m venv'
+  with_items:
+    - pip
+    - setuptools
+
+- name: install supysonic
+  pip:
+    name: 'https://github.com/spl0k/supysonic/tarball/master#egg=supysonic[watcher]'
+    state: '{{ "latest" if supysonic_update is defined else "present" }}'
+    virtualenv: '{{ supysonic_venv }}'
+
+- name: configure supysonic  # TODO: write config template
+  template:
+    src: templates/supysonic.conf.j2
+    dest: '/home/{{ supysonic_user }}/.supysonic'
+  notify: reload web server
+
+- name: copy WSGI script
+  get_url:
+    url: https://github.com/spl0k/supysonic/raw/master/cgi-bin/supysonic.wsgi
+    dest: '{{ supysonic_venv }}/supysonic.wsgi'
+    mode: '0644'
+  notify: reload web server
+
+- name: configure web server
+  template:
+    src: templates/apache.conf.j2
+    dest: '/etc/apache2/sites-enabled/{{ supysonic_url }}.conf'
+    mode: '0644'
+  notify: reload web server
+
+# TODO: enable SSL with Let's Encrypt or self-signed
+
+- name: start web server
+  service:
+    name: apache2
+    state: started
+    enabled: yes
+
+- name: configure watcher
+  template:
+    src: templates/watcher.service.j2
+    dest: '/etc/systemd/system/supysonic-watcher.service'
+
+- name: start watcher
+  service:
+    name: supysonic-watcher
+    state: started
+    enabled: yes
+    daemon_reload: yes
+
+- name: allow HTTP access
+  ufw:
+    port: '{{ item }}'
+    rule: allow
+    proto: tcp
+  with_items:
+    - http
+  notify: reload firewall

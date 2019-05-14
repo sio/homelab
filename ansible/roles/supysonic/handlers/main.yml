@@ -1,0 +1,9 @@
+---
+- name: reload web server
+  service:
+    name: apache2
+    state: reloaded
+
+- name: reload firewall
+  ufw:
+    state: reloaded
