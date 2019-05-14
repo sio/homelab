@@ -16,3 +16,8 @@ Variables that are not defined by default:
   Local directory with application data archives (sqlite db + file uploads).
   When setting up a new server this directory will be used to restore the latest
   backup from archive. Backups must be sortable by file name.
+
+
+## TODO
+
+- Rename variables with the same prefix (`hlc_`)
