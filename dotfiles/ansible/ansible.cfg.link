@@ -6,6 +6,9 @@ stdout_callback = debug
 # Do not clutter file system with retry files
 retry_files_enabled = no
 
+# Enable pipelining for switching to unprivileged users
+pipelining = True
+
 
 [ssh_connection]
 
