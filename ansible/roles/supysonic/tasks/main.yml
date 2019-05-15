@@ -23,9 +23,12 @@
     groups: '{{ supysonic_user }}'
     append: yes
 
-- name: calculate path to virtual environment
+- name: calculate application paths
   set_fact:
     supysonic_venv: '/home/{{ supysonic_user }}/supysonic_venv'
+    supysonic_db: '/home/{{ supysonic_user }}/supysonic.db'
+    supysonic_admin: 'Admin_{{ lookup("password", "/dev/null length=3 chars=ascii_letters") }}'
+    supysonic_pass: '{{ lookup("password", "/dev/null length=9") }}'
 
 - name: create Python virtual environment
   pip:
@@ -48,6 +51,32 @@
     src: templates/supysonic.conf.j2
     dest: '/home/{{ supysonic_user }}/.supysonic'
   notify: reload web server
+
+- name: initialize supysonic database
+  command: >
+    {{ supysonic_venv|quote }}/bin/supysonic-cli
+    user add {{ supysonic_admin|quote }} -a -p {{ supysonic_pass|quote }}
+  args:
+    creates: '{{ supysonic_db }}'
+  become: yes
+  become_user: '{{ supysonic_user }}'
+  register: supysonic_init
+
+- name: add music folder to supysonic
+  command: >
+    {{ supysonic_venv|quote }}/bin/supysonic-cli
+    folder add Library {{ supysonic_music_dir|quote }}
+  become: yes
+  become_user: '{{ supysonic_user }}'
+  when: supysonic_init.changed
+
+- name: show administrator credentials (for new database)
+  debug:
+    msg: |-
+      Created new Supysonic database: {{ supysonic_db }}
+      Administrator: {{ supysonic_admin }}
+      Password:      {{ supysonic_pass }}
+  when: supysonic_init.changed
 
 - name: copy WSGI script
   get_url:
