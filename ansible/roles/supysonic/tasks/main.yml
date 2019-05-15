@@ -26,6 +26,7 @@
 - name: calculate application paths
   set_fact:
     supysonic_venv: '/home/{{ supysonic_user }}/supysonic_venv'
+    supysonic_cache: '/home/{{ supysonic_user }}/supysonic_cache'
     supysonic_db: '/home/{{ supysonic_user }}/supysonic.db'
     supysonic_admin: 'Admin_{{ lookup("password", "/dev/null length=3 chars=ascii_letters") }}'
     supysonic_pass: '{{ lookup("password", "/dev/null length=9") }}'
@@ -46,7 +47,7 @@
     state: '{{ "latest" if supysonic_update is defined else "present" }}'
     virtualenv: '{{ supysonic_venv }}'
 
-- name: configure supysonic  # TODO: write config template
+- name: configure supysonic
   template:
     src: templates/supysonic.conf.j2
     dest: '/home/{{ supysonic_user }}/.supysonic'
