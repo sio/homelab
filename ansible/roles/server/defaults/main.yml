@@ -20,6 +20,7 @@ server_packages:
   - git
   - ntp
   - python3
+  - python-pip
   - python3-pip
   - python3-venv
   - ufw
