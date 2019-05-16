@@ -33,13 +33,12 @@
 
 - name: create Python virtual environment
   pip:
-    name: '{{ item }}'
+    name:
+      - setuptools
+      - pip
     state: latest
     virtualenv: '{{ supysonic_venv }}'
     virtualenv_command: '/usr/bin/python3 -m venv'
-  with_items:
-    - pip
-    - setuptools
 
 - name: install supysonic
   pip:
