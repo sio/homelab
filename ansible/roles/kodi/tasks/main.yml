@@ -1,0 +1,28 @@
+---
+
+- name: install packages
+  package:
+    name: '{{ item }}'
+    state: present
+  with_items:
+    - kodi
+
+- name: create user account
+  user:
+    name: '{{ kodi_user }}'
+    state: present
+    create_home: no
+
+- name: configure Kodi session  # TODO
+
+- name: launch Kodi on startup  # TODO
+
+- name: allow DLNA in firewall
+  ufw:
+    rule: allow
+    port: '{{ item }}'
+    proto: any
+  with_items:
+    - 1900
+    - 2869
+  notify: reload firewall
