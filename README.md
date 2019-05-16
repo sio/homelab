@@ -1,4 +1,5 @@
 # Common configuration files for my Unix-like machines
+
 Configuration files (dotfiles) and other common files shared between
 my local and remote machines (mostly server-side stuff)
 
@@ -14,23 +15,29 @@ information
 ## Directory structure
 
 ### ansible/
+
 Playbooks and roles for automating remote computer maintenance
 
 ### dotfiles/
+
 Configuration files for command line and graphic tools, easily installed with a
 bootstrap script.
 
 ### packages/
+
 Package lists for common scenarios
 
 ### snippets/
+
 Git hooks samples and other reusable files
 
 ### submodules/
+
 Code from other repos that is required by this one
 
 
 ## License and copyright
+
 Copyright 2017 Vitaly Potyarkin
 
 ```
@@ -49,6 +56,7 @@ Copyright 2017 Vitaly Potyarkin
 
 
 ## Contributing
+
 This project is intended for personal use, and I doubt it would attract any
 contributors. If you have anything to add or suggest, please contact me.
 I can't guarantee I'll accept your proposal, but I promise to behave
