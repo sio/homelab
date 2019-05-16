@@ -1,0 +1,2 @@
+# REQUIRED
+#   samba_users: list of dictionaries of username->password pairs

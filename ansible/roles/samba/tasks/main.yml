@@ -1,0 +1,50 @@
+---
+
+- name: install packages
+  package:
+    name: '{{ item }}'
+    state: present
+  with_items:
+    - samba
+
+- name: create user accounts
+  user:
+    name: '{{ item.username }}'
+    state: present
+    create_home: no
+  with_items: '{{ samba_users }}'
+  loop_control:
+    label: '{{ item.username }}'
+
+- name: define passwords for users
+  shell: >
+    (pdbedit --user={{ item.username }} 2>&1 > /dev/null)
+    || echo -e {{ item.password|quote }}'\n'{{ item.password|quote }}
+    | smbpasswd -s -a {{ item.username }}
+  register: samba_init
+  changed_when: 'Added user' in samba_init.stdout
+  with_items: '{{ samba_users }}'
+  loop_control:
+    label: '{{ item.username }}'
+  notify: restart samba server
+
+- name: configure samba server  # TODO
+  notify: restart samba server
+
+- name: start samba server
+  service:
+    name: smbd
+    state: started
+    enabled: yes
+
+- name: allow access to shared directories
+  ufw:
+    rule: allow
+    port: '{{ item.key }}'
+    proto: '{{ item.value }}'
+  with_dict:
+    137: udp
+    138: udp
+    139: tcp
+    445: tcp
+  notify: reload firewall

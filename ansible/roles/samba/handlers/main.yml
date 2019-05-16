@@ -1,0 +1,10 @@
+---
+
+- name: restart samba server
+  service:
+    name: smbd
+    state: restarted
+
+- name: reload firewall
+  ufw:
+    state: reloaded
