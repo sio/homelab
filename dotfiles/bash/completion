@@ -2,6 +2,7 @@
 # https://salsa.debian.org/debian/bash-completion
 COMPLETION_EXTRAS=(
     "/usr/share/bash-completion/completions/git"
+    "/usr/share/bash-completion/bash_completion"
 )
 for file in "${COMPLETION_EXTRAS[@]}"
 do
