@@ -16,7 +16,7 @@ alias bones="grep -Ev '^\s*#|^\s*$'"
 alias show="tail -v -n+0"
 
 # Show file listing when changing current directory
-_cd() {
+_cd_with_listing() {
     local CMD="builtin cd"
     local DEST
     if [ "$#" -eq 0 ]
@@ -31,13 +31,13 @@ _cd() {
     fi
     $CMD "$@" && ls
 }
-alias cd=_cd
+alias cd=_cd_with_listing
 
 # Pretty diff like `git diff`
-_diff() {
+_diff_pretty() {
     command diff --color=always "$@" | less -rXF
 }
-alias diff=_diff
+alias diff=_diff_pretty
 
 # Make directory and cd into it
 mkcd() {
