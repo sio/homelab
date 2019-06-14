@@ -1,0 +1,34 @@
+# Quilt patch manager configuration
+#
+# https://wiki.debian.org/UsingQuilt
+# https://raphaelhertzog.com/2012/08/08/how-to-use-quilt-to-manage-patches-in-debian-packages/
+
+
+# General configuration
+
+QUILT_COLORS="diff_hdr=1;32:diff_add=1;34:diff_rem=1;31:diff_hunk=1;33:diff_ctx=35:diff_cctx=33"
+QUILT_DIFF_ARGS="--no-timestamps --no-index -p ab --color=auto"
+QUILT_DIFF_OPTS="-p"
+QUILT_NO_DIFF_INDEX=1
+QUILT_NO_DIFF_TIMESTAMPS=1
+QUILT_PATCH_OPTS="--reject-format=unified"
+QUILT_PUSH_ARGS="--color=auto"
+QUILT_REFRESH_ARGS="--no-timestamps --no-index -p ab"
+
+
+# Detect Debian source package
+
+local HERE=.
+while [ ! -e "$HERE/debian/rules" -a "$(readlink -e "$HERE")" != "/" ]
+do
+    HERE="$HERE/.."
+done
+if [ -e "$HERE/debian/rules" ] && [ -z "$QUILT_PATCHES" ]
+then
+    # if in Debian packaging tree with unset $QUILT_PATCHES
+    QUILT_PATCHES="debian/patches"
+    if ! [ -d "$HERE/debian/patches" ]
+    then
+        mkdir "$HERE/debian/patches"
+    fi
+fi
