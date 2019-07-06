@@ -21,7 +21,7 @@ QUILT_REFRESH_ARGS="--no-timestamps --no-index -p ab"
 
 # Detect Debian source package
 
-local HERE=.
+HERE=.
 while [ ! -e "$HERE/debian/rules" -a "$(readlink -e "$HERE")" != "/" ]
 do
     HERE="$HERE/.."
@@ -35,3 +35,4 @@ then
         mkdir "$HERE/debian/patches"
     fi
 fi
+unset HERE
