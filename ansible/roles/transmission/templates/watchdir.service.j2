@@ -11,6 +11,7 @@ RequiresMountsFor=\
 [Service]
 Type=simple
 Restart=always
+RestartSec=30
 ExecStart=\
     {{ transmission_watch_venv | quote }}/bin/transmission-watch \
         {{ item.torrents | quote }} \

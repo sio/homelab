@@ -9,6 +9,7 @@ RequiresMountsFor={{ supysonic_music_dir | quote }}
 [Service]
 Type=simple
 Restart=always
+RestartSec=30
 ExecStart={{ supysonic_venv | quote }}/bin/supysonic-watcher
 User={{ supysonic_user }}
 NoNewPrivileges=true

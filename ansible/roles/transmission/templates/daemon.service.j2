@@ -8,6 +8,7 @@ After=network.target
 [Service]
 Type=notify
 Restart=always
+RestartSec=30
 ExecStart=\
     /usr/bin/transmission-daemon \
         --foreground \
