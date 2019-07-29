@@ -2,7 +2,10 @@
 
 
 # Improved file listing
-alias ls='LC_COLLATE=C ls -F -h --color=auto --show-control-chars'  # also applies to later aliases
+alias ls='LC_COLLATE=C ls -F -h \
+                          --color=auto \
+                          --group-directories-first \
+                          --show-control-chars'  # also applies to later aliases
 alias la='ls -A'
 alias ll='ls -l'
 
