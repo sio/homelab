@@ -21,7 +21,7 @@ IFS=$'\n'
 missing=()
 for topic in $(find "$DOTFILES" -mindepth 1 -maxdepth 1 -type d)
 do
-    if ! grep -qE "^$(basename "$topic")$" "${TOPICS[@]}"
+    if ! grep -qE "^$(basename "$topic")([\r\n]*|$)" "${TOPICS[@]}"
     then
         missing+=("$topic")
     fi
