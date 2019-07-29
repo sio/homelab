@@ -90,7 +90,7 @@ main() {
 
 
 install_topic() {
-    local topic="$1"
+    local topic="${1//[$'\r\t\n']/}"
     local file files ifs_backup meta
 
     if [[ -z "$topic" ]]
