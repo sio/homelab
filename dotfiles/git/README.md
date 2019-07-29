@@ -1,0 +1,1 @@
+# Git client-side configuration

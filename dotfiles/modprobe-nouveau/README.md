@@ -1,0 +1,1 @@
+# Disable nouveau kernel modules
