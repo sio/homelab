@@ -41,8 +41,8 @@ set -o pipefail
 
 
 # Global parameters
-DOTFILES=$(readlink -m "$(dirname "$0")")
-DOTFILES_BACKUP="$HOME/.dotfiles-overwritten/"
+[[ -z "$DOTFILES" ]] && DOTFILES=$(readlink -m "$(dirname "$0")")
+[[ -z "$DOTFILES_BACKUP" ]] && DOTFILES_BACKUP="$HOME/.dotfiles-overwritten/"
 SUFFIXES="link|append|copy"
 COLUMNS=$(tput cols)
 
@@ -83,7 +83,15 @@ main() {
             "lines and lines starting with hash symbol are ignored)" \
             "" \
             "All arguments have to be either TOPICs or FILENAMEs. Mixing argument" \
-            "types is not supported and will lead to an error"
+            "types is not supported and will lead to an error" \
+            "" \
+            "Existing files in the destination directories will be overwritten" \
+            "after being backed up to $DOTFILES_BACKUP" \
+            "" \
+            "Default locations for dotfiles source and backup directories may be" \
+            "overriden using following environment variables:" \
+            "    \$DOTFILES=$DOTFILES" \
+            "    \$DOTFILES_BACKUP=$DOTFILES_BACKUP"
         return "$retcode"
     fi
 }
