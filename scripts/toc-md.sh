@@ -19,7 +19,7 @@ main() {
 
     local IFS=''
     local olddir='.'
-    local oldlevel=0
+    local level_old=0
     local level_shifted=0
     local filepath
     while read -r filepath
@@ -31,22 +31,22 @@ main() {
         local level="$(tree_level "$relative_path")"
         local basedir="$(dirname "$relative_path")"
 
-        [[ "$basedir" == "$olddir" ]] && level="$oldlevel"
-        if [[ "$level" == "$oldlevel" && "$level_shifted" > 0 ]]
+        [[ "$basedir" == "$olddir" ]] && level="$level_old"
+        if [[ "$level" == "$level_old" && "$level_shifted" > 0 ]]
         then
             level="$level_shifted"
-        elif [[ $((level-oldlevel)) > 1 ]]
+        elif [[ $((level-level_old)) > 1 ]]
         then
             if [[ "$level_shifted" > 0 ]]
             then
                 level_shifted=$((level_shifted+1))
             else
-                level_shifted=$((oldlevel+1))
+                level_shifted=$((level_old+1))
             fi
-            oldlevel="$level"
+            level_old="$level"
             level="$level_shifted"
         else
-            oldlevel="$level"
+            level_old="$level"
             level_shifted=0
         fi
 
