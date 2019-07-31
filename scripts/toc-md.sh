@@ -31,7 +31,6 @@ main() {
         local level="$(tree_level "$relative_path")"
         local basedir="$(dirname "$relative_path")"
 
-        [[ "$basedir" == "$olddir" ]] && level="$level_old"
         if [[ "$level" == "$level_old" && "$level_shifted" > 0 ]]
         then
             level="$level_shifted"
@@ -56,11 +55,11 @@ main() {
             then  # $basedir contains multiple markdown files
                 print_repeat "$((level-1))" "$TAB"
                 printf -- "- $(basename "$basedir")\n"
-                olddir="$basedir"
             else  # promote the only *.md file to directory level
                 level=$((level-1))
             fi
         fi
+        olddir="$basedir"
 
         print_repeat "$level" "$TAB"
         printf -- "- [$(get_title "$filepath")]($relative_path)\n"
