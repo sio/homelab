@@ -31,12 +31,12 @@ main() {
         local level="$(tree_level "$relative_path")"
         local basedir="$(dirname "$relative_path")"
 
-        if [[ "$level" == "$level_old" && "$level_shifted" > 0 ]]
+        if [[ "$level" == "$level_old" && "$level_shifted" -gt 0 ]]
         then
             level="$level_shifted"
-        elif [[ $((level-level_old)) > 1 ]]
+        elif [[ $((level-level_old)) -gt 1 ]]
         then
-            if [[ "$level_shifted" > 0 ]]
+            if [[ "$level_shifted" -gt 0 ]]
             then
                 level_shifted=$((level_shifted+1))
             else
@@ -51,7 +51,7 @@ main() {
 
         if [[ "$basedir" != "$olddir" && "$basedir" != "." ]]
         then
-            if [[ "$(echo "$files"|grep -cE "^$(dirname "$filepath")/[^/]*$")" > 1 ]]
+            if [[ "$(echo "$files"|grep -cE "^$(dirname "$filepath")/[^/]*$")" -gt 1 ]]
             then  # $basedir contains multiple markdown files
                 print_repeat "$((level-1))" "$TAB"
                 printf -- "- $(basename "$basedir")\n"
