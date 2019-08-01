@@ -245,4 +245,9 @@ relative_dotfile_path() {
 
 
 # Invoke commandline interface
-main "$@"
+# if __name__ == '__main__'   //  <https://stackoverflow.com/a/45988155>
+get_caller() { echo "${FUNCNAME[1]}"; }
+if [[ "$(get_caller)" == "main" ]]
+then
+    main "$@"
+fi
