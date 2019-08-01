@@ -7,6 +7,31 @@
 
 
 main() {
+    local dir="$1"
+    local output="$(basename "$2")"
+    case "$#" in
+    1)
+        if [[ "$dir" =~ ^(-h|--help|--usage)$ ]]
+        then
+            main  # call without args to trigger help message
+        else
+            generate_toc "$dir"
+        fi
+        ;;
+    2)
+        generate_toc "$dir" | grep -v "($output)" > "$2"
+        ;;
+    *)
+        printf "%s\n" \
+            "Usage: $(basename "$0") DIRECTORY [TOC_FILE]" \
+            "" \
+            "Generate Markdown table of contents for directory tree that contains *.md files." \
+            "If TOC_FILE is provided it will be used for output instead of stdout."
+        ;;
+    esac
+}
+
+generate_toc() {
     local TAB="    "
     local workdir="$1"
     if [[ -z "$workdir" ]]
