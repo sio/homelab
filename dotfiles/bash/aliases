@@ -3,6 +3,7 @@
 
 # Improved file listing
 alias ls='LC_COLLATE=C ls -F -h \
+                          -v \
                           --color=auto \
                           --group-directories-first \
                           --show-control-chars'  # also applies to later aliases
