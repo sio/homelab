@@ -6,6 +6,9 @@
 # Licensed under Apache License, version 2.0
 
 
+TAB="    "   # indentation unit
+
+
 main() {
     local dir="$1"
     local output="$(basename "$2")"
@@ -32,7 +35,6 @@ main() {
 }
 
 generate_toc() {
-    local TAB="    "
     local workdir="$1"
     if [[ -z "$workdir" ]]
     then
@@ -42,11 +44,11 @@ generate_toc() {
 
     local files=$(find "$workdir" -type f -iname '*.md'|LC_COLLATE=C.UTF-8 sort)
 
-    local IFS=''
-    local olddir='.'
-    local level_old=0
-    local level_shifted=0
+    local oldpath=''
+    local number_of_parents=0
+
     local filepath
+    local IFS=''
     while read -r filepath
     do
         local relative_path
@@ -54,41 +56,48 @@ generate_toc() {
         relative_path="${relative_path#/}"
 
         local level="$(tree_level "$relative_path")"
-        local basedir="$(dirname "$relative_path")"
+        local common_level="$(common_base_level "$relative_path" "$oldpath")"
 
-        if [[ "$level" == "$level_old" && "$level_shifted" -gt 0 ]]
-        then
-            level="$level_shifted"
-        elif [[ $((level-level_old)) -gt 1 ]]
-        then
-            if [[ "$level_shifted" -gt 0 ]]
-            then
-                level_shifted=$((level_shifted+1))
-            else
-                level_shifted=$((level_old+1))
+        if [[ "$((level - common_level))" -eq 0 ]]
+        then  # same directory as before
+            number_of_parents=0
+        else  # switching to a different directory
+            if [[ "$(echo "$files"|grep -cE "^$(dirname "$filepath")/[^/]*$")" -eq 1 ]]
+            then  # promote the only *.md file to directory level
+                level=$((level - 1))
             fi
-            level_old="$level"
-            level="$level_shifted"
-        else
-            level_old="$level"
-            level_shifted=0
+            number_of_parents=$((level - common_level))
         fi
 
-        if [[ "$basedir" != "$olddir" && "$basedir" != "." ]]
-        then
-            if [[ "$(echo "$files"|grep -cE "^$(dirname "$filepath")/[^/]*$")" -gt 1 ]]
-            then  # $basedir contains multiple markdown files
-                print_repeat "$((level-1))" "$TAB"
-                printf -- "- $(basename "$basedir")\n"
-            else  # promote the only *.md file to directory level
-                level=$((level-1))
-            fi
-        fi
-        olddir="$basedir"
-
-        print_repeat "$level" "$TAB"
-        printf -- "- [$(get_title "$filepath")]($relative_path)\n"
+        #echo "$level" "$common_level" "$number_of_parents"  #debug
+        print_toc_item "$filepath" "$relative_path" "$level" "$number_of_parents"
+        oldpath="$relative_path"
     done <<< "$files"
+}
+
+
+print_toc_item() {
+    local filepath="$1"
+    local relative_path="$2"
+    local level="$3"
+    local number_of_parents="$4"
+    [ -z "$number_of_parents" ] && number_of_parents=0
+
+    local IFS='/'
+    local path_elements
+    read -ra path_elements <<< "$filepath"
+
+    # Print parent directories headers
+    local i
+    for ((i = level - number_of_parents; i < level; i++))
+    do
+        print_repeat "$i" "$TAB"
+        printf -- "- ${path_elements[i+1]}\n"
+    done
+
+    # Print a hyperlink to the file itself
+    print_repeat "$level" "$TAB"
+    printf -- "- [$(get_title "$filepath")]($relative_path)\n"
 }
 
 
@@ -109,6 +118,25 @@ tree_level() {
     local delimiter="/"
     local result="${path//[^$delimiter]/}"
     echo "${#result}"
+}
+
+
+common_base_level() {
+    local this="$1"
+    local other="$2"
+    local i
+    local common_base=""
+    for ((i=0; i<"${#this}"; i++))
+    do
+        if [[ "${this:i:1}" == "${other:i:1}" ]]
+        then
+            continue
+        else
+            break
+        fi
+    done
+    common_base="${this:0:i}"
+    tree_level "$common_base"
 }
 
 
