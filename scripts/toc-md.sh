@@ -34,6 +34,7 @@ main() {
     esac
 }
 
+
 generate_toc() {
     local workdir="$1"
     if [[ -z "$workdir" ]]
@@ -69,7 +70,6 @@ generate_toc() {
             number_of_parents=$((level - common_level))
         fi
 
-        #echo "$level" "$common_level" "$number_of_parents"  #debug
         print_toc_item "$filepath" "$relative_path" "$level" "$number_of_parents"
         oldpath="$relative_path"
     done <<< "$files"
