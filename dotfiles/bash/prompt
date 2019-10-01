@@ -105,8 +105,9 @@ _makeprompt() {
 }
 
 
-if [[ "_$(ps -p $PPID|tail -c 3)" == '_sh' ]]
-then  # Increment only for sessions started by another shell
+if [[ "_$(ps -p $PPID|tail -c 3)" == '_sh' || "$PPID" == '1' ]]
+then  # Increment only for sessions started by another shell,
+      # PPID=1 is a special case for detached processes fathered by Make
     _NESTED_LEVEL=$(("$_NESTED_LEVEL"+1))
 else
     _NESTED_LEVEL=1
