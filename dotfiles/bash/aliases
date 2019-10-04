@@ -208,3 +208,6 @@ do
     unset APPNAME
     unset VENV
 done
+
+# Use tabs in vim by default
+alias vim='vim -p'
