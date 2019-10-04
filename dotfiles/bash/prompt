@@ -105,13 +105,23 @@ _makeprompt() {
 }
 
 
-if [[ "_$(ps -p $PPID|tail -c 3)" == '_sh' || "$PPID" == '1' ]]
-then  # Increment only for sessions started by another shell,
-      # PPID=1 is a special case for detached processes fathered by Make
-    _NESTED_LEVEL=$(("$_NESTED_LEVEL"+1))
-else
-    _NESTED_LEVEL=1
-fi
-export _NESTED_LEVEL
+_calculate_nested_level() {
+    local parent="$(ps -p $PPID)"
+    parent="${parent##* }"  # select last field of output table
+    parent="${parent##*/}"  # select basename of the executable
+    if [[ "$parent" =~ .*sh \
+       || "$parent" == "make" \
+       || "$PPID" == '1' ]]
+    then
+        # Increment only for sessions started by another shell,
+        # PPID=1 is a special case for detached processes fathered by Make
+        _NESTED_LEVEL=$(("$_NESTED_LEVEL"+1))
+    else
+        _NESTED_LEVEL=1
+    fi
+    export _NESTED_LEVEL
+}
+_calculate_nested_level
+
 
 PS1=$(_makeprompt)
