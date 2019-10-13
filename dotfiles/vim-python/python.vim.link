@@ -1,0 +1,8 @@
+" Open new files in tabs
+let g:jedi#use_tabs_not_buffers = 1
+
+" Do not show docstring window during completion
+autocmd FileType python setlocal completeopt-=preview
+
+" Avoid legacy Python
+let g:jedi#force_py_version=3
