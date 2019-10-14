@@ -39,5 +39,3 @@ function! Syntax1CToggle()
 endfunction
 noremap <F1> <Esc>:call Syntax1CToggle()<CR>
 inoremap <F1> <C-o>:call Syntax1CToggle()<CR>
-
-
