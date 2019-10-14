@@ -3,13 +3,16 @@
 " This file is only a loader for partial configs from that directory
 "
 
-let partials_storage = '~/.vim/config'
-let partials = glob(fnameescape(partials_storage).'/*.vim', 1, 1)
+let s:partials_storage = '~/.vim/config'
+let s:partials = glob(fnameescape(s:partials_storage).'/*.vim', 1, 1)
 
+" Source vim script, do not throw errors on file access
+" Return filename on success, 0 on failure
 function Include(file)
     if filereadable(expand(a:file))
         exe 'source' a:file
+        return a:file
     endif
 endfunction
 
-call map(partials, 'Include(v:val)')
+call map(s:partials, 'Include(v:val)')
