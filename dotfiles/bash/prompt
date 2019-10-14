@@ -99,8 +99,8 @@ _prompt_jobs() {
 
 
 _prompt_path() {
-    local max_length=55
-    local truncate_placeholder="..."
+    local max_length=50
+    local truncate_placeholder="…"
 
     local path="$PWD"
     if [[ "${#path}" -gt 1 ]]
