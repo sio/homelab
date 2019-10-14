@@ -36,7 +36,7 @@ _color() {
 }
 
 
-_usercolor() {
+_prompt_usercolor() {
     # Return a color code for each user
     #
     # Generated from username and hostname, always red for root
@@ -47,18 +47,18 @@ _usercolor() {
         local color=1
     else
         local host=$(hostname)
-        local color=$(_colorhash "$user@$host")
+        local color=$(_prompt_colorhash "$user@$host")
     fi
     echo -n $color
 }
 
 
-_colorhash() {
+_prompt_colorhash() {
     # Reduce a string to a color code. Black, white and red
     # are considered reserved and are never returned.
     #
     # Usage:
-    #   _colorhash text
+    #   _prompt_colorhash text
 
     local number=5  # available colors: green, yellow, blue, magenta, cyan
     local hash=$(echo "$*" | sum -s | cut -d\  -f1)
@@ -66,14 +66,14 @@ _colorhash() {
 }
 
 
-_git_current_branch() {
+_prompt_git_branch() {
     local branch=$(git branch 2>/dev/null)
     [ ! -z "$branch" ] && branch=$(echo "$branch"|grep -E '^\* '|cut -d\  -f2-| xargs)
     [ ! -z "$branch" ] && echo -n " ($branch)"
 }
 
 
-_exit_code() {
+_prompt_exit_code() {
     local exit="$?"
     if [ ! "$exit" -eq 0 ]
     then
@@ -82,7 +82,7 @@ _exit_code() {
 }
 
 
-_nested_level() {
+_prompt_nested_level() {
     if [ "$_NESTED_LEVEL" -gt 1 ]
     then
         echo -ne " ($_NESTED_LEVEL)"
@@ -90,7 +90,7 @@ _nested_level() {
 }
 
 
-_background_jobs() {
+_prompt_jobs() {
     if [[ -n "$(jobs -p)" ]]
     then
         printf " (&)"
@@ -98,23 +98,23 @@ _background_jobs() {
 }
 
 
-_makeprompt() {
-    local usrclr=$(_usercolor)
+_prompt() {
+    local usrclr=$(_prompt_usercolor)
 
     local newlines='\n\n'
     local who=$(_color "1;3${usrclr}m" '[\u@\h]')
     local trailing_slash='`[ ${#PWD} -gt 1 ] && echo -n /`'
     local path=$(_color "32m" '$PWD'"$trailing_slash")
     local bang=$(_color "1;3${usrclr}m" '\$ ')
-    local gitbranch=$(_color "33m" '`_git_current_branch`')
-    local exitcode=$(_color "31m" '`_exit_code`')
-    local level=$(_color '34m' "$(_nested_level)")
-    local jobs=$(_color "35m" '`_background_jobs`')
+    local gitbranch=$(_color "33m" '`_prompt_git_branch`')
+    local exitcode=$(_color "31m" '`_prompt_exit_code`')
+    local level=$(_color '34m' "$(_prompt_nested_level)")
+    local jobs=$(_color "35m" '`_prompt_jobs`')
     echo -n "$exitcode$newlines$who $path$gitbranch$level$jobs\n$bang"
 }
 
 
-_calculate_nested_level() {
+_prompt_calculate_nested_level() {
     local parent="$(ps -p $PPID)"
     parent="${parent##* }"  # select last field of output table
     parent="${parent##*/}"  # select basename of the executable
@@ -130,7 +130,7 @@ _calculate_nested_level() {
     fi
     export _NESTED_LEVEL
 }
-_calculate_nested_level
+_prompt_calculate_nested_level
 
 
-PS1=$(_makeprompt)
+PS1=$(_prompt)
