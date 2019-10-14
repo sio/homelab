@@ -4,7 +4,7 @@
 "
 
 let partials_storage = '~/.vim/config'
-let partials = glob(fnameescape(partials_storage).'/*', 1, 1)
+let partials = glob(fnameescape(partials_storage).'/*.vim', 1, 1)
 
 function Include(file)
     if filereadable(expand(a:file))
