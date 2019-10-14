@@ -98,19 +98,38 @@ _prompt_jobs() {
 }
 
 
+_prompt_path() {
+    local max_length=55
+    local truncate_placeholder="..."
+
+    local path="$PWD"
+    if [[ "${#path}" -gt 1 ]]
+    then
+        path="$path/"
+    fi
+
+    if [[ "${#path}" -gt "$max_length" ]]
+    then
+        local truncate=$(( ${#path} - $max_length + ${#truncate_placeholder} ))
+        path="$truncate_placeholder${path:truncate:max_length}"
+    fi
+
+    printf " $path"
+}
+
+
 _prompt() {
     local usrclr=$(_prompt_usercolor)
 
     local newlines='\n\n'
     local who=$(_color "1;3${usrclr}m" '[\u@\h]')
-    local trailing_slash='`[ ${#PWD} -gt 1 ] && echo -n /`'
-    local path=$(_color "32m" '$PWD'"$trailing_slash")
+    local path=$(_color "32m" '`_prompt_path`')
     local bang=$(_color "1;3${usrclr}m" '\$ ')
     local gitbranch=$(_color "33m" '`_prompt_git_branch`')
     local exitcode=$(_color "31m" '`_prompt_exit_code`')
     local level=$(_color '34m' "$(_prompt_nested_level)")
     local jobs=$(_color "35m" '`_prompt_jobs`')
-    echo -n "$exitcode$newlines$who $path$gitbranch$level$jobs\n$bang"
+    echo -n "$exitcode$newlines$who$path$gitbranch$level$jobs\n$bang"
 }
 
 
