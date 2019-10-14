@@ -90,6 +90,14 @@ _nested_level() {
 }
 
 
+_background_jobs() {
+    if [[ -n "$(jobs -p)" ]]
+    then
+        printf " (&)"
+    fi
+}
+
+
 _makeprompt() {
     local usrclr=$(_usercolor)
 
@@ -101,7 +109,8 @@ _makeprompt() {
     local gitbranch=$(_color "33m" '`_git_current_branch`')
     local exitcode=$(_color "31m" '`_exit_code`')
     local level=$(_color '34m' "$(_nested_level)")
-    echo -n "$exitcode$newlines$who $path$gitbranch$level\n$bang"
+    local jobs=$(_color "35m" '`_background_jobs`')
+    echo -n "$exitcode$newlines$who $path$gitbranch$level$jobs\n$bang"
 }
 
 
