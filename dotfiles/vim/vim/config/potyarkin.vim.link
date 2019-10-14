@@ -9,16 +9,9 @@ set tabstop=4      " show tabs as 4 spaces
 set shiftwidth=4   " when indenting with > use spaces
 set expandtab      " insert spaces on Tab keypress
 set softtabstop=4  " backspace deletes 4 spaces if present
-autocmd Filetype make setlocal noexpandtab " Makefile requires Tab indentation
 
 " Do not wrap long lines by default
 set nowrap
-
-" Wrap lines automatically for Markdown files
-au FileType markdown setlocal textwidth=78 wrap
-
-" yaml indentation
-au FileType yaml setlocal tabstop=2 shiftwidth=2 softtabstop=2
 
 " Do not write trailing whitespace
 autocmd BufWritePre * :%s/\s\+$//e
@@ -73,10 +66,6 @@ set keymap=russian-jcukenwin
 set iminsert=0
 set imsearch=0
 
-" Enable syntax highlighting for Power Query
-autocmd BufNewFile,BufRead *.pq set filetype=javascript
-autocmd BufNewFile,BufRead *.m set filetype=javascript
-
 " Enable cursor movement with mouse clicks
 set mouse=a
 
@@ -106,38 +95,6 @@ set noswapfile
 if v:version >= 704
     set formatoptions+=j
 end
-
-" Fix syntax highlighting
-" http://vim.wikia.com/wiki/Fix_syntax_highlighting
-noremap <F12> <Esc>:syntax sync fromstart<CR>
-inoremap <F12> <C-o>:syntax sync fromstart<CR>
-
-" Syntax highlighting for 1C files
-"
-" Language definition rules can be found in `syntax/` directory of
-" https://github.com/andreevlex/vim-language-1c-bsl
-autocmd BufNewFile,BufRead *.*Module.txt set syntax=bsl
-function! Syntax1CToggle()
-    if !exists("b:Syntax1CLangs")
-        let b:Syntax1CLangs = ['bsl', 'sdbl', 'text']
-    endif
-
-    let current = index(b:Syntax1CLangs, &syntax)
-    if current >= 0
-        let target = b:Syntax1CLangs[(current+1) % len(b:Syntax1CLangs)]
-    else
-        if &syntax != ""
-            call add(b:Syntax1CLangs, &syntax)
-        endif
-        let target = b:Syntax1CLangs[0]
-    endif
-
-    echo "Switching syntax from '" . &syntax . "' to '" . target . "'"
-    let &syntax=target
-endfunction
-noremap <F1> <Esc>:call Syntax1CToggle()<CR>
-inoremap <F1> <C-o>:call Syntax1CToggle()<CR>
-
 
 " https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-12735
 set nomodeline
