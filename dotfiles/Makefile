@@ -9,8 +9,12 @@ TOPICS=$(patsubst $(DOT)%/, %, $(filter %/, $(wildcard $(DOT)*/)))
 LISTS=$(patsubst $(DOT)topics-%.list, %, $(wildcard $(DOT)topics-*.list))
 
 
+define newline
+
+
+endef
 define help_message
-Usage: $(MAKE) TOPIC [TOPIC2 ...] LISTNAME [LISTNAME2 ...]
+Usage: make TOPIC [TOPIC2 ...] LISTNAME [LISTNAME2 ...]
 
 Will trigger correct $(BOOTSTRAP) actions:
   For TOPIC:
@@ -19,6 +23,12 @@ Will trigger correct $(BOOTSTRAP) actions:
     $(BOOTSTRAP) $(DOT)topics-LISTNAME.list
 
 See '$(BOOTSTRAP) --help' for more information
+
+Known topics:
+   $(subst $(eval)  ,$(newline)    ,$(foreach item, $(sort $(TOPICS)), $(item)))
+
+Known topic lists:
+   $(subst $(eval)  ,$(newline)    ,$(foreach item, $(sort $(LISTS)), $(item)))
 endef
 export help_message
 
