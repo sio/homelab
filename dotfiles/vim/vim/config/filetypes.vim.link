@@ -7,6 +7,12 @@ au FileType markdown setlocal textwidth=78 wrap
 " YAML indentation
 au FileType yaml setlocal tabstop=2 shiftwidth=2 softtabstop=2
 
+" Indentation for web pages
+au FileType html,js,css,htmldjango setlocal
+    \ tabstop=2
+    \ shiftwidth=2
+    \ softtabstop=2
+
 " Syntax highlighting for Power Query
 au BufNewFile,BufRead *.pq set filetype=javascript
 au BufNewFile,BufRead *.m set filetype=javascript
