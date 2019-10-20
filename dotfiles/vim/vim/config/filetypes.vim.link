@@ -19,6 +19,7 @@ au BufNewFile,BufRead *.m set filetype=javascript
 
 " E-mail messages
 au BufRead */.claws-mail/tmp/* set filetype=mail
+au BufRead *.mbox:2* set filetype=mail
 
 " Fix syntax highlighting (http://vim.wikia.com/wiki/Fix_syntax_highlighting)
 noremap <F12> <Esc>:syntax sync fromstart<CR>
