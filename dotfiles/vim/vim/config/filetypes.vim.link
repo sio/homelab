@@ -12,6 +12,7 @@ au FileType html,js,css,htmldjango setlocal
     \ tabstop=2
     \ shiftwidth=2
     \ softtabstop=2
+au BufNewFile,BufRead *.htm,*html setlocal filetype=htmldjango
 
 " Syntax highlighting for Power Query
 au BufNewFile,BufRead *.pq set filetype=javascript
