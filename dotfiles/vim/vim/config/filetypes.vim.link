@@ -18,6 +18,11 @@ au BufNewFile,BufRead *.htm,*html setlocal filetype=htmldjango
 au BufNewFile,BufRead *.pq set filetype=javascript
 au BufNewFile,BufRead *.m set filetype=javascript
 
+" Correct syntax highlighting for dotfiles
+"   Filename patterns are not processed in any way, so we must use exec
+au BufNewFile,BufRead *.link,*.copy,*.attach
+    \ exec "doautocmd BufRead " . expand("<afile>:r")
+
 " E-mail messages
 au BufRead */.claws-mail/tmp/* set filetype=mail
 au BufRead *.mbox:2* set filetype=mail
