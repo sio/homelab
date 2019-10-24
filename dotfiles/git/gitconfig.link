@@ -8,4 +8,7 @@
 [alias]
     graph = log --oneline --decorate --graph
 
+[pull]
+    ff = only  # never create merge commits automatically
+
 # vim: syntax=gitconfig
