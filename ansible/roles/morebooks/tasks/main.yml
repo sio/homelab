@@ -20,7 +20,7 @@
 
 # Force app update from latest git if necessary
 - include: deploy.yml
-  when: '{{ deploy|default(False) }}'
+  when: deploy|default(False)
 
 # Idempotent deployment
 - include: hlc.yml

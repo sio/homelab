@@ -2,7 +2,7 @@
 # Execute these tasks before `hlc.yml` to trigger deployment from
 # latest git version
 #
-# when: '{{ deploy|default(False) }}'
+# when: deploy|default(False)
 ---
 - name: stop the web server
   service:
