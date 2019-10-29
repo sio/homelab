@@ -14,6 +14,7 @@
 - name: install packages from requirements.txt
   pip:
     requirements: '{{ path.app }}/requirements.txt'
+    state: '{{ "latest" if deploy|default(False) else "present" }}'
     virtualenv: '{{ path.venv }}'
   notify: reload web server
 
