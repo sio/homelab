@@ -3,6 +3,6 @@
 # THIS FILE IS MAINTAINED WITH ANSIBLE
 # LOCAL CHANGES WILL BE OVERWRITTEN!
 
-https://github.com/sio/HomeLibraryCatalog.git
-https://github.com/sio/scrapehelper.git
-https://github.com/sio/toolpot.git
+https://github.com/sio/HomeLibraryCatalog/tarball/master
+https://github.com/sio/scrapehelper/tarball/master
+https://github.com/sio/toolpot/tarball/master
