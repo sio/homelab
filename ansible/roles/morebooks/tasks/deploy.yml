@@ -16,7 +16,10 @@
 
 - name: uninstall HomeLibraryCatalog
   pip:
-    name: HomeLibraryCatalog
+    name:
+      - HomeLibraryCatalog
+      - scrapehelper
+      # Do not delete toolpot here! It's used by backup script in the next step
     state: absent
     virtualenv: '{{ path.venv }}'
   when: venv.stat.isdir is defined and venv.stat.isdir

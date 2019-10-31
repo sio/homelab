@@ -16,6 +16,8 @@
     requirements: '{{ path.app }}/requirements.txt'
     state: '{{ "latest" if deploy|default(False) else "present" }}'
     virtualenv: '{{ path.venv }}'
+    # Adding --ignore-installed --force-reinstall affects all subdependencies
+    # and takes a long time because of compiling lxml and Pillow
   notify: reload web server
 
 - name: run the web server
