@@ -5,3 +5,10 @@ export EDITOR="$VISUAL"
 # Force Qt5 to mimic GTK theme
 #export QT_STYLE_OVERRIDE=gtk # this breaks smplayer
 export QT_QPA_PLATFORMTHEME=gtk2
+
+# Treat CRLF as valid line endings: https://community.perforce.com/s/article/2973
+if [[ "$OSTYPE" == cygwin ]]
+then
+    set -o igncr
+    export SHELLOPTS
+fi
