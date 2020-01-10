@@ -1,0 +1,26 @@
+#
+# Hardware-related configuration for Asus laptop (UL80 aka laptopmini)
+#
+
+---
+- hosts: localhost
+  become: yes
+  roles:
+    - role: grub
+      grub_kernel_params:
+        - quiet
+        - splash
+        - zswap.enabled=1
+        - zswap.compressor=lz4
+        - zswap.zpool=z3fold
+        - zswap.max_pool_percent=40
+    - role: initrd  # Intel kernel modesetting in initramfs
+      modules:
+        - intel_agp
+        - drm
+        - i915 modeset=1
+    - role: initrd  # Enable zswap
+      modules:
+        - lz4
+        - lz4_compress
+        - z3fold
