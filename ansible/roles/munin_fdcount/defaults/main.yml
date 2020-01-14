@@ -1,2 +1,5 @@
 # REQUIRED VARIABLES
 #   munin_fdcount_target: executable name to monitor processes for
+
+# Optional
+munin_fdcount_user: root  # this user must be allowed to read /proc/PID/fd/
