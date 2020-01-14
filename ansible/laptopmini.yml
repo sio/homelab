@@ -3,7 +3,7 @@
 #
 
 ---
-- hosts: localhost
+- hosts: laptopmini
   become: yes
   roles:
     - role: grub
