@@ -1,6 +1,6 @@
 ---
 
-transmission_user: seedbox
+transmission_user: torrent
 
 transmission_instance:
   name: main
