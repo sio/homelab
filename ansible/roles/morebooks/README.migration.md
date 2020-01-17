@@ -4,6 +4,7 @@
 
 - Aruba.it - recommended by multiple users at linux.org.ru (Cloud VPS Small -
   for 1 euro per month)
+- Contabo - HDD VPS with large-ish storage (4GB RAM, 300GB HDD for 4 EUR/mo)
 - Scaleway - 1.99 euro/month VPS. High quality, good reviews
 - Hetzner Cloud - 2.49 euro/month for 2GB RAM, 20GB disk, 20TB traffic
 - OVH Cloud - 2.94 euro/month (3.35 USD/mo) for 2GB RAM, 20GB SSD, 100 Mbit/s
