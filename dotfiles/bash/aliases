@@ -45,8 +45,8 @@ alias diff=_diff_pretty
 
 # Make directory and cd into it
 mkcd() {
-    [ ! -d "$1" ] && mkdir -p "$1"
-    cd "$1"
+    [ ! -d "$1" ] && mkdir -p -- "$1"
+    cd -- "$1"
 }
 
 # Touch file and create required parent directories
