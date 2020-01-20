@@ -1,0 +1,2 @@
+munin_master_allow_web_cidr: 192.168.0.0/16
+munin_master_nodes: []  # list of dicts with fields: name, address, port

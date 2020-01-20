@@ -1,0 +1,37 @@
+#
+# Install and configure munin-node
+#
+---
+- name: install required packages
+  package:
+    name:
+      - munin-node
+    state: present
+
+- name: allow access to munin node
+  ufw:
+    port: '{{ munin_node_port }}'
+    rule: allow
+    proto: tcp
+    src: '{{ munin_master_cidr }}'
+  notify: reload firewall
+
+- name: configure allowed IP range for munin master
+  lineinfile:
+    name: '{{ munin_node_config }}'
+    regexp: '^\s*cidr_allow\s+[\d\/\.]+\s*$'
+    line: 'cidr_allow {{ munin_master_cidr }}'
+  notify: restart munin node
+
+- name: set munin node port
+  lineinfile:
+    name: '{{ munin_node_config }}'
+    regexp: '^\s*port\s+\d+\s*$'
+    line: 'port {{ munin_node_port }}'
+  notify: restart munin node
+
+- name: start munin node
+  service:
+    name: munin-node
+    state: started
+    enabled: yes

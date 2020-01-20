@@ -1,0 +1,10 @@
+# {{ ansible_managed }}
+
+{% for node in munin_master_nodes %}
+[{{ node.name }}]
+{% if node.address|default(False) %}
+address {{ node.address }}
+{% endif %}
+port {{ node.port|default('4949') }}
+
+{% endfor %}

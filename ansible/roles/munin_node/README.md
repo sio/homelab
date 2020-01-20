@@ -1,0 +1,1 @@
+# Configure munin node

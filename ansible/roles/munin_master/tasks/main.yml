@@ -1,5 +1,5 @@
 #
-# Install and configure Munin
+# Install and configure munin master server
 #
 ---
 - name: install required packages
@@ -13,17 +13,10 @@
     state: present
   notify: restart web server
 
-#- name: configure master
-#  # Debian default is fine: /etc/munin/munin.conf
-#  notify: restart Munin master
-#
-#- name: configure node
-#  # Debian default is fine: /etc/munin/munin-node.conf
-#  notify: restart Munin node
-#
-#- name: enable generic plugins
-#  # TODO: /etc/munin/plugin/
-#  notify: restart Munin node
+- name: specify nodes to monitor
+  template:
+    src: templates/nodes.conf.j2
+    dest: /etc/munin/munin.conf.d/nodes.conf
 
 - name: configure web server
   file:
@@ -32,11 +25,11 @@
     state: link
   notify: restart web server
 
-- name: allow LAN access to Munin reports
+- name: allow LAN access to munin reports
   replace:
     dest: /etc/munin/apache24.conf
     regexp: 'Require\s+local'
-    replace: 'Require ip 192.168.0.0/16'
+    replace: 'Require ip {{ munin_master_allow_web_cidr }}'
   notify: restart web server
 
 - name: allow LAN access to web interface
@@ -44,14 +37,11 @@
     port: 80
     rule: allow
     proto: tcp
-    src: 192.168.0.0/16
+    src: '{{ munin_master_allow_web_cidr }}'
   notify: reload firewall
 
-- name: start services
+- name: start web server
   service:
-    name: '{{ item }}'
+    name: apache2
     state: started
     enabled: yes
-  with_items:
-    - munin-node
-    - apache2

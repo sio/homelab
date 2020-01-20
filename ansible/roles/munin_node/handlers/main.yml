@@ -1,0 +1,9 @@
+---
+- name: restart munin node
+  service:
+    name: munin-node
+    state: restarted
+
+- name: reload firewall
+  ufw:
+    state: reloaded
