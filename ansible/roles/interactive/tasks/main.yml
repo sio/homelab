@@ -1,0 +1,40 @@
+---
+- name: install git
+  package:
+    name: git
+    state: present
+
+- name: create interactive user group
+  group:
+    name: '{{ interactive_user }}'
+    state: present
+
+- name: create interactive user account
+  user:
+    name: '{{ interactive_user }}'
+    state: present
+    groups: '{{ interactive_user }}'
+    append: yes
+
+- name: install ssh key for the user
+  authorized_key:
+    user: '{{ interactive_user }}'
+    state: present
+    key: '{{ interactive_ssh_key }}'
+  when: '{{ interactive_ssh_key|default(False) }}'
+
+- name: configure interactive user account
+  become: yes
+  become_method: su
+  become_user: '{{ interactive_user }}'
+  block:
+    - name: clone dotfiles and other configuration
+      git:
+        repo: '{{ interactive_repo }}'
+        dest: '/home/{{ interactive_user }}/.common'
+        clone: yes
+    - name: initialize basic cli configuration
+      command:
+        cmd: ./bootstrap.sh topics-cli.list
+        chdir: '/home/{{ interactive_user }}/.common/dotfiles'
+        creates: '/home/{{ interactive_user }}/.toprc'

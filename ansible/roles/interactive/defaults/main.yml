@@ -1,0 +1,4 @@
+interactive_user: interactive
+# interactive_ssh_key: public key for SSH access
+
+interactive_repo: https://gitlab.com/sio/server_common.git
