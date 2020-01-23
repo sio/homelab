@@ -1,5 +1,13 @@
 ---
-- hosts: seedbox
+
+# Media box will run:
+# - Torrents (transmission)
+# - DLNA server (minidlna? rygel? gerbera?)
+# - Music server (supysonic)
+# - File sharing for LAN (samba)
+# - Monitoring (munin)
+
+- hosts: mediabox
   become: yes
   roles:
     - upgrade
