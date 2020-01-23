@@ -1,2 +1,17 @@
-# REQUIRED
-#   samba_users: list of dictionaries of username->password pairs
+samba_workgroup: WORKGROUP
+
+samba_users: []  # list of dictionaries with 'username', 'password' keys
+#   - username: foo
+#     password: bar
+
+samba_shares: []  # List of share definitions.
+                  # Special keys are 'name', 'owner', 'group', 'mode'
+                  # All other keys are transferred to smb.conf verbatim
+# Example:
+# - name: My media
+#   owner: username
+#   group: groupname
+#   mode: '0755'
+#   path: /foo/bar/baz/
+#   public: yes
+#   read only: yes

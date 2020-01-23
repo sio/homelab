@@ -17,7 +17,7 @@
     label: '{{ item.username }}'
 
 - name: define passwords for users
-  shell: >
+  shell: >  # https://stackoverflow.com/a/46428282
     (pdbedit --user={{ item.username }} 2>&1 > /dev/null)
     || echo -e {{ item.password|quote }}'\n'{{ item.password|quote }}
     | smbpasswd -s -a {{ item.username }}
@@ -28,7 +28,19 @@
     label: '{{ item.username }}'
   notify: restart samba server
 
-- name: configure samba server  # TODO
+- name: create samba shares
+  file:
+    path: '{{ item.path }}'
+    state: directory
+    mode: '{{ item.mode|default("0755") }}'
+    owner: '{{ item.owner|default("root") }}'
+    group: '{{ item.group|default(item.owner)|default("root") }}'
+  with_items: '{{ samba_shares }}'
+
+- name: configure samba server
+  template:
+    src: templates/samba.conf.j2
+    dest: /etc/samba/smb.conf
   notify: restart samba server
 
 - name: start samba server

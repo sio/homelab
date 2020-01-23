@@ -1,0 +1,42 @@
+# {{ ansible_managed }}
+
+
+[global]
+    workgroup = {{ samba_workgroup }}
+    server role = standalone server
+    obey pam restrictions = yes
+    server min protocol = SMB2_02
+
+    # Treat all failed authentications as guests
+    map to guest = bad user
+
+    # Default file permissions
+    inherit owner = unix only
+    inherit permissions = yes
+    create mask = 0664
+    directory mask = 2755
+    force create mode = 0664
+    force directory mode = 2755
+
+    # Disable printers - https://wiki.archlinux.org/index.php/Samba
+    load printers = no
+    printing = bsd
+    printcap name = /dev/null
+    disable spoolss = yes
+    show add printer wizard = no
+
+
+[homes]
+    browsable = no
+    read only = yes
+
+
+{% for share in samba_shares %}
+[{{ share.name }}]
+    {% for key, value in share.items() %}
+    {% if key not in ['name', 'owner', 'group', 'mode'] %}
+    {{ key }} = {{ value }}
+    {% endif %}
+    {% endfor %}
+
+{% endfor %}
