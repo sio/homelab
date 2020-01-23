@@ -28,7 +28,7 @@
 - name: allow LAN access to munin reports
   replace:
     dest: /etc/munin/apache24.conf
-    regexp: 'Require\s+local'
+    regexp: 'Require\s+.*$'
     replace: 'Require ip {{ munin_master_allow_web_cidr }}'
   notify: restart web server
 
