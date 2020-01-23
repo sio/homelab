@@ -21,7 +21,7 @@
     user: '{{ interactive_user }}'
     state: present
     key: '{{ interactive_ssh_key }}'
-  when: '{{ interactive_ssh_key|default(False) }}'
+  when: interactive_ssh_key is defined
 
 - name: configure interactive user account
   become: yes
