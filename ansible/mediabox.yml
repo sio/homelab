@@ -19,7 +19,7 @@
         name: main
         port: 51000
         port_rpc: 9000
-        overrride:
+        override:
           upload_limit: 3125 # KB/s = 25 Mbit/s
         watch:
           - name: main
@@ -31,7 +31,7 @@
         name: longterm
         port: 51001
         port_rpc: 9001
-        overrride:
+        override:
           upload_limit: 6250 # KB/s = 50 Mbit/s
         watch:
           - name: longterm
