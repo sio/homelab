@@ -6,6 +6,7 @@
 # - Music server (supysonic)
 # - File sharing for LAN (samba)
 # - Monitoring (munin)
+# - Interactive shell sessions for unprivileged user
 
 - hosts: mediabox
   become: yes
