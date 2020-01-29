@@ -16,7 +16,7 @@
 - name: read kernel parameters from file
   include_vars:
     file: files/sysctl.yml
-    name: transmission_sysctl
+    name: torrents_sysctl
 
 - name: set kernel networking parameters
   sysctl:
@@ -24,4 +24,4 @@
     value: '{{ item.value }}'
     state: present
     reload: yes
-  with_dict: '{{ transmission_sysctl }}'
+  with_dict: '{{ torrents_sysctl }}'

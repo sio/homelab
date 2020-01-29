@@ -3,9 +3,6 @@
 #
 ---
 
-# Tweak system settings for torrenting
-- include: system.yml
-
 # Install and configure daemon
 - include: install.yml
 

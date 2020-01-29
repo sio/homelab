@@ -1,3 +1,4 @@
 ---
 dependencies:
   - role: server
+  - role: torrents_sysctl
