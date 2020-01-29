@@ -11,4 +11,11 @@
 [pull]
     ff = only  # never create merge commits automatically
 
+[url "git@github.com:"]
+    insteadOf = github://
+    insteadOf = gh://
+
+[url "git@gitlab.com:"]
+    insteadOf = gitlab://
+
 # vim: syntax=gitconfig
