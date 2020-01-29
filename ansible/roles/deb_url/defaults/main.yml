@@ -1,0 +1,13 @@
+# Install deb packages from remote URLs
+
+- name: fetch packages from direct URLs
+  get_url:
+    url: '{{ item.url }}'
+    dest: '{{ deb_url_storage }}/{{ item.checksum }}'
+    checksum: '{{ item.checksum }}'
+  with_items: '{{ deb_url_packages }}'
+
+- name: install custom packages
+  apt:
+    deb: '{{ deb_url_storage }}/{{ item.checksum }}'
+  with_items: '{{ deb_url_packages }}'

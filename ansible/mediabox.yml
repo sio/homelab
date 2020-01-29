@@ -14,6 +14,10 @@
     - motd
     - role: munin_fdcount
       munin_fdcount_target: transmission-daemon
+    # - role: deb_url
+    #   deb_url_packages:
+    #     - url: http://filehost/path/to/transmission-daemon.deb
+    #       checksum: sha256:...
     - role: transmission
       transmission_instance:
         name: main

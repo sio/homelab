@@ -1,0 +1,6 @@
+deb_url_storage: /root/deb_url/
+# deb_url_packages:
+#   - url: http://example.com/my/package.deb
+#     checksum: sha256:a4fde1a5e529d994712e394b41da60e68cacafe1267d991179203288b864ed1a
+#   - url: ...
+#     checksum: ...
