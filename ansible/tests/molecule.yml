@@ -5,11 +5,6 @@ scenario:
 driver:
   name: docker
 
-platforms:
-  - name: docker-debian-instance
-    image: buster-for-molecule
-    # pre_build_image: true
-
 provisioner:
   name: ansible
   log: true
