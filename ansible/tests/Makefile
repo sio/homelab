@@ -10,8 +10,16 @@ MOLECULE+=--base-config "$(MOLECULE_BASE_CONFIG)"
 MOLECULE+=$(MOLECULE_EXTRA_ARGS)
 
 
-../role/motd: ANSIBLE_ROLE=$@
-../role/motd: test
+ANSIBLE_ROLES=../roles/motd
+
+all: $(ANSIBLE_ROLES)
+
+
+define test-ansible-role
+$(1): ANSIBLE_ROLE=$(1)
+$(1): test
+endef
+$(foreach role,$(ANSIBLE_ROLES),$(eval $(call test-ansible-role, $(role))))
 
 
 .PHONY: test
