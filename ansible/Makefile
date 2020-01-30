@@ -1,6 +1,5 @@
 ANSIBLE?=$(VENV)/ansible
 MOLECULE?=$(VENV)/molecule
-export PATH:=$(VENV):$(PATH)
 
 
 .PHONY: test
@@ -16,3 +15,8 @@ Makefile.venv:
 	echo "1b0a2f89b322ea86958d63ed4ae718846ccaaf939e5e24180524f28dede238ba *Makefile.fetched" \
 		| sha256sum --check - \
 		&& mv Makefile.fetched Makefile.venv
+
+
+# This value is assigned immediately upon parsing Makefile, thus it must be
+# placed after include statement where $(VENV) is defined
+export PATH:=$(VENV):$(PATH)
