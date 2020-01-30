@@ -7,9 +7,8 @@ driver:
 
 platforms:
   - name: docker-debian-instance
-    image: debian:buster
-    # privileged: true
-    pre_build_image: true
+    image: buster-for-molecule
+    # pre_build_image: true
 
 provisioner:
   name: ansible
