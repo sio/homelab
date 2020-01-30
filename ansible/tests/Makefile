@@ -1,16 +1,34 @@
-MOLECULE_EXTRA_ARGS?=
+MOLECULE?=$(VENV)/molecule
+MOLECULE+=--base-config "$(MOLECULE_BASE_CONFIG)"
+MOLECULE+=$(MOLECULE_EXTRA_ARGS)
 MOLECULE_BASE_CONFIG?=$(abspath molecule.yml)
+MOLECULE_EXTRA_ARGS?=
+ifdef DEBUG
+MOLECULE_EXTRA_ARGS+=--debug
+endif
 
 
 ANSIBLE?=$(VENV)/ansible
-MOLECULE?=$(VENV)/molecule
+ANSIBLE_ROLES=$(patsubst %/molecule,%,$(wildcard ../roles/*/molecule))
 
 
-MOLECULE+=--base-config "$(MOLECULE_BASE_CONFIG)"
-MOLECULE+=$(MOLECULE_EXTRA_ARGS)
+define message
+Usage: $(MAKE) [target]
 
+List of supported targets
+    all
+        Execute Molecule tests for all Ansible roles. Default target
+    ../roles/somerole
+        Execute Molecule tests for a specific role
+    login ANSIBLE_ROLE=../roles/somerole
+        Login to Docker container after applying Ansible role
+    show-roles
+        Show roles with Molecule tests
+    help
+        Show this help message
+endef
+export message
 
-ANSIBLE_ROLES=../roles/motd
 
 all: $(ANSIBLE_ROLES)
 
@@ -37,11 +55,21 @@ login: | venv
 	$(MOLECULE) destroy
 
 
+.PHONY: show-roles
+show-roles:
+	@echo -e "    $(subst $(eval) ,\n    ,$(foreach role,$(sort $(ANSIBLE_ROLES)),$(role)))"
+
+
 .PHONY: versions
 versions: venv
 	$(VENV)/python --version
 	$(MOLECULE) --version
 	$(ANSIBLE) --version
+
+
+.PHONY: help
+help:
+	@echo "$$message"
 
 
 include Makefile.venv
