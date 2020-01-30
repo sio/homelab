@@ -10,9 +10,13 @@ MOLECULE+=--base-config "$(MOLECULE_BASE_CONFIG)"
 MOLECULE+=$(MOLECULE_EXTRA_ARGS)
 
 
+../role/motd: ANSIBLE_ROLE=$@
+../role/motd: test
+
+
 .PHONY: test
 test: | venv versions
-	cd ../roles/motd && $(MOLECULE) test
+	cd $(ANSIBLE_ROLE) && $(MOLECULE) test
 
 
 .PHONY: versions
