@@ -7,7 +7,7 @@ MOLECULE?=$(VENV)/molecule
 
 .PHONY: test
 test: | venv
-	cd roles/motd && $(MOLECULE) test $(MOLECULE_EXTRA_ARGS)
+	cd roles/motd && $(MOLECULE) $(MOLECULE_EXTRA_ARGS) test
 
 
 include Makefile.venv
