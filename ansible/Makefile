@@ -6,8 +6,15 @@ MOLECULE?=$(VENV)/molecule
 
 
 .PHONY: test
-test: | venv
+test: | venv versions
 	cd roles/motd && $(MOLECULE) $(MOLECULE_EXTRA_ARGS) test
+
+
+.PHONY: versions
+versions: | venv
+	$(VENV)/python --version
+	$(MOLECULE) --version
+	$(ANSIBLE) --version
 
 
 include Makefile.venv
