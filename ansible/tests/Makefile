@@ -27,6 +27,16 @@ test: | venv versions
 	cd $(ANSIBLE_ROLE) && $(MOLECULE) test
 
 
+.PHONY: login
+login: | venv
+	cd $(ANSIBLE_ROLE)   && \
+	$(MOLECULE) create   && \
+	$(MOLECULE) prepare   && \
+	$(MOLECULE) converge && \
+	$(MOLECULE) login    && \
+	$(MOLECULE) destroy
+
+
 .PHONY: versions
 versions: venv
 	$(VENV)/python --version
