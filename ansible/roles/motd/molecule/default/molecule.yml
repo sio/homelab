@@ -1,0 +1,19 @@
+scenario:
+  name: default
+
+driver:
+  name: docker
+
+platforms:
+  - name: docker-debian-instance
+    image: debian:buster
+    privileged: true
+
+provisioner:
+  name: ansible
+
+verifier:
+  name: testinfra
+  directory: ../tests
+  options:
+    v: 1
