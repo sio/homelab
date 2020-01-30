@@ -1,10 +1,13 @@
+MOLECULE_EXTRA_ARGS?=
+
+
 ANSIBLE?=$(VENV)/ansible
 MOLECULE?=$(VENV)/molecule
 
 
 .PHONY: test
 test: | venv
-	cd roles/motd && $(MOLECULE) test
+	cd roles/motd && $(MOLECULE) test $(MOLECULE_EXTRA_ARGS)
 
 
 include Makefile.venv
