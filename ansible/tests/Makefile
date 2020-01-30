@@ -16,7 +16,7 @@ test: | venv versions
 
 
 .PHONY: versions
-versions: | venv
+versions: venv
 	$(VENV)/python --version
 	$(MOLECULE) --version
 	$(ANSIBLE) --version
