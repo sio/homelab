@@ -1,3 +1,4 @@
+# Clean environment for applying Ansible roles
 FROM debian:10-slim
 RUN \
     apt-get update && \

@@ -7,11 +7,16 @@ variables:
   stage: build
   image: docker:latest
   services:
-    - docker-dind
+    - docker:dind
   script:
     - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" "$CI_REGISTRY"
     - docker build --pull -t "$CI_REGISTRY_IMAGE" - < "$DOCKERFILE"  # no build context
     - docker push "$CI_REGISTRY_IMAGE"
+
+
+.push-to-master: &push-to-master
+  if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_REF_NAME == "master"'
+  when: always
 
 
 molecule-docker-debian-10:
@@ -19,3 +24,7 @@ molecule-docker-debian-10:
   variables:
     DOCKERFILE: ansible/tests/Dockerfile.debian-10
     CI_REGISTRY_IMAGE: potyarkin/molecule:debian-10
+  rules:
+    - <<: *push-to-master
+      changes:
+        - ansible/tests/Dockerfile.debian-10
