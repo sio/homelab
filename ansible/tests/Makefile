@@ -1,13 +1,18 @@
 MOLECULE_EXTRA_ARGS?=
+MOLECULE_BASE_CONFIG?=$(abspath molecule.yml)
 
 
 ANSIBLE?=$(VENV)/ansible
 MOLECULE?=$(VENV)/molecule
 
 
+MOLECULE+=--base-config "$(MOLECULE_BASE_CONFIG)"
+MOLECULE+=$(MOLECULE_EXTRA_ARGS)
+
+
 .PHONY: test
 test: | venv versions
-	cd roles/motd && $(MOLECULE) $(MOLECULE_EXTRA_ARGS) test
+	cd ../roles/motd && $(MOLECULE) test
 
 
 .PHONY: versions
