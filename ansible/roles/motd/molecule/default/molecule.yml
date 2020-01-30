@@ -3,8 +3,8 @@
 ---
 platforms:
   - name: docker-debian-instance
-    image: buster-for-molecule
-    # pre_build_image: true
+    image: potyarkin/molecule:debian-10
+    pre_build_image: true
 
 provisioner:
   log: true

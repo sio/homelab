@@ -1,0 +1,21 @@
+variables:
+  CI_REGISTRY_USER: potyarkin
+  CI_REGISTRY: docker.io
+
+
+.docker-build: &docker-build
+  stage: build
+  image: docker:latest
+  services:
+    - docker-dind
+  script:
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" "$CI_REGISTRY"
+    - docker build --pull -t "$CI_REGISTRY_IMAGE" - < "$DOCKERFILE"  # no build context
+    - docker push "$CI_REGISTRY_IMAGE"
+
+
+molecule-docker-debian-10:
+  <<: *docker-build
+  variables:
+    DOCKERFILE: ansible/tests/Dockerfile.debian-10
+    CI_REGISTRY_IMAGE: potyarkin/molecule:debian-10
