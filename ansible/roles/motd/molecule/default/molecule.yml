@@ -12,6 +12,7 @@ platforms:
 
 provisioner:
   name: ansible
+  log: true
 
 verifier:
   name: testinfra
