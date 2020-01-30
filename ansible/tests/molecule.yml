@@ -1,7 +1,4 @@
 ---
-scenario:
-  name: default
-
 driver:
   name: docker
 
