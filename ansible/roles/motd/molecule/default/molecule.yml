@@ -8,7 +8,7 @@ driver:
 platforms:
   - name: docker-debian-instance
     image: debian:buster
-    #privileged: true
+    # privileged: true
     pre_build_image: true
 
 provisioner:
