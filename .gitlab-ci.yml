@@ -19,6 +19,17 @@ variables:
   when: always
 
 
+molecule-host-alpine:
+  <<: *docker-build
+  variables:
+    DOCKERFILE: ansible/tests/Dockerfile.host
+    CI_REGISTRY_IMAGE: potyarkin/molecule:host
+  rules:
+    #- <<: *push-to-master
+    - changes:
+        - ansible/tests/Dockerfile.host
+
+
 molecule-guest-debian-10:
   <<: *docker-build
   variables:
@@ -32,7 +43,7 @@ molecule-guest-debian-10:
 
 test-ansible-role:
   stage: test
-  image: docker:latest
+  image: potyarkin/molecule:host
   services:
     - docker:dind
   script:
