@@ -1,0 +1,14 @@
+# Main molecule configuration is located in ansible/roles/tests/molecule.yml
+# Invoke with `molecule --base-config $LOCATION`
+---
+platforms:
+  - name: docker-debian-instance
+    image: potyarkin/molecule:debian-10
+    pre_build_image: true
+
+dependency:
+  name: shell
+  command: echo n|ssh-keygen -q -t ed25519 -a 10 -f /tmp/testkey -C "" -N ""
+
+provisioner:
+  log: true

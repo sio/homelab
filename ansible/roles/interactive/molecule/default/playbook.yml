@@ -1,0 +1,7 @@
+---
+
+- hosts: all
+  become: true
+  roles:
+    - role: interactive
+      interactive_ssh_key: /tmp/testkey.pub
