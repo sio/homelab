@@ -44,7 +44,7 @@ set -o pipefail
 [[ -z "$DOTFILES" ]] && DOTFILES=$(readlink -m "$(dirname "$0")")
 [[ -z "$DOTFILES_BACKUP" ]] && DOTFILES_BACKUP="$HOME/.dotfiles-overwritten/"
 SUFFIXES="link|append|copy"
-COLUMNS=$(tput cols)
+COLUMNS=$(tput cols||echo 80)
 
 
 main() {
