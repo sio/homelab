@@ -54,8 +54,17 @@ test-ansible-role:
     - docker:dind
   script:
     - cd ansible/tests && make test
+  cache:
+    paths:
+      - "$CI_PROJECT_DIR/cache"
+    key:
+      prefix: molecule-venv
+      files:
+        - ansible/tests/requirements.txt
   variables:
     ANSIBLE_ROLE: ../roles/motd
+    PIP_CACHE_DIR: "$CI_PROJECT_DIR/cache/pip"
+    VENVDIR: "$CI_PROJECT_DIR/cache/venv"
   # rules:
   #   - changes:
   #       - ansible/roles/motd/**
