@@ -14,9 +14,29 @@ variables:
     - docker push "$CI_REGISTRY_IMAGE"
 
 
+.test-ansible-role: &test-ansible-role
+  stage: test
+  image: potyarkin/molecule:host
+  services:
+    - docker:dind
+  script:
+    - cd ansible/tests && make test
+  cache:
+    paths:
+      - "$CI_PROJECT_DIR/cache"
+    key:
+      prefix: molecule-venv
+      files:
+        - ansible/tests/requirements.txt
+  variables:
+    PIP_CACHE_DIR: "$CI_PROJECT_DIR/cache/pip"
+    VENVDIR: "$CI_PROJECT_DIR/cache/venv"
+
+
 .push-to-master: &push-to-master
   if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_REF_NAME == "master"'
   when: always
+
 
 .allow-schedule: &allow-schedule
   if: '$CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "manual"'
@@ -47,24 +67,10 @@ molecule-guest-debian-10:
         - ansible/tests/Dockerfile.debian-10
 
 
-test-ansible-role:
-  stage: test
-  image: potyarkin/molecule:host
-  services:
-    - docker:dind
-  script:
-    - cd ansible/tests && make test
-  cache:
-    paths:
-      - "$CI_PROJECT_DIR/cache"
-    key:
-      prefix: molecule-venv
-      files:
-        - ansible/tests/requirements.txt
+test-role-motd:
+  <<: *test-ansible-role
   variables:
     ANSIBLE_ROLE: ../roles/motd
-    PIP_CACHE_DIR: "$CI_PROJECT_DIR/cache/pip"
-    VENVDIR: "$CI_PROJECT_DIR/cache/venv"
   # rules:
   #   - changes:
   #       - ansible/roles/motd/**
