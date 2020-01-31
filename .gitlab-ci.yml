@@ -36,8 +36,8 @@
   when: always
 
 
-.allow-schedule: &allow-schedule
-  if: '$CI_PIPELINE_SOURCE == "schedule" || $CI_PIPELINE_SOURCE == "manual"'
+.trigger-docker-build: &trigger-docker-build
+  if: '$TRIGGER_DOCKER_BUILD'
   when: always
 
 
@@ -47,9 +47,9 @@ molecule-host-alpine:
     DOCKERFILE: ansible/tests/Dockerfile.host
     CI_REGISTRY_IMAGE: potyarkin/molecule:host
   rules:
-    - *allow-schedule
-    #- <<: *push-to-master
-    - changes:
+    - *trigger-docker-build
+    - <<: *push-to-master
+      changes:
         - ansible/tests/Dockerfile.host
 
 
@@ -59,7 +59,7 @@ molecule-guest-debian-10:
     DOCKERFILE: ansible/tests/Dockerfile.debian-10
     CI_REGISTRY_IMAGE: potyarkin/molecule:debian-10
   rules:
-    - *allow-schedule
+    - *trigger-docker-build
     - <<: *push-to-master
       changes:
         - ansible/tests/Dockerfile.debian-10
@@ -69,6 +69,6 @@ test-role-motd:
   extends: .test-ansible-role
   variables:
     ANSIBLE_ROLE: ../roles/motd
-  # rules:
-  #   - changes:
-  #       - ansible/roles/motd/**
+  rules:
+    - changes:
+        - ansible/roles/motd/**
