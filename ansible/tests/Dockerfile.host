@@ -1,0 +1,12 @@
+# Docker image that will be the host for Molecule test runs
+FROM docker:latest
+RUN apk add --no-cache \
+        coreutils \
+        curl \
+        gcc \
+        libffi-dev \
+        make \
+        musl-dev \
+        openssl-dev \
+        python3 \
+        python3-dev

@@ -3,5 +3,5 @@
   blockinfile:
     dest: /etc/motd
     block: '{{ motd }}'
-    create: yes
+    create: true
     marker: '- - - - - - - - - - - - - - - - - - - - - - - - - - - - {mark}'

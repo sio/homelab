@@ -1,0 +1,13 @@
+---
+driver:
+  name: docker
+
+provisioner:
+  name: ansible
+  log: true
+
+verifier:
+  name: testinfra
+  directory: ../tests
+  options:
+    v: 1
