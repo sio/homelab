@@ -19,7 +19,7 @@ variables:
   when: always
 
 
-molecule-docker-debian-10:
+molecule-guest-debian-10:
   <<: *docker-build
   variables:
     DOCKERFILE: ansible/tests/Dockerfile.debian-10
@@ -28,3 +28,17 @@ molecule-docker-debian-10:
     - <<: *push-to-master
       changes:
         - ansible/tests/Dockerfile.debian-10
+
+
+test-ansible-role:
+  stage: test
+  image: docker:latest
+  services:
+    - docker:dind
+  script:
+    - cd ansible/tests && make test
+  variables:
+    ANSIBLE_ROLE: ../roles/motd
+  # rules:
+  #   - changes:
+  #       - ansible/roles/motd/**
