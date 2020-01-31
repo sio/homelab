@@ -13,5 +13,9 @@ def test_echo(host):
 
 def test_motd(host):
     motd = host.file('/etc/motd')
-    for line in ('BEGIN', 'END', 'special snowflake', 'MANAGED REMOTELY WITH ANSIBLE'):
+    for line in (
+            'BEGIN',
+            'END',
+            'special snowflake',
+            'MANAGED REMOTELY WITH ANSIBLE'):
         assert motd.contains(line)
