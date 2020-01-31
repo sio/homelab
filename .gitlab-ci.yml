@@ -71,4 +71,4 @@ test-role-motd:
     ANSIBLE_ROLE: ../roles/motd
   rules:
     - changes:
-        - ansible/roles/motd/**
+        - ansible/roles/motd/**/*
