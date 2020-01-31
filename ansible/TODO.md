@@ -1,5 +1,6 @@
 # TODO list for Ansible playbooks
 
+- Automated testing with Molecule
 - Mediabox
     - Write roles
         - dlna
