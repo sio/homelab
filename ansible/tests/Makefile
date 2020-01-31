@@ -18,7 +18,7 @@ Usage: $(MAKE) [target]
 List of supported targets
     all
         Execute Molecule tests for all Ansible roles. Default target
-    ../roles/somerole
+    test ANSIBLE_ROLE=../roles/somerole
         Execute Molecule tests for a specific role
     login ANSIBLE_ROLE=../roles/somerole
         Login to Docker container after applying Ansible role
@@ -34,8 +34,9 @@ all: $(ANSIBLE_ROLES)
 
 
 define test-ansible-role
-$(1): ANSIBLE_ROLE=$(1)
-$(1): test
+.PHONY: $(1)
+$(1): | venv versions
+	cd $(1) && $$(MOLECULE) test
 endef
 $(foreach role,$(ANSIBLE_ROLES),$(eval $(call test-ansible-role, $(role))))
 
