@@ -143,7 +143,7 @@ _prompt_calculate_nested_level() {
     then
         # Increment only for sessions started by another shell,
         # PPID=1 is a special case for detached processes fathered by Make
-        _NESTED_LEVEL=$(("$_NESTED_LEVEL"+1))
+        _NESTED_LEVEL=$(($_NESTED_LEVEL+1))
     else
         _NESTED_LEVEL=1
     fi
