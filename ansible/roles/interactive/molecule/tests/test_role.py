@@ -23,3 +23,10 @@ def test_symlinks(host):
     vimrc = host.file('/home/interactive/.vimrc')
     assert vimrc.is_symlink
     assert vimrc.linked_to.endswith('dotfiles/vim/vimrc.link')
+
+
+def test_common(host):
+    common = host.file('/home/interactive/.common/.git')
+    assert common.exists
+    assert common.is_directory
+    assert common.user == 'interactive'
