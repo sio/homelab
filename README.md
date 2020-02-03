@@ -11,6 +11,16 @@ Creating symbolic links from appropriate places enables all or
 part of shared configuration. See [bootstrap.sh](dotfiles/bootstrap.sh) for more
 information
 
+Typical initialization:
+
+```sh
+$ git clone --recursive "https://gitlab.com/sio/server_common.git" ~/.common
+...
+$ ~/.common/dotfiles/bootstrap.sh ~/.common/dotfiles/topics-cli.list
+...
+$ exec bash  # restart shell with new settings
+```
+
 
 ## Directory structure
 
