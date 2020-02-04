@@ -65,6 +65,15 @@ molecule-guest-debian-10:
         - ansible/tests/Dockerfile.debian-10
 
 
+test-role-deb_url:
+  extends: .test-ansible-role
+  variables:
+    ANSIBLE_ROLE: ../roles/deb_url
+  rules:
+    - changes:
+        - ansible/roles/deb_url/**/*
+
+
 test-role-interactive:
   extends: .test-ansible-role
   variables:
