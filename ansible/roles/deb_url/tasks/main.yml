@@ -1,5 +1,16 @@
 # Install deb packages from remote URLs
 ---
+- name: check if executing on supported OS
+  assert:
+    that:
+      - ansible_pkg_mgr == 'apt'
+    fail_msg: 'unsupported package manager: {{ ansible_pkg_mgr }}'
+
+- name: ensure common root SSL certificates are available
+  apt:
+    name: ca-certificates
+    state: present
+
 - name: fetch packages from direct URLs
   get_url:  # file will not be redownloaded if checksum matches
     url: '{{ item.url }}'
