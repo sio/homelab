@@ -11,6 +11,12 @@
     name: ca-certificates
     state: present
 
+- name: create directory for storing *.deb files
+  file:
+    dest: '{{ deb_url_storage }}'
+    state: directory
+    mode: '0700'
+
 - name: fetch packages from direct URLs
   get_url:  # file will not be redownloaded if checksum matches
     url: '{{ item.url }}'
