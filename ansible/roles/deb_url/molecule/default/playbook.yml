@@ -5,5 +5,7 @@
   roles:
     - role: deb_url
       deb_url_packages:
+        - url: https://github.com/sio/transmission-debian-patched/releases/download/2.94-2.1-buster/transmission-common_2.94-2.1_all.deb
+          checksum: sha256:42117eaac71af8fa53b5b0803df986adcd0d3bdaf0a7f0791465f7b2478ad765
         - url: https://github.com/sio/transmission-debian-patched/releases/download/2.94-2.1-buster/transmission-daemon_2.94-2.1_amd64.deb
           checksum: sha256:ad651ef56c279ca84a827fd112544127fbb6b73e1b8a4c7cd902b94132b34ab7
