@@ -3,4 +3,5 @@ ansible
                     # https://github.com/ansible-community/molecule/pull/2524
                     # gets included into Molecule release (probably 3.0)
 https://github.com/sio/molecule/releases/download/3.0a6.dev42%2Bgec89f169%2Bhotfix/molecule-3.0a6.dev42+gec89f169.tar.gz#egg=molecule[docker]
+https://github.com/sio/molecule-vagrant/releases/download/0.1.dev4%2Bgc3e9ad1/molecule-vagrant-0.1.dev4+gc3e9ad1.d20200204.tar.gz
 yamllint
