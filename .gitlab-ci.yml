@@ -65,6 +65,18 @@ molecule-guest-debian-10:
         - ansible/tests/Dockerfile.debian-10
 
 
+molecule-guest-debian-10-systemd:
+  extends: .docker-build
+  variables:
+    DOCKERFILE: ansible/tests/Dockerfile.debian-10-systemd
+    CI_REGISTRY_IMAGE: potyarkin/molecule:debian-10-systemd
+  rules:
+    - *trigger-docker-build
+    - <<: *push-to-master
+      changes:
+        - ansible/tests/Dockerfile.debian-10-systemd
+
+
 test-role-deb_url:
   extends: .test-ansible-role
   variables:
