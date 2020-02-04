@@ -52,7 +52,9 @@
     name: '{{ transmission_daemon_name }}'
     state: stopped
   when: transmission_config_check.changed
-  failed_when: False
+  failed_when: false
+  tags:
+    - skip_ansible_lint
 
 - name: copy transmission settings
   template:
@@ -68,3 +70,5 @@
   debug:
     var: transmission_settings_diff
   when: transmission_settings_diff.changed
+  tags:
+    - skip_ansible_lint

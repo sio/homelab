@@ -39,4 +39,4 @@
     state: started
     enabled: yes
     daemon_reload: yes
-  with_items: '[ "{{ transmission_daemon_name }}" ] + {{ transmission_watch_services }}'
+  with_items: '{{ [transmission_daemon_name] + transmission_watch_services  }}'

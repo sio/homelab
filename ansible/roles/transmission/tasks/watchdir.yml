@@ -16,6 +16,8 @@
   with_items:
     - pip
     - setuptools
+  tags:
+    - skip_ansible_lint
 
 - name: remove outdated watchdir package
   pip:

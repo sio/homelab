@@ -6,7 +6,7 @@
 - name: use fallback value for remote managing user
   set_fact:
     server_remote_user: 'unprivileged'
-  when: (not server_remote_user is defined) and (ansible_user == 'root')
+  when: (not server_remote_user is defined) and (ansible_user is not defined or ansible_user == 'root')
 
 - name: select unprivileged account for remote access
   set_fact:
