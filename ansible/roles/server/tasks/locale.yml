@@ -3,6 +3,11 @@
 #
 ---
 
+- name: install locale packages
+  package:
+    name: locales
+    state: present
+
 - name: set default system locale
   debconf:
     name: locales

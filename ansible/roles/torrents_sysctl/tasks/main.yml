@@ -3,6 +3,12 @@
 #
 ---
 
+- name: ensure required packages are installed
+  package:
+    name:
+      - kmod
+      - procps
+
 - name: enable TCP-LP congestion algorithm
   modprobe:  # https://www.irif.fr/~jch//software/bittorrent/tcp-congestion-control.html
     name: tcp_lp
