@@ -1,10 +1,10 @@
 # Install deb packages from remote URLs
-
+---
 - name: fetch packages from direct URLs
-  get_url:
+  get_url:  # file will not be redownloaded if checksum matches
     url: '{{ item.url }}'
     dest: '{{ deb_url_storage }}/{{ item.checksum }}'
-    checksum: '{{ item.checksum }}'  # file will not be redownloaded if checksum matches
+    checksum: '{{ item.checksum }}'
   with_items: '{{ deb_url_packages }}'
 
 - name: install custom packages
