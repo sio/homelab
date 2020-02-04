@@ -1,0 +1,24 @@
+FROM debian:10-slim
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+        coreutils \
+        curl \
+        gcc \
+        kmod \
+        libc-dev \
+        libffi-dev \
+        libssl-dev \
+        libvirt-clients \
+        libvirt-daemon-system \
+        make \
+        procps \
+        python3 \
+        python3-dev \
+        python3-venv \
+        qemu-kvm \
+        systemd \
+        vagrant \
+        vagrant-libvirt \
+        && \
+    apt-get clean
+CMD ["/sbin/init"]
