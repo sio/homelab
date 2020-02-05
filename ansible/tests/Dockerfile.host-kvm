@@ -1,9 +1,15 @@
 FROM debian:10-slim
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
+        bridge-utils \
         coreutils \
+        cpu-checker \
         curl \
+        dnsmasq \
         gcc \
+        git \
+        iproute2 \
+        iptables \
         kmod \
         libc-dev \
         libffi-dev \
@@ -11,14 +17,19 @@ RUN apt-get update && \
         libvirt-clients \
         libvirt-daemon-system \
         make \
+        net-tools \
         procps \
+        psmisc \
         python3 \
         python3-dev \
         python3-venv \
         qemu-kvm \
+        qemu-utils \
         systemd \
         vagrant \
         vagrant-libvirt \
+        virtinst \
         && \
-    apt-get clean
+    apt-get clean && \
+    echo 'user = "root"' >> /etc/libvirt/qemu.conf
 CMD ["/sbin/init"]

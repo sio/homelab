@@ -1,3 +1,14 @@
+# MAIN ENTRYPOINT FOR CONTINUOUS INTEGRATION JOBS
+#
+# Tests are executed on infrastructure provided by GitLab CI
+
+
+stages:
+  - build
+  - test-docker
+  - test-kvm
+
+
 .docker-build:
   stage: build
   image: docker:latest
@@ -6,6 +17,7 @@
   variables:
     CI_REGISTRY_USER: potyarkin
     CI_REGISTRY: docker.io
+    # CI_REGISTRY_PASSWORD: Masked value. Defined in GitLab web interface
   script:
     - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" "$CI_REGISTRY"
     - docker build --pull -t "$CI_REGISTRY_IMAGE" - < "$DOCKERFILE"  # no build context
@@ -13,7 +25,7 @@
 
 
 .test-ansible-role:
-  stage: test
+  stage: test-docker
   image: potyarkin/molecule:host
   services:
     - docker:dind
@@ -29,6 +41,18 @@
   variables:
     PIP_CACHE_DIR: "$CI_PROJECT_DIR/cache/pip"
     VENVDIR: "$CI_PROJECT_DIR/cache/venv"
+
+
+.test-ansible-role-kvm:
+  # Tests that require full virtualization are delegated to Cirrus CI
+  stage: test-kvm
+  image: potyarkin/cirrus-run
+  script:
+    - export REQUIREMENTS_CHECKSUM=$(sha256sum ansible/tests/requirements.txt|cut -c -64)
+    - cirrus-run
+  variables:
+    CIRRUS_GITHUB_REPO: sio/.cirrus-ci-jobs
+    # CIRRUS_API_TOKEN: Masked value. Defined in GitLab web interface
 
 
 .push-to-master: &push-to-master
@@ -114,3 +138,12 @@ test-role-motd:
   rules:
     - changes:
         - ansible/roles/motd/**/*
+
+
+test-role-transmission:
+  extends: .test-ansible-role-kvm
+  variables:
+    ANSIBLE_ROLE: ../roles/transmission
+  rules:
+    - changes:
+        - ansible/roles/transmission/**/*
