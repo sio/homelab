@@ -6,6 +6,7 @@
 - Mediabox
     - Write roles
         - dlna
+        - unattended upgrades (only on Debian Stable)
     - Test playbooks in virtual machine
         - server
         - deb_url + transmission
