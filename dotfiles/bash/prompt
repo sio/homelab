@@ -119,7 +119,12 @@ _prompt_path() {
 
 
 _prompt() {
-    local usrclr=$(_prompt_usercolor)
+    if [[ -z "$_OVERRIDE_PROMPT_COLOR" ]]
+    then
+        local usrclr="$(_prompt_usercolor)"
+    else
+        local usrclr="$_OVERRIDE_PROMPT_COLOR"
+    fi
 
     local newlines='\n\n'
     local who=$(_color "1;3${usrclr}m" '[\u@\h]')

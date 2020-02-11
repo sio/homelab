@@ -1,3 +1,14 @@
-# Example of incorporating these scripts into your config
+# BASH CONFIGURATION FILE
+# Host-specific modifications should be defined here
+
+# Force hostname color in prompt:
+#   ASCII colors (foreground: 30-37, background: 40-47)
+#     0: black,   1: red,       2: green,    3: yellow,
+#     4: blue,    5: magenta,   6: cyan,     7: white
+# Default value is calculated based on username@host
+#
+# _OVERRIDE_PROMPT_COLOR=1
+
+# Load the rest of configuration from Git repo
 COMMON="$HOME/.common"
 . "$COMMON/dotfiles/bash/bashrc"
