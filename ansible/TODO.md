@@ -1,6 +1,8 @@
 # TODO list for Ansible playbooks
 
 - Automated testing with Molecule
+- Add asserts to ensure that required variables are defined before executing
+  any task in roles
 - Mediabox
     - Write roles
         - dlna
