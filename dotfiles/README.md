@@ -6,6 +6,8 @@ By default dotfiles are targeting "$HOME" and recreate the directory structure
 of the topic directory below. Some topics target other directories (system-wide
 configuration), that information is defined in `$topicname/dotfiles.meta`
 
+[This blog post](https://potyarkin.ml/posts/2019/on-dotfiles-management/)
+provides an overview of dotfile management approach used here.
 See [bootstrap.sh](./bootstrap.sh) for more information.
 
 
