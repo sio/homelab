@@ -27,10 +27,15 @@ task:
     #   LIBGUESTFS_DEBUG: 1
     #   LIBGUESTFS_TRACE: 1
 
+  # CI cache
   venv_cache:
     folder: $CIRRUS_WORKING_DIR/cache
     fingerprint_script:
       - echo "$CACHE_KEY"
+  vagrant_cache:
+    folder: $HOME/.vagrant.d/boxes
+    fingerprint_script:
+      - echo Virtual machine base images
 
   # Clone correct repo instead of dummy GitHub placeholder
   clone_script:
@@ -61,6 +66,8 @@ task:
       - ps -eo ppid,pid,user,cpu,rss,stat,start,command
       - lsmod
       - kvm-ok || echo "Exit code: $?"
+      - du -sh "$HOME/.vagrant.d/boxes" || echo "Exit code: $?"
+      - ls -l "$HOME/.vagrant.d/boxes" || echo "Exit code: $?"
       - ls -l /dev/kvm || echo "Exit code: $?"
       - ls -l /var/run/libvirt || echo "Exit code: $?"
       - whoami
