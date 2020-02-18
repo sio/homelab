@@ -2,6 +2,15 @@
 # System wide limit on number of open files. Default: 47804
 'fs.file-max': 1024000
 
+
+#
+# https://www.irif.fr/~jch//software/bittorrent/tcp-congestion-control.html
+#
+
+# Enable TCP-LP congestion algorithm
+'net.ipv4.tcp_allowed_congestion_control': 'cubic reno lp'
+
+
 #
 # https://github.com/rakshasa/rtorrent/wiki/Performance-Tuning
 #
@@ -31,17 +40,9 @@
 # safe from the network stack’s perspective. Default: 0
 'net.ipv4.tcp_tw_reuse': 1
 
-# Do not last the complete time_wait cycle. Default: 0
-'net.ipv4.tcp_tw_recycle': 1
-
 # Minimum time a socket will stay in TIME_WAIT state (unusable after being used
 # once). Default: 60
 'net.ipv4.tcp_fin_timeout': 30
 
-
-#
-# https://www.irif.fr/~jch//software/bittorrent/tcp-congestion-control.html
-#
-
-# Enable TCP-LP congestion algorithm
-'net.ipv4.tcp_allowed_congestion_control': 'cubic reno lp'
+# Do not last the complete time_wait cycle. Default: 0
+'net.ipv4.tcp_tw_recycle': 1
