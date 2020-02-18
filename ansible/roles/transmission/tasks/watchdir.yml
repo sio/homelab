@@ -10,8 +10,8 @@
 - name: create Python virtual environment and update pip
   pip:
     name:
-      - pip
       - setuptools
+      - pip
     state: latest
     virtualenv: '{{ transmission_watch_venv }}'
     virtualenv_command: '/usr/bin/python3 -m venv'

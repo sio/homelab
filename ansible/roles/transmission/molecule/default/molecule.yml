@@ -39,5 +39,3 @@ dependency:
 
 provisioner:
   log: true
-  options:
-    vvv: true
