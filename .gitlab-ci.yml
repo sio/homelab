@@ -146,4 +146,6 @@ test-role-transmission:
     ANSIBLE_ROLE: ../roles/transmission
   rules:
     - changes:
+        - ansible/roles/server/**/*
+        - ansible/roles/torrents_sysctl/**/*
         - ansible/roles/transmission/**/*
