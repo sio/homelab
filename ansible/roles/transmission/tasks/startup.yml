@@ -22,7 +22,7 @@
       {{
       transmission_instance.watch
       | map(attribute="name")
-      | map("regex_replace", "(.*)", transmission_watch_prefix + "-\1")
+      | map("regex_replace", "^(.*)$", transmission_watch_prefix + "-\1")
       | list
       }}
 
