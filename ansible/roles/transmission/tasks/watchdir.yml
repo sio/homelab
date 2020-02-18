@@ -9,13 +9,12 @@
 
 - name: create Python virtual environment and update pip
   pip:
-    name: '{{ item }}'
+    name:
+      - pip
+      - setuptools
     state: latest
     virtualenv: '{{ transmission_watch_venv }}'
     virtualenv_command: '/usr/bin/python3 -m venv'
-  with_items:
-    - pip
-    - setuptools
   tags:
     - skip_ansible_lint
 
