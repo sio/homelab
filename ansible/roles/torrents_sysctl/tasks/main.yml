@@ -30,5 +30,5 @@
     value: '{{ item.value }}'
     state: present
     reload: yes
-    ignoreerrors: yes
+  ignore_errors: yes
   with_dict: '{{ torrents_sysctl }}'
