@@ -7,7 +7,7 @@ driver:
     name: libvirt
 
 platforms:
-  - name: debian-vm
+  - name: debian10-vm
     box: debian/buster64
     provision: true
     interfaces:
@@ -15,7 +15,7 @@ platforms:
         network_name: private_network
         type: dhcp
 
-#  - name: debian-docker
+#  - name: debian10-docker
 #    image: potyarkin/molecule:debian-10-systemd
 #    pre_build_image: true
 #    command: /sbin/init

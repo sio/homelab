@@ -2,7 +2,7 @@
 # Invoke with `molecule --base-config $LOCATION`
 ---
 platforms:
-  - name: debian-docker
+  - name: debian10-docker
     image: potyarkin/molecule:debian-10
     pre_build_image: true
 

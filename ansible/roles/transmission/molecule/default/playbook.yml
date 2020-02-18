@@ -1,6 +1,6 @@
 ---
 
-- hosts: debian-vm
+- hosts: debian10-vm
   become: true
   roles:
     - role: transmission
