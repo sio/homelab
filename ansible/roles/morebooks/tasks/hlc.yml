@@ -10,6 +10,8 @@
     state: latest
     virtualenv: '{{ path.venv }}'
     virtualenv_command: '/usr/bin/python3 -m venv'
+  tags:
+    - skip_ansible_lint
 
 - name: install packages from requirements.txt
   pip:

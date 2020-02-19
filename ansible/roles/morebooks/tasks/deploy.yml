@@ -26,3 +26,5 @@
 
 - name: back up application data
   command: '{{ path.app|quote }}/backup.py'
+  register: backup
+  changed_when: 'backup is succeeded'

@@ -1,0 +1,36 @@
+# Main molecule configuration is located in ansible/roles/tests/molecule.yml
+# Invoke with `molecule --base-config $LOCATION`
+---
+driver:
+  name: vagrant
+  provider:
+    name: libvirt
+
+platforms:
+  - name: debian10-vm
+    box: debian/buster64
+    memory: 1024
+    provision: true
+    interfaces:
+      - auto_config: true
+        network_name: private_network
+        type: dhcp
+
+dependency:
+  name: shell
+  command: >
+    /bin/sh -c '
+    test -f /tmp/testkey
+    || ssh-keygen -q -t ed25519 -a 10 -f /tmp/testkey -C "" -N ""
+    && ls -l /tmp/testkey*
+    '
+
+provisioner:
+  log: true
+
+# Testinfra tests fail because the firewall on test instance
+# refuses frequent connection attempts
+verifier:
+  name: ansible
+  lint:
+    name: ansible-lint

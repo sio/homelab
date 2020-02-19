@@ -7,6 +7,11 @@
     name: '{{ packages }}'
     state: present
 
+- name: enable deb-src repositories
+  apt_repository:
+    repo: 'deb-src http://deb.debian.org/debian {{ ansible_distribution_release }} main'
+    state: present
+
 - name: install required build-dependencies
   apt:
     name: '{{ build_deps }}'
