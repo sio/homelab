@@ -12,7 +12,7 @@ task:
 
   env:
     PIP_CACHE_DIR: $HOME/cache/pip
-    VENVDIR: $HOME/cache/venv
+    # VENVDIR: should not be cached! Cirrus CI drops some binaries randomly
 
     # Pass values from cirrus-run environment
     CLONE_URL: "{{ CI_REPOSITORY_URL }}"
@@ -28,11 +28,14 @@ task:
     #   LIBGUESTFS_TRACE: 1
 
   # CI cache
-  venv_cache:
+  # TODO: explore possibility of caching libvirtd image pool
+  pip_cache:  # ~20 sec speedup
     folder: $HOME/cache
     fingerprint_script:
+      - echo "Python packages cache"
       - echo "$CACHE_KEY"
-  vagrant_cache:
+  vagrant_cache:  # ~40 sec speedup on cache hit without reupload
+                  # ~60 sec slowdown on cache upload
     folder: $HOME/.vagrant.d/boxes
     fingerprint_script:
       - echo Virtual machine base images
@@ -59,15 +62,22 @@ task:
     - cd ansible/tests
     - make test
 
+  # Clean up volatile items in cache
+  volatile_cache_script:
+    - find "$HOME/.vagrant.d/boxes" -type f -name box_update_check -delete -print
+
   # Debugging information
   always:
+    cache_debug_script:
+      - du -sh "$HOME/.vagrant.d/boxes" || echo "Exit code: $?"
+      - ls -l "$HOME/.vagrant.d/boxes" || echo "Exit code: $?"
+      - find "$HOME/.vagrant.d/boxes" -type f
+      - find "$HOME/cache" -type f
     kvm_debug_script:
       - pstree -alT
       - ps -eo ppid,pid,user,cpu,rss,stat,start,command
       - lsmod
       - kvm-ok || echo "Exit code: $?"
-      - du -sh "$HOME/.vagrant.d/boxes" || echo "Exit code: $?"
-      - ls -l "$HOME/.vagrant.d/boxes" || echo "Exit code: $?"
       - ls -l /dev/kvm || echo "Exit code: $?"
       - ls -l /var/run/libvirt || echo "Exit code: $?"
       - whoami
