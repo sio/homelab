@@ -1,0 +1,21 @@
+---
+- hosts: all
+  name: verify
+  tasks:
+    - name: hello world
+      command: echo hello
+      register: hello
+      changed_when: false
+
+    - name: check stdout of hello world
+      assert:
+        that:
+          - "'hello' in hello.stdout"
+
+    - name: wait for services to become available
+      wait_for:
+        port: '{{ item }}'
+        timeout: 30
+      with_items:
+        - 51001
+        - 9001

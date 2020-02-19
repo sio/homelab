@@ -16,19 +16,6 @@ platforms:
         network_name: private_network
         type: dhcp
 
-#  - name: debian10-docker
-#    image: potyarkin/molecule:debian-10-systemd
-#    pre_build_image: true
-#    command: /sbin/init
-#    capabilities:
-#      - SYS_ADMIN
-#    volumes:
-#      - /sys/fs/cgroup:/sys/fs/cgroup:ro
-#      - /lib/modules:/lib/modules:ro
-#    tmpfs:
-#      - /run
-#      - /tmp
-
 dependency:
   name: shell
   command: >
@@ -40,3 +27,10 @@ dependency:
 
 provisioner:
   log: true
+
+# Testinfra tests fail because the firewall on test instance
+# refuses frequent connection attempts
+verifier:
+  name: ansible
+  lint:
+    name: ansible-lint

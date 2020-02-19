@@ -2,6 +2,8 @@
 
 Install transmission and configure it to efficiently seed lots of torrents
 
+*This role is continuously tested with Molecule.*
+
 
 ## IMPORTANT
 
