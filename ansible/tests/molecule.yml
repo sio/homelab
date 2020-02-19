@@ -20,18 +20,3 @@ lint:
         line-length: disable
         truthy:
           allowed-values: ['yes', 'no', 'true', 'false']
-
-# Systemd in Docker example
-# platforms
-#   - name: debian10-docker
-#     image: potyarkin/molecule:debian-10-systemd
-#     pre_build_image: true
-#     command: /sbin/init
-#     capabilities:
-#       - SYS_ADMIN
-#     volumes:
-#       - /sys/fs/cgroup:/sys/fs/cgroup:ro
-#       - /lib/modules:/lib/modules:ro
-#     tmpfs:
-#       - /run
-#       - /tmp
