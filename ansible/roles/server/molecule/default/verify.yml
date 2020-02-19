@@ -1,0 +1,11 @@
+---
+- hosts: all
+  name: verify
+  tasks:
+    - name: hello world
+      command: echo hello
+      register: hello
+      failed_when: "'hello' not in hello.stdout"
+
+    - name: ping
+      ping:

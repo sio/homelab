@@ -1,0 +1,8 @@
+---
+
+- hosts: debian10-vm
+  become: true
+  roles:
+    - role: server
+      server_keys_public:
+        - /tmp/testkey.pub

@@ -140,6 +140,15 @@ test-role-motd:
         - ansible/roles/motd/**/*
 
 
+test-role-server:
+  extends: .test-ansible-role-kvm
+  variables:
+    ANSIBLE_ROLE: ../roles/server
+  rules:
+    - changes:
+        - ansible/roles/server/**/*
+
+
 test-role-transmission:
   extends: .test-ansible-role-kvm
   variables:
