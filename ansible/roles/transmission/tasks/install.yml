@@ -18,11 +18,10 @@
 
 - name: install transmission
   package:
-    name: '{{ item }}'
+    name:
+      - transmission-daemon
+      - transmission-cli
     state: present
-  with_items:
-    - transmission-daemon
-    - transmission-cli
 
 - name: calculate configuration directory path
   set_fact:

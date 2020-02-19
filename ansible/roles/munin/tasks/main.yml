@@ -4,14 +4,13 @@
 ---
 - name: install required packages
   package:
-    name: '{{ item }}'
+    name:
+      - munin
+      - munin-node
+      - apache2
+      - libcgi-fast-perl
+      - libapache2-mod-fcgid
     state: present
-  with_items:
-    - munin
-    - munin-node
-    - apache2
-    - libcgi-fast-perl
-    - libapache2-mod-fcgid
   notify: restart web server
 
 #- name: configure master

@@ -4,9 +4,8 @@
 ---
 - name: install software packages
   package:
-    name: '{{ item }}'
+    name: '{{ packages }}'
     state: present
-  with_items: '{{ packages }}'
 
 - name: install required build-dependencies
   apt:

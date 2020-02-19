@@ -2,10 +2,9 @@
 
 - name: install packages
   package:
-    name: '{{ item }}'
+    name:
+      - samba
     state: present
-  with_items:
-    - samba
 
 - name: create user accounts
   user:

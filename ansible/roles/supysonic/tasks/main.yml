@@ -2,13 +2,12 @@
 
 - name: install required packages
   package:
-    name: '{{ item }}'
+    name:
+      - python3
+      - apache2
+      - libapache2-mod-wsgi-py3
+      - ffmpeg
     state: present
-  with_items:
-    - python3
-    - apache2
-    - libapache2-mod-wsgi-py3
-    - ffmpeg
 
 - name: create application user group
   group:

@@ -5,7 +5,6 @@
 
 - name: install essential packages
   package:
-    name: '{{ item }}'
+    name: '{{ server_packages }}'
     state: present
-  with_items: '{{ server_packages }}'
 
