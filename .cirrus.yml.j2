@@ -74,6 +74,7 @@ task:
       - find "$HOME/.vagrant.d/boxes" -type f
       - find "$HOME/cache" -type f
     kvm_debug_script:
+      - free -h
       - pstree -alT
       - ps -eo ppid,pid,user,cpu,rss,stat,start,command
       - lsmod
