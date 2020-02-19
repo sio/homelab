@@ -5,12 +5,8 @@
     - name: hello world
       command: echo hello
       register: hello
-      changed_when: false
-
-    - name: check stdout of hello world
-      assert:
-        that:
-          - "'hello' in hello.stdout"
+      failed_when: "'hello' not in hello.stdout"
+      changed_when: "hello is not succeeded"
 
     - name: wait for services to become available
       wait_for:
