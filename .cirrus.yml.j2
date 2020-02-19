@@ -11,8 +11,8 @@ task:
     kvm: true
 
   env:
-    PIP_CACHE_DIR: $CIRRUS_WORKING_DIR/cache/pip
-    VENVDIR: $CIRRUS_WORKING_DIR/cache/venv
+    PIP_CACHE_DIR: $HOME/cache/pip
+    VENVDIR: $HOME/cache/venv
 
     # Pass values from cirrus-run environment
     CLONE_URL: "{{ CI_REPOSITORY_URL }}"
@@ -29,7 +29,7 @@ task:
 
   # CI cache
   venv_cache:
-    folder: $CIRRUS_WORKING_DIR/cache
+    folder: $HOME/cache
     fingerprint_script:
       - echo "$CACHE_KEY"
   vagrant_cache:
