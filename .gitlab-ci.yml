@@ -149,6 +149,15 @@ test-role-server:
         - ansible/roles/server/**/*
 
 
+test-role-torrents_sysctl:
+  extends: .test-ansible-role-kvm
+  variables:
+    ANSIBLE_ROLE: ../roles/torrents_sysctl
+  rules:
+    - changes:
+        - ansible/roles/torrents_sysctl/**/*
+
+
 test-role-transmission:
   extends: .test-ansible-role-kvm
   variables:
