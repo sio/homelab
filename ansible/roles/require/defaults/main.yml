@@ -1,0 +1,12 @@
+---
+require: {}
+
+# SAMPLE VALUES
+# require:
+#   equals:
+#     variable: value
+#     var_foo: value_foo
+#     var_bar: value_bar
+#   defined:
+#     - var_boo
+#     - variable_name

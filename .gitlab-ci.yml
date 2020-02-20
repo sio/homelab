@@ -140,6 +140,15 @@ test-role-motd:
         - ansible/roles/motd/**/*
 
 
+test-role-require:
+  extends: .test-ansible-role
+  variables:
+    ANSIBLE_ROLE: ../roles/require
+  rules:
+    - changes:
+        - ansible/roles/require/**/*
+
+
 test-role-morebooks:
   extends: .test-ansible-role-kvm
   variables:

@@ -1,0 +1,12 @@
+---
+- name: check that required variables are defined
+  assert:
+    that: '{{ item }} is defined'
+  with_items: '{{ require.defined }}'
+  when: 'require.defined is defined'
+
+- name: check that required variables have correct values
+  assert:
+    that: '{{ item.key }} == "{{ item.value }}"'
+  with_dict: '{{ require.equals }}'
+  when: 'require.equals is defined'

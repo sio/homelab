@@ -1,0 +1,15 @@
+---
+
+- hosts: debian10-docker
+  become: true
+  roles:
+    - role: require
+      require:
+        equals:
+          ansible_pkg_mgr: apt
+        defined:
+          - require
+          - require.defined
+          - ansible_host
+    - role: require
+      require:
