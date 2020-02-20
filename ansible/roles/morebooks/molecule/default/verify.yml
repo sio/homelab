@@ -1,6 +1,6 @@
 ---
 - hosts: all
-  name: verify
+  name: verify (inside)
   tasks:
     - name: hello world
       command: echo hello
@@ -10,6 +10,42 @@
 
     - name: wait for services to become available
       wait_for:
+        port: '{{ item }}'
+        timeout: 30
+      with_items:
+        - 80
+        - 443
+
+    - name: fake DNS name resolution
+      lineinfile:
+        dest: /etc/hosts
+        line: '127.0.0.1 morebooks.ml'
+      become: yes
+
+    - name: fetch front page (correct DNS name)
+      uri:
+        validate_certs: no
+        url: https://morebooks.ml
+        return_content: yes
+      register: page
+      failed_when: >-
+        "Книжная квартирка" not in page.content or
+        "change the password immediately" not in page.content
+
+    - name: fetch front page (without DNS name)
+      uri:
+        validate_certs: no
+        url: https://localhost
+        return_content: yes
+      register: page
+      failed_when: '"Книжная квартирка" in page.content or page.status != 200'
+
+- hosts: localhost
+  name: verify (outside)
+  tasks:
+    - name: wait for services to become available
+      wait_for:
+        host: '{{ hostvars["debian10-vm"]["ansible_host"] }}'
         port: '{{ item }}'
         timeout: 30
       with_items:
