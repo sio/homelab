@@ -1,0 +1,68 @@
+---
+- hosts: all
+  name: verify (inside)
+  become: yes
+  tasks:
+    - name: hello world
+      command: echo hello
+      register: hello
+      failed_when: "'hello' not in hello.stdout"
+      changed_when: "hello is not succeeded"
+
+    - name: wait for services to become available
+      wait_for:
+        port: '{{ item }}'
+        timeout: 30
+      with_items:
+        - 80
+        - 4949
+
+    - name: fetch front page from bad src IP
+      uri:
+        url: 'http://localhost/munin/'
+        return_content: yes
+      register: page
+      failed_when: 'page.status != 403'
+
+    - name: wait for services to become available
+      wait_for:
+        host: '{{ hostvars["debian10-vm"]["ansible_host"] }}'
+        port: '{{ item }}'
+        timeout: 30
+      with_items:
+        - 80
+      delegate_to: localhost
+      become: no
+
+    - name: trigger first munin cycle
+      command: >
+        su - munin --shell=/bin/sh -c
+        '/usr/bin/munin-cron'
+      register: cron
+      changed_when: cron is succeeded
+      ignore_errors: yes
+
+    - name: wait for first munin cycle
+      wait_for:
+        path: /var/cache/munin/www/static/style.css
+        timeout: 60
+
+    - block:
+        - name: fetch front page from good src IP
+          uri:
+            url: 'http://{{ hostvars["debian10-vm"]["ansible_host"] }}/munin/'
+            return_content: yes
+          register: page
+          failed_when: '"Munin" not in page.content or page.status != 200'
+          delegate_to: localhost
+          become: no
+      rescue:
+        - name: find Apache logs
+          command: find /var/log/apache2 -type f -exec tail -n+0 -v {} \;
+          register: find
+          changed_when: false
+        - debug:
+            var: find.stdout_lines
+        - name: raise error
+          fail:
+            msg: web page fetching failed. See error messages above

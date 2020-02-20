@@ -29,21 +29,23 @@
   apache2_module:
     name: fcgid
     state: present
+  notify: restart web server
 
-- name: switch to CGI graphs and pages generation
-  block:
-    - name: disable HTML entry point
-      lineinfile:
-        path: /etc/munin/apache24.conf
-        regexp: '^(\s*Alias /munin .*)$'
-        line: '# \1'
-        backrefs: yes
-    - name: enable CGI entry point
-      lineinfile:
-        path: /etc/munin/apache24.conf
-        regexp: '^#(ScriptAlias /munin .*)$'
-        line: '\1'
-        backrefs: yes
+- name: disable HTML entry point
+  lineinfile:
+    path: /etc/munin/apache24.conf
+    regexp: '^(\s*Alias /munin .*)$'
+    line: '# \1'
+    backrefs: yes
+  notify: restart web server
+
+- name: enable CGI entry point
+  lineinfile:
+    path: /etc/munin/apache24.conf
+    regexp: '^#(ScriptAlias /munin .*)$'
+    line: '\1'
+    backrefs: yes
+  notify: restart web server
 
 - name: configure web server
   file:

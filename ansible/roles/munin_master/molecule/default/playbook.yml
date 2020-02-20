@@ -1,0 +1,12 @@
+---
+
+- hosts: debian10-vm
+  become: true
+  roles:
+    - role: munin_master
+      server_keys_public:
+        - '{{ lookup("env", "MOLECULE_EPHEMERAL_DIRECTORY") }}/testkey.pub'
+      munin_master_nodes:
+        - name: localhost
+          address: 127.0.0.1
+

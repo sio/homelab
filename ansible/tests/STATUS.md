@@ -5,7 +5,6 @@
 - **grub**
 - **initrd**
 - **kodi**: depends on server
-- **munin**: depends on server
 - **munin_fdcount**: depends on munin, server
 - **munin_node**
 - **upgrade**
@@ -24,6 +23,7 @@
 ## Tested in Vagrant (Libvirt)
 
 - **morebooks**: depends on server
+- **munin_master**: depends on server
 - **samba**: depends on server
 - **server**: uses UFW, firewall can not load kernel modules in Docker
 - **supysonic**: depends on server
