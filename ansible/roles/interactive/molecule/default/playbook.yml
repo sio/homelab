@@ -4,4 +4,4 @@
   become: true
   roles:
     - role: interactive
-      interactive_ssh_key: /tmp/testkey.pub
+      interactive_ssh_key: '{{ lookup("env", "MOLECULE_EPHEMERAL_DIRECTORY") }}/testkey.pub'

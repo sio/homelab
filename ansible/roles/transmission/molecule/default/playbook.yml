@@ -5,7 +5,7 @@
   roles:
     - role: transmission
       server_keys_public:
-        - /tmp/testkey.pub
+        - '{{ lookup("env", "MOLECULE_EPHEMERAL_DIRECTORY") }}/testkey.pub'
       transmission_instance:
         name: main
         port: 51001

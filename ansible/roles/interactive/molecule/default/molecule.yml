@@ -10,9 +10,9 @@ dependency:
   name: shell
   command: >
     /bin/sh -c '
-    test -f /tmp/testkey
-    || ssh-keygen -q -t ed25519 -a 10 -f /tmp/testkey -C "" -N ""
-    && ls -l /tmp/testkey*
+    test -f "$MOLECULE_EPHEMERAL_DIRECTORY"/testkey
+    || ssh-keygen -q -t ed25519 -a 10 -f "$MOLECULE_EPHEMERAL_DIRECTORY"/testkey -C "" -N ""
+    && ls -l "$MOLECULE_EPHEMERAL_DIRECTORY"/testkey*
     '
 
 provisioner:
