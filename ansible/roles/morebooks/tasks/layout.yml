@@ -44,6 +44,18 @@
     mode:  '0644'
   notify: reload web server
 
+- name: configure web server reply to incorrect domain names
+  file:
+    state: link
+    src: '{{ item.src }}'
+    path: '{{ item.path }}'
+  with_items:
+    - path: /etc/apache2/sites-enabled/000-default.conf
+      src: /etc/apache2/sites-available/000-default.conf
+    - path: /etc/apache2/sites-enabled/000-default-ssl.conf
+      src: /etc/apache2/sites-available/default-ssl.conf
+  notify: reload web server
+
 - name: add google site verification token
   copy:
     dest: '{{ path.static }}/{{ google_key }}'
