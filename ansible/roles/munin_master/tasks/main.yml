@@ -16,7 +16,7 @@
 - name: specify nodes to monitor
   template:
     src: templates/nodes.conf.j2
-    dest: /etc/munin/munin.conf.d/nodes.conf
+    dest: /etc/munin/munin-conf.d/nodes.conf
 
 - name: configure web server
   file:
@@ -34,7 +34,7 @@
 
 - name: allow LAN access to web interface
   ufw:
-    port: 80
+    port: '80'
     rule: allow
     proto: tcp
     src: '{{ munin_master_allow_web_cidr }}'
