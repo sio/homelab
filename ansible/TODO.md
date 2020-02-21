@@ -9,7 +9,6 @@
     - Test playbooks in virtual machine
         - deb_url + transmission
         - munin_node + munin_*
-        - samba
         - supysonic
         - supysonic + munin
         - dlna
