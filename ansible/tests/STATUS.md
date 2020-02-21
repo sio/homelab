@@ -18,6 +18,7 @@
 - **interactive**
 - **motd**
 - **require**
+- **unattended**
 
 
 ## Tested in Vagrant (Libvirt)

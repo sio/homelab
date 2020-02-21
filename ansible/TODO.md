@@ -4,7 +4,6 @@
 - Mediabox
     - Write roles
         - dlna
-        - unattended upgrades (only on Debian Stable)
         - munin_*
     - Test playbooks in virtual machine
         - deb_url + transmission

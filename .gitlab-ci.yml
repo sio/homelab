@@ -149,6 +149,15 @@ test-role-require:
         - ansible/roles/require/**/*
 
 
+test-role-unattended:
+  extends: .test-ansible-role
+  variables:
+    ANSIBLE_ROLE: ../roles/unattended
+  rules:
+    - changes:
+        - ansible/roles/unattended/**/*
+
+
 test-role-morebooks:
   extends: .test-ansible-role-kvm
   variables:

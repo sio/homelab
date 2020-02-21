@@ -1,0 +1,5 @@
+---
+- name: enable automatic system updates
+  package:
+    name: unattended-upgrades
+    state: present
