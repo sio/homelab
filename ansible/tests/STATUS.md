@@ -19,6 +19,7 @@
 - **deb_url**
 - **interactive**
 - **motd**
+- **require**
 
 
 ## Tested in Vagrant (Libvirt)

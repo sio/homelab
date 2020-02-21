@@ -1,20 +1,17 @@
 # TODO list for Ansible playbooks
 
 - Automated testing with Molecule
-- Add asserts to ensure that required variables are defined before executing
-  any task in roles
 - Mediabox
     - Write roles
         - dlna
         - unattended upgrades (only on Debian Stable)
+        - munin_*
     - Test playbooks in virtual machine
-        - server
         - deb_url + transmission
         - munin_node + munin_*
         - samba
         - supysonic
         - supysonic + munin
-        - interactive
         - dlna
     - Write full playbook for mediabox
     - Test full playbook in VM
