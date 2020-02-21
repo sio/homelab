@@ -30,7 +30,8 @@
       register: page
       failed_when: >-
         "Книжная квартирка" not in page.content or
-        "change the password immediately" not in page.content
+        "change the password immediately" not in page.content or
+        page.status != 200
 
     - name: fetch front page (without DNS name)
       uri:
