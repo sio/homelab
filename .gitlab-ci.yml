@@ -159,6 +159,16 @@ test-role-morebooks:
         - ansible/roles/server/**/*
 
 
+test-role-samba:
+  extends: .test-ansible-role-kvm
+  variables:
+    ANSIBLE_ROLE: ../roles/samba
+  rules:
+    - changes:
+        - ansible/roles/samba/**/*
+        - ansible/roles/server/**/*
+
+
 test-role-server:
   extends: .test-ansible-role-kvm
   variables:

@@ -1,0 +1,27 @@
+---
+- hosts: all
+  name: verify (inside)
+  tasks:
+    - name: hello world
+      command: echo hello
+      register: hello
+      failed_when: "'hello' not in hello.stdout"
+      changed_when: "hello is not succeeded"
+
+    - name: wait for services to become available
+      wait_for:
+        port: '{{ item }}'
+        timeout: 30
+      with_items:
+        - 445
+
+- hosts: localhost
+  name: verify (outside)
+  tasks:
+    - name: wait for services to become available
+      wait_for:
+        host: '{{ hostvars["debian10-vm"]["ansible_host"] }}'
+        port: '{{ item }}'
+        timeout: 30
+      with_items:
+        - 445

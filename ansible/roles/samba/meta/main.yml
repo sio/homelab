@@ -1,5 +1,10 @@
 ---
 dependencies:
+  - role: require
+    require:
+      equals:
+        ansible_os_family: Debian
+        ansible_pkg_mgr: apt
   - role: server
 
 galaxy_info:

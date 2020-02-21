@@ -17,11 +17,14 @@
 
 - name: define passwords for users
   shell: >  # https://stackoverflow.com/a/46428282
+    set -o pipefail;
     (pdbedit --user={{ item.username }} 2>&1 > /dev/null)
     || echo -e {{ item.password|quote }}'\n'{{ item.password|quote }}
     | smbpasswd -s -a {{ item.username }}
+  args:
+    executable: /bin/bash
   register: samba_init
-  changed_when: 'Added user' in samba_init.stdout
+  changed_when: '"Added user" in samba_init.stdout'
   with_items: '{{ samba_users }}'
   loop_control:
     label: '{{ item.username }}'

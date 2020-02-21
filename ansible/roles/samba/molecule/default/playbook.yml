@@ -1,0 +1,18 @@
+---
+
+- hosts: debian10-vm
+  become: true
+  roles:
+    - role: samba
+      samba_users:
+        - username: username
+          password: hello world
+      samba_shares:
+        - name: My media
+          owner: username
+          mode: '0755'
+          path: /foo/bar/baz/
+          public: yes
+          read only: yes
+      server_keys_public:
+        - '{{ lookup("env", "MOLECULE_EPHEMERAL_DIRECTORY") }}/testkey.pub'
