@@ -1,0 +1,10 @@
+---
+
+- hosts: debian10-vm
+  become: true
+  roles:
+    - role: supysonic
+      supysonic_music_dir: /music
+      supysonic_url: url.to.supysonic
+      server_keys_public:
+        - '{{ lookup("env", "MOLECULE_EPHEMERAL_DIRECTORY") }}/testkey.pub'

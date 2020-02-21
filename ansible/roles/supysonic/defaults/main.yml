@@ -3,3 +3,6 @@
 #   supysonic_music_dir: path to music directory
 #   supysonic_url: url under which this supysonic instance will be available
 supysonic_user: music
+
+supysonic_pip_url: 'https://github.com/spl0k/supysonic/tarball/{{ supysonic_git_commit }}#egg=supysonic'
+supysonic_git_commit: master

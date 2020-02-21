@@ -178,6 +178,16 @@ test-role-server:
         - ansible/roles/server/**/*
 
 
+test-role-supysonic:
+  extends: .test-ansible-role-kvm
+  variables:
+    ANSIBLE_ROLE: ../roles/supysonic
+  rules:
+    - changes:
+        - ansible/roles/supysonic/**/*
+        - ansible/roles/server/**/*
+
+
 test-role-torrents_sysctl:
   extends: .test-ansible-role-kvm
   variables:

@@ -1,0 +1,51 @@
+---
+- hosts: all
+  name: verify (inside)
+  tasks:
+    - name: hello world
+      command: echo hello
+      register: hello
+      failed_when: "'hello' not in hello.stdout"
+      changed_when: "hello is not succeeded"
+
+    - name: wait for services to become available
+      wait_for:
+        port: '{{ item }}'
+        timeout: 30
+      with_items:
+        - 80
+
+    - name: fake DNS name resolution
+      lineinfile:
+        dest: /etc/hosts
+        line: '127.0.0.1 url.to.supysonic'
+      become: yes
+
+    - name: fetch front page (correct DNS name)
+      uri:
+        validate_certs: no
+        url: http://url.to.supysonic
+        return_content: yes
+      register: page
+      failed_when: >-
+        "Supysonic" not in page.content or
+        page.status != 200
+
+    - name: fetch front page (without DNS name)
+      uri:
+        validate_certs: no
+        url: http://localhost
+        return_content: yes
+      register: page
+      failed_when: '"Supysonic" in page.content or page.status != 200'
+
+- hosts: localhost
+  name: verify (outside)
+  tasks:
+    - name: wait for services to become available
+      wait_for:
+        host: '{{ hostvars["debian10-vm"]["ansible_host"] }}'
+        port: '{{ item }}'
+        timeout: 30
+      with_items:
+        - 80
