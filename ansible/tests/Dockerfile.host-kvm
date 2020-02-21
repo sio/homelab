@@ -1,3 +1,5 @@
+# Host image for Molecule tests in Vagrant virtual machines (KVM)
+# Docker Hub: potyarkin/molecule:host-kvm
 FROM debian:10-slim
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
