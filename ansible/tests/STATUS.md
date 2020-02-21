@@ -8,7 +8,6 @@
 - **munin**: depends on server
 - **munin_fdcount**: depends on munin, server
 - **munin_node**
-- **supysonic**: depends on server
 - **upgrade**
 - **usbroot**
 
@@ -26,5 +25,6 @@
 - **morebooks**: depends on server
 - **samba**: depends on server
 - **server**: uses UFW, firewall can not load kernel modules in Docker
+- **supysonic**: depends on server
 - **torrents_sysctl**: modifies kernel parameters via sysctl, impossible in Docker
 - **transmission**: depends on server, torrents_sysctl

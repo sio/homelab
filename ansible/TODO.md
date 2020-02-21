@@ -9,7 +9,6 @@
     - Test playbooks in virtual machine
         - deb_url + transmission
         - munin_node + munin_*
-        - supysonic
         - supysonic + munin
         - dlna
     - Write full playbook for mediabox
