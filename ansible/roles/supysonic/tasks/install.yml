@@ -1,0 +1,48 @@
+---
+
+- name: install required packages
+  package:
+    name:
+      - python3
+      - apache2
+      - libapache2-mod-wsgi-py3
+      - ffmpeg
+    state: present
+
+- name: create application user group
+  group:
+    name: '{{ supysonic_user }}'
+    state: present
+
+- name: create application user account
+  user:
+    name: '{{ supysonic_user }}'
+    state: present
+    shell: /usr/sbin/nologin
+    groups: '{{ supysonic_user }}'
+    append: yes
+
+- name: calculate application paths
+  set_fact:
+    supysonic_venv: '/home/{{ supysonic_user }}/supysonic_venv'
+    supysonic_cache: '/home/{{ supysonic_user }}/supysonic_cache'
+    supysonic_db: '/home/{{ supysonic_user }}/supysonic.db'
+    supysonic_admin: 'Admin_{{ lookup("password", "/dev/null length=3 chars=ascii_letters") }}'
+    supysonic_pass: '{{ lookup("password", "/dev/null length=9") }}'
+
+- name: create Python virtual environment
+  pip:
+    name:
+      - setuptools
+      - pip
+    state: latest
+    virtualenv: '{{ supysonic_venv }}'
+    virtualenv_command: '/usr/bin/python3 -m venv'
+  tags:
+    - skip_ansible_lint
+
+- name: install supysonic
+  pip:
+    name: '{{ supysonic_pip_url }}'
+    state: '{{ "latest" if supysonic_update is defined else "present" }}'
+    virtualenv: '{{ supysonic_venv }}'

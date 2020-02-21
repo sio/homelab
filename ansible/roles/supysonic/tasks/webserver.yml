@@ -1,0 +1,44 @@
+---
+
+- name: copy WSGI script
+  get_url:
+    url: https://github.com/spl0k/supysonic/raw/master/cgi-bin/supysonic.wsgi
+    dest: '{{ supysonic_venv }}/supysonic.wsgi'
+    mode: '0644'
+  notify: reload web server
+
+- name: configure web server
+  template:
+    src: templates/apache.conf.j2
+    dest: '/etc/apache2/sites-enabled/{{ supysonic_url }}.conf'
+    mode: '0644'
+  notify: reload web server
+
+- name: configure web server reply to incorrect domain names
+  file:
+    state: link
+    src: '{{ item.src }}'
+    path: '{{ item.path }}'
+  with_items:
+    - path: /etc/apache2/sites-enabled/000-default.conf
+      src: /etc/apache2/sites-available/000-default.conf
+    - path: /etc/apache2/sites-enabled/000-default-ssl.conf
+      src: /etc/apache2/sites-available/default-ssl.conf
+  notify: reload web server
+
+# TODO: enable SSL with Let's Encrypt or self-signed
+
+- name: start web server
+  service:
+    name: apache2
+    state: started
+    enabled: yes
+
+- name: allow HTTP access
+  ufw:
+    port: '{{ item }}'
+    rule: allow
+    proto: tcp
+  with_items:
+    - http
+  notify: reload firewall

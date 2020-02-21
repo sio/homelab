@@ -1,0 +1,13 @@
+---
+
+- name: configure watcher
+  template:
+    src: templates/watcher.service.j2
+    dest: '/etc/systemd/system/supysonic-watcher.service'
+
+- name: start watcher
+  service:
+    name: supysonic-watcher
+    state: started
+    enabled: yes
+    daemon_reload: yes
