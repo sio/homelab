@@ -1,0 +1,31 @@
+- hosts: all
+  become: yes
+  tasks:
+    - name: install pyopenssl
+      package:
+        name: python-openssl
+        state: present
+
+    - name: create certificate directories
+      file:
+        state: directory
+        path: '{{ item }}'
+      with_items:
+        - /etc/letsencrypt/live/url.to.supysonic
+        - /etc/ssl/private
+
+    # https://www.jeffgeerling.com/blog/2017/generating-self-signed-openssl-certs-ansible-24s-crypto-modules
+    - name: create SSL private key
+      openssl_privatekey:
+        path: '/etc/letsencrypt/live/url.to.supysonic/privkey.pem'
+    - name: create SSL CSR
+      openssl_csr:
+        path: '/etc/ssl/private/url.to.supysonic.csr'
+        privatekey_path:  '/etc/letsencrypt/live/url.to.supysonic/privkey.pem'
+        common_name: 'url.to.supysonic'
+    - name: create dummy SSL certificates
+      openssl_certificate:
+        path: '/etc/letsencrypt/live/url.to.supysonic/fullchain.pem'
+        privatekey_path: '/etc/letsencrypt/live/url.to.supysonic/privkey.pem'
+        csr_path: '/etc/ssl/private/url.to.supysonic.csr'
+        provider: selfsigned

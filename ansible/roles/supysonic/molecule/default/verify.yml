@@ -14,6 +14,7 @@
         timeout: 30
       with_items:
         - 80
+        - 443
 
     - name: fake DNS name resolution
       lineinfile:
@@ -24,7 +25,7 @@
     - name: fetch front page (correct DNS name)
       uri:
         validate_certs: no
-        url: http://url.to.supysonic
+        url: https://url.to.supysonic
         return_content: yes
       register: page
       failed_when: >-
@@ -34,7 +35,7 @@
     - name: fetch front page (without DNS name)
       uri:
         validate_certs: no
-        url: http://localhost
+        url: https://localhost
         return_content: yes
       register: page
       failed_when: '"Supysonic" in page.content or page.status != 200'
@@ -49,3 +50,4 @@
         timeout: 30
       with_items:
         - 80
+        - 443

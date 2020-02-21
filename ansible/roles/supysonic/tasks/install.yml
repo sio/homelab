@@ -3,10 +3,11 @@
 - name: install required packages
   package:
     name:
-      - python3
       - apache2
-      - libapache2-mod-wsgi-py3
       - ffmpeg
+      - libapache2-mod-wsgi-py3
+      - python-certbot-apache
+      - python3
     state: present
 
 - name: create application user group

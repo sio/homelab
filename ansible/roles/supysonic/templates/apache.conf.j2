@@ -9,11 +9,17 @@ Define WSGI_USER  {{ supysonic_user }}
 Define WSGI_GROUP {{ supysonic_user }}
 Define WSGI_DIR   {{ supysonic_venv }}
 Define PY_VENV    {{ supysonic_venv }}
+Define SSL_CERT   {{ supysonic_ssl.cert }}
+Define SSL_KEY    {{ supysonic_ssl.key }}
 
 
-<VirtualHost *:80>
+<VirtualHost *:443>
 
     ServerName ${URL}
+
+    SSLEngine On
+    SSLCertificateFile ${SSL_CERT}
+    SSLCertificateKeyFile ${SSL_KEY}
 
     ErrorLog  ${APACHE_LOG_DIR}/${URL}-errors.log
     CustomLog ${APACHE_LOG_DIR}/${URL}-access.log combined
@@ -37,9 +43,15 @@ Define PY_VENV    {{ supysonic_venv }}
 </VirtualHost>
 
 
+<VirtualHost *:80>
+    ServerName ${URL}
+    Redirect permanent / https://${URL}/
+</VirtualHost>
+
+
 <VirtualHost *:80 *:443>
     ServerName www.${URL}
-    Redirect permanent / http://${URL}/
+    Redirect permanent / https://${URL}/
 </VirtualHost>
 
 # vim: syntax=apache

@@ -4,4 +4,5 @@
 - include: install.yml
 - include: supysonic.yml
 - include: watcher.yml
+- include: ssl.yml
 - include: webserver.yml

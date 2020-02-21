@@ -1,0 +1,33 @@
+#
+# Enable HTTPS access to the website
+#
+---
+- name: obtain SSL certificate
+  command: >
+    certbot certonly
+    --standalone
+    --agree-tos
+    --non-interactive
+    --email {{ supysonic_ssl.email|quote }}
+    --cert-name {{ supysonic_url|quote }}
+    --domains {{ supysonic_url|quote }},www.{{ supysonic_url|quote }}
+    --pre-hook 'systemctl stop apache2'
+    --post-hook 'systemctl start apache2'
+  args:
+    creates: '{{ supysonic_ssl.cert }}'
+
+- name: schedule certificate renewal
+  cron:
+    name: 'renew letsencrypt certificates'
+    job: >
+      certbot renew
+      --agree-tos
+      --non-interactive
+    hour: '1,13'
+    minute: '16'
+
+- name: enable SSL support in Apache
+  apache2_module:
+    name: ssl
+    state: present
+  notify: reload web server

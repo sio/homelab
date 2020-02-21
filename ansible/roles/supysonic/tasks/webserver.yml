@@ -26,19 +26,18 @@
       src: /etc/apache2/sites-available/default-ssl.conf
   notify: reload web server
 
-# TODO: enable SSL with Let's Encrypt or self-signed
-
 - name: start web server
   service:
     name: apache2
     state: started
     enabled: yes
 
-- name: allow HTTP access
+- name: allow HTTP and HTTPS access
   ufw:
     port: '{{ item }}'
     rule: allow
     proto: tcp
   with_items:
     - http
+    - https
   notify: reload firewall
