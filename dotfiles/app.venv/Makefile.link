@@ -1,0 +1,41 @@
+PY?=python3
+
+
+define usage
+Manage Python applications in individual virtual environments
+
+  make help:           show this help message
+  make APPNAME:        create virtual environment for APPNAME
+  make update APPNAME: update environment for APPNAME
+  make update *:       update all app environments
+endef
+export usage
+help:
+	@echo "$$usage"
+
+
+.PHONY: update
+update:
+	@ls *.pip && touch *.pip
+
+
+%: %/.venv-updated
+	@echo Application environment up to date: $*
+
+
+.PRECIOUS: %/.venv-updated
+%/.venv-updated: %/.venv-created %.pip
+	$*/bin/pip install --upgrade pip setuptools
+	$*/bin/pip install --upgrade -r $*.pip
+	touch $@
+
+
+.PRECIOUS: %/.venv-created
+%/.venv-created:
+	$(PY) -m venv $*
+	touch $@
+
+
+.PRECIOUS: %.pip
+%.pip:
+	echo "$*" > $@

@@ -201,20 +201,25 @@ tree() {
 
 
 # Seamless integration with per-app Python virtual environments
-for VENV in ~/bin/*.venv
-do
-    APPNAME="${VENV##*/}"  # Dirname from path
-    APPNAME="${APPNAME/.venv/}"  # Remove .venv suffix
-    if [[ -s "$VENV/bin/$APPNAME" ]]
-    then
-        alias "$APPNAME"="$VENV/bin/$APPNAME"  # Unix-like systems
-    elif [[ -s "$VENV/Scripts/$APPNAME.exe" ]]
-    then
-        alias "$APPNAME"="$VENV/Scripts/$APPNAME.exe"  # Windows
-    fi
-    unset APPNAME
-    unset VENV
-done
+_app_venv_aliases() {
+    local storage="$HOME/bin/app.venv"
+    local app
+    local venv
+    for venv in "$storage"/*/bin
+    do
+        app="${venv::-4}"  # Remove bin suffix
+        app="${app##*/}"   # Dirname from path
+        if [[ -s "$storage/$app/bin/$app" ]]
+        then
+            alias "$app"="$storage/$app/bin/$app"  # Unix-like systems
+        elif [[ -s "$storage/$app/Scripts/$app.exe" ]]
+        then
+            alias "$app"="$storage/$app/Scripts/$app.exe"  # Windows
+        fi
+    done
+}
+_app_venv_aliases
+
 
 # Use tabs in vim by default
 alias vim='vim -p'

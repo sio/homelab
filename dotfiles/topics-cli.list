@@ -6,9 +6,10 @@
 #
 
 ansible
+app.venv
 bash
 git
-tmux
-vim
-top
 ipython
+tmux
+top
+vim
