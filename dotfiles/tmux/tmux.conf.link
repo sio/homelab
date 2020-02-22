@@ -45,7 +45,10 @@ if-shell -b '[ "$(echo "$TMUX_VERSION < 2.2" | bc)" = 1 ]' \
 
 # Enable copying to system clipboard
 # https://unix.stackexchange.com/a/131187/5255
-bind -t vi-copy y copy-pipe "xclip -in -selection clipboard"
+if-shell -b '[ "$(echo "$TMUX_VERSION < 2.5" | bc)" = 1 ]' \
+  'bind -t vi-copy y copy-pipe "xclip -in -selection clipboard"'
+if-shell -b '[ "$(echo "$TMUX_VERSION >= 2.5" | bc)" = 1 ]' \
+  "bind -T copy-mode-vi y send-keys -X copy-pipe-and-cancel 'xclip -in -selection clipboard'"
 # In newer Tmux (>=2.5) the following must be used
 #bind -T copy-mode-vi y send-keys -X copy-pipe-and-cancel 'xclip -in -selection clipboard'
 
