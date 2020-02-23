@@ -5,9 +5,9 @@
 # Check individual topic directories to see what configuration will be applied.
 #
 
-initramfs-kms-intel
-initramfs-zswap
+#initramfs-kms-intel  # use Ansible role instead
+#initramfs-zswap
 keyboard
-modprobe-nouveau
+#modprobe-nouveau  # install nvidia-driver instead
 xfce-flags
 xorg-laptop-asus
