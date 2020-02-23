@@ -14,7 +14,7 @@
         <value type="int" value="3"/>
         <value type="int" value="15"/>
         <value type="int" value="4"/>
-        <value type="int" value="1"/>
+        <value type="int" value="2"/>
         <value type="int" value="6"/>
         <value type="int" value="8"/>
         <value type="int" value="5"/>
@@ -53,6 +53,7 @@
         <value type="string" value="vlc"/>
         <value type="string" value="networkmanager applet"/>
         <value type="string" value="task manager"/>
+        <value type="string" value="qbittorrent"/>
         <value type="string" value="orage"/>
         <value type="string" value="gajim"/>
         <value type="string" value="xfce terminal"/>
@@ -66,6 +67,6 @@
       <property name="enable-keyboard-shortcuts" type="bool" value="true"/>
     </property>
     <property name="plugin-9" type="string" value="whiskermenu"/>
-    <property name="plugin-1" type="string" value="xkb-plugin"/>
+    <property name="plugin-2" type="string" value="xkb"/>
   </property>
 </channel>
