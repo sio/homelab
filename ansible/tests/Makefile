@@ -12,6 +12,22 @@ ANSIBLE?=$(VENV)/ansible
 ANSIBLE_ROLES=$(patsubst %/molecule,%,$(wildcard ../roles/*/molecule))
 
 
+MOLECULE_ACTIONS=\
+	cleanup \
+	converge \
+	create \
+	dependency \
+	destroy \
+	idempotence \
+	lint \
+	login \
+	prepare \
+	side_effect \
+	syntax \
+	test \
+	verify
+
+
 define message
 Usage: $(MAKE) [target]
 
@@ -41,19 +57,9 @@ endef
 $(foreach role,$(ANSIBLE_ROLES),$(eval $(call test-ansible-role, $(role))))
 
 
-.PHONY: test
-test: | venv versions
-	cd $(ANSIBLE_ROLE) && $(MOLECULE) test
-
-
-.PHONY: login
-login: | venv
-	cd $(ANSIBLE_ROLE)   && \
-	$(MOLECULE) create   && \
-	$(MOLECULE) prepare   && \
-	$(MOLECULE) converge && \
-	$(MOLECULE) login    && \
-	$(MOLECULE) destroy
+.PHONY: $(MOLECULE_ACTIONS)
+$(MOLECULE_ACTIONS): | venv versions
+	cd $(ANSIBLE_ROLE) && $(MOLECULE) $@
 
 
 .PHONY: show-roles
