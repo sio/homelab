@@ -18,6 +18,33 @@
     src: templates/nodes.conf.j2
     dest: /etc/munin/munin-conf.d/nodes.conf
 
+- name: use cgi for generating the reports
+  copy:
+    content: |
+      html_strategy cgi
+      graph_strategy cgi
+    dest: /etc/munin/munin-conf.d/cgi.conf
+
+- name: enable fcgid module in apache
+  apache2_module:
+    name: fcgid
+    state: present
+
+- name: switch to CGI graphs and pages generation
+  block:
+    - name: disable HTML entry point
+      lineinfile:
+        path: /etc/munin/apache24.conf
+        regexp: '^(\s*Alias /munin .*)$'
+        line: '# \1'
+        backrefs: yes
+    - name: enable CGI entry point
+      lineinfile:
+        path: /etc/munin/apache24.conf
+        regexp: '^#(ScriptAlias /munin .*)$'
+        line: '\1'
+        backrefs: yes
+
 - name: configure web server
   file:
     src: /etc/munin/apache24.conf
