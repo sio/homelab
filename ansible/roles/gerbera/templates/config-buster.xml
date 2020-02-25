@@ -12,7 +12,7 @@
       </accounts>
     </ui>
     <name>gerbera</name>
-    <udn/>
+    <udn>uuid:{{ ansible_fqdn|to_uuid }}</udn>
     <home>/var/lib/gerbera</home>
     <webroot>/usr/share/gerbera/web</webroot>
     <!--
@@ -72,8 +72,6 @@
       {% for directory in gerbera_media_dirs %}
         <directory location="{{ directory }}" recursive="yes" hidden-files="no"
                    mode="inotify"/>
-        <directory location="{{ directory }}" recursive="yes" hidden-files="no"
-                   mode="timed" interval="3600" level="basic"/>
       {% endfor %}
     </autoscan>
     <scripting script-charset="UTF-8">

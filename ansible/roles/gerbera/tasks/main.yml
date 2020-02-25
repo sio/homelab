@@ -9,10 +9,9 @@
 
 - name: configure gerbera
   template:
-    dest: /etc/gerbera/config.xml
+    dest: /etc/gerbera/config.xml  # needs to be writable by gerbera user
     src: 'templates/config-{{ ansible_distribution_release }}.xml'
-    owner: root
-    mode: '644'
+    backup: yes
   notify: restart gerbera
 
 - name: enable gerbera service
