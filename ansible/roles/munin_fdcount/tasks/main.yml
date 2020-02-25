@@ -4,11 +4,11 @@
     url: https://github.com/sio/munin_plugin_fdcount/raw/master/fdcount.py
     dest: '/etc/munin/plugins/fdcount_{{ munin_fdcount_target }}'
     mode: '0755'
-  notify: restart Munin node
+  notify: restart munin node
 
 - name: configure fdcount plugin
   template:
     src: templates/plugin.conf
     dest: '/etc/munin/plugin-conf.d/fdcount_{{ munin_fdcount_target }}'
     mode: '0644'
-  notify: restart Munin node
+  notify: restart munin node
