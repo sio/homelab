@@ -4,7 +4,6 @@
 
 - **grub**
 - **initrd**
-- **kodi**: depends on server
 - **upgrade**
 - **usbroot**
 
