@@ -8,7 +8,7 @@ au FileType markdown setlocal textwidth=78 wrap
 au FileType yaml setlocal tabstop=2 shiftwidth=2 softtabstop=2
 
 " Indentation for web pages
-au FileType html,js,css,htmldjango setlocal
+au FileType html,js,css,htmldjango,xml setlocal
     \ tabstop=2
     \ shiftwidth=2
     \ softtabstop=2
