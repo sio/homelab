@@ -1,0 +1,3 @@
+---
+gerbera_port: '49152'
+gerbera_media_dirs: []  # list of absolute paths

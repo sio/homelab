@@ -1,0 +1,9 @@
+---
+- name: restart gerbera
+  service:
+    name: gerbera
+    state: restarted
+
+- name: reload firewall
+  ufw:
+    state: reloaded

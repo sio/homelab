@@ -1,0 +1,33 @@
+---
+
+- name: install gerbera
+  package:
+    name:
+      - gerbera
+      - ffmpegthumbnailer
+    state: present
+
+- name: configure gerbera
+  template:
+    dest: /etc/gerbera/config.xml
+    src: 'templates/config-{{ ansible_distribution_release }}.xml'
+    owner: root
+    mode: '644'
+  notify: restart gerbera
+
+- name: enable gerbera service
+  service:
+    name: gerbera
+    state: started
+    enabled: yes
+
+- name: allow DLNA in firewall
+  ufw:
+    rule: allow
+    port: '{{ item }}'
+    proto: any
+  with_items:
+    - '1900'
+    - '2869'
+    - '{{ gerbera_port }}'
+  notify: reload firewall

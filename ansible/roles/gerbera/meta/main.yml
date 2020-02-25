@@ -1,0 +1,19 @@
+---
+dependencies:
+  - role: require
+    require:
+      equals:
+        ansible_os_family: Debian
+        ansible_pkg_mgr: apt
+  - role: server
+
+galaxy_info:
+  role_name: gerbera
+  author: Vitaly Potyarkin
+  description: Gerbera DLNA media server
+  license: Apache-2.0
+  min_ansible_version: 2.4
+  platforms:
+    - name: Debian
+      versions:
+        - buster
