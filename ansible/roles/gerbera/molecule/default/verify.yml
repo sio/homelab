@@ -1,0 +1,29 @@
+---
+- hosts: all
+  tasks:
+    - name: hello world
+      command: echo hello
+      register: hello
+      failed_when: "'hello' not in hello.stdout"
+      changed_when: "hello is not succeeded"
+
+    - name: wait for services to become available
+      wait_for:
+        host: '{{ hostvars["debian10-vm"]["ansible_host"] }}'
+        port: '{{ item }}'
+        timeout: 30
+      with_items:
+        - 49152
+      delegate_to: localhost
+      become: no
+
+    - name: fetch front page (from outside)
+      uri:
+        url: 'http://{{ hostvars["debian10-vm"]["ansible_host"] }}:49152'
+        return_content: yes
+      register: page
+      failed_when: >-
+        "Gerbera" not in page.content or
+        page.status != 200
+      delegate_to: localhost
+      become: no

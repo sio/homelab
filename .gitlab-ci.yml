@@ -158,6 +158,16 @@ test-role-unattended:
         - ansible/roles/unattended/**/*
 
 
+test-role-gerbera:
+  extends: .test-ansible-role-kvm
+  variables:
+    ANSIBLE_ROLE: ../roles/gerbera
+  rules:
+    - changes:
+        - ansible/roles/gerbera/**/*
+        - ansible/roles/server/**/*
+
+
 test-role-morebooks:
   extends: .test-ansible-role-kvm
   variables:

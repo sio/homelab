@@ -1,0 +1,10 @@
+---
+
+- hosts: debian10-vm
+  become: true
+  roles:
+    - role: gerbera
+      gerbera_media_dirs:
+        - /hello/world/
+      server_keys_public:
+        - '{{ lookup("env", "MOLECULE_EPHEMERAL_DIRECTORY") }}/testkey.pub'
