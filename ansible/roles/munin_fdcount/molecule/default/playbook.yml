@@ -1,0 +1,9 @@
+---
+
+- hosts: debian10-vm
+  become: true
+  roles:
+    - role: munin_fdcount
+      munin_fdcount_target: systemd
+      server_keys_public:
+        - '{{ lookup("env", "MOLECULE_EPHEMERAL_DIRECTORY") }}/testkey.pub'
