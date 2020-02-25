@@ -6,7 +6,6 @@
 - **initrd**
 - **kodi**: depends on server
 - **munin_fdcount**: depends on munin, server
-- **munin_node**
 - **upgrade**
 - **usbroot**
 
@@ -24,6 +23,7 @@
 
 - **morebooks**: depends on server
 - **munin_master**: depends on server
+- **munin_node**: uses the test suite of munin_master
 - **samba**: depends on server
 - **server**: uses UFW, firewall can not load kernel modules in Docker
 - **supysonic**: depends on server

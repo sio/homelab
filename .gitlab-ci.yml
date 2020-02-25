@@ -185,6 +185,7 @@ test-role-munin_master:
   rules:
     - changes:
         - ansible/roles/munin_master/**/*
+        - ansible/roles/munin_node/**/*
         - ansible/roles/server/**/*
 
 
