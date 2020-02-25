@@ -5,7 +5,6 @@
 - **grub**
 - **initrd**
 - **kodi**: depends on server
-- **munin_fdcount**: depends on munin, server
 - **upgrade**
 - **usbroot**
 
@@ -22,6 +21,7 @@
 ## Tested in Vagrant (Libvirt)
 
 - **morebooks**: depends on server
+- **munin_fdcount**: depends on munin, server
 - **munin_master**: depends on server
 - **munin_node**: uses the test suite of munin_master
 - **samba**: depends on server
