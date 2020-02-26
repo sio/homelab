@@ -2,8 +2,6 @@
 
 Install transmission and configure it to efficiently seed lots of torrents
 
-*This role is continuously tested with Molecule.*
-
 
 ## IMPORTANT
 
@@ -17,9 +15,9 @@ The workaround is included in Transmission 2.94 (Debian Buster), compiling
 
 ## TODO
 
-- Install patched version without `FD_SETSIZE` dependency
-- Reintroduce ulimit to unit file
-- Increase number of open connections (total and per torrent)
-- Disable reverse DNS lookup
+- TODO: Install patched version without `FD_SETSIZE` dependency
+- TODO: Reintroduce ulimit to unit file
+- TODO: Increase number of open connections (total and per torrent)
+- TODO: Disable reverse DNS lookup
     - Or setup local DNS cache?
-- Check notes in Gmail (PDF from 30.12.2018)
+- TODO: Check notes in Gmail (PDF from 30.12.2018)

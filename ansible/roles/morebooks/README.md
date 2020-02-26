@@ -20,4 +20,4 @@ Variables that are not defined by default:
 
 ## TODO
 
-- Rename variables with the same prefix (`hlc_`)
+- TODO: Rename variables with the same prefix (`hlc_`)
