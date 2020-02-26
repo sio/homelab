@@ -79,6 +79,11 @@ help:
 	@echo "$$message"
 
 
+.PHONY: check
+check:
+	./check-readme.sh
+
+
 include Makefile.venv
 Makefile.venv:
 	curl \
