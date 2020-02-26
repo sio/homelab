@@ -1,6 +1,6 @@
 # Automated tests for Ansible playbooks
 
-Some playbooks in this repo contain automated tests implemented using
+Most playbooks in this repo contain automated tests implemented using
 Molecule.
 
 Use Makefile provided in this directory to launch tests.

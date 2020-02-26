@@ -1,6 +1,6 @@
 # TODO list for Ansible playbooks
 
-- Automated testing with Molecule (see [tests/STATUS.md](tests/STATUS.md))
+- Automated testing with Molecule
 - Mediabox
     - Test playbooks in virtual machine
         - deb_url + transmission
