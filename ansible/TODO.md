@@ -1,13 +1,10 @@
 # TODO list for Ansible playbooks
 
-- Automated testing with Molecule
+- Automated testing with Molecule (see [tests/STATUS.md](tests/STATUS.md))
 - Mediabox
-    - Write roles
-        - dlna
     - Test playbooks in virtual machine
         - deb_url + transmission
         - supysonic + munin
-        - dlna
     - Write full playbook for mediabox
     - Test full playbook in VM
     - Check firewall configuration for mediabox VM

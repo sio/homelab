@@ -19,6 +19,7 @@
 
 ## Tested in Vagrant (Libvirt)
 
+- **gerbera**: depends on server
 - **morebooks**: depends on server
 - **munin_fdcount**: depends on munin, server
 - **munin_master**: depends on server
