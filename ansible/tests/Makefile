@@ -6,6 +6,9 @@ MOLECULE_EXTRA_ARGS?=
 ifdef DEBUG
 MOLECULE_EXTRA_ARGS+=--debug
 endif
+ifdef MOLECULE_SCENARIO
+MOLECULE_ACTION_ARGS+=--scenario-name $(MOLECULE_SCENARIO)
+endif
 
 
 ANSIBLE?=$(VENV)/ansible
@@ -52,14 +55,14 @@ all: $(ANSIBLE_ROLES)
 define test-ansible-role
 .PHONY: $(1)
 $(1): | venv versions
-	cd $(1) && $$(MOLECULE) test
+	cd $(1) && $$(MOLECULE) test $(MOLECULE_ACTION_ARGS)
 endef
 $(foreach role,$(ANSIBLE_ROLES),$(eval $(call test-ansible-role, $(role))))
 
 
 .PHONY: $(MOLECULE_ACTIONS)
 $(MOLECULE_ACTIONS): | venv versions
-	cd $(ANSIBLE_ROLE) && $(MOLECULE) $@
+	cd $(ANSIBLE_ROLE) && $(MOLECULE) $@ $(MOLECULE_ACTION_ARGS)
 
 
 .PHONY: show-roles

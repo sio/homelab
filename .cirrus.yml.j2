@@ -19,6 +19,9 @@ task:
     CLONE_SHA: "{{ CI_COMMIT_SHA }}"
     ANSIBLE_ROLE: "{{ ANSIBLE_ROLE }}"
     CACHE_KEY: "{{ REQUIREMENTS_CHECKSUM }}"
+    {% if MOLECULE_SCENARIO is defined %}
+    MOLECULE_SCENARIO: "{{ MOLECULE_SCENARIO }}"
+    {% endif %}
 
     # Variables that might be helpful for debugging
     #   DEBUG: 1
