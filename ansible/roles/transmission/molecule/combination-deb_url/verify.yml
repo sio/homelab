@@ -1,0 +1,33 @@
+---
+- hosts: all
+  name: verify
+  become: yes
+  tasks:
+    - name: hello world
+      command: echo hello
+      register: hello
+      failed_when: "'hello' not in hello.stdout"
+      changed_when: "hello is not succeeded"
+
+    - name: read version of transmission package
+      shell: |
+        set -eo pipefail
+        dpkg-query -s transmission-daemon|grep Version
+      args:
+        executable: /bin/bash
+      register: dpkg
+      changed_when: dpkg is succeeded
+      failed_when: dpkg is not succeeded
+
+    - name: check version of transmission package
+      debug:
+        var: dpkg.stdout
+      failed_when: '"2.94-2.1" not in dpkg.stdout'
+
+    - name: wait for services to become available
+      wait_for:
+        port: '{{ item }}'
+        timeout: 30
+      with_items:
+        - 51001
+        - 9001
