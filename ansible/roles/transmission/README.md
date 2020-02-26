@@ -15,9 +15,6 @@ The workaround is included in Transmission 2.94 (Debian Buster), compiling
 
 ## TODO
 
-- TODO: Install patched version without `FD_SETSIZE` dependency
-- TODO: Reintroduce ulimit to unit file
-- TODO: Increase number of open connections (total and per torrent)
 - TODO: Disable reverse DNS lookup
     - Or setup local DNS cache?
 - TODO: Check notes in Gmail (PDF from 30.12.2018)
