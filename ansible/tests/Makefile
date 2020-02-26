@@ -71,6 +71,7 @@ show-roles:
 
 
 .PHONY: versions
+versions: MOLECULE_EXTRA_ARGS=
 versions: venv
 	$(VENV)/python --version
 	$(MOLECULE) --version
