@@ -291,9 +291,15 @@ test-role-transmission-deb_url:
 # Test full Ansible playbooks
 #
 
-test-playbook-laptopmini:
+test-playbook-laptopmini:  # TODO: specify rules: changes
   extends: .test-ansible-role-kvm
   stage: test-playbook
   variables:
     ANSIBLE_ROLE: playbook-tests
     MOLECULE_SCENARIO: laptopmini
+  # rules:
+  #   - changes:
+  #       - ansible/laptopmini.yml
+  #       - ansible/roles/initrd/**/*
+  #       - ansible/roles/grub/**/*
+  #       - ansible/tests/playbook-tests/molecule/laptopmini/**/*
