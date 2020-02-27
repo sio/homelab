@@ -1,24 +1,74 @@
 ---
 
 # Media box will run:
-# - Torrents (transmission)
-# - DLNA server (minidlna? rygel? gerbera?)
-# - Music server (supysonic)
-# - File sharing for LAN (samba)
-# - Monitoring (munin)
 # - Interactive shell sessions for unprivileged user
+# - Monitoring (munin)
+# - File sharing for LAN (samba)
+# - Music server (supysonic)
+# - DLNA server (minidlna? rygel? gerbera?)
+# - Torrents (transmission)
 
 - hosts: mediabox
   become: yes
+  vars:
   roles:
-    - upgrade
-    - motd
+    #
+    # OS maintenance
+    #
+    - role: upgrade
+    - role: unattended
+    - role: motd
+
+    #
+    # Interactive shell
+    #
+    - role: interactive
+
+    #
+    # Monitoring
+    #
     - role: munin_fdcount
       munin_fdcount_target: transmission-daemon
-    # - role: deb_url
-    #   deb_url_packages:
-    #     - url: http://filehost/path/to/transmission-daemon.deb
-    #       checksum: sha256:...
+    - role: munin_master
+      munin_master_nodes:
+        - name: localhost
+          address: 127.0.0.1
+
+    #
+    # LAN file sharing
+    #
+    - role: samba
+      samba_shares:
+        - name: Torrents
+          path: /storage/torrents
+          public: yes
+          read only: yes
+
+    #
+    # Music streaming
+    #
+    - role: supysonic
+      supysonic_music_dir: /storage/music
+      supysonic_url: music.potyarkin.ml
+
+    #
+    # DLNA server
+    #
+    - role: gerbera
+      gerbera_media_dirs:
+        - /storage/torrents/main
+
+    #
+    # Torrenting
+    #
+    - role: deb_url  # Install patched Transmission (without 1024 open files limit)
+      deb_url_packages:
+        - url: https://github.com/sio/transmission-debian-patched/releases/download/2.94-2.1-buster/transmission-common_2.94-2.1_all.deb
+          checksum: sha256:42117eaac71af8fa53b5b0803df986adcd0d3bdaf0a7f0791465f7b2478ad765
+        - url: https://github.com/sio/transmission-debian-patched/releases/download/2.94-2.1-buster/transmission-cli_2.94-2.1_amd64.deb
+          checksum: sha256:35efc0c6f2576ac7cce5fea5fc1ad88e46e197041af0e9b460c4d2c051c22265
+        - url: https://github.com/sio/transmission-debian-patched/releases/download/2.94-2.1-buster/transmission-daemon_2.94-2.1_amd64.deb
+          checksum: sha256:ad651ef56c279ca84a827fd112544127fbb6b73e1b8a4c7cd902b94132b34ab7
     - role: transmission
       transmission_instance:
         name: main
@@ -51,4 +101,3 @@
           - name: music
             torrents: /storage/torrents/music
             destination: /storage/data/music
-
