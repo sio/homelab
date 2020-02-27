@@ -26,6 +26,20 @@ Refer to `make help` and read the Makefile for more information.
 
 # Some notes on tests implementation
 
+## Timeout for command/shell modules
+
+Timeout is not implemented in Ansible, but we can use [GNU Timeout], e.g.
+
+```
+$ timeout 5m sleep 10m
+Exit code: 124 (after 5 minutes)
+
+$ timeout 10m sleep 5m
+Exit code: 0 (after /bin/sleep terminates)
+```
+
+[GNU Timeout]: https://www.gnu.org/software/coreutils/manual/html_node/timeout-invocation.html
+
 ## Systemd in Docker
 
 ```yaml
