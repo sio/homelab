@@ -1,7 +1,7 @@
 MOLECULE?=$(VENV)/molecule
-MOLECULE+=--base-config "$(MOLECULE_BASE_CONFIG)"
+MOLECULE+=--base-config "$(abspath $(MOLECULE_BASE_CONFIG))"
 MOLECULE+=$(MOLECULE_EXTRA_ARGS)
-MOLECULE_BASE_CONFIG?=$(abspath molecule.yml)
+MOLECULE_BASE_CONFIG?=molecule.yml
 MOLECULE_EXTRA_ARGS?=
 ifdef DEBUG
 MOLECULE_EXTRA_ARGS+=--debug
