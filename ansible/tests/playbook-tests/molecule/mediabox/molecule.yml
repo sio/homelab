@@ -1,0 +1,45 @@
+# Main molecule configuration is located in ansible/roles/tests/molecule.yml
+# Invoke with `molecule --base-config $LOCATION`
+---
+provisioner:
+  name: ansible
+  env:
+    ANSIBLE_ROLES_PATH: ../../../../roles
+  playbooks:
+    converge: ../../../../mediabox.yml
+  inventory:
+    group_vars:
+      all:
+        server_keys_public:
+          - '{{ lookup("env", "MOLECULE_EPHEMERAL_DIRECTORY") }}/testkey.pub'
+
+driver:
+  name: vagrant
+  provider:
+    name: libvirt
+
+platforms:
+  - name: mediabox
+    box: debian/buster64
+    memory: 1024
+    provision: true
+    interfaces:
+      - auto_config: true
+        network_name: private_network
+        type: dhcp
+
+dependency:
+  name: shell
+  command: >
+    /bin/sh -c '
+    test -f "$MOLECULE_EPHEMERAL_DIRECTORY"/testkey
+    || ssh-keygen -q -t ed25519 -a 10 -f "$MOLECULE_EPHEMERAL_DIRECTORY"/testkey -C "" -N ""
+    && ls -l "$MOLECULE_EPHEMERAL_DIRECTORY"/testkey*
+    '
+
+# Testinfra tests fail because the firewall on test instance
+# refuses frequent connection attempts
+verifier:
+  name: ansible
+  lint:
+    name: ansible-lint

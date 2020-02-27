@@ -1,0 +1,33 @@
+- hosts: all
+  become: yes
+  vars:
+    fake_hostname: music.potyarkin.ml
+  tasks:
+    - name: install pyopenssl
+      package:
+        name: python-openssl
+        state: present
+
+    - name: create certificate directories
+      file:
+        state: directory
+        path: '{{ item }}'
+      with_items:
+        - '/etc/letsencrypt/live/{{ fake_hostname }}'
+        - '/etc/ssl/private'
+
+    # https://www.jeffgeerling.com/blog/2017/generating-self-signed-openssl-certs-ansible-24s-crypto-modules
+    - name: create SSL private key
+      openssl_privatekey:
+        path: '/etc/letsencrypt/live/{{ fake_hostname }}/privkey.pem'
+    - name: create SSL CSR
+      openssl_csr:
+        path: '/etc/ssl/private/{{ fake_hostname }}.csr'
+        privatekey_path:  '/etc/letsencrypt/live/{{ fake_hostname }}/privkey.pem'
+        common_name: '{{ fake_hostname }}'
+    - name: create dummy SSL certificates
+      openssl_certificate:
+        path: '/etc/letsencrypt/live/{{ fake_hostname }}/fullchain.pem'
+        privatekey_path: '/etc/letsencrypt/live/{{ fake_hostname }}/privkey.pem'
+        csr_path: '/etc/ssl/private/{{ fake_hostname }}.csr'
+        provider: selfsigned

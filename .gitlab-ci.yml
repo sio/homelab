@@ -323,6 +323,19 @@ test-role-virtual_machine:
 # Test full Ansible playbooks
 #
 
+test-playbook-mediabox:
+  extends: .test-ansible-role-kvm
+  stage: test-playbook
+  variables:
+    ANSIBLE_ROLE: playbook-tests
+    MOLECULE_SCENARIO: mediabox
+# rules:  # TODO: specify rules for test-playbook-mediabox
+#   - changes:
+#       - ansible/mediabox.yml
+#       - ansible/tests/playbook-tests/molecule/mediabox/**/*
+#       - ansible/roles/**/*
+
+
 # test-playbook-laptopmini:  # TODO: debug idempotence failure
 #   extends: .test-ansible-role-kvm
 #   stage: test-playbook
