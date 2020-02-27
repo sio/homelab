@@ -229,6 +229,19 @@ test-role-supysonic:
         - ansible/roles/server/**/*
 
 
+test-role-supysonic-munin:
+  extends: .test-ansible-role-kvm
+  variables:
+    ANSIBLE_ROLE: ../roles/supysonic
+    MOLECULE_SCENARIO: combination-munin
+  rules:
+    - changes:
+        - ansible/roles/munin_master/**/*
+        - ansible/roles/munin_node/**/*
+        - ansible/roles/server/**/*
+        - ansible/roles/supysonic/**/*
+
+
 test-role-torrents_sysctl:
   extends: .test-ansible-role-kvm
   variables:
