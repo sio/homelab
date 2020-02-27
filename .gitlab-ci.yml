@@ -7,7 +7,11 @@ stages:
   - build
   - test-docker
   - test-kvm
+  - test-playbook
 
+#
+# Job templates
+#
 
 .docker-build:
   stage: build
@@ -64,6 +68,9 @@ stages:
   if: '$TRIGGER_DOCKER_BUILD'
   when: always
 
+#
+# Build Docker containers
+#
 
 molecule-host-alpine:
   extends: .docker-build
@@ -112,6 +119,9 @@ molecule-guest-debian-10-systemd:
       changes:
         - ansible/tests/Dockerfile.debian-10-systemd
 
+#
+# Test Ansible roles in Docker containers
+#
 
 test-role-deb_url:
   extends: .test-ansible-role
@@ -157,6 +167,9 @@ test-role-unattended:
     - changes:
         - ansible/roles/unattended/**/*
 
+#
+# Test Ansible roles in KVM virtual machines (Vagrant-Libvirt)
+#
 
 test-role-gerbera:
   extends: .test-ansible-role-kvm
@@ -273,3 +286,14 @@ test-role-transmission-deb_url:
         - ansible/roles/server/**/*
         - ansible/roles/torrents_sysctl/**/*
         - ansible/roles/transmission/**/*
+
+#
+# Test full Ansible playbooks
+#
+
+test-playbook-laptopmini:
+  extends: .test-ansible-role-kvm
+  stage: test-playbook
+  variables:
+    ANSIBLE_ROLE: playbook-tests
+    MOLECULE_SCENARIO: laptopmini
