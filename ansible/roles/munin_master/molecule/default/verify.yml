@@ -36,6 +36,7 @@
 
     - name: trigger first munin cycle
       command: >
+        timeout 5m
         su - munin --shell=/bin/sh -c
         '/usr/bin/munin-cron'
       register: cron
