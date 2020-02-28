@@ -2,9 +2,8 @@
 
 - Automated testing with Molecule
 - Mediabox
-    - Test playbooks in virtual machine
-        - deb_url + transmission
-        - supysonic + munin
+    - Design filesystem hierarchy for mediabox
+        - List paths with valuable data (for backing up)
     - Write full playbook for mediabox
     - Test full playbook in VM
     - Check firewall configuration for mediabox VM
