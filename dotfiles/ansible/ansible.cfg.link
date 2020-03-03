@@ -12,6 +12,9 @@ pipelining = True
 # Ask vault password interactively by default
 ask_vault_pass = True
 
+# Newer format output with cowsay
+nocows = 1
+
 
 [ssh_connection]
 
