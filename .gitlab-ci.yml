@@ -51,6 +51,7 @@ stages:
   # Tests that require full virtualization are delegated to Cirrus CI
   stage: test-kvm
   image: potyarkin/cirrus-run
+  timeout: 2 hours  # Cirrus CI is flaky sometimes and restarts hanged runners
   script:
     - export REQUIREMENTS_CHECKSUM=$(sha256sum ansible/tests/requirements.txt|cut -c -64)
     - cirrus-run
