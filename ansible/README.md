@@ -4,9 +4,6 @@ This directory contains Ansible playbooks for my machines and roles used in
 these playbooks. Role descriptions are provided in the corresponding READMEs
 within role directories.
 
-
-## Testing Ansible roles
-
 Most of the roles are continuously tested with Molecule either in Docker
 containers or in Vagrant KVM boxes.
 
