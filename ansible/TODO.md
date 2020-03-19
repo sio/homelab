@@ -2,9 +2,6 @@
 
 - Automated testing with Molecule
 - Mediabox
-    - Design filesystem hierarchy for mediabox
-        - List paths with valuable data (for backing up)
-    - Write full playbook for mediabox
     - Test full playbook in VM
     - Check firewall configuration for mediabox VM
     - Apply mediabox playbook to bare metal box
