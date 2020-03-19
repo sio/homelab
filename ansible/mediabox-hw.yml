@@ -1,0 +1,19 @@
+---
+
+# Some hardware-specific configuration for mediabox
+
+- hosts: mediabox
+  become: yes
+  tasks:
+    - name: mount hard disk drives
+      mount:
+        state: mounted
+        fstype: ext4
+        backup: yes
+        src: '{{ item.src }}'
+        path: '{{ item.path }}'
+      loop:
+        - src: LABEL=DATA_IMPORTANT
+          path: /disks/important
+        - src: LABEL=DATA_EPHEMERAL
+          path: /disks/ephemeral
