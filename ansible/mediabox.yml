@@ -8,25 +8,46 @@
 # - DLNA server (minidlna? rygel? gerbera?)
 # - Torrents (transmission)
 
+# File system hierarchy
+#   /disks/
+#   /disks/important/
+#   /disks/important/archive/
+#   /disks/important/inbox/
+#   /disks/important/music/
+#   /disks/important/music/files/
+#   /disks/important/music/torrents/
+#   /disks/important/music/library/
+#   /disks/ephemeral/
+#   /disks/ephemeral/temp/
+#   /disks/ephemeral/downloads/
+#   /disks/ephemeral/downloads/files/
+#   /disks/ephemeral/downloads/torrents/
+#   /disks/ephemeral/seeding/
+#   /disks/ephemeral/seeding/files/
+#   /disks/ephemeral/seeding/torrents/
+
+# Valuable data to backup:
+#   Top priority:
+#     /disks/important/archive
+#     Transmission configuration directories
+#   Medium priority:
+#     /disks/important/music
+#   Nice to have:
+#     Munin database
+#     Supysonic database
+
 - hosts: mediabox
   become: yes
-  vars:
   roles:
-    #
     # OS maintenance
-    #
     - role: upgrade
     - role: unattended
     - role: motd
 
-    #
     # Interactive shell
-    #
     - role: interactive
 
-    #
     # Monitoring
-    #
     - role: munin_fdcount
       munin_fdcount_target: transmission-daemon
     - role: munin_master
@@ -34,33 +55,46 @@
         - name: localhost
           address: 127.0.0.1
 
-    #
     # LAN file sharing
-    #
     - role: samba
       samba_shares:
-        - name: Torrents
-          path: /storage/torrents
+        - name: Dowloads
+          path: /disks/ephemeral/downloads
           public: yes
           read only: yes
+        - name: Seeding
+          path: /disks/ephemeral/seeding
+          public: yes
+          read only: yes
+        - name: Archive
+          path: /disks/important/archive
+          public: yes
+          read only: yes
+        - name: Music
+          path: /disks/important/music
+          public: yes
+          read only: yes
+        - name: Temp
+          path: /disks/ephemeral/temp
+          public: yes
+          read only: no  # writeable!
+        - name: Inbox
+          path: /disks/important/inbox
+          public: yes
+          read only: no  # writeable!
 
-    #
     # Music streaming
-    #
     - role: supysonic
-      supysonic_music_dir: /storage/music
+      supysonic_music_dir: /disks/important/music/library/
       supysonic_url: music.potyarkin.ml
 
-    #
     # DLNA server
-    #
     - role: gerbera
       gerbera_media_dirs:
-        - /storage/torrents/main
+        - /disks/ephemeral/downloads/files
+        - /disks/ephemeral/seeding/files
 
-    #
     # Torrenting
-    #
     - role: deb_url  # Install patched Transmission (without 1024 open files limit)
       deb_url_packages:
         - url: https://github.com/sio/transmission-debian-patched/releases/download/2.94-2.1-buster/transmission-common_2.94-2.1_all.deb
@@ -78,8 +112,8 @@
           upload_limit: 3125 # KB/s = 25 Mbit/s
         watch:
           - name: main
-            torrents: /storage/torrents/main
-            destination: /storage/data/main
+            torrents: /disks/ephemeral/downloads/torrents
+            destination: /disks/ephemeral/downloads/files
             extras: --bandwidth-low --seedratio 2
     - role: transmission
       transmission_instance:
@@ -90,8 +124,8 @@
           upload_limit: 6250 # KB/s = 50 Mbit/s
         watch:
           - name: longterm
-            torrents: /storage/torrents/longterm
-            destination: /storage/data/longterm
+            torrents: /disks/ephemeral/downloads/torrents
+            destination: /disks/ephemeral/downloads/files
     - role: transmission
       transmission_instance:
         name: music
@@ -99,5 +133,5 @@
         port_rpc: 9002
         watch:
           - name: music
-            torrents: /storage/torrents/music
-            destination: /storage/data/music
+            torrents: /disks/important/music/torrents
+            destination: /disks/important/music/files
