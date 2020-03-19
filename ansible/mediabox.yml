@@ -110,6 +110,7 @@
         port_rpc: 9000
         override:
           upload_limit: 3125 # KB/s = 25 Mbit/s
+          ratio_limit: 2
         watch:
           - name: main
             torrents: /disks/ephemeral/downloads/torrents
