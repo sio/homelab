@@ -29,3 +29,11 @@
     - en_US.UTF-8  # a sensible fallback
     - '{{ server_locale.name }}'
 
+- name: ignore client locale when connecting via ssh
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: '^(\w*AcceptEnv LANG LC.*)$'
+    line: '# \1'
+    backrefs: yes
+    backup: yes
+  notify: restart ssh server
