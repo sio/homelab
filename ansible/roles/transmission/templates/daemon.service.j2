@@ -11,9 +11,9 @@ Restart=always
 RestartSec=30
 ExecStart=\
     /usr/bin/transmission-daemon \
+        --config-dir {{ transmission_config | quote }} \
         --foreground \
-        --log-error \
-        --config-dir {{ transmission_config | quote }}
+        --log-error
 ExecStop=/bin/kill -s STOP $MAINPID
 ExecReload=/bin/kill -s HUP $MAINPID
 User={{ transmission_user }}
