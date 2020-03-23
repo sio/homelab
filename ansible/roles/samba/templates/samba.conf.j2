@@ -33,10 +33,10 @@
 
 {% for share in samba_shares %}
 [{{ share.name }}]
-    {% for key, value in share.items() %}
-    {% if key not in ['name', 'owner', 'group', 'mode'] %}
-    {{ key }} = {{ value }}
-    {% endif %}
-    {% endfor %}
+    {% for key, value in share.items() -%}
+    {%- if key not in ['name', 'owner', 'group', 'mode'] -%}
+    {{ key }} = {{ (value|ternary('yes', 'no')) if value in [True, False] else value }}
+    {% endif -%}
+    {%- endfor %}
 
 {% endfor %}
