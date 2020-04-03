@@ -4,13 +4,34 @@
   setup:
     filter: ansible_default_ipv4
 
+- name: install bridge utils
+  package:
+    name: bridge-utils
+    state: present
+
+- name: enable IP forwarding
+  sysctl:
+    name: net.ipv4.ip_forward
+    value: '1'
+    state: present
+    reload: yes
+
+- name: check if bridge entry was previously created
+  lineinfile:
+    path: '{{ kvm_bridge_config_file }}'
+    regexp: 'auto.*\b{{ kvm_bridge_interface }}\b'
+    state: absent
+  check_mode: yes
+  register: kvm_bridge_created
+  changed_when: false
+
 - name: use bridge interface instead of the physical one
   replace:
     path: '{{ kvm_bridge_config_file }}'
     regexp: '\b{{ ansible_default_ipv4.interface }}\b'
     replace: '{{ kvm_bridge_interface }}'
     backup: yes
-  when: ansible_default_ipv4.interface != kvm_bridge_interface
+  when: (ansible_default_ipv4.interface != kvm_bridge_interface) and not kvm_bridge_created.found
   notify: reboot
 
 - name: check if bridge is enabled on startup
@@ -41,7 +62,7 @@
 - name: add bridge entry to config file
   lineinfile:
     path: '{{ kvm_bridge_config_file }}'
-    line: 'iface {{ kvm_bridge_interface }} inet dhcp'
+    line: 'iface {{ kvm_bridge_interface }} {{ kvm_bridge_fallback_iface }}'
   when: not kvm_bridge_definition.found
   notify: reboot
 
@@ -49,10 +70,13 @@
   interfaces_file:
     dest: '{{ kvm_bridge_config_file }}'
     iface: '{{ kvm_bridge_interface }}'
-    option: bridge_ports
-    value: '{{ ansible_default_ipv4.interface }}'
+    option: '{{ item.key }}'
+    value: '{{ item.value }}'
     backup: yes
-  when: ansible_default_ipv4.interface != kvm_bridge_interface
+  with_dict:
+    bridge_ports: '{{ ansible_default_ipv4.interface }}'
+    pre-up: 'ip addr flush {{ ansible_default_ipv4.interface }}'
+  when: (ansible_default_ipv4.interface != kvm_bridge_interface) and not kvm_bridge_created.found
   notify: reboot
 
 - name: specify bridge interface options
@@ -63,6 +87,7 @@
     value: '{{ item.value }}'
     backup: yes
   loop: '{{ kvm_bridge_options|dict2items }}'
+  when: (ansible_default_ipv4.interface != kvm_bridge_interface) and not kvm_bridge_created.found
   notify: reboot
 
 - name: read /etc/network/interfaces
