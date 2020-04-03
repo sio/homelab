@@ -202,6 +202,15 @@ test-role-samba:
         - ansible/roles/server/**/*
 
 
+test-role-kvm_bridge:
+  extends: .test-ansible-role-kvm
+  variables:
+    ANSIBLE_ROLE: ../roles/kvm_bridge
+  rules:
+    - changes:
+        - ansible/roles/kvm_bridge/**/*
+
+
 test-role-munin_fdcount:
   extends: .test-ansible-role-kvm
   variables:

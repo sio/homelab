@@ -1,0 +1,19 @@
+---
+dependencies:
+  - role: require
+    require:
+      equals:
+        ansible_os_family: Debian
+        ansible_pkg_mgr: apt
+
+galaxy_info:
+  role_name: kvm_bridge
+  author: Vitaly Potyarkin
+  description: Setup bridge network interface for virtual machines
+  license: Apache-2.0
+  min_ansible_version: 2.4
+  platforms:
+    - name: Debian
+      versions:
+        - stretch
+        - buster
