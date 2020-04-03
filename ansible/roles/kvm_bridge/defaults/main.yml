@@ -1,0 +1,7 @@
+---
+kvm_bridge_interface: bridge0
+kvm_bridge_options:
+  bridge_stp: 'off'
+  bridge_maxwait: 0
+  bridge_fd: 0
+kvm_bridge_config_file: /etc/network/interfaces
