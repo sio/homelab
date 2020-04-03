@@ -60,3 +60,12 @@
     backup: yes
   loop: '{{ kvm_bridge_options|dict2items }}'
   notify: reboot
+
+- name: read /etc/network/interfaces
+  slurp:
+    src: /etc/network/interfaces
+  register: interfaces
+- name: show /etc/network/interfaces
+  debug:
+    msg: '{{ (interfaces["content"]|b64decode).splitlines() }}'
+
