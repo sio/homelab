@@ -7,7 +7,7 @@
     replace: '{{ kvm_bridge_interface }}'
     backup: yes
   when: ansible_default_ipv4.interface != kvm_bridge_interface
-  notify: restart networking
+  notify: reboot
 
 - name: check if bridge is enabled on startup
   lineinfile:
@@ -23,7 +23,7 @@
     path: '{{ kvm_bridge_config_file }}'
     line: 'auto {{ kvm_bridge_interface }}'
   when: not kvm_bridge_auto.found
-  notify: restart networking
+  notify: reboot
 
 - name: check if bridge entry exists in config file
   lineinfile:
@@ -39,7 +39,7 @@
     path: '{{ kvm_bridge_config_file }}'
     line: 'iface {{ kvm_bridge_interface }} inet dhcp'
   when: not kvm_bridge_definition.found
-  notify: restart networking
+  notify: reboot
 
 - name: add physical interface to bridge
   interfaces_file:
@@ -49,7 +49,7 @@
     value: '{{ ansible_default_ipv4.interface }}'
     backup: yes
   when: ansible_default_ipv4.interface != kvm_bridge_interface
-  notify: restart networking
+  notify: reboot
 
 - name: specify bridge interface options
   interfaces_file:
@@ -59,4 +59,4 @@
     value: '{{ item.value }}'
     backup: yes
   loop: '{{ kvm_bridge_options|dict2items }}'
-  notify: restart networking
+  notify: reboot
