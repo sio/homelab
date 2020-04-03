@@ -1,5 +1,9 @@
 ---
 
+- name: update networking facts
+  setup:
+    filter: ansible_default_ipv4
+
 - name: use bridge interface instead of the physical one
   replace:
     path: '{{ kvm_bridge_config_file }}'
