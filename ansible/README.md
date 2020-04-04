@@ -42,6 +42,7 @@ CI infrastructure is provided by:
 ### Tested in Vagrant (Libvirt)
 
 - **gerbera**: depends on server
+- **kvm_bridge**: modifies sysctl values, configures network interfaces, reboots
 - **morebooks**: depends on server
 - **munin_fdcount**: depends on munin, server
 - **munin_master**: depends on server

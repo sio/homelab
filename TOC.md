@@ -8,6 +8,7 @@
         - [Manage kernel parameters in Grub defaults](ansible/roles/grub/README.md)
         - [Manage initramfs modules](ansible/roles/initrd/README.md)
         - [Create user account for interactive CLI/GUI usage](ansible/roles/interactive/README.md)
+        - [Setup bridge network interface for virtual machines](ansible/roles/kvm_bridge/README.md)
         - morebooks
             - [Set up a server with HomeLibraryCatalog instance](ansible/roles/morebooks/README.md)
             - [Plans for moving to another hosting provider](ansible/roles/morebooks/README.migration.md)
@@ -25,6 +26,7 @@
         - [Apply all package updates](ansible/roles/upgrade/README.md)
         - [Optimizations for running Debian from USB flash drive](ansible/roles/usbroot/README.md)
     - [Automated tests for Ansible playbooks](ansible/tests/README.md)
+        - [Molecule tests for whole playbooks](ansible/tests/playbook-tests/README.md)
 - [Dotfiles by Vitaly Potyarkin](dotfiles/README.md)
     - [Configuration files for Ansible](dotfiles/ansible/README.md)
     - [Manage Python applications in individual virtual environments](dotfiles/app.venv/README.md)
