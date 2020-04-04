@@ -43,7 +43,7 @@ generate_toc() {
         return 1
     fi
 
-    local files=$(find "$workdir" -type f -iname '*.md'|LC_COLLATE=C.UTF-8 sort)
+    local files=$(find "$workdir" -type f -iname '*.md' ! -path '*/.*'|LC_COLLATE=C.UTF-8 sort)
 
     local oldpath=''
     local number_of_parents=0
