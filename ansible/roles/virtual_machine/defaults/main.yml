@@ -1,0 +1,10 @@
+---
+# virtual_machine_image: /vm.img  # qcow2 only
+# virtual_machine_image_url: ''  # initial VM image
+virtual_machine_image_checksum: ''  # no checksum validation for empty string
+
+virtual_machine_bridge: bridge0
+virtual_machine_name: guest0
+virtual_machine_memory: 1024 # MiB
+virtual_machine_cpus: 1
+virtual_machine_emulator: /usr/bin/qemu-system-x86_64

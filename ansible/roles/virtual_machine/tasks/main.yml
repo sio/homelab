@@ -1,0 +1,55 @@
+---
+
+- name: install virtualization tools
+  apt:
+    name:
+      - qemu-kvm
+      - libvirt-clients
+      - libvirt-daemon-system
+    state: present
+    install_recommends: no
+
+- name: start virtualization services
+  service:
+    name: '{{ item }}'
+    state: started
+    enabled: yes
+  loop:
+    - libvirtd
+    - libvirt-guests
+
+- name: create directory for virtual machine image
+  file:
+    dest: '{{ virtual_machine_image|dirname }}'
+    state: directory
+
+- name: check if virtual machine image exists
+  stat:
+    path: '{{ virtual_machine_image }}'
+  register: virtual_machine_file
+
+- name: download initial image for virtual machine
+  get_url:
+    url: '{{ virtual_machine_image_url }}'
+    dest: '{{ virtual_machine_image }}'
+    owner: libvirt-qemu
+    mode: '0600'
+    checksum: '{{ virtual_machine_image_checksum }}'
+  when: not virtual_machine_file.stat.exists
+
+- name: check list of virtual machine definitions
+  virt:
+    command: list_vms
+  register: virtual_machine_definitions
+
+- name: create virtual machine
+  virt:
+    command: define
+    xml: '{{ lookup("template", "templates/domain.xml.j2") }}'
+  when: virtual_machine_name not in virtual_machine_definitions.list_vms
+
+- name: configure virtual machine autostart
+  virt:
+    name: '{{ virtual_machine_name }}'
+    state: running
+    autostart: yes
