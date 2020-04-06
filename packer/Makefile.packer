@@ -26,7 +26,12 @@ build: validate $(PACKER_CONFIG)
 
 .PHONY: clean
 clean:
-	-$(RM) $(patsubst %.yml,%.json,$(PACKER_CONFIG))
+ifneq ($(wildcard $(patsubst %.json,%.yml,$(PACKER_CONFIG))),)
+	-$(RM) $(PACKER_CONFIG)
+endif
+ifdef PACKER_ARTIFACTS
+	-$(RM) -r $(PACKER_ARTIFACTS)
+endif
 
 
 %.json: %.yml
