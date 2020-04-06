@@ -1,0 +1,34 @@
+# Create virtual machine images with Packer
+#
+# Requirements:
+#   - GNU Make
+#   - Packer
+#   - Python3-YAML
+#
+# Some tricks taken from: https://github.com/multani/packer-qemu-debian
+
+
+PACKER?=packer
+PACKER_CONFIG?=packer.json
+PACKER_FLAGS?=
+PACKER_BUILD_FLAGS?=
+
+
+.PHONY: validate
+validate: $(PACKER_CONFIG)
+	$(PACKER) validate $(PACKER_FLAGS) $(PACKER_CONFIG)
+
+
+.PHONY: build
+build: validate $(PACKER_CONFIG)
+	$(PACKER) build $(PACKER_FLAGS) $(PACKER_BUILD_FLAGS) $(PACKER_CONFIG)
+
+
+.PHONY: clean
+clean:
+	-$(RM) $(patsubst %.yml,%.json,$(PACKER_CONFIG))
+
+
+%.json: %.yml
+	@echo "Convert YAML to JSON: $< => $@"
+	@python3 -c "import yaml, json, sys; json.dump(yaml.load(sys.stdin), sys.stdout, indent=2, sort_keys=True)" < $< > $@

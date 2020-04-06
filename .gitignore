@@ -3,3 +3,5 @@
 
 Makefile.venv
 .venv
+
+/packer/*/packer.json
