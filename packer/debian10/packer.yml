@@ -1,3 +1,12 @@
+description: |
+  Template for clean Debian Stable virtual machine.
+
+  Only standard packages and ssh server are installed,
+  all provisioning is expected to be done elsewhere.
+
+  Root login through SSH will be enabled!
+  Don't forget to change that while provisioning.
+
 min_packer_version: "1.3.2"  # disk_detect_zeroes
 
 variables:
@@ -7,7 +16,7 @@ variables:
 builders:
   - type: qemu
     format: qcow2
-    output_directory: .
+    output_directory: output
     vm_name: '{{ user `hostname` }}-image.qcow2'
     disk_size: 8000
 
@@ -16,9 +25,11 @@ builders:
     iso_checksum_type: sha256
 
     accelerator: kvm
-    headless: yes
     memory: 1024
     cpus: 1
+    headless: yes
+    #qemuargs:
+    #  - ['-display', 'gtk']  # use instead of headless for debugging
 
     http_directory: .
     ssh_username: root
@@ -29,12 +40,14 @@ builders:
     disk_discard: unmap
     disk_detect_zeroes: unmap
 
-    boot_wait: 1s
+    boot_wait: 3s  # time for installer to boot
+    ssh_timeout: 30m  # time for installer to finish and for sshd to start
     boot_command:
       - <down><tab>  # non-graphical
-      - auto
-      - preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg
-      - hostname={{ user `hostname` }}
+      - auto<spacebar>
+      - preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg<spacebar>
+      - language=en country=US keymap=en<spacebar>
+      - hostname={{ user `hostname` }} domain=packer<spacebar>
       - <enter><wait>
 
 provisioners:
@@ -42,3 +55,5 @@ provisioners:
     inline:
       - echo "root:{{ user `root_password`}}"|chpasswd
       - shutdown -P now
+    skip_clean: yes  # machine will be off, cleanup will fail
+    remote_folder: /tmp  # is cleaned up automatically on reboot
