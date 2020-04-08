@@ -55,5 +55,6 @@ provisioners:
     inline:
       - echo "root:{{ user `root_password`}}"|chpasswd
       - shutdown -P now
+    expect_disconnect: yes
     skip_clean: yes  # machine will be off, cleanup will fail
     remote_folder: /tmp  # is cleaned up automatically on reboot
