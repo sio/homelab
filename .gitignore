@@ -4,4 +4,5 @@
 Makefile.venv
 .venv
 
+packer_cache
 /packer/*/packer.json
