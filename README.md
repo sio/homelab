@@ -37,6 +37,10 @@ bootstrap script.
 
 Package lists for common scenarios
 
+### packer/
+
+Virtual machine templates
+
 ### snippets/
 
 Git hooks samples and other reusable files
