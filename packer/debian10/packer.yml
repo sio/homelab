@@ -51,3 +51,4 @@ builders:
       - language=en country=US keymap=en<spacebar>
       - hostname={{ user `hostname` }} domain=packer<spacebar>
       - <enter><wait>
+    shutdown_command: shutdown -P now
