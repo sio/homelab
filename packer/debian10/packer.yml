@@ -33,7 +33,7 @@ builders:
 
     http_directory: .
     ssh_username: root
-    ssh_password: temporary-root-password
+    ssh_password: '{{ user `root_password` }}'
 
     disk_compression: yes
     skip_compaction: false
@@ -46,15 +46,8 @@ builders:
       - <down><tab>  # non-graphical
       - auto<spacebar>
       - preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg<spacebar>
+      - passwd/root-password={{ user `root_password` }}<spacebar>
+      - passwd/root-password-again={{ user `root_password` }}<spacebar>
       - language=en country=US keymap=en<spacebar>
       - hostname={{ user `hostname` }} domain=packer<spacebar>
       - <enter><wait>
-
-provisioners:
-  - type: shell
-    inline:
-      - echo "root:{{ user `root_password`}}"|chpasswd
-      - shutdown -P now
-    expect_disconnect: yes
-    skip_clean: yes  # machine will be off, cleanup will fail
-    remote_folder: /tmp  # is cleaned up automatically on reboot
