@@ -16,6 +16,12 @@
     state: present
     reload: yes
 
+- name: make sure interfaces file exists
+  copy:
+    content: ''
+    force: no  # do not overwrite existing file
+    dest: '{{ kvm_bridge_config_file }}'
+
 - name: check if bridge entry was previously created
   lineinfile:
     path: '{{ kvm_bridge_config_file }}'
