@@ -297,6 +297,18 @@ test-role-transmission-deb_url:
         - ansible/roles/torrents_sysctl/**/*
         - ansible/roles/transmission/**/*
 
+
+test-role-virtual_machine:
+  extends: .test-ansible-role-kvm
+  variables:
+    ANSIBLE_ROLE: ../roles/virtual_machine
+    MOLECULE_SCENARIO: DESTRUCTIVE
+  rules:
+    - changes:
+        - ansible/roles/kvm_bridge/**/*
+        - ansible/roles/virtual_machine/**/*
+
+
 #
 # Test full Ansible playbooks
 #
