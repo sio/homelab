@@ -18,7 +18,7 @@
 
     - name: show existing virtual machines
       debug:
-        var: '{{ libvirt.list_vms }}'
+        var: libvirt.list_vms
 
     - name: check that guest is running
       virt:
