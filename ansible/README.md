@@ -52,3 +52,9 @@ CI infrastructure is provided by:
 - **supysonic**: depends on server
 - **torrents_sysctl**: modifies kernel parameters via sysctl, impossible in Docker
 - **transmission**: depends on server, torrents_sysctl
+
+### Tested on localhost (destructive!)
+
+- **virtual_machine**: can not be tested in virtual machine because it
+  launches another guest. Maybe someday, when nested virtualization will allow
+  for more nesting.
