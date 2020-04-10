@@ -2,15 +2,11 @@
 # Invoke with `molecule --base-config $LOCATION`
 ---
 driver:
-  name: vagrant
-  provider:
-    name: libvirt
-
-platforms:
-  - name: debian10-vm
-    box: debian/buster64
-    memory: 1024
-    provision: true
+  name: delegated
+  options:
+    managed: no
+    ansible_connection_options:
+      ansible_connection: local
 
 provisioner:
   log: true

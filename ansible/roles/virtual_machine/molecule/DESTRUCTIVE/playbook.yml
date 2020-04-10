@@ -1,6 +1,45 @@
 ---
 
-- hosts: debian10-vm
+- hosts: localhost
   become: true
+  become_method: sudo
+  vars:
+    template_dir: '{{ ansible_env.CIRRUS_WORKING_DIR }}/packer/debian10'
+    qcow2_image: '{{ template_dir }}/output/guest-image.qcow2'
+  pre_tasks:
+    - name: install packer
+      package:
+        name:
+          - packer
+          - python3-yaml
+        state: present
+    - name: create virtual machine image
+      command:
+        cmd: make build VM_HOSTNAME=guest VM_PASSWORD=hello
+        chdir: '{{ template_dir }}'
+        creates: '{{ qcow2_image }}'
+  roles:
+    - role: kvm_bridge
+      kvm_bridge_reboot: no
+      kvm_bridge_fallback_iface: inet static
+      kvm_bridge_options:
+        address: '{{ ansible_default_ipv4.address }}'
+        gateway:  '{{ ansible_default_ipv4.gateway }}'
+        bridge_stp: 'off'
+        bridge_maxwait: 0
+        bridge_fd: 0
+
+- hosts: localhost
+  become: true
+  become_method: sudo
+  vars:
+    template_dir: '{{ ansible_env.CIRRUS_WORKING_DIR }}/packer/debian10'
+    qcow2_image: '{{ template_dir }}/output/guest-image.qcow2'
+  pre_tasks:
+    - name: enable bridge interface
+      command: ifup bridge0
+      changed_when: false
   roles:
     - role: virtual_machine
+      virtual_machine_image: '{{ qcow2_image }}'
+      virtual_machine_image_url: 'dummy url'
