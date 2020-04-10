@@ -2,3 +2,4 @@
 
 - name: reboot
   reboot:
+  when: kvm_bridge_reboot
