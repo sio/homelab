@@ -7,9 +7,10 @@
     template_dir: '{{ ansible_env.CIRRUS_WORKING_DIR }}/packer/debian10'
     qcow2_image: '{{ template_dir }}/output/guest-image.qcow2'
   pre_tasks:
-    - name: install packer
+    - name: install packages required for testing
       package:
         name:
+          - ifupdown
           - packer
           - python3-yaml
         state: present
