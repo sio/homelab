@@ -2,8 +2,6 @@
 
 - Automated testing with Molecule
 - Mediabox
-    - Test full playbook in VM
-    - Check firewall configuration for mediabox VM
     - Apply mediabox playbook to bare metal box
 - Backup
     - Configure borgbackup with several storage backends
