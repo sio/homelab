@@ -1,8 +1,8 @@
 ---
 motd: |
-  ATTENTION!
+  IMPORTANT!
 
-  THIS COMPUTER IS MANAGED REMOTELY WITH ANSIBLE!
+  THIS COMPUTER IS MANAGED REMOTELY WITH ANSIBLE
 
   Don't turn it into a special snowflake.
-  Use shell for debugging, not administrating.
+  Use shell only for debugging.
