@@ -44,7 +44,7 @@ builders:
 
     floppy_files: # TODO
       - autounattend.xml
-      - winrm.ps
+      - winrm.ps1
       - '{{ user `drivers` }}'
 
     boot_wait: 3s  # time for installer to boot

@@ -166,7 +166,7 @@
         <RunSynchronousCommand wcm:action="add">
           <Order>1</Order>
           <Description>Configure and start WinRM</Description>
-          <Path>powershell.exe -NoLogo -NonInteractive -ExecutionPolicy RemoteSigned -File A:\winrm.ps</Path>
+          <Path>powershell.exe -NoLogo -NonInteractive -ExecutionPolicy RemoteSigned -File A:\winrm.ps1</Path>
         </RunSynchronousCommand>
       </RunSynchronous>
     </component>
