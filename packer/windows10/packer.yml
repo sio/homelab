@@ -1,0 +1,57 @@
+description: |
+  Template for clean Windows 10 virtual machine.
+
+  Only standard packages and winrm server are installed,
+  all provisioning is expected to be done elsewhere.
+
+min_packer_version: "1.3.2"  # disk_detect_zeroes
+
+variables:
+  password: please-never-use-the-default-value
+  hostname: guest-windows10
+  iso: ''
+  iso_sha256: ''
+  iso_checksum_type: sha256  # none to skip checksums
+  vnc_bind_address: 127.0.0.1
+  drivers: drivers  # location of virtio drivers
+
+builders:
+  - type: qemu
+    format: qcow2
+    output_directory: output
+    vm_name: '{{ user `hostname` }}-image.qcow2'
+    disk_size: 50000
+
+    iso_url: '{{ user `iso` }}'
+    iso_checksum: '{{ user `iso_sha256` }}'
+    iso_checksum_type: '{{ user `iso_checksum_type` }}'
+
+    accelerator: kvm
+    memory: 2048
+    cpus: 1
+    headless: yes
+    vnc_bind_address: '{{user `vnc_bind_address` }}'
+
+    http_directory: ''
+    communicator: winrm
+    winrm_username: root
+    winrm_password: TemporaryPass
+
+    disk_compression: yes
+    skip_compaction: false
+    disk_discard: unmap
+    disk_detect_zeroes: unmap
+
+    floppy_files: # TODO
+      - autounattend.xml
+      - winrm.ps
+      - '{{ user `drivers` }}'
+
+    boot_wait: 3s  # time for installer to boot
+    winrm_timeout: 1h  # time for installer to finish and for winrm to start
+    shutdown_command: shutdown /s /t 0 /d p:4:1 /c "Packer Shutdown"
+
+provisioners:
+  - type: windows-shell
+    inline:
+      - net user root {{ user `password` }}
