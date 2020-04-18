@@ -26,7 +26,7 @@ endif
 
 
 validate build: | check-env
-build: | drivers
+validate build: | drivers
 
 
 .PHONY: drivers
