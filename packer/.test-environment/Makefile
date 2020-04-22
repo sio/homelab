@@ -14,6 +14,7 @@ prepare: /.ready-interactive
 	apt-get -y install --no-install-recommends \
 		packer \
 		python3-yaml \
+		cmake \
 		cpu-checker \
 		qemu-kvm \
 		libvirt-clients \
