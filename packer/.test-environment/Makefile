@@ -22,5 +22,8 @@ prepare: /.ready-interactive
 
 
 /.ready-interactive:
+	apt-get -y install --no-install-recommends \
+		tmux \
+		vim
 	cd ../../dotfiles && ./bootstrap.sh ./topics-cli.list
 	touch $@
