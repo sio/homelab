@@ -76,6 +76,16 @@
       </DynamicUpdate>
       <ImageInstall>
         <OSImage>
+          <InstallFrom>
+            <!--
+            Delete the whole InstallFrom section to see which options are available
+            More information: https://superuser.com/questions/715368
+            -->
+            <Metadata wcm:action="add">
+              <Key>/IMAGE/NAME</Key>
+              <Value>Windows 10 Pro</Value>
+            </Metadata>
+          </InstallFrom>
           <InstallTo>
             <DiskID>0</DiskID>
             <PartitionID>1</PartitionID>
