@@ -85,7 +85,8 @@
       </ImageInstall>
       <UserData>
         <ProductKey>
-          <WillShowUI>never</WillShowUI>
+          <Key></Key>
+          <WillShowUI>Never</WillShowUI>
         </ProductKey>
         <AcceptEula>true</AcceptEula>
         <FullName>Windows</FullName>
