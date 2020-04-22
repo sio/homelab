@@ -1,0 +1,20 @@
+---
+
+- name: install requested packages
+  apt:
+    name: '{{ packages_install }}'
+    state: present
+    install_recommends: '{{ packages_recommends }}'
+  when: packages_install and ansible_pkg_mgr == 'apt'
+
+- name: remove requested packages
+  package:
+    name: '{{ packages_remove }}'
+    state: absent
+  when: packages_remove
+
+- name: execute apt chores
+  apt:
+    autoremove: '{{ packages_autoremove }}'
+    autoclean: '{{ packages_autoclean }}'
+  when: ansible_pkg_mgr == 'apt'

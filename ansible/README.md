@@ -36,6 +36,7 @@ CI infrastructure is provided by:
 - **deb_url**
 - **interactive**
 - **motd**
+- **packages**
 - **require**
 - **unattended**
 

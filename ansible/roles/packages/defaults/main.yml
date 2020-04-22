@@ -1,0 +1,6 @@
+---
+packages_install: []
+packages_remove: []
+packages_autoclean: yes
+packages_autoremove: yes
+packages_recommends: yes

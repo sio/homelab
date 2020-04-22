@@ -151,6 +151,15 @@ test-role-motd:
         - ansible/roles/motd/**/*
 
 
+test-role-packages:
+  extends: .test-ansible-role
+  variables:
+    ANSIBLE_ROLE: ../roles/packages
+  rules:
+    - changes:
+        - ansible/roles/packages/**/*
+
+
 test-role-require:
   extends: .test-ansible-role
   variables:

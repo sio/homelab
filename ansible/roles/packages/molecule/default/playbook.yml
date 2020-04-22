@@ -1,0 +1,11 @@
+---
+
+- hosts: debian10-docker
+  become: true
+  roles:
+    - role: packages
+      packages_install:
+        - zsh
+        - figlet
+      packages_remove:
+        - xz-utils
