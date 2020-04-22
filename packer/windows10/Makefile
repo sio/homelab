@@ -36,6 +36,7 @@ drivers: $(DRIVERS_STORAGE)/netkvm.sys
 $(DRIVERS_STORAGE)/netkvm.sys: | $(DRIVERS_STORAGE)/temp/extracted.ok
 	cp $(DRIVERS_STORAGE)/temp/usr/share/virtio-win/drivers/amd64/Win10/* $(DRIVERS_STORAGE)/
 	-$(RM) -r $(DRIVERS_STORAGE)/temp
+	-$(RM) $(DRIVERS_STORAGE)/virtio-win.rpm
 
 
 .INTERMEDIATE: $(DRIVERS_STORAGE)/temp/extracted.ok
