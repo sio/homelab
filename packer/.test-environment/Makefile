@@ -17,6 +17,7 @@ prepare: /.ready-interactive
 		cmake \
 		cpu-checker \
 		qemu-kvm \
+		qemu-utils \
 		libvirt-clients \
 		libvirt-daemon-system
 	touch $@
