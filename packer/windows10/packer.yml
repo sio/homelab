@@ -59,3 +59,15 @@ provisioners:
       - wmic computersystem where caption='%computername%' rename '{{ user `hostname` }}'
       - net user root {{ user `password` }}
       - shutdown /s /t 0 /d p:4:1 /c "Packer Shutdown"
+
+## SAMPLE QEMU COMMAND LINE TO TEST CREATED IMAGE
+# /usr/bin/qemu-system-x86_64 \
+#     -drive file=output/win10-image.qcow2,if=virtio,cache=writeback,discard=unmap,format=qcow2,detect-zeroes=unmap \
+#     -m 4096M \
+#     -smp cpus=3,sockets=3 \
+#     -machine type=pc,accel=kvm \
+#     -cpu qemu64 \
+#     -name win10-image.qcow2 \
+#     -device virtio-net,netdev=user.0 \
+#     -vnc 127.0.0.1:99 \
+#     -netdev user,id=user.0,hostfwd=tcp::4040-:5985
