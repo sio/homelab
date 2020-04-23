@@ -34,15 +34,20 @@ drivers: $(DRIVERS_STORAGE)/netkvm.sys
 
 
 $(DRIVERS_STORAGE)/netkvm.sys: | $(DRIVERS_STORAGE)/temp/extracted.ok
-	cp $(DRIVERS_STORAGE)/temp/usr/share/virtio-win/drivers/amd64/Win10/* $(DRIVERS_STORAGE)/
+	find $(DRIVERS_STORAGE)/temp/iso \
+		-type f \
+		-path '*/w10/amd64/*' \
+		! -iname '*.pdb' \
+		-exec cp {} $(DRIVERS_STORAGE)/ \;
 	-$(RM) -r $(DRIVERS_STORAGE)/temp
 	-$(RM) $(DRIVERS_STORAGE)/virtio-win.rpm
 
 
 .INTERMEDIATE: $(DRIVERS_STORAGE)/temp/extracted.ok
 $(DRIVERS_STORAGE)/temp/extracted.ok: $(DRIVERS_STORAGE)/virtio-win.rpm
-	-mkdir -p $(dir $@)
-	cd $(dir $@) && cmake -E tar xf ../$(notdir $<)  # cmake uses libarchive to extract
+	-mkdir -p $(dir $@)/rpm $(dir $@)/iso
+	cd $(dir $@)/rpm && cmake -E tar xf ../../$(notdir $<)  # cmake uses libarchive to extract
+	cd $(dir $@)/iso && cmake -E tar xf ../rpm/usr/share/virtio-win/virtio-win.iso
 	touch $@
 
 

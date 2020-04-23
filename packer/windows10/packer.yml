@@ -31,6 +31,10 @@ builders:
     cpus: 1
     headless: yes
     vnc_bind_address: '{{user `vnc_bind_address` }}'
+    qemuargs:
+      - ['-cpu', 'qemu64']
+      - ['-fdb', 'fat:rw:floppy:{{ user `drivers` }}']  # max floppy size 2.88MB instead of 1.44MB
+                                                        # fat-type=16 does not work with 'floppy'
 
     http_directory: ''
     communicator: winrm
@@ -42,10 +46,9 @@ builders:
     disk_discard: unmap
     disk_detect_zeroes: unmap
 
-    floppy_files: # TODO
+    floppy_files:
       - autounattend.xml
       - winrm.ps1
-      - '{{ user `drivers` }}'
 
     boot_wait: 3s  # time for installer to boot
     winrm_timeout: 1h  # time for installer to finish and for winrm to start

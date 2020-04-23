@@ -15,7 +15,7 @@
                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
       <DriverPaths>
         <PathAndCredentials wcm:keyValue="1" wcm:action="add">
-          <Path>A:\</Path>
+          <Path>B:\</Path>
         </PathAndCredentials>
       </DriverPaths>
     </component>
