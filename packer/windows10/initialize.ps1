@@ -2,7 +2,7 @@
 # https://github.com/luciusbono/Packer-Windows10/blob/master/configure-winrm.ps1
 
 
-# TODO: Related links in case this fails
+# Related links in case this fails
 # - WinRM commands can not be run under SYSTEM user
 #   https://social.technet.microsoft.com/Forums/lync/en-US/40cd085f-9a71-47a1-825b-79bde4f13fb2/enable-winrm-on-unattended-installs?forum=winserverManagement
 # - Enable-PSRemoting is a cmdlet that does more or less the same job
@@ -14,6 +14,12 @@
 # - Packer documentation for Windows builds
 #   https://www.packer.io/guides/automatic-operating-system-installs/autounattend_windows.html
 
+# Install Qemu Balloon Service
+b:\blnsvr.exe -i
+sc.exe config balloonservice start= auto
+
+# Change network type to Private to allow WinRM
+Set-NetConnectionProfile -NetworkCategory Private
 
 # Configure WinRM
 winrm quickconfig -q
@@ -27,5 +33,8 @@ Enable-NetFirewallRule -DisplayName "Windows Remote Management (HTTP-In)"
 
 # Restart service after reboot
 sc.exe config winrm start= auto
+
+# Disable automated login
+Set-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon' -name AutoAdminLogon -value 0
 
 exit 0
