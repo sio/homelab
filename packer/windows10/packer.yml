@@ -27,12 +27,11 @@ builders:
     iso_checksum_type: '{{ user `iso_checksum_type` }}'
 
     accelerator: kvm
-    memory: 2048
-    cpus: 1
+    memory: 2048  # increasing memory has little effect on build time
+    cpus: 1       # increasing cpu count may help to save up to 10 minutes
     headless: yes
-    vnc_bind_address: '{{user `vnc_bind_address` }}'
+    vnc_bind_address: '{{ user `vnc_bind_address` }}'
     qemuargs:
-      - ['-cpu', 'qemu64']
       - ['-fdb', 'fat:rw:floppy:{{ user `drivers` }}']  # max floppy size 2.88MB instead of 1.44MB
                                                         # fat-type=16 does not work with 'floppy'
 
@@ -51,7 +50,7 @@ builders:
       - initialize.ps1
 
     boot_wait: 3s  # time for installer to boot
-    winrm_timeout: 1h  # time for installer to finish and for winrm to start
+    winrm_timeout: 2h  # time for installer to finish and for winrm to start
 
 provisioners:
   - type: windows-shell
