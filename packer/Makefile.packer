@@ -10,6 +10,7 @@
 
 PACKER?=packer
 PACKER_CONFIG?=packer.json
+PACKER_ARTIFACTS?=packer_cache
 PACKER_FLAGS?=
 PACKER_BUILD_FLAGS?=
 
