@@ -60,7 +60,7 @@
     -->
     <extended-runtime-options>
       <ffmpegthumbnailer enabled="yes">
-        <thumbnail-size>500</thumbnail-size>
+        <thumbnail-size>160</thumbnail-size>
         <seek-percentage>5</seek-percentage>
         <filmstrip-overlay>yes</filmstrip-overlay>
         <workaround-bugs>no</workaround-bugs>
