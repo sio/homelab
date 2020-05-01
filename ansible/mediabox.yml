@@ -29,7 +29,7 @@
 # Valuable data to backup:
 #   Top priority:
 #     /disks/important/archive
-#     Transmission configuration directories
+#     /home/torrent
 #   Medium priority:
 #     /disks/important/music
 #   Nice to have:
