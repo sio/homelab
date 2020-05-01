@@ -5,6 +5,8 @@
     name:
       - gerbera
       - ffmpegthumbnailer
+      - libffmpegthumbnailer-dev  # non-dev package name is tricky
+                                  # this will install it as dependency
     state: present
 
 - name: configure gerbera
