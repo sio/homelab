@@ -8,7 +8,7 @@
 #
 
 # Enable TCP-LP congestion algorithm
-'net.ipv4.tcp_allowed_congestion_control': 'cubic reno lp'
+'net.ipv4.tcp_allowed_congestion_control': 'reno cubic lp'
 
 
 #
