@@ -108,6 +108,7 @@
         <map from="flv" to="video/x-flv"/>
         <map from="mkv" to="video/x-matroska"/>
         <map from="mka" to="audio/x-matroska"/>
+        <map from="part" to="invalid/invalid"/>
         <!-- Uncomment the line below for PS3 divx support -->
         <!-- <map from="avi" to="video/divx"/> -->
         <!-- Uncomment the line below for D-Link DSM / ZyXEL DMA-1000 -->
