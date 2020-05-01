@@ -11,7 +11,7 @@
         <account user="gerbera" password="gerbera"/>
       </accounts>
     </ui>
-    <name>gerbera</name>
+    <name>{{ ansible_hostname|title }} - DLNA</name>
     <udn>uuid:{{ ansible_fqdn|to_uuid }}</udn>
     <home>/var/lib/gerbera</home>
     <webroot>/usr/share/gerbera/web</webroot>
