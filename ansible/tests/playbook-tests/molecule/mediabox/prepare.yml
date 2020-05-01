@@ -1,4 +1,4 @@
-- hosts: all
+- hosts: mediabox
   become: yes
   vars:
     fake_hostname: music.potyarkin.ml
