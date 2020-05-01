@@ -45,4 +45,4 @@
 'net.ipv4.tcp_fin_timeout': 30
 
 # Do not last the complete time_wait cycle. Default: 0
-'net.ipv4.tcp_tw_recycle': 1
+# 'net.ipv4.tcp_tw_recycle': 1  # this seems to be unsupported by modern kernels

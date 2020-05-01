@@ -24,6 +24,14 @@
     file: files/sysctl.yml
     name: torrents_sysctl
 
+- name: remove obsolete kernel parameters
+  sysctl:
+    name: '{{ item }}'
+    state: absent
+    reload: yes
+  loop:
+    - net.ipv4.tcp_tw_recycle
+
 - name: set kernel networking parameters
   sysctl:
     name: '{{ item.key }}'
