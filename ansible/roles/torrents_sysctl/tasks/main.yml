@@ -17,7 +17,7 @@
 - name: enable kernel modules after reboot
   copy:
     content: tcp_lp
-    dest: /etc/modprobe.d/tcplp.conf
+    dest: /etc/modules-load.d/tcplp.conf
 
 - name: read kernel parameters from file
   include_vars:
