@@ -144,3 +144,20 @@
           - name: music
             torrents: /disks/important/music/torrents
             destination: /disks/important/music/files
+
+  tasks:
+    - name: configure hddtemp monitoring
+      copy:
+        content: |
+          [hddtemp_smartctl]
+          user root
+          env.drives sda sdb sdc
+        dest: /etc/munin/plugin-conf.d/hddtemp_smartctl
+      notify: restart munin node
+
+    - name: enable hddtemp monitoring
+      file:
+        state: link
+        src: /usr/share/munin/plugins/hddtemp_smartctl
+        dest: /etc/munin/plugins/hddtemp_smartctl
+      notify: restart munin node
