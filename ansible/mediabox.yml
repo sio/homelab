@@ -43,6 +43,14 @@
     - role: upgrade
     - role: unattended
     - role: motd
+    - role: packages
+      packages_install:
+        - acpi-support
+        - cpufrequtils
+        - downtimed
+        - linux-cpupower
+        - powertop
+        - smartmontools
 
     # Interactive shell
     - role: interactive
