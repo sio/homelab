@@ -17,6 +17,11 @@
     creates: '{{ supysonic_db }}'
   register: supysonic_init
 
+- name: create music folder
+  file:
+    path: '{{ supysonic_music_dir }}'
+    state: directory
+
 - name: add music folder to supysonic
   # become: '{{ supysonic_user }}' will trigger an error
   command: >
