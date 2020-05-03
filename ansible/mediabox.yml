@@ -60,7 +60,7 @@
       munin_fdcount_target: transmission-daemon
     - role: munin_master
       munin_master_nodes:
-        - name: localhost
+        - name: mediabox
           address: 127.0.0.1
 
     # LAN file sharing

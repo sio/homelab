@@ -2,6 +2,7 @@
 
 {% for node in munin_master_nodes %}
 [{{ node.name }}]
+use_node_name yes
 {% if node.address|default(False) %}
 address {{ node.address }}
 {% endif %}

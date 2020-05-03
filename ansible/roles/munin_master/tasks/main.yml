@@ -13,6 +13,12 @@
     state: present
   notify: restart web server
 
+- name: configure munin master
+  copy:
+    content: |
+      includedir /etc/munin/munin-conf.d
+    dest: /etc/munin/munin.conf
+
 - name: specify nodes to monitor
   template:
     src: templates/nodes.conf.j2
