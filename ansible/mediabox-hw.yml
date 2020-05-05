@@ -5,6 +5,16 @@
 - hosts: mediabox
   become: yes
   tasks:
+    - name: enable non-free repos
+      apt_repository:
+        repo: 'deb http://deb.debian.org/debian/ {{ ansible_distribution_release }} main contrib non-free'
+        state: present
+
+    - name: install non-free firmware
+      package:
+        name: firmware-linux-nonfree
+        state: present
+
     - name: mount hard disk drives
       mount:
         state: mounted
