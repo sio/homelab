@@ -12,7 +12,9 @@
   command: >
     su - {{ supysonic_user }} --shell=/bin/sh -c
     '{{ supysonic_venv|quote }}/bin/supysonic-cli
-    user add {{ supysonic_admin|quote }} -A -p {{ supysonic_pass|quote }}'
+    user add {{ supysonic_admin|quote }} -p {{ supysonic_pass|quote }}
+    && {{ supysonic_venv|quote }}/bin/supysonic-cli
+    user setroles -A {{ supysonic_admin|quote }}'
   args:
     creates: '{{ supysonic_db }}'
   register: supysonic_init
