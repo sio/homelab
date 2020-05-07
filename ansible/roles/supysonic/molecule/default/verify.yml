@@ -8,6 +8,13 @@
       failed_when: "'hello' not in hello.stdout"
       changed_when: "hello is not succeeded"
 
+    - name: check that watcher is running
+      service:
+        name: supysonic-watcher
+        state: started
+      register: watcher
+      failed_when: watcher.changed
+
     - name: wait for services to become available
       wait_for:
         port: '{{ item }}'
