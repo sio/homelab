@@ -4,6 +4,10 @@
 
 - hosts: mediabox
   become: yes
+  vars:
+    mediabox_extra_kernel_modules:
+      - coretemp
+      - nct6775
   tasks:
     - name: enable non-free repos
       apt_repository:
@@ -14,6 +18,20 @@
       package:
         name: firmware-linux-nonfree
         state: present
+
+    - name: enable extra kernel modules
+      modprobe:
+        name: '{{ item }}'
+        state: present
+      loop: '{{ mediabox_extra_kernel_modules }}'
+
+    - name: load extra kernel modules after reboot
+      lineinfile:
+        path: /etc/modules-load.d/sensors.conf
+        line: '{{ item }}'
+        state: present
+        create: yes
+      loop: '{{ mediabox_extra_kernel_modules }}'
 
     - name: mount hard disk drives
       mount:
