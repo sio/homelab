@@ -49,6 +49,7 @@
         - cpufrequtils
         - downtimed
         - linux-cpupower
+        - lm-sensors
         - powertop
         - smartmontools
 
