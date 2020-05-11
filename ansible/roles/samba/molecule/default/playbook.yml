@@ -9,8 +9,6 @@
           password: hello world
       samba_shares:
         - name: My media
-          owner: username
-          mode: '0755'
           path: /foo/bar/baz/
           public: yes
           read only: yes

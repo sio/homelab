@@ -9,9 +9,6 @@ samba_shares: []  # List of share definitions.
                   # All other keys are transferred to smb.conf verbatim
 # Example:
 # - name: My media
-#   owner: username
-#   group: groupname
-#   mode: '0755'
 #   path: /foo/bar/baz/
 #   public: yes
 #   read only: yes

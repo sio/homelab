@@ -34,9 +34,6 @@
   file:
     path: '{{ item.path }}'
     state: directory
-    mode: '{{ item.mode|default("0755") }}'
-    owner: '{{ item.owner|default("root") }}'
-    group: '{{ item.group|default(item.owner)|default("root") }}'
   with_items: '{{ samba_shares }}'
 
 - name: configure samba server
