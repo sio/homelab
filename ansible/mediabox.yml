@@ -55,6 +55,7 @@
         - smartmontools
         # for interactive shell
         - vim
+        - tmux
 
     # Interactive shell
     - role: interactive
