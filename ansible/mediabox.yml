@@ -45,6 +45,7 @@
     - role: motd
     - role: packages
       packages_install:
+        # server stuff
         - acpi-support
         - cpufrequtils
         - downtimed
@@ -52,6 +53,8 @@
         - lm-sensors
         - powertop
         - smartmontools
+        # for interactive shell
+        - vim
 
     # Interactive shell
     - role: interactive
