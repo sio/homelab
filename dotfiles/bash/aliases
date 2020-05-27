@@ -224,9 +224,28 @@ _app_venv_aliases
 # Use tabs in vim by default
 alias vim='vim -p'
 
+
 # Shell commands popularity stats
 cli-stats() {
     local output_len="$1"
     [[ -z "$output_len" ]] && output_len=10
     sed 's:|: :g' "$HISTFILE"|awk '{print $1}'|sort|uniq -c|sort -rn|head -n "$output_len"
+}
+
+
+# Expand tabs to 4 spaces in all files with given extensions
+retab() {
+    local extension
+    local tempfile=$(mktemp '.retab_XXXXXX')
+    for extension
+    do
+        echo "Expanding tabs in $extension files:"
+        find . \
+            -type f \
+            -iname '*.'"$extension" \
+            -exec \
+                bash -c \
+                "expand -i -t 4 \"\$0\" > \"$tempfile\" && mv \"$tempfile\" \"\$0\" && echo \"  \$0\"" \
+                {} \;
+    done
 }
