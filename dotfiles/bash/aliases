@@ -236,16 +236,21 @@ cli-stats() {
 # Expand tabs to 4 spaces in all files with given extensions
 retab() {
     local extension
+    local filename
     local tempfile=$(mktemp '.retab_XXXXXX')
     for extension
     do
-        echo "Expanding tabs in $extension files:"
+        echo "Expanding tabs and removing trailing whitespace in $extension files:"
         find . \
             -type f \
             -iname '*.'"$extension" \
-            -exec \
-                bash -c \
-                "expand -i -t 4 \"\$0\" > \"$tempfile\" && mv \"$tempfile\" \"\$0\" && echo \"  \$0\"" \
-                {} \;
+            -print0 | \
+        while read -d $'\0' filename
+        do
+            expand -i -t 4 "$filename" > "$tempfile" && mv "$tempfile" "$filename"
+            sed -i 's/[[:blank:]]*$//' "$filename"
+            echo "  $filename"
+        done
     done
+    rm "$tempfile" 2>/dev/null || true
 }
