@@ -13,7 +13,7 @@
     state: absent
   when: packages_remove
 
-- name: execute apt chores
+- name: execute apt chores (autoremove, autoclean)
   apt:
     autoremove: '{{ packages_autoremove }}'
     autoclean: '{{ packages_autoclean }}'

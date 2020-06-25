@@ -31,7 +31,7 @@
     supysonic_admin: 'Admin_{{ lookup("password", "/dev/null length=3 chars=ascii_letters") }}'
     supysonic_pass: '{{ lookup("password", "/dev/null length=9") }}'
 
-- name: create Python virtual environment
+- name: create Python virtual environment and update pip
   pip:
     name:
       - setuptools
