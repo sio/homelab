@@ -19,5 +19,8 @@ task:
   packer_script:
     - cd "packer/$PACKER_TARGET"
     - make build
+    - make checksum
   image_artifacts:
     path: "**/*.qcow2"
+  checksum_artifacts:
+    path: "**/*.sha256sum"

@@ -86,6 +86,7 @@ stages:
 packer-debian10:
   # Artifact URL:
   #   https://api.cirrus-ci.com/v1/artifact/github/sio/.cirrus-ci-jobs/build-packer-image/image/packer/debian10/output/guest-image.qcow2
+  #   https://api.cirrus-ci.com/v1/artifact/github/sio/.cirrus-ci-jobs/build-packer-image/checksum/packer/debian10/output/guest-image.sha256sum
   extends: .packer-build
   variables:
     PACKER_TARGET: debian10

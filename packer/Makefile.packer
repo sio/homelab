@@ -36,6 +36,15 @@ ifneq ($(wildcard $(patsubst %.json,%.yml,$(PACKER_CONFIG))),)
 endif
 
 
+.PHONY: checksum
+checksum: $(patsubst %.qcow2,%.sha256sum,$(wildcard **/*.qcow2))
+checksum: $(patsubst %.qcow2,%.sha256sum,$(wildcard *.qcow2))
+
+
+%.sha256sum: %.qcow2
+	sha256sum $< | sed -e 's:$(dir $<)::g' > $@
+
+
 %.json: %.yml
 	@echo "Convert YAML to JSON: $< => $@"
 	@python3 -c "import yaml, json, sys; json.dump(yaml.load(sys.stdin), sys.stdout, indent=2, sort_keys=True)" < $< > $@
