@@ -45,7 +45,7 @@
 - name: create virtual machine
   virt:
     command: define
-    xml: '{{ lookup("template", "templates/domain.xml.j2") }}'
+    xml: '{{ lookup("template", virtual_machine_template) }}'
   when: virtual_machine_name not in virtual_machine_definitions.list_vms
 
 - name: configure virtual machine autostart
