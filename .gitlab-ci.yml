@@ -69,6 +69,22 @@ stages:
   if: '$TRIGGER_DOCKER_BUILD'
   when: always
 
+
+#
+# Build virtual machine images
+#
+
+packer-debian10:
+  extends: .test-ansible-role-kvm  # cirrus-run
+  variables:
+    CIRRUS_CONFIG: packer/cirrus.yml.j2
+    PACKER_TARGET: debian10
+    VM_HOSTNAME: guest
+    VM_PASSWORD: hello
+  script:
+    - cirrus-run
+
+
 #
 # Build Docker containers
 #

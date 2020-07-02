@@ -1,0 +1,23 @@
+# CI CONFIGURATION FOR BUILDING VM IMAGES WITH PACKER
+
+task:
+  name: build-packer-image
+  container:
+    image: potyarkin/molecule:host-kvm  # Debian 10
+    kvm: true
+  env:
+    CLONE_SHA: "{{ CI_COMMIT_SHA }}"
+    CLONE_URL: "{{ CI_REPOSITORY_URL }}"
+    PACKER_TARGET: "{{ PACKER_TARGET }}"
+    VM_HOSTNAME: "{{ VM_HOSTNAME }}"
+    VM_PASSWORD: "{{ VM_PASSWORD }}"
+  clone_script:
+    - git clone "$CLONE_URL" .
+    - git reset --hard "$CLONE_SHA"
+  dependencies_script:
+    - make -C "packer/.test-environment" /.ready-for-packer
+  packer_script:
+    - cd "packer/$PACKER_TARGET"
+    - make build
+  image_artifacts:
+    path: "**/*.qcow2"
