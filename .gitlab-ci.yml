@@ -70,19 +70,32 @@ stages:
   when: always
 
 
+.packer-build:
+  extends: .test-ansible-role-kvm  # cirrus-run
+  stage: build
+  variables:
+    CIRRUS_CONFIG: packer/cirrus.yml.j2
+  script:
+    - cirrus-run
+
+
 #
 # Build virtual machine images
 #
 
 packer-debian10:
-  extends: .test-ansible-role-kvm  # cirrus-run
+  # Artifact URL:
+  #   https://api.cirrus-ci.com/v1/artifact/github/sio/.cirrus-ci-jobs/build-packer-image/image/packer/debian10/output/guest-image.qcow2
+  extends: .packer-build
   variables:
-    CIRRUS_CONFIG: packer/cirrus.yml.j2
     PACKER_TARGET: debian10
     VM_HOSTNAME: guest
     VM_PASSWORD: hello
-  script:
-    - cirrus-run
+  rules:
+    - *trigger-docker-build
+    - <<: *push-to-master
+      changes:
+        - packer/debian10/**/*
 
 
 #
