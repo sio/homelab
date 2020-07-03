@@ -26,6 +26,7 @@ stages:
     - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" "$CI_REGISTRY"
     - docker build --pull -t "$CI_REGISTRY_IMAGE" - < "$DOCKERFILE"  # no build context
     - docker push "$CI_REGISTRY_IMAGE"
+  dependencies: []  # do not download any artifacts from previous stages
 
 
 .test-ansible-role:
@@ -45,6 +46,7 @@ stages:
   variables:
     PIP_CACHE_DIR: "$CI_PROJECT_DIR/cache/pip"
     VENVDIR: "$CI_PROJECT_DIR/cache/venv"
+  dependencies: []  # do not download any artifacts from previous stages
 
 
 .test-ansible-role-kvm:
@@ -58,6 +60,7 @@ stages:
   variables:
     CIRRUS_GITHUB_REPO: sio/.cirrus-ci-jobs
     # CIRRUS_API_TOKEN: Masked value. Defined in GitLab web interface
+  dependencies: []  # do not download any artifacts from previous stages
 
 
 .push-to-master: &push-to-master
@@ -88,6 +91,7 @@ stages:
     paths:
       - artifacts
     expire_in: 10 days
+  dependencies: []  # do not download any artifacts from previous stages
 
 
 #
