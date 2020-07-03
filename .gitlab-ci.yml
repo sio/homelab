@@ -90,7 +90,7 @@ stages:
   artifacts:
     paths:
       - artifacts
-    expire_in: 10 days
+    expire_in: 11 days  # rebuilds are scheduled every 10 days
   dependencies: []  # do not download any artifacts from previous stages
 
 
