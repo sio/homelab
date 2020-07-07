@@ -1,4 +1,5 @@
 INVENTORY?=~/inventory.yml
+SHELL=/bin/bash
 
 PLAYBOOK_RUNNER?=ansible-playbook
 PLAYBOOK_TIMER?=time
