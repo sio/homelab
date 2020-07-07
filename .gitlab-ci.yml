@@ -109,9 +109,7 @@ packer-debian10:
     VM_PASSWORD: hello
   rules:
     - *trigger-docker-build
-    - <<: *push-to-master
-      changes:
-        - packer/debian10/**/*
+    - *push-to-master  # must be rebuilt on every push to master for URLs to remain valid
 
 
 #
