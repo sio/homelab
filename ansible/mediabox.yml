@@ -43,6 +43,7 @@
     - role: upgrade
     - role: unattended
     - role: motd
+    - role: canary  # clean shutdown with dumb UPS
     - role: packages
       packages_install:
         # server stuff
