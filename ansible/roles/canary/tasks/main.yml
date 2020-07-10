@@ -1,0 +1,21 @@
+- name: install script
+  copy:
+    src: templates/canary.sh
+    dest: '{{ canary_script }}'
+    mode: '0755'
+
+- name: install systemd service and timer
+  template:
+    src: '{{ item }}'
+    dest: '/etc/systemd/system/{{ item|basename }}'
+  loop:
+    - templates/canary.service
+    - templates/canary.timer
+  notify: restart canary timer
+
+- name: enable systemd timer
+  systemd:
+    name: canary.timer
+    state: started
+    enabled: yes
+    daemon_reload: yes

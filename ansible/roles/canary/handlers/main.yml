@@ -1,0 +1,5 @@
+- name: restart canary timer
+  systemd:
+    name: canary.timer
+    state: restarted
+    daemon_reload: yes

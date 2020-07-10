@@ -1,0 +1,10 @@
+[Unit]
+Description=Canary shutdown service for dumb UPS
+After=network.target
+
+
+[Service]
+Type=simple
+ExecStart={{ canary_script }}
+Environment=CANARY_HOST={{ canary_host }}
+Environment=CANARY_TIMEOUT={{ canary_timeout }}
