@@ -1,6 +1,7 @@
 ---
 
-- hosts: debian10-vm
+- hosts: debian10-docker
   become: true
   roles:
     - role: canary
+      canary_host: google.com
