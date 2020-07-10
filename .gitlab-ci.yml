@@ -167,6 +167,15 @@ molecule-guest-debian-10-systemd:
 # Test Ansible roles in Docker containers
 #
 
+test-role-canary:
+  extends: .test-ansible-role
+  variables:
+    ANSIBLE_ROLE: ../roles/canary
+  rules:
+    - changes:
+        - ansible/roles/canary/**/*
+
+
 test-role-deb_url:
   extends: .test-ansible-role
   variables:

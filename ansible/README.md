@@ -30,6 +30,7 @@ CI infrastructure is provided by:
 
 ### Tested in Docker
 
+- **canary**
 - **deb_url**
 - **interactive**
 - **motd**
