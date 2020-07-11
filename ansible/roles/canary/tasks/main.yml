@@ -3,11 +3,13 @@
     src: templates/canary.sh
     dest: '{{ canary_script }}'
     mode: '0755'
+    backup: yes
 
 - name: install systemd service and timer
   template:
     src: '{{ item }}'
     dest: '/etc/systemd/system/{{ item|basename }}'
+    backup: yes
   loop:
     - templates/canary.service
     - templates/canary.timer
