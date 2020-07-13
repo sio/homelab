@@ -178,6 +178,15 @@ test-role-canary:
         - ansible/roles/canary/**/*
 
 
+test-role-canon_mf3010:
+  extends: .test-ansible-role
+  variables:
+    ANSIBLE_ROLE: ../roles/canon_mf3010
+  rules:
+    - changes:
+        - ansible/roles/canon_mf3010/**/*
+
+
 test-role-deb_url:
   extends: .test-ansible-role
   variables:
