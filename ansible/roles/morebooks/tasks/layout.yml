@@ -7,17 +7,17 @@
     path: '{{ item.value }}'
     state: directory
     mode: '0755'
-    owner: '{{ username }}'
-    group: '{{ username }}'
-  with_dict: '{{ path }}'
+    owner: '{{ hlc_username }}'
+    group: '{{ hlc_username }}'
+  with_dict: '{{ hlc_paths }}'
 
 - name: copy project files
   copy:
     src: '{{ item.src }}'
-    dest:  '{{ item.dest  | default(path.app + "/") }}'
+    dest:  '{{ item.dest  | default(hlc_paths.app + "/") }}'
     mode:  '{{ item.mode  | default("0644") }}'
-    owner: '{{ item.owner | default(username) }}'
-    group: '{{ item.group | default(username) }}'
+    owner: '{{ item.owner | default(hlc_username) }}'
+    group: '{{ item.group | default(hlc_username) }}'
   with_items:
     - src: 'files/requirements.txt'
     - src: 'files/wsgi.py'
@@ -28,19 +28,19 @@
     src: '{{ item.src }}'
     dest:  '{{ item.dest }}'
     mode:  '{{ item.mode  | default("0644") }}'
-    owner: '{{ item.owner | default(username) }}'
-    group: '{{ item.group | default(username) }}'
+    owner: '{{ item.owner | default(hlc_username) }}'
+    group: '{{ item.group | default(hlc_username) }}'
   with_items:
     - src: 'templates/backup.py.j2'
-      dest: '{{ path.app }}/backup.py'
+      dest: '{{ hlc_paths.app }}/backup.py'
       mode: '0755'
     - src: 'templates/hlc.json.j2'
-      dest: '{{ path.app }}/hlc.json'
+      dest: '{{ hlc_paths.app }}/hlc.json'
 
 - name: configure web server
   template:
     src: 'templates/webserver.conf.j2'
-    dest: '{{ server_config }}'
+    dest: '{{ hlc_http_config }}'
     mode:  '0644'
   notify: reload web server
 
@@ -58,8 +58,8 @@
 
 - name: add google site verification token
   copy:
-    dest: '{{ path.static }}/{{ google_key }}'
-    content: 'google-site-verification: {{ google_key }}'
-    owner: '{{ username }}'
-    group: '{{ username }}'
+    dest: '{{ hlc_paths.static }}/{{ hlc_google_key }}'
+    content: 'google-site-verification: {{ hlc_google_key }}'
+    owner: '{{ hlc_username }}'
+    group: '{{ hlc_username }}'
     mode: '0644'

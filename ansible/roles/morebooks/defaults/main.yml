@@ -2,10 +2,10 @@
 #
 # OPTIONAL PARAMETERS
 #
-# deploy
+# hlc_deploy
 #   If set to True, forces (re)deployment of HomeLibraryCatalog from GitHub
 #   master branch. Use this to update HomeLibraryCatalog to the latest version.
-# restore_from
+# hlc_restore_dir
 #   Local directory with application data archives (sqlite db + file uploads).
 #   When setting up a new server this directory will be used to restore the
 #   latest backup from archive. Backups must be sortable by file name.
@@ -16,10 +16,10 @@
 #
 #   Override these values!
 #
-url: morebooks.ml
-email_admin: sio.wtf@gmail.com
-google_key: google684a6a967bc36817.html
-hlc:
+hlc_url: morebooks.ml
+hlc_email_admin: sio.wtf@gmail.com
+hlc_google_key: google684a6a967bc36817.html
+hlc_app:
   title: 'Книжная квартирка'
   cookie_key: 'RZQL51П*0027-/'
   id_key: '18251'
@@ -29,28 +29,28 @@ hlc:
 #
 #   Change these values only if you understand the consequences.
 #
-server: apache2
-server_config: '/etc/apache2/sites-enabled/{{ url }}.conf'
-ssl:
-  cert: '/etc/letsencrypt/live/{{ url }}/fullchain.pem'
-  key:  '/etc/letsencrypt/live/{{ url }}/privkey.pem'
-path:
-  app:    '/home/{{ username }}/application'
-  backup: '/home/{{ username }}/data/backup'
-  data:   '/home/{{ username }}/data'
-  static: '/home/{{ username }}/static'
-  venv:   '/home/{{ username }}/virtualenv'
+hlc_http_server: apache2
+hlc_http_config: '/etc/apache2/sites-enabled/{{ hlc_url }}.conf'
+hlc_ssl:
+  cert: '/etc/letsencrypt/live/{{ hlc_url }}/fullchain.pem'
+  key:  '/etc/letsencrypt/live/{{ hlc_url }}/privkey.pem'
+hlc_paths:
+  app:    '/home/{{ hlc_username }}/application'
+  backup: '/home/{{ hlc_username }}/data/backup'
+  data:   '/home/{{ hlc_username }}/data'
+  static: '/home/{{ hlc_username }}/static'
+  venv:   '/home/{{ hlc_username }}/virtualenv'
 
 #
 # DEPENDENCIES
 #
 #   You shouldn't need to change these.
 #
-packages:
+hlc_packages:
   - apache2
   - libapache2-mod-wsgi-py3
   - python-certbot-apache
-build_deps:
+hlc_build_deps:
   - python3-lxml
   - python3-pil
 
@@ -59,4 +59,4 @@ build_deps:
 #
 #   Sensible defaults. There is little to no reason in overriding them.
 #
-username: 'hlc'
+hlc_username: 'hlc'

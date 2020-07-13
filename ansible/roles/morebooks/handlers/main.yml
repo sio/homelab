@@ -1,7 +1,7 @@
 ---
 - name: reload web server
   service:
-    name: '{{ server }}'
+    name: '{{ hlc_http_server }}'
     state: reloaded
 
 - name: reload firewall

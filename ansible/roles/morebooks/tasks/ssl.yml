@@ -8,13 +8,13 @@
     --standalone
     --agree-tos
     --non-interactive
-    --email {{ email_admin|quote }}
-    --cert-name {{ url|quote }}
-    --domains {{ url|quote }},www.{{ url|quote }}
-    --pre-hook 'systemctl stop {{ server }}'
-    --post-hook 'systemctl start {{ server }}'
+    --email {{ hlc_email_admin|quote }}
+    --cert-name {{ hlc_url|quote }}
+    --domains {{ hlc_url|quote }},www.{{ hlc_url|quote }}
+    --pre-hook 'systemctl stop {{ hlc_http_server }}'
+    --post-hook 'systemctl start {{ hlc_http_server }}'
   args:
-    creates: '{{ ssl.cert }}'
+    creates: '{{ hlc_ssl.cert }}'
 
 - name: schedule certificate renewal
   cron:
@@ -30,5 +30,5 @@
   apache2_module:
     name: ssl
     state: present
-  when: server == 'apache2'
+  when: hlc_http_server == 'apache2'
   notify: reload web server

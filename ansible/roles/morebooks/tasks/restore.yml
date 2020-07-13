@@ -4,10 +4,10 @@
 ---
 - name: restore application data from the latest backup
   unarchive:  # backups must be sortable by filename
-    src: '{{ lookup("fileglob", restore_from + "/*", wantlist=True)|sort|last }}'
-    dest: '{{ path.data }}'
-    creates: '{{ path.data }}/database.sqlite'
-    owner: '{{ username }}'
-    group: '{{ username }}'
-  when: restore_from is defined
+    src: '{{ lookup("fileglob", hlc_restore_dir + "/*", wantlist=True)|sort|last }}'
+    dest: '{{ hlc_paths.data }}'
+    creates: '{{ hlc_paths.data }}/database.sqlite'
+    owner: '{{ hlc_username }}'
+    group: '{{ hlc_username }}'
+  when: hlc_restore_dir is defined
   notify: reload web server

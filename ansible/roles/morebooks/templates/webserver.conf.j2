@@ -7,16 +7,16 @@
 # THIS FILE IS MAINTAINED WITH ANSIBLE
 # LOCAL CHANGES WILL BE OVERWRITTEN!
 
-Define URL        {{ url }}
-Define ADMIN      {{ email_admin }}
-Define WSGI_USER  {{ username }}
-Define WSGI_GROUP {{ username }}
-Define WSGI_DIR   {{ path.app }}
-Define STATIC_DIR {{ path.static }}
-Define PY_VENV    {{ path.venv }}
-Define SSL_CERT   {{ ssl.cert }}
-Define SSL_KEY    {{ ssl.key }}
-Define GOOGLE_KEY {{ google_key }}
+Define URL        {{ hlc_url }}
+Define ADMIN      {{ hlc_email_admin }}
+Define WSGI_USER  {{ hlc_username }}
+Define WSGI_GROUP {{ hlc_username }}
+Define WSGI_DIR   {{ hlc_paths.app }}
+Define STATIC_DIR {{ hlc_paths.static }}
+Define PY_VENV    {{ hlc_paths.venv }}
+Define SSL_CERT   {{ hlc_ssl.cert }}
+Define SSL_KEY    {{ hlc_ssl.key }}
+Define GOOGLE_KEY {{ hlc_google_key }}
 
 # The following options control the restart of apache2 process, not the
 # wsgi application

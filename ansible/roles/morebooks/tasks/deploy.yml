@@ -2,17 +2,17 @@
 # Execute these tasks before `hlc.yml` to trigger deployment from
 # latest git version
 #
-# when: deploy|default(False)
+# when: hlc_deploy|default(False)
 ---
 - name: stop the web server
   service:
-    name: '{{ server }}'
+    name: '{{ hlc_http_server }}'
     state: stopped
 
 - name: check if virtual environment has been created
   stat:
-    path: '{{ path.venv }}/bin'
-  register: venv
+    path: '{{ hlc_paths.venv }}/bin'
+  register: hlc_venv
 
 - name: uninstall HomeLibraryCatalog
   pip:
@@ -21,10 +21,10 @@
       - scrapehelper
       # Do not delete toolpot here! It's used by backup script in the next step
     state: absent
-    virtualenv: '{{ path.venv }}'
-  when: venv.stat.isdir is defined and venv.stat.isdir
+    virtualenv: '{{ hlc_paths.venv }}'
+  when: hlc_venv.stat.isdir is defined and hlc_venv.stat.isdir
 
 - name: back up application data
-  command: '{{ path.app|quote }}/backup.py'
-  register: backup
-  changed_when: 'backup is succeeded'
+  command: '{{ hlc_paths.app|quote }}/backup.py'
+  register: hlc_backup
+  changed_when: 'hlc_backup is succeeded'

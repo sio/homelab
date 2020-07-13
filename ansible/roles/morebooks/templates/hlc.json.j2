@@ -2,12 +2,12 @@
     "WARNING": "THIS FILE IS MAINTAINED WITH ANSIBLE. LOCAL CHANGES WILL BE OVERWRITTEN!",
 
     "app": {
-        "title": "{{ hlc.title }}",
-        "data_dir": "{{ path.data }}",
+        "title": "{{ hlc_app.title }}",
+        "data_dir": "{{ hlc_paths.data }}",
         "verbosity": 5
     },
     "webui": {
-        "cookie_key": "{{ hlc.cookie_key }}",
-        "id_key": {{ hlc.id_key }}
+        "cookie_key": "{{ hlc_app.cookie_key }}",
+        "id_key": {{ hlc_app.id_key }}
     }
 }

@@ -4,7 +4,7 @@
 ---
 - name: install software packages
   package:
-    name: '{{ packages }}'
+    name: '{{ hlc_packages }}'
     state: present
 
 - name: enable deb-src repositories
@@ -14,26 +14,26 @@
 
 - name: install required build-dependencies
   apt:
-    name: '{{ build_deps }}'
+    name: '{{ hlc_build_deps }}'
     state: build-dep
   when: ansible_pkg_mgr == 'apt'
   # This module returns 'changed' even when no build-deps were installed
   # Check explicitly for the following line in stdout:
   #   0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded
-  register: deps
-  changed_when: 'not(deps.stdout_lines|last is match("^0 .*, 0 .*, 0 .*"))'
+  register: hlc_deps
+  changed_when: 'not(hlc_deps.stdout_lines|last is match("^0 .*, 0 .*, 0 .*"))'
 
 - name: application user group
   group:
-    name: '{{ username }}'
+    name: '{{ hlc_username }}'
     state: present
 
 - name: application user account
   user:
-    name: '{{ username }}'
+    name: '{{ hlc_username }}'
     state: present
     shell: /usr/sbin/nologin
-    groups: '{{ username }}'
+    groups: '{{ hlc_username }}'
     append: yes
 
 - name: allow HTTP and HTTPS access

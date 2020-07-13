@@ -16,11 +16,11 @@
 
 # Restore application data from the latest backup if doing a clean install
 - include: restore.yml
-  when: restore_from is defined
+  when: hlc_restore_dir is defined
 
 # Force app update from latest git if necessary
 - include: deploy.yml
-  when: deploy|default(False)
+  when: hlc_deploy|default(False)
 
 # Idempotent deployment
 - include: hlc.yml

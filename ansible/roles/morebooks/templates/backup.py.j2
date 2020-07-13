@@ -1,4 +1,4 @@
-#!{{ path.venv }}/bin/python
+#!{{ hlc_paths.venv }}/bin/python
 """
 Backup script for HomeLibraryCatalog instance deployed to VPS
 """
@@ -14,10 +14,10 @@ from toolpot.linux.systemd import control, control_isrunning
 from toolpot.scripting import archive, make_name, rotate
 
 
-BACKUP_NAME = "{{ url }}"
-DATA = ["{{ path.data }}/uploads", "{{ path.data }}/database.sqlite"]
-DESTINATION = "{{ path.backup }}"
-SERVER = "{{ server }}"
+BACKUP_NAME = "{{ hlc_url }}"
+DATA = ["{{ hlc_paths.data }}/uploads", "{{ hlc_paths.data }}/database.sqlite"]
+DESTINATION = "{{ hlc_paths.backup }}"
+SERVER = "{{ hlc_http_server }}"
 
 
 def main():
