@@ -57,3 +57,19 @@ CI infrastructure is provided by:
 - **virtual_machine**: can not be tested in virtual machine because it
   launches another guest. Maybe someday, when nested virtualization will allow
   for more nesting.
+
+
+## Test status by playbook
+
+### Tested in Vagrant (Libvirt)
+
+- **mediabox.yml**
+- **morebooks.yml** - requires no extra tests since it's just applying a role
+  to the target
+- **upgrade.yml** - requires no extra tests since it's just applying a role to
+  the target
+
+## Automated tests not implemented
+
+- **laptopmini.yml**
+- **mediabox-hw** - trivial role, hardware specific
