@@ -55,6 +55,8 @@
   apt:
     deb: '{{ item.path }}'
   loop: '{{ canon_debs.files }}'
+  loop_control:
+    label: '{{ item.path }}'
   notify: restart cups
 
 #- name: configure CUPS
