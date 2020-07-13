@@ -1,0 +1,10 @@
+# Specify at least one source for drivers archive
+canon_drivers_web: https://gdlp01.c-wss.com/gds/8/0100007658/16/linux-UFRII-drv-v510-uken-06.tar.gz
+canon_drivers_local: canon_ufrii_drv.tar.gz
+
+# There should be no need to override these
+canon_drivers_dir: /root/canon-mf3010
+canon_drivers_archive: '{{ canon_drivers_dir }}/drivers.tar.gz '
+canon_arch:
+  x86_64: amd64
+  x86: i386
