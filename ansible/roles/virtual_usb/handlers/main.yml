@@ -1,0 +1,4 @@
+---
+
+- name: reload udev rules
+  command: udevadm control --reload

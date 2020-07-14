@@ -1,0 +1,11 @@
+# Attach the device
+ACTION=="add" \
+, ATTRS{idVendor}=="{{ virtual_usb_vendor[2:] }}" \
+, ATTRS{idProduct}=="{{ virtual_usb_device[2:] }}" \
+, RUN+="virsh attach-device {{ virtual_usb_domain }} --file {{ virtual_usb_definition }}"
+
+# Make changes permanent
+ACTION=="add" \
+, ATTRS{idVendor}=="{{ virtual_usb_vendor[2:] }}" \
+, ATTRS{idProduct}=="{{ virtual_usb_device[2:] }}" \
+, RUN+="virsh attach-device {{ virtual_usb_domain }} --file {{ virtual_usb_definition }} --persistent"

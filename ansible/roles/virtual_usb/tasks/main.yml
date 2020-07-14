@@ -1,0 +1,21 @@
+---
+
+# Hotplug USB passthrough for Libvirt guests
+
+- name: create libvirt definitions directory
+  file:
+    state: directory
+    path: '{{ virtual_usb_definition|dirname }}'
+
+- name: create libvirt device definition
+  template:
+    src: templates/device.xml.j2
+    dest: '{{ virtual_usb_definition }}'
+    backup: yes
+
+- name: create udev rule for the device
+  template:
+    src: templates/udev.rules.j2
+    dest: '{{ virtual_usb_udev_rule }}'
+    backup: yes
+  notify: reload udev rules
