@@ -10,4 +10,20 @@
       - libjpeg62-turbo
       - libjbig0
 
-#- name: configure CUPS
+- name: start printing service
+  service:
+    name: cups
+    state: started
+    enabled: yes
+
+- name: check CUPS configuration
+  command: cupsctl
+  register: canon_cupsctl
+  changed_when: no
+
+- name: allow network access to CUPS printers and configuration
+  command: cupsctl --remote-admin --remote-any
+  when: canon_cupsctl.stdout is regex('_remote_(admin|any)=0')
+  notify: restart cups
+
+#- name: add printer with lpadmin  # ???
