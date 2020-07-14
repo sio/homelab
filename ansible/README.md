@@ -66,6 +66,7 @@ CI infrastructure is provided by:
 - **mediabox.yml**
 - **morebooks.yml** - requires no extra tests since it's just applying a role
   to the target
+- **printer.yml**
 - **upgrade.yml** - requires no extra tests since it's just applying a role to
   the target
 
