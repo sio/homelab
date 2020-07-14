@@ -3,4 +3,7 @@
 - hosts: debian10-docker
   become: true
   roles:
+    - role: packages
+      packages_install:
+        - udev
     - role: virtual_usb
