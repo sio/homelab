@@ -12,6 +12,7 @@ provisioner:
       all:
         server_keys_public:
           - '{{ lookup("env", "MOLECULE_EPHEMERAL_DIRECTORY") }}/testkey.pub'
+        canon_allow_cidr: '{{ hostvars["printer"]["ansible_host"] }}/24'
 
 driver:
   name: vagrant
