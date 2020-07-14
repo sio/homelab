@@ -2,10 +2,13 @@
 
 # Hotplug USB passthrough for Libvirt guests
 
-- name: create libvirt definitions directory
+- name: create required directories
   file:
     state: directory
-    path: '{{ virtual_usb_definition|dirname }}'
+    path: '{{ item }}'
+  loop:
+    - '{{ virtual_usb_definition|dirname }}'
+    - '{{ virtual_usb_udev_rule|dirname }}'
 
 - name: create libvirt device definition
   template:
