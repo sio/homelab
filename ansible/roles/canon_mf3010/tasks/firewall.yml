@@ -1,3 +1,19 @@
 ---
 
-#- name: allow LAN access to printer
+- name: allow LAN access to printer
+  ufw:
+    rule: allow
+    direction: in
+    from: '{{ canon_allow_cidr }}'
+    port: '{{ item.port }}'
+    proto: '{{ item.proto|default("tcp") }}'
+  loop:
+    - port: 631  # IPP print jobs
+    - port: 5353 # mDNS lookup
+      proto: udp
+    - port: 137  # name lookup for SMB printers
+      proto: udp
+    - port: 139  # SMB printing
+    - port: 445  # SMB printing with auth
+  loop_control:
+    label: '{{ item.port }}'

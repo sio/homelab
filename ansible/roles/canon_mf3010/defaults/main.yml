@@ -3,6 +3,7 @@ canon_drivers_web: https://gdlp01.c-wss.com/gds/8/0100007658/16/linux-UFRII-drv-
 canon_drivers_local: canon_ufrii_drv.tar.gz
 
 # There should be no need to override these
+canon_allow_cidr: '{{ ansible_default_ipv4.address }}/24'
 canon_drivers_strict_ssl: no
 canon_drivers_dir: /root/canon-mf3010
 canon_drivers_archive: '{{ canon_drivers_dir }}/drivers.tar.gz '
