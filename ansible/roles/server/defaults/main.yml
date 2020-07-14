@@ -32,3 +32,6 @@ server_locale:
   name: 'en_US.UTF-8'
   charset: 'UTF-8'
 server_timezone: Europe/Moscow
+
+# Force inventory hostname
+server_force_inventory_hostname: no

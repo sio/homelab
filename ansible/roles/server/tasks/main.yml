@@ -3,6 +3,11 @@
 #
 ---
 
+- name: change hostname according to inventory
+  hostname:
+    name: '{{ inventory_hostname_short }}'
+  when: server_force_inventory_hostname
+
 # Create necessary users and groups
 - include: users.yml
 

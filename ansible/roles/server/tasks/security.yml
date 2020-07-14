@@ -3,6 +3,13 @@
 #
 ---
 
+- name: update root password
+  user:
+    name: root
+    password: '{{ server_root_password }}'
+    update_password: always
+  when: server_root_password is defined
+
 - name: allow SSH access (rate-limited)
   ufw:
     port: ssh
