@@ -1,0 +1,13 @@
+---
+
+- name: install packages for printing support
+  package:
+    state: present
+    name:
+      - cups
+      - ghostscript
+      - libglade2-0
+      - libjpeg62-turbo
+      - libjbig0
+
+#- name: configure CUPS

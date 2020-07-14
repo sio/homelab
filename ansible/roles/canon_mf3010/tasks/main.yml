@@ -1,64 +1,8 @@
 ---
 
-- name: install packages for printing support
-  package:
-    state: present
-    name:
-      - cups
-      - ghostscript
-      - libglade2-0
-      - libjpeg62-turbo
-      - libjbig0
+- include: drivers.yml
 
-- name: create directory for storing drivers
-  file:
-    path: '{{ canon_drivers_dir }}'
-    state: directory
+- include: cups.yml
 
-- name: check if drivers archive is present
-  stat:
-    path: '{{ canon_drivers_archive }}'
-  register: canon_drivers
-
-- name: copy drivers archive from Canon website
-  get_url:
-    url: '{{ canon_drivers_web }}'
-    dest: '{{ canon_drivers_archive }}'
-  when: not canon_drivers.stat.exists
-  ignore_errors: yes
-  register: canon_download
-
-- name: copy drivers archive from control machine
-  copy:
-    src: '{{ canon_drivers_local }}'
-    dest: '{{ canon_drivers_archive }}'
-    force: no
-  when: not canon_drivers.stat.exists and canon_download is failed
-
-- name: unpack drivers archive
-  unarchive:
-    remote_src: yes
-    src: '{{ canon_drivers_archive }}'
-    dest: '{{ canon_drivers_dir }}'
-
-- name: locate drivers files
-  find:
-    paths: '{{ canon_drivers_dir }}'
-    patterns:
-      - 'cnrdrvcups-ufr2*{{ canon_arch[ansible_architecture] }}.deb'
-      - 'cnrcupsmf*.deb'  # targeting MF3010
-    recurse: yes
-    use_regex: no
-  register: canon_debs
-
-- name: install drivers
-  apt:
-    deb: '{{ item.path }}'
-  loop: '{{ canon_debs.files }}'
-  loop_control:
-    label: '{{ item.path }}'
-  notify: restart cups
-
-#- name: configure CUPS
-
-#- name: allow LAN access to printer
+- include: firewall.yml
+  when: canon_configure_firewall|default(True)
