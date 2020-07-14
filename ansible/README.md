@@ -31,6 +31,7 @@ CI infrastructure is provided by:
 ### Tested in Docker
 
 - **canary**
+- **canon_mf3010**
 - **deb_url**
 - **interactive**
 - **motd**
@@ -51,6 +52,7 @@ CI infrastructure is provided by:
 - **supysonic**: depends on server
 - **torrents_sysctl**: modifies kernel parameters via sysctl, impossible in Docker
 - **transmission**: depends on server, torrents_sysctl
+- **virtual_usb**: udevadm does not work in Docker
 
 ### Tested on localhost (destructive!)
 
