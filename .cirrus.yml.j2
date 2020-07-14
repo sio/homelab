@@ -67,15 +67,15 @@ task:
 
   # Clean up volatile items in cache
   volatile_cache_script:
-    - find "$HOME/.vagrant.d/boxes" -type f -name box_update_check -delete -print
+    - find "$HOME/.vagrant.d/boxes" -type f -name box_update_check -delete -print || echo "Exit code: $?"
 
   # Debugging information
   always:
     cache_debug_script:
       - du -sh "$HOME/.vagrant.d/boxes" || echo "Exit code: $?"
       - ls -l "$HOME/.vagrant.d/boxes" || echo "Exit code: $?"
-      - find "$HOME/.vagrant.d/boxes" -type f
-      - find "$HOME/cache" -type f
+      - find "$HOME/.vagrant.d/boxes" -type f || echo "Exit code: $?"
+      - find "$HOME/cache" -type f || echo "Exit code: $?"
     kvm_debug_script:
       - free -h
       - pstree -alT
