@@ -1,18 +1,20 @@
 # Main molecule configuration is located in ansible/roles/tests/molecule.yml
 # Invoke with `molecule --base-config $LOCATION`
 ---
+driver:
+  name: vagrant
+  provider:
+    name: libvirt
+
 platforms:
-  - name: debian10-docker
-    image: potyarkin/molecule:debian-10-systemd
-    pre_build_image: true
-    command: /sbin/init
-    privileged: yes
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
-      - /lib/modules:/lib/modules:ro
-    tmpfs:
-      - /run
-      - /tmp
+  - name: debian10-vm
+    box: debian/buster64
+    memory: 1024
+    provision: true
+    interfaces:
+      - auto_config: true
+        network_name: private_network
+        type: dhcp
 
 provisioner:
   log: true
