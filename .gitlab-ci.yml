@@ -240,6 +240,15 @@ test-role-unattended:
     - changes:
         - ansible/roles/unattended/**/*
 
+
+test-role-virtual_usb:
+  extends: .test-ansible-role
+  variables:
+    ANSIBLE_ROLE: ../roles/virtual_usb
+  rules:
+    - changes:
+        - ansible/roles/virtual_usb/**/*
+
 #
 # Test Ansible roles in KVM virtual machines (Vagrant-Libvirt)
 #
