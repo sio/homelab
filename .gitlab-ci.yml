@@ -396,7 +396,22 @@ test-playbook-mediabox:
     - changes:
         - ansible/mediabox.yml
         - ansible/tests/playbook-tests/molecule/mediabox/**/*
-        - ansible/roles/**/*
+        - ansible/roles/canary/**/*
+        - ansible/roles/deb_url/**/*
+        - ansible/roles/gerbera/**/*
+        - ansible/roles/interactive/**/*
+        - ansible/roles/motd/**/*
+        - ansible/roles/munin_fdcount/**/*
+        - ansible/roles/munin_master/**/*
+        - ansible/roles/munin_node/**/*
+        - ansible/roles/packages/**/*
+        - ansible/roles/samba/**/*
+        - ansible/roles/server/**/*
+        - ansible/roles/supysonic/**/*
+        - ansible/roles/torrents_sysctl/**/*
+        - ansible/roles/transmission/**/*
+        - ansible/roles/unattended/**/*
+        - ansible/roles/upgrade/**/*
 
 
 test-playbook-printer:
