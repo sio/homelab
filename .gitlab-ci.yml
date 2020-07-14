@@ -399,6 +399,24 @@ test-playbook-mediabox:
         - ansible/roles/**/*
 
 
+test-playbook-printer:
+  extends: .test-ansible-role-kvm
+  stage: test-playbook
+  variables:
+    ANSIBLE_ROLE: playbook-tests
+    MOLECULE_SCENARIO: printer
+  rules:
+    - changes:
+        - ansible/printer.yml
+        - ansible/tests/playbook-tests/molecule/printer/**/*
+        - ansible/roles/canon_mf3010/**/*
+        - ansible/roles/motd/**/*
+        - ansible/roles/packages/**/*
+        - ansible/roles/server/**/*
+        - ansible/roles/unattended/**/*
+        - ansible/roles/upgrade/**/*
+
+
 # test-playbook-laptopmini:  # TODO: debug idempotence failure
 #   extends: .test-ansible-role-kvm
 #   stage: test-playbook

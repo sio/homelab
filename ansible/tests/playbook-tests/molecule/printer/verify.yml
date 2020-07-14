@@ -1,0 +1,39 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+    - name: hello world
+      command: echo hello
+      register: hello
+      failed_when: "'hello' not in hello.stdout"
+      changed_when: "hello is not succeeded"
+
+    - name: check that CUPS web interface is available from LAN
+      wait_for:
+        host: '{{ hostvars["printer"]["ansible_host"] }}'
+        port: 631
+        timeout: 30
+      delegate_to: localhost
+      become: no
+
+    - name: fetch CUPS front page (from outside)
+      uri:
+        url: 'http://{{ hostvars["debian10-vm"]["ansible_host"] }}:631'
+        return_content: yes
+      register: page
+      failed_when: >-
+        "CUPS" not in page.content or
+        page.status != 200
+      delegate_to: localhost
+      become: no
+
+    - name: fetch CUPS administation page (from outside)
+      uri:
+        url: 'http://{{ hostvars["debian10-vm"]["ansible_host"] }}:631/admin'
+        return_content: yes
+      register: page
+      failed_when: >-
+        "Printers" not in page.content or
+        page.status != 200
+      delegate_to: localhost
+      become: no

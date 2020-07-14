@@ -1,0 +1,14 @@
+---
+
+# Print server virtual machine
+
+- hosts: printer
+  become: yes
+  roles:
+    - role: upgrade
+    - role: unattended
+    - role: motd
+    - role: packages
+    - role: server
+
+    - role: canon_mf3010
