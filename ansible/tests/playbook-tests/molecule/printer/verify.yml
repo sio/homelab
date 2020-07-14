@@ -8,6 +8,30 @@
       failed_when: "'hello' not in hello.stdout"
       changed_when: "hello is not succeeded"
 
+    - name: check that CUPS web interface is up
+      wait_for:
+        host: localhost
+        port: 631
+        timeout: 30
+
+    - name: fetch CUPS front page
+      uri:
+        url: 'http://localhost:631'
+        return_content: yes
+      register: page
+      failed_when: >-
+        "CUPS" not in page.content or
+        page.status != 200
+
+    - name: fetch CUPS administation page
+      uri:
+        url: 'http://localhost:631/admin'
+        return_content: yes
+      register: page
+      failed_when: >-
+        "Printers" not in page.content or
+        page.status != 200
+
     - name: check that CUPS web interface is available from LAN
       wait_for:
         host: '{{ hostvars["printer"]["ansible_host"] }}'
