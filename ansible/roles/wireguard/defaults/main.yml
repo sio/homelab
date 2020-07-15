@@ -1,5 +1,5 @@
 # Configuration
-wireguard_is_server: '{{ (not wireguard_is_client)|default(True) }}'
+wireguard_is_server: '{{ not wireguard_is_client|default(False) }}'
 wireguard_interface: vpn
 wireguard_address: 10.0.28.1/24
 wireguard_port: 51820
