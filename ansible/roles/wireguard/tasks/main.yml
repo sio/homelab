@@ -61,15 +61,16 @@
     backup: yes
   notify: restart wireguard
 
-#- name: restart VPN interface on failure
-#  copy:
-#    content: |
-#      [Service]
-#      Restart=on-failure
-#      RestartSec=60
-#    dest: /etc/systemd/system/wg-quick@.service.d/restart.conf
-#    backup: yes
-#  notify: restart wireguard
+- name: restart VPN interface on failure
+  copy:
+    content: |
+      [Service]
+      Type=simple
+      Restart=on-failure
+      RestartSec=60
+    dest: /etc/systemd/system/wg-quick@.service.d/restart.conf
+    backup: yes
+  notify: restart wireguard
 
 - name: start VPN interface
   service:
