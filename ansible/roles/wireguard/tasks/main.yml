@@ -57,6 +57,6 @@
     port: '{{ wireguard_port }}'
     proto: udp
     rule: allow
-  when: wireguard_is_server
+  when: wireguard_is_server and not wireguard_skip_firewall|default(False)
 
 - meta: flush_handlers  # handlers may no be the same for multiple invocations of this role
