@@ -21,9 +21,8 @@
     cmd: >
       set -o pipefail;
       umask 077;
-      wg genkey | tee privatekey | wg pubkey > publickey
+      wg genkey | tee {{ wireguard_config_private_key|quote }} | wg pubkey > {{ wireguard_config_public_key|quote }}
     executable: /bin/bash
-    chdir: '{{ wireguard_config_dir }}'
     creates: '{{ wireguard_config_public_key }}'
 
 - name: read public key
