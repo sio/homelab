@@ -391,6 +391,15 @@ test-role-virtual_usb:
         - ansible/roles/virtual_usb/**/*
 
 
+test-role-wireguard:
+  extends: .test-ansible-role-kvm
+  variables:
+    ANSIBLE_ROLE: ../roles/wireguard
+  rules:
+    - changes:
+        - ansible/roles/wireguard/**/*
+
+
 #
 # Test full Ansible playbooks
 #

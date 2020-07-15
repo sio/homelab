@@ -1,0 +1,9 @@
+---
+
+- hosts: debian10-vm
+  become: true
+  roles:
+    - role: wireguard
+      wireguard_peers:
+        - publickey: Nrl2nVQxSwrKrvz6jQcrsziuVRPWT9N1Q8/yaQkAXUg=
+        - publickey: vD2blmqeKsV0OU0GCsGk7NmVth/+FLhLD1xdMX5Yu0I=
