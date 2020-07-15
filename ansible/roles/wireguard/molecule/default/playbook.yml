@@ -6,5 +6,5 @@
     - role: wireguard
       wireguard_skip_firewall: yes  # for quicker CI runs
       wireguard_peers:
-        - publickey: Nrl2nVQxSwrKrvz6jQcrsziuVRPWT9N1Q8/yaQkAXUg=
-        - publickey: vD2blmqeKsV0OU0GCsGk7NmVth/+FLhLD1xdMX5Yu0I=
+        - public_key: Nrl2nVQxSwrKrvz6jQcrsziuVRPWT9N1Q8/yaQkAXUg=
+        - public_key: vD2blmqeKsV0OU0GCsGk7NmVth/+FLhLD1xdMX5Yu0I=
