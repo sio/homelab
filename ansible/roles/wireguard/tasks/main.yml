@@ -32,7 +32,7 @@
 
 - name: show public key
   debug:
-    msg: '{{ wireguard_public_key.content|b64decode }}'
+    msg: '{{ wireguard_public_key.content|b64decode|trim }}'
 
 - name: read private key
   slurp:
