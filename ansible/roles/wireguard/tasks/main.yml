@@ -1,0 +1,62 @@
+---
+
+- name: enable backports repo
+  apt_repository:
+    repo: 'deb http://deb.debian.org/debian {{ ansible_distribution_release }}-backports main'
+    state: present
+  when: ansible_distribution_release == 'buster'
+
+- name: install VPN packages
+  package:
+    name: wireguard
+    state: present
+
+- name: create configuration directory
+  file:
+    path: '{{ wireguard_config_dir }}'
+    state: directory
+
+- name: create private and public keys
+  shell:
+    cmd: >
+      set -o pipefail;
+      umask 077;
+      wg genkey | tee privatekey | wg pubkey > publickey
+    chdir: '{{ wireguard_config_dir }}'
+    creates: '{{ wireguard_config_public_key }}'
+
+- name: read public key
+  slurp:
+    src: '{{ wireguard_config_public_key }}'
+  register: wireguard_public_key
+
+- name: show public key
+  debug:
+    msg: '{{ wireguard_public_key.content|b64decode }}'
+
+- name: read private key
+  slurp:
+    src: '{{ wireguard_config_private_key }}'
+  register: wireguard_private_key
+
+- name: configure VPN interface
+  template:
+    src: 'templates/{{ wireguard_role }}.conf'
+    dest: '{{ wireguard_config_interface }}'
+    mode: '0600'
+  notify: restart wireguard
+
+- name: start VPN interface
+  service:
+    name: 'wg-quick@{{ wireguard_interface }}'
+    state: started
+    enabled: yes
+
+- name: modify firewall rules
+  ufw:
+    port: '{{ wireguard_port }}'
+    proto: udp
+    rule: allow
+  when: wireguard_is_server
+
+- meta: flush_handlers  # handlers may no be the same for multiple invocations of this role
