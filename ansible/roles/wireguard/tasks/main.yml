@@ -42,6 +42,17 @@
     src: '{{ wireguard_config_private_key }}'
   register: wireguard_private_key
 
+- name: write down the name of LAN interface
+  copy:
+    content: '{{ ansible_default_ipv4.interface }}'
+    dest: '{{ wireguard_config_dir }}/lan_interface'
+    force: no
+
+- name: read the name of LAN interface
+  slurp:
+    src: '{{ wireguard_config_dir }}/lan_interface'
+  register: wireguard_lan_interface
+
 - name: configure VPN interface
   template:
     src: 'templates/{{ wireguard_role }}.conf'
