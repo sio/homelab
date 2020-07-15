@@ -22,6 +22,7 @@
       set -o pipefail;
       umask 077;
       wg genkey | tee privatekey | wg pubkey > publickey
+    executable: /bin/bash
     chdir: '{{ wireguard_config_dir }}'
     creates: '{{ wireguard_config_public_key }}'
 
