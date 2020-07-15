@@ -11,10 +11,13 @@
     name: wireguard
     state: present
 
-- name: create configuration directory
+- name: create required directories
   file:
-    path: '{{ wireguard_config_dir }}'
+    path: '{{ item }}'
     state: directory
+  loop:
+    - '{{ wireguard_config_dir }}'
+    - /etc/systemd/system/wg-quick@.service.d
 
 - name: create private and public keys
   shell:
@@ -44,6 +47,15 @@
     src: 'templates/{{ wireguard_role }}.conf'
     dest: '{{ wireguard_config_interface }}'
     mode: '0600'
+  notify: restart wireguard
+
+- name: restart VPN interface on failure
+  copy:
+    content: |
+      [Service]
+      Restart=on-failure
+      RestartSec=60
+    dest: /etc/systemd/system/wg-quick@.service.d/restart.conf
   notify: restart wireguard
 
 - name: start VPN interface
