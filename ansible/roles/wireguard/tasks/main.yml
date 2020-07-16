@@ -85,4 +85,12 @@
     rule: allow
   when: wireguard_is_server and not wireguard_skip_firewall|default(False)
 
+- name: enable IP forwarding
+  sysctl:
+    name: net.ipv4.ip_forward
+    value: '1'
+    state: present
+    reload: yes
+  when: wireguard_enable_ip_forward
+
 - meta: flush_handlers  # handlers may no be the same for multiple invocations of this role
