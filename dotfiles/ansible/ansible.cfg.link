@@ -9,9 +9,6 @@ retry_files_enabled = no
 # Enable pipelining for switching to unprivileged users
 pipelining = True
 
-# Ask vault password interactively by default
-ask_vault_pass = True
-
 # Newer format output with cowsay
 nocows = 1
 

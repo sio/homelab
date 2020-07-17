@@ -8,6 +8,18 @@ PLAYBOOK_ARGS?=
 PLAYBOOKS=$(patsubst %.yml,%,$(wildcard *.yml))
 
 
+ifeq (,$(wildcard $(INVENTORY)))
+$(error Inventory file not found: $(INVENTORY))
+endif
+
+
+# Ask for vault password if inventory is encrypted
+# (wildcard performs tilde expansion)
+ifneq (,$(findstring $$ANSIBLE_VAULT,$(firstword $(file < $(wildcard $(INVENTORY))))))
+PLAYBOOK_ARGS+=--ask-vault-pass
+endif
+
+
 .PHONY: environment-versions
 environment-versions:
 	$(PLAYBOOK_RUNNER) --version
