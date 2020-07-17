@@ -24,7 +24,38 @@
     line: '\1'
   register: grub_has_kernel_params
 
-- name: add kernel parameters line
+- name: read grub defaults file
+  slurp:
+    src: '{{ grub_defaults }}'
+  register: grub_defaults_copy
+
+- name: count kernel parameters lines
+  set_fact:
+    grub_kernel_params_definitions: >-
+      {{
+      (grub_defaults_copy.content|b64decode)
+      .splitlines()
+      |select("match", "\s*"+grub_kernel_line)
+      |map("regex_replace", "^[^=]*=\s*(.*)\s*$", "\1")
+      |map("trim", "'")
+      |map("trim", '"')
+      |list
+      }}
+
+- name: remove duplicated kernel parameters definition
+  replace:
+    path: '{{ grub_defaults }}'
+    regexp: (^s*{{ grub_kernel_line }}.*[\"\'].*[\"\']\s*$)
+    backup: yes
+  when: grub_kernel_params_definitions|count > 1
+
+- name: add kernel parameters line (combine duplicates)
+  lineinfile:
+    name: '{{ grub_defaults }}'
+    line: '{{ grub_kernel_line }}="{{ " ".join(grub_kernel_params_definitions) }}"'
+  when: grub_kernel_params_definitions|count > 1
+
+- name: add kernel parameters line (empty parameters)
   lineinfile:
     name: '{{ grub_defaults }}'
     line: '{{ grub_kernel_line }}=""'
