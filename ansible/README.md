@@ -65,6 +65,7 @@ CI infrastructure is provided by:
 
 ### Tested in Vagrant (Libvirt)
 
+- **laptopmini.yml**
 - **mediabox.yml**
 - **morebooks.yml** - requires no extra tests since it's just applying a role
   to the target
@@ -74,5 +75,4 @@ CI infrastructure is provided by:
 
 ## Automated tests not implemented
 
-- **laptopmini.yml**
 - **mediabox-hw** - trivial role, hardware specific

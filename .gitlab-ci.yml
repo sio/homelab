@@ -450,15 +450,15 @@ test-playbook-printer:
         - ansible/roles/upgrade/**/*
 
 
-# test-playbook-laptopmini:  # TODO: debug idempotence failure
-#   extends: .test-ansible-role-kvm
-#   stage: test-playbook
-#   variables:
-#     ANSIBLE_ROLE: playbook-tests
-#     MOLECULE_SCENARIO: laptopmini
-# # rules:  # TODO: specify rules for test-playbook-laptopmini
-# #   - changes:
-# #       - ansible/laptopmini.yml
-# #       - ansible/roles/initrd/**/*
-# #       - ansible/roles/grub/**/*
-# #       - ansible/tests/playbook-tests/molecule/laptopmini/**/*
+test-playbook-laptopmini:
+  extends: .test-ansible-role-kvm
+  stage: test-playbook
+  variables:
+    ANSIBLE_ROLE: playbook-tests
+    MOLECULE_SCENARIO: laptopmini
+  rules:
+    - changes:
+        - ansible/laptopmini.yml
+        - ansible/tests/playbook-tests/molecule/laptopmini/**/*
+        - ansible/roles/initrd/**/*
+        - ansible/roles/grub/**/*
