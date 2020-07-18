@@ -6,6 +6,45 @@
 - hosts: laptopmini
   become: yes
   roles:
+    - role: upgrade
+    - role: packages
+      packages_install:
+        # Desktop apps
+        - smplayer
+        - transgui
+        - audacious
+
+        # Desktop environment
+        - task-xfce-desktop
+        - fonts-cantarell
+        - numix-gtk-theme
+        - xclip
+        - xfwm4-themes
+        - gvfs-backends  # Android file transfer over USB
+        - rar
+        - unrar
+
+        # Interactive shell
+        - git
+        - make
+        - tmux
+        - vim-gtk3  # GUI build has more stuff enabled at compile time
+
+        # System administration
+        - psmisc
+        - smartmontools
+
+        # Hardware support
+        - firmware-linux
+        - firmware-linux-free
+        - firmware-linux-nonfree
+
+        # Laptop optimisation
+        - acpi-support
+        - cpufrequtils
+        - tlp
+        - tlp-rdw
+
     - role: grub
       grub_kernel_params:
         - quiet

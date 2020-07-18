@@ -460,5 +460,7 @@ test-playbook-laptopmini:
     - changes:
         - ansible/laptopmini.yml
         - ansible/tests/playbook-tests/molecule/laptopmini/**/*
-        - ansible/roles/initrd/**/*
         - ansible/roles/grub/**/*
+        - ansible/roles/initrd/**/*
+        - ansible/roles/packages/**/*
+        - ansible/roles/upgrade/**/*

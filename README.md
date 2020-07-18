@@ -33,10 +33,6 @@ Playbooks and roles for automating remote computer maintenance
 Configuration files for command line and graphic tools, easily installed with a
 bootstrap script.
 
-### packages/
-
-Package lists for common scenarios
-
 ### packer/
 
 Virtual machine templates
