@@ -29,7 +29,7 @@
     src: '{{ grub_defaults }}'
   register: grub_defaults_copy
 
-- name: count kernel parameters lines
+- name: count kernel parameters lines  # requires Jinja 2.11 (trim)
   set_fact:
     grub_kernel_params_definitions: >-
       {{
