@@ -465,3 +465,5 @@ test-playbook-laptopmini:
         - ansible/roles/interactive/**/*
         - ansible/roles/packages/**/*
         - ansible/roles/upgrade/**/*
+        - ansible/roles/munin_node/**/*
+        - ansible/roles/server/**/*

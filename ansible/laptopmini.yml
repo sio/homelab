@@ -48,6 +48,9 @@
     - role: interactive
       interactive_user: user
 
+    - role: munin_node
+      munin_master_cidr: 192.168.28.10/32
+
     - role: grub
       grub_kernel_params:
         - quiet
