@@ -5,6 +5,11 @@
 ---
 - hosts: laptopmini
   become: yes
+  pre_tasks:
+    - name: enable non-free repository
+      apt_repository:
+        repo: 'deb http://deb.debian.org/debian {{ ansible_distribution_release }} main contrib non-free'
+        state: present
   roles:
     - role: upgrade
     - role: packages
