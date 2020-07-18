@@ -462,5 +462,6 @@ test-playbook-laptopmini:
         - ansible/tests/playbook-tests/molecule/laptopmini/**/*
         - ansible/roles/grub/**/*
         - ansible/roles/initrd/**/*
+        - ansible/roles/interactive/**/*
         - ansible/roles/packages/**/*
         - ansible/roles/upgrade/**/*

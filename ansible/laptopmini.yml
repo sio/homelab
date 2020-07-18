@@ -45,6 +45,9 @@
         - tlp
         - tlp-rdw
 
+    - role: interactive
+      interactive_user: user
+
     - role: grub
       grub_kernel_params:
         - quiet
