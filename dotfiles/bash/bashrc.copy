@@ -1,5 +1,8 @@
 # BASH CONFIGURATION FILE
-# Host-specific modifications should be defined here
+
+# Load configuration from Git repo
+COMMON="$HOME/.common"
+. "$COMMON/dotfiles/bash/bashrc"
 
 # Force hostname color in prompt:
 #   ASCII colors (foreground: 30-37, background: 40-47)
@@ -9,6 +12,5 @@
 #
 # _OVERRIDE_PROMPT_COLOR=1
 
-# Load the rest of configuration from Git repo
-COMMON="$HOME/.common"
-. "$COMMON/dotfiles/bash/bashrc"
+# Host-specific modifications should be defined here
+[[ -s ~/.bashrc.override ]] && . ~/.bashrc.override || true
