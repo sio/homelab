@@ -48,6 +48,7 @@ hlc_paths:
 #
 hlc_packages:
   - apache2
+  - ssl-cert  # creates snakeoil.pem certificate
   - libapache2-mod-wsgi-py3
   - python-certbot-apache
 hlc_build_deps:
