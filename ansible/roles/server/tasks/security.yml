@@ -6,7 +6,7 @@
 - name: update root password
   user:
     name: root
-    password: '{{ server_root_password }}'
+    password: '{{ server_root_password|password_hash("sha512", ansible_fqdn|to_uuid) }}'
     update_password: always
   when: server_root_password is defined
 
