@@ -7,6 +7,11 @@ provisioner:
     ANSIBLE_ROLES_PATH: ../../../../roles
   playbooks:
     converge: ../../../../laptopmini.yml
+  inventory:
+    group_vars:
+      all:
+        server_keys_public:
+          - '{{ lookup("env", "MOLECULE_EPHEMERAL_DIRECTORY") }}/testkey.pub'
 
 driver:
   name: vagrant
