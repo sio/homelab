@@ -11,6 +11,29 @@
   unmetered
 
 
+# DONE: Migrate to Hetzner Cloud VPS (July 2020)
+
+Scaleway has discontinued their baremetal ARM instances (support ended on July
+1st, nodes go offline in September) and simultaneously increased prices on
+their DEV instances by at least 50%.
+
+Next best offer is Hetzner Cloud VPS (CX11, 1 vCPU, 2GB RAM, 20GB storage,
+2.99EUR/mo).
+
+Some time was lost due to waiting on DNS changes propagation. **TIP**: reduce
+DNS records TTL to 600 couple of days before the migration.
+
+Some issues were encountered with tasks not covered by CI tests:
+
+- Password for root must be hashed and salted when supplied to 'user' module
+  (#6c4cf7f)
+- Snakeoil cert for default SSL page is created not by Apache, but by a
+  separate package not pulled in via dependencies (#993e6cc)
+
+Migration was performed successfully on July 19th, 2020. With all the
+troubleshooting it took a couple of hours.
+
+
 # DONE: Migrate morebooks.ml to Scaleway (August 2018)
 
 Woothosting is clearly not meeting the advertised VPS specs. It is slow and
