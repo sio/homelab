@@ -374,7 +374,6 @@ test-role-virtual_machine:
   extends: .test-ansible-role-kvm
   variables:
     ANSIBLE_ROLE: ../roles/virtual_machine
-    MOLECULE_SCENARIO: DESTRUCTIVE
   rules:
     - changes:
         - ansible/roles/kvm_bridge/**/*

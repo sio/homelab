@@ -1,0 +1,37 @@
+# Main molecule configuration is located in ansible/roles/tests/molecule.yml
+# Invoke with `molecule --base-config $LOCATION`
+---
+driver:
+  name: vagrant
+  provider:
+    name: libvirt
+
+platforms:
+  - name: debian10-vm
+    box: debian/buster64
+    cpu_mode: host-passthrough
+    memory: 2048
+    provision: true
+    interfaces:
+      - auto_config: true
+        network_name: private_network
+        type: dhcp
+
+dependency:
+  name: shell
+  command: >  # Enable nested virtualization
+    /bin/sh -c '
+    MODULE=`lsmod|grep -m1 -Eow kvm_\(intel\|amd\)`;
+    modprobe -r "$MODULE" &&
+    modprobe "$MODULE" nested=1
+    '
+
+provisioner:
+  log: true
+
+# Testinfra tests fail because the firewall on test instance
+# refuses frequent connection attempts
+verifier:
+  name: ansible
+  lint:
+    name: ansible-lint
