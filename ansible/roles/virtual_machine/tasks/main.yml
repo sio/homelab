@@ -6,6 +6,7 @@
       - qemu-kvm
       - libvirt-clients
       - libvirt-daemon-system
+      - ksmtuned
     state: present
     install_recommends: no
 
@@ -17,6 +18,8 @@
   loop:
     - libvirtd
     - libvirt-guests
+    - ksm
+    - ksmtuned
 
 - name: create directory for virtual machine image
   file:
