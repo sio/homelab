@@ -104,3 +104,4 @@
   debug:
     msg: '{{ (interfaces["content"]|b64decode).splitlines() }}'
 
+- meta: flush_handlers  # Reboot immediately before applying further roles
