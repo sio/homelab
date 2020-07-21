@@ -17,15 +17,6 @@ platforms:
         network_name: private_network
         type: dhcp
 
-dependency:
-  name: shell
-  command: >  # Enable nested virtualization
-    /bin/sh -c '
-    MODULE=`lsmod|grep -m1 -Eow kvm_\(intel\|amd\)`;
-    modprobe -r "$MODULE" &&
-    modprobe "$MODULE" nested=1
-    '
-
 provisioner:
   log: true
 
