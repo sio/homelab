@@ -12,10 +12,6 @@ platforms:
     cpu_mode: host-passthrough
     memory: 2048
     provision: true
-    interfaces:
-      - auto_config: true
-        network_name: private_network
-        type: dhcp
 
 provisioner:
   log: true
