@@ -6,6 +6,7 @@
       - qemu-kvm
       - libvirt-clients
       - libvirt-daemon-system
+      - python-libvirt
       - ksmtuned
     state: present
     install_recommends: no
