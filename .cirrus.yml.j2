@@ -91,6 +91,7 @@ task:
       - lscpu
       - virsh capabilities
       - virt-host-validate || echo "Exit code: $?"
+      - cat /sys/module/kvm_*/parameters/nested || echo "Exit code: $?"
     network_debug_script:
       - virsh net-list --all || echo "Exit code: $?"
       - virsh net-dumpxml vagrant-libvirt || echo "Exit code: $?"
