@@ -1,1 +1,0 @@
-# Enable zswap in initramfs
