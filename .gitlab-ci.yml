@@ -111,7 +111,8 @@ packer-debian10:
     VM_PASSWORD: hello
   rules:
     - *trigger-docker-build
-    - *push-to-master  # must be rebuilt on every push to master for URLs to remain valid
+    - if: '$CI_COMMIT_REF_NAME == "master"'
+      when: always  # any pipeline on master must include this job for URLs to remain valid
 
 
 #
