@@ -5,3 +5,7 @@ Description=Check for power outages regularly
 [Timer]
 OnBootSec=5min
 OnUnitActiveSec=1min
+
+
+[Install]
+WantedBy=timers.target
