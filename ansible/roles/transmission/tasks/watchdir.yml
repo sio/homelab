@@ -12,6 +12,7 @@
     name:
       - 'setuptools>={{ venv_minimum_setuptools_version|default("49.1.0") }}'
       - 'pip>={{ venv_minimum_pip_version|default("20.2") }}'
+      - 'wheel'
     state: present
     virtualenv: '{{ transmission_watch_venv }}'
     virtualenv_command: '/usr/bin/python3 -m venv'
