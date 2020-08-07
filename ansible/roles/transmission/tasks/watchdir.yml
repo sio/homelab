@@ -10,13 +10,11 @@
 - name: create Python virtual environment and update pip
   pip:
     name:
-      - setuptools
-      - pip
-    state: latest
+      - 'setuptools>={{ venv_minimum_setuptools_version|default("49.1.0") }}'
+      - 'pip>={{ venv_minimum_pip_version|default("20.2") }}'
+    state: present
     virtualenv: '{{ transmission_watch_venv }}'
     virtualenv_command: '/usr/bin/python3 -m venv'
-  tags:
-    - skip_ansible_lint
 
 - name: remove outdated watchdir package
   pip:
