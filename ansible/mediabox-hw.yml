@@ -3,6 +3,7 @@
 # Some hardware-specific configuration for mediabox
 
 - hosts: mediabox
+  name: mediabox-hw
   become: yes
   vars:
     mediabox_extra_kernel_modules:
