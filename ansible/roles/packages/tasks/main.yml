@@ -11,7 +11,7 @@
   package:
     name: '{{ packages_remove }}'
     state: absent
-  when: packages_remove
+  when: packages_remove|bool
 
 - name: execute apt chores (autoremove, autoclean)
   apt:
