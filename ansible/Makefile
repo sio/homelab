@@ -28,3 +28,8 @@ environment-versions:
 .PHONY: $(PLAYBOOKS)
 $(PLAYBOOKS): | environment-versions
 	$(PLAYBOOK_TIMER) $(PLAYBOOK_RUNNER) -i $(INVENTORY) $(PLAYBOOK_ARGS) $@.yml
+
+
+# Least verbose output for all.yml
+all: export ANSIBLE_DISPLAY_OK_HOSTS=no
+all: export ANSIBLE_DISPLAY_SKIPPED_HOSTS=no
