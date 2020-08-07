@@ -61,6 +61,7 @@ stages:
     - cirrus-run
   variables:
     CIRRUS_GITHUB_REPO: sio/.cirrus-ci-jobs
+    CIRRUS_SHOW_BUILD_LOG: always
     # CIRRUS_API_TOKEN: Masked value. Defined in GitLab web interface
   dependencies: []  # do not download any artifacts from previous stages
 
