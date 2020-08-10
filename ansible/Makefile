@@ -30,6 +30,31 @@ $(PLAYBOOKS): | environment-versions
 	$(PLAYBOOK_TIMER) $(PLAYBOOK_RUNNER) -i $(INVENTORY) $(PLAYBOOK_ARGS) $@.yml
 
 
-# Least verbose output for all.yml
+# Add identities to ssh-agent
+SSH_KEYS_PRIVATE?=
+SSH_AGENT_LIFETIME?=24h
+
+
+.PHONY: keys
+keys:
+ifneq (,$(strip $(SSH_KEYS_PRIVATE)))
+	@new_keys=""; \
+	for key in $(SSH_KEYS_PRIVATE); \
+	do \
+		fingerprint=$$(ssh-keygen -lf "$$key"|cut -d\  -f2); \
+		ssh-add -l \
+		|  grep -q "$$fingerprint" \
+		|| new_keys="$$new_keys $$key"; \
+	done; \
+	if [[ ! -z "$$new_keys" ]]; \
+	then \
+		echo "Adding identities to ssh-agent..."; \
+		ssh-add -t $(SSH_AGENT_LIFETIME) $$new_keys; \
+	fi
+endif
+
+
+# Customization for all.yml
 all: export ANSIBLE_DISPLAY_OK_HOSTS=no
 all: export ANSIBLE_DISPLAY_SKIPPED_HOSTS=no
+all: keys
