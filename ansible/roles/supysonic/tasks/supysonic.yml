@@ -4,6 +4,7 @@
   template:
     src: templates/supysonic.conf.j2
     dest: '/home/{{ supysonic_user }}/.supysonic'
+    mode: '0644'
   notify: reload web server
 
 - name: initialize supysonic database
