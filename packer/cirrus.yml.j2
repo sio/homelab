@@ -11,6 +11,9 @@ task:
     PACKER_TARGET: "{{ PACKER_TARGET }}"
     VM_HOSTNAME: "{{ VM_HOSTNAME }}"
     VM_PASSWORD: "{{ VM_PASSWORD }}"
+    {% if VM_ISO is defined %}
+    VM_ISO: "{{ VM_ISO }}"
+    {% endif %}
   clone_script:
     - git clone "$CLONE_URL" .
     - git reset --hard "$CLONE_SHA"

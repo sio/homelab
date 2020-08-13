@@ -8,8 +8,15 @@ PACKER_ARTIFACTS+=$(DRIVERS_STORAGE)
 PACKER_FLAGS+=-var drivers="$(DRIVERS_STORAGE)"
 
 
+ifdef VM_PASSWORD  # do not export empty value
 export VM_PASSWORD
+endif
 PACKER_FLAGS+=-var password="$$VM_PASSWORD" -var hostname="$(VM_HOSTNAME)"
+
+
+ifdef VM_ISO
+export VM_ISO
+endif
 PACKER_FLAGS+=-var iso="$(VM_ISO)"
 
 
@@ -68,3 +75,23 @@ endif
 ifndef VM_PASSWORD
 	$(error Required variable not defined: VM_PASSWORD)
 endif
+
+
+include Makefile.venv
+Makefile.venv:
+	curl \
+		-o Makefile.fetched \
+		-L "https://github.com/sio/Makefile.venv/raw/v2020.08.04/Makefile.venv"
+	echo "4b99544cd89019a802de25637a6bbd137368946afe291aff18e734b0c47c2ed7 *Makefile.fetched" \
+		| sha256sum --check - \
+		&& mv Makefile.fetched Makefile.venv
+
+
+.PHONY: remote-build
+remote-build: export CI_COMMIT_SHA=$(shell git rev-parse HEAD)
+remote-build: export CI_REPOSITORY_URL=https://gitlab.com/sio/server_common.git
+remote-build: export PACKER_TARGET=windows10
+remote-build: export VM_HOSTNAME?=windowsvm
+remote-build: export VM_PASSWORD?=windowspassword
+remote-build: | $(VENV)/cirrus-run
+	$(VENV)/cirrus-run ../cirrus.yml.j2
