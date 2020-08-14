@@ -15,6 +15,10 @@ PACKER_FLAGS?=
 PACKER_BUILD_FLAGS?=
 
 
+# Directory where this file (Makefile.packer) is located
+INCLUDE_DIR:=$(realpath $(dir $(lastword $(MAKEFILE_LIST))))
+
+
 .PHONY: validate
 validate: $(PACKER_CONFIG)
 	$(PACKER) validate $(PACKER_FLAGS) $(PACKER_CONFIG)
@@ -48,3 +52,22 @@ checksum: $(patsubst %.qcow2,%.sha256sum,$(wildcard *.qcow2))
 %.json: %.yml
 	@echo "Convert YAML to JSON: $< => $@"
 	@python3 -c "import yaml, json, sys; json.dump(yaml.load(sys.stdin), sys.stdout, indent=2, sort_keys=True)" < $< > $@
+
+
+WORKDIR=$(INCLUDE_DIR)
+include $(INCLUDE_DIR)/Makefile.venv
+$(INCLUDE_DIR)/Makefile.venv:
+	curl \
+		-o Makefile.fetched \
+		-L "https://github.com/sio/Makefile.venv/raw/v2020.08.14/Makefile.venv"
+	echo "5afbcf51a82f629cd65ff23185acde90ebe4dec889ef80bbdc12562fbd0b2611 *Makefile.fetched" \
+		| sha256sum --check - \
+		&& mv Makefile.fetched $@
+
+
+.PHONY: remote-build
+remote-build: export CI_COMMIT_SHA=$(shell git rev-parse HEAD)
+remote-build: export CI_REPOSITORY_URL=https://gitlab.com/sio/server_common.git
+remote-build: export PACKER_TARGET=$(notdir $(realpath $(dir $(firstword $(MAKEFILE_LIST)))))
+remote-build: | $(VENV)/cirrus-run
+	$(VENV)/cirrus-run $(INCLUDE_DIR)/cirrus.yml.j2
