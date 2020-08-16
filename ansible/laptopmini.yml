@@ -74,3 +74,6 @@
         - lz4
         - lz4_compress
         - z3fold
+        # Attempt to fix Ethernet errors after suspend
+        # https://www.linux.org.ru/forum/general/15842902
+        - irqpoll
