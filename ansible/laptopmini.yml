@@ -64,13 +64,13 @@
         - zswap.compressor=lz4
         - zswap.zpool=z3fold
         - zswap.max_pool_percent=40
-    - role: initrd  # Intel kernel modesetting in initramfs
+    - role: initrd
       modules:
+        # Intel kernel modesetting in initramfs
         - intel_agp
         - drm
         - i915 modeset=1
-    - role: initrd  # Enable zswap
-      modules:
+        # Enable zswap
         - lz4
         - lz4_compress
         - z3fold
