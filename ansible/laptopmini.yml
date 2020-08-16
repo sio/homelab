@@ -58,12 +58,17 @@
 
     - role: grub
       grub_kernel_params:
+        # Boot time user facing output
         - quiet
         - splash
+        # Low RAM workaround
         - zswap.enabled=1
         - zswap.compressor=lz4
         - zswap.zpool=z3fold
         - zswap.max_pool_percent=40
+        # Attempt to fix Ethernet errors after suspend
+        # https://www.linux.org.ru/forum/general/15842902
+        - irqpoll
     - role: initrd
       modules:
         # Intel kernel modesetting in initramfs
@@ -74,6 +79,3 @@
         - lz4
         - lz4_compress
         - z3fold
-        # Attempt to fix Ethernet errors after suspend
-        # https://www.linux.org.ru/forum/general/15842902
-        - irqpoll
