@@ -27,7 +27,6 @@
 - name: enable wol@ service
   systemd:
     name: 'wol@{{ wol_interface }}'
-    state: started
     enabled: yes
     daemon_reload: yes
 
