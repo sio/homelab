@@ -244,6 +244,15 @@ test-role-unattended:
     - changes:
         - ansible/roles/unattended/**/*
 
+
+test-role-wol:
+  extends: .test-ansible-role
+  variables:
+    ANSIBLE_ROLE: ../roles/wol
+  rules:
+    - changes:
+        - ansible/roles/wol/**/*
+
 #
 # Test Ansible roles in KVM virtual machines (Vagrant-Libvirt)
 #

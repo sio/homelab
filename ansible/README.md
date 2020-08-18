@@ -38,6 +38,7 @@ CI infrastructure is provided by:
 - **packages**
 - **require**
 - **unattended**
+- **wol**
 
 ### Tested in Vagrant (Libvirt)
 
