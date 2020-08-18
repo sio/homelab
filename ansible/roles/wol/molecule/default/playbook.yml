@@ -4,3 +4,4 @@
   become: true
   roles:
     - role: wol
+      wol_interface: dummy
