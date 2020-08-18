@@ -1,0 +1,34 @@
+---
+- name: create systemd unit for wake-on-lan
+  # https://wiki.archlinux.org/index.php/Wake-on-LAN#systemd_service
+  copy:
+    content: |
+      [Unit]
+      Description=Wake-on-LAN for %i
+      Requires=network.target
+      After=network.target
+
+      [Service]
+      ExecStart=/sbin/ethtool -s %i wol g
+      Type=oneshot
+
+      [Install]
+      WantedBy=multi-user.target
+    dest: /etc/systemd/system/wol@.service
+    mode: '0644'
+    backup: yes
+  notify: restart wol@ service
+
+- name: install ethtool
+  package:
+    name: ethtool
+    state: present
+
+- name: enable wol@ service
+  systemd:
+    name: 'wol@{{ wol_interface }}'
+    state: started
+    enabled: yes
+    daemon_reload: yes
+
+- meta: flush_handlers  # because handler behavior changes based on role variable
