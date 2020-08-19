@@ -12,7 +12,9 @@ task:
 
   env:
     PIP_CACHE_DIR: $HOME/cache/pip
-    # VENVDIR: should not be cached! Cirrus CI drops some binaries randomly
+    VENVDIR: $HOME/venv
+    # VENVDIR must be absolute path for 'cd && make' approach to work
+    # VENVDIR should not be cached! Cirrus CI drops some binaries randomly
 
     # Pass values from cirrus-run environment
     CLONE_URL: "{{ CI_REPOSITORY_URL }}"
