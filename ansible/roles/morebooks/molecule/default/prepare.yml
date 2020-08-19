@@ -23,9 +23,11 @@
         path: '/etc/ssl/private/morebooks.ml.csr'
         privatekey_path:  '/etc/letsencrypt/live/morebooks.ml/privkey.pem'
         common_name: 'morebooks.ml'
+        mode: '0600'
     - name: create dummy SSL certificates
       openssl_certificate:
         path: '/etc/letsencrypt/live/morebooks.ml/fullchain.pem'
         privatekey_path: '/etc/letsencrypt/live/morebooks.ml/privkey.pem'
         csr_path: '/etc/ssl/private/morebooks.ml.csr'
         provider: selfsigned
+        mode: '0600'

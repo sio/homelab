@@ -15,10 +15,12 @@
     src: templates/device.xml.j2
     dest: '{{ virtual_usb_definition }}'
     backup: yes
+    mode: '0600'
 
 - name: create udev rule for the device
   template:
     src: templates/udev.rules.j2
     dest: '{{ virtual_usb_udev_rule }}'
     backup: yes
+    mode: '0600'
   notify: reload udev rules

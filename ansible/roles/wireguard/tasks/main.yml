@@ -4,6 +4,7 @@
   apt_repository:
     repo: 'deb http://deb.debian.org/debian {{ ansible_distribution_release }}-backports main'
     state: present
+    mode: '0600'
   when: ansible_distribution_release == 'buster'
 
 - name: install VPN packages
@@ -47,6 +48,7 @@
     content: '{{ ansible_default_ipv4.interface }}'
     dest: '{{ wireguard_config_dir }}/lan_interface'
     force: no
+    mode: '0600'
 
 - name: read the name of LAN interface
   slurp:
@@ -70,6 +72,7 @@
       RestartSec=60
     dest: /etc/systemd/system/wg-quick@.service.d/restart.conf
     backup: yes
+    mode: '0600'
   notify: restart wireguard
 
 - name: start VPN interface

@@ -15,6 +15,7 @@
     url: '{{ canon_drivers_web }}'
     dest: '{{ canon_drivers_archive }}'
     validate_certs: '{{ canon_drivers_strict_ssl }}'
+    mode: '0600'
   when: not canon_drivers.stat.exists
   ignore_errors: yes
   register: canon_download
@@ -24,6 +25,7 @@
     src: '{{ canon_drivers_local }}'
     dest: '{{ canon_drivers_archive }}'
     force: no
+    mode: '0600'
   when: not canon_drivers.stat.exists and canon_download is failed
 
 - name: unpack drivers archive

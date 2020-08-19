@@ -10,6 +10,7 @@
       apt_repository:
         repo: 'deb http://deb.debian.org/debian {{ ansible_distribution_release }} main contrib non-free'
         state: present
+        mode: '0600'
   roles:
     - role: upgrade
     - role: packages

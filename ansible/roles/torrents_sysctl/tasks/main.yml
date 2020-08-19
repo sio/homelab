@@ -18,6 +18,7 @@
   copy:
     content: tcp_lp
     dest: /etc/modules-load.d/tcplp.conf
+    mode: '0644'
 
 - name: read kernel parameters from file
   include_vars:

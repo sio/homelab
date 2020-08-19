@@ -23,9 +23,11 @@
         path: '/etc/ssl/private/url.to.supysonic.csr'
         privatekey_path:  '/etc/letsencrypt/live/url.to.supysonic/privkey.pem'
         common_name: 'url.to.supysonic'
+        mode: '0600'
     - name: create dummy SSL certificates
       openssl_certificate:
         path: '/etc/letsencrypt/live/url.to.supysonic/fullchain.pem'
         privatekey_path: '/etc/letsencrypt/live/url.to.supysonic/privkey.pem'
         csr_path: '/etc/ssl/private/url.to.supysonic.csr'
         provider: selfsigned
+        mode: '0600'

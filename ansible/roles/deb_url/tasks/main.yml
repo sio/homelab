@@ -22,6 +22,7 @@
     url: '{{ item.url }}'
     dest: '{{ deb_url_storage }}/{{ item.checksum }}'
     checksum: '{{ item.checksum }}'
+    mode: '0600'
   with_items: '{{ deb_url_packages }}'
 
 - name: install custom packages

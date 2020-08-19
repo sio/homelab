@@ -161,6 +161,7 @@
           user root
           env.drives sda sdb sdc
         dest: /etc/munin/plugin-conf.d/hddtemp_smartctl
+        mode: '0644'
       notify: restart munin node
 
     - name: enable hddtemp monitoring
