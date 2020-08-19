@@ -7,3 +7,7 @@ yamllint
 #   https://github.com/ansible-community/molecule/pull/2524
 # Here we use Molecule 2.22 with backported fix for that bug
 https://github.com/sio/molecule/releases/download/2.23-dev-backport-hotfix/molecule-2.23-dev-backport-hotfix.tar.gz#egg=molecule[docker,vagrant]
+
+# Ansible-lint 4.3.0 introduced some breaking changes
+#    https://gitlab.com/sio/server_common/-/jobs/693768455
+ansible-lint==4.2.0
