@@ -12,6 +12,10 @@ provisioner:
       all:
         server_keys_public:
           - '{{ lookup("env", "MOLECULE_EPHEMERAL_DIRECTORY") }}/testkey.pub'
+        sshkey_only:
+          vagrant:
+            - '{{ lookup("env", "MOLECULE_EPHEMERAL_DIRECTORY") }}/testkey.pub'
+            - '{{ lookup("env", "MOLECULE_EPHEMERAL_DIRECTORY") }}/vagrant-insecure.pub'
 
 driver:
   name: vagrant

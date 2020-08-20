@@ -80,3 +80,6 @@
         - lz4
         - lz4_compress
         - z3fold
+
+    # Strict ssh key management
+    - role: sshkey
