@@ -3,8 +3,8 @@
 - hosts: debian10-docker
   become: true
   roles:
-    - role: sshkeys
-      sshkeys:
+    - role: sshkey
+      sshkey_only:
         alice:
           - '{{ lookup("env", "MOLECULE_EPHEMERAL_DIRECTORY") + "/alice-one.pub" }}'
           - '{{ lookup("env", "MOLECULE_EPHEMERAL_DIRECTORY") + "/alice-two.pub" }}'

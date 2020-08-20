@@ -15,7 +15,7 @@
 - name: remove ssh keys from all accounts except authorized
   file:
     state: absent
-    path: '{{ getent_passwd[item][4] + "/.ssh/authorized_keys"}}'
+    path: '{{ getent_passwd[item][4] + "/.ssh/authorized_keys" }}'
     # index 4 in getent passwd database is home directory
-  loop: '{{ getent_passwd.keys() }}'
+  loop: '{{ getent_passwd.keys()|list }}'
   when: item not in sshkey_only
