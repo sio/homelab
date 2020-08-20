@@ -1,4 +1,4 @@
-INVENTORY?=~/inventory.yml
+INVENTORY?=~/infra/inventory.yml
 SHELL=/bin/bash
 
 PLAYBOOK_RUNNER?=ansible-playbook
