@@ -6,3 +6,33 @@
       register: hello
       failed_when: "'hello' not in hello.stdout"
       changed_when: "hello is not succeeded"
+
+    - name: check that required keys are present
+      authorized_key:
+        user: '{{ item.user }}'
+        key: '{{ lookup("file", item.key) }}'
+        state: present
+      check_mode: yes
+      register: task
+      failed_when: task is changed
+      loop:
+        - user: alice
+          key: '{{ lookup("env", "MOLECULE_EPHEMERAL_DIRECTORY") }}/alice-one.pub'
+        - user: alice
+          key: '{{ lookup("env", "MOLECULE_EPHEMERAL_DIRECTORY") }}/alice-two.pub'
+        - user: bob
+          key: '{{ lookup("env", "MOLECULE_EPHEMERAL_DIRECTORY") }}/bob.pub'
+
+    - name: check that no other keys are present
+      authorized_key:
+        user: '{{ item.user }}'
+        key: '{{ lookup("file", item.key) }}'
+        state: present
+      check_mode: yes
+      register: task
+      failed_when: task is not changed
+      loop:
+        - user: bob
+          key: '{{ lookup("env", "MOLECULE_EPHEMERAL_DIRECTORY") }}/alice-one.pub'
+        - user: charlie
+          key: '{{ lookup("env", "MOLECULE_EPHEMERAL_DIRECTORY") }}/charlie.pub'
