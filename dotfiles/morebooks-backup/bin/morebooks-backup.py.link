@@ -10,7 +10,7 @@ Fetch backups from remote server and deduplicate local copy
 REMOTE_SOURCE = '/home/hlc/data/backup/*'
 REMOTE_USER = 'manage'
 REMOTE_HOST = 'morebooks.ml'
-REMOTE_KEY  = '/home/user/.ssh/morebooks.ml-backup'
+REMOTE_KEY  = '/home/user/infra/keys/morebooks_backup-laptopmini'
 LOCAL_DESTINATION = '/home/user/backup/morebooks'
 
 
