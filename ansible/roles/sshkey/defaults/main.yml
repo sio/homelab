@@ -1,0 +1,7 @@
+---
+# sshkey_only:
+#   userA:
+#     - path/to/key.pub
+#     - path/to/secondkey.pub
+#   userB:
+#     - path/to/userBkey.pub

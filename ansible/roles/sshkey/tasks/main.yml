@@ -1,0 +1,21 @@
+---
+
+- name: gather facts on existing user accounts
+  getent:
+    database: passwd
+
+- name: set ssh keys for authorized accounts
+  authorized_key:
+    user: '{{ item.key }}'
+    key: '{{ lookup("template", "templates/keys.j2")|trim }}'
+    state: present
+    exclusive: yes
+  loop: '{{ sshkey_only|dict2items }}'
+
+- name: remove ssh keys from all accounts except authorized
+  file:
+    state: absent
+    path: '{{ getent_passwd[item][4] + "/.ssh/authorized_keys"}}'
+    # index 4 in getent passwd database is home directory
+  loop: '{{ getent_passwd.keys() }}'
+  when: item not in sshkey_only
