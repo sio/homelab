@@ -1,0 +1,35 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+    - name: create test users
+      user:
+        name: '{{ item }}'
+        state: present
+      loop:
+        - alice
+        - bob
+        - charlie
+
+    - name: create ssh keys on control machine
+      openssh_keypair:
+        path: '{{ lookup("env", "MOLECULE_EPHEMERAL_DIRECTORY") }}/{{ item }}'
+      loop:
+        - alice-one
+        - alice-two
+        - bob
+        - charlie-one
+      delegate_to: localhost
+
+    - name: configure ssh keys for initial state
+      authorized_key:
+        user: '{{ item.user }}'
+        key: '{{ lookup("file", item.key) }}'
+        state: present
+      loop:
+        - user: alice
+          key: '{{ lookup("env", "MOLECULE_EPHEMERAL_DIRECTORY") }}/alice-one.pub'
+        - user: bob
+          key: '{{ lookup("env", "MOLECULE_EPHEMERAL_DIRECTORY") }}/alice-one.pub'
+        - user: charlie
+          key: '{{ lookup("env", "MOLECULE_EPHEMERAL_DIRECTORY") }}/charlie-one.pub'
