@@ -15,6 +15,9 @@ ANSIBLE?=$(VENV)/ansible
 ANSIBLE_ROLES=$(patsubst %/molecule,%,$(wildcard ../roles/*/molecule))
 
 
+VENVDIR?=$(abspath ./.venv)
+
+
 MOLECULE_ACTIONS=\
 	cleanup \
 	converge \
