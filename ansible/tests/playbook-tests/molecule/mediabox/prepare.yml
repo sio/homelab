@@ -3,6 +3,12 @@
   vars:
     fake_hostname: music.potyarkin.ml
   tasks:
+    - name: download vagrant default key
+      delegate_to: localhost
+      get_url:
+        url: https://raw.githubusercontent.com/hashicorp/vagrant/master/keys/vagrant.pub
+        dest:  '{{ lookup("env", "MOLECULE_EPHEMERAL_DIRECTORY") }}/vagrant-insecure.pub'
+
     - name: install pyopenssl
       package:
         name: python-openssl
