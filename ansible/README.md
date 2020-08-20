@@ -19,6 +19,41 @@ CI infrastructure is provided by:
 [blog post]: https://potyarkin.ml/posts/2020/cirrus-ci-integration-for-gitlab-projects/
 
 
+## Usage
+
+Makefile contains recipes for execution of Ansible playbooks. "make all"
+triggers configuration management for the whole infrastructure.
+
+All behavioral variables are defined within playbooks. Only security related
+variables are meant to be provided from outside, e.g. from inventory:
+
+- SSH authentication parameters
+- Privilege elevation parameters (su/sudo)
+- Paths to SSH keys that are allowed on target machine
+
+
+## Secrets layout on control machine
+
+It is more convenient to store all secrets in one place on control machine.
+Sample layout:
+
+```
+~/infra/
+       /inventory.yml
+       /keys/
+            /machineA
+            /machineA.pub
+            /xxx
+            /xxx.pub
+            /...
+```
+
+All keys should be protected with a passphrase, inventory file should be
+encrypted with Ansible Vault.
+
+Local Git repository may be used for keeping track of changes.
+
+
 ## Test status by role
 
 ### Automated tests not implemented
