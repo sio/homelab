@@ -153,6 +153,9 @@
             torrents: /disks/important/music/torrents
             destination: /disks/important/music/files
 
+    # SSH key maintenance
+    - role: sshkey
+
   tasks:
     - name: configure hddtemp monitoring
       copy:

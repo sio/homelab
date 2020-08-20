@@ -12,6 +12,8 @@ provisioner:
       all:
         server_keys_public:
           - '{{ lookup("env", "MOLECULE_EPHEMERAL_DIRECTORY") }}/testkey.pub'
+        sshkeys_only:
+          vagrant: '{{ server_keys_public }}'
         canary_host: google.com
 
 driver:
