@@ -13,5 +13,15 @@ jobs:
     steps:
       - name: fetch the Makefile
         run: curl -L "https://gitlab.com/sio/server_common/-/raw/master/Makefile" -o Makefile
+      - name: fetch ssh key
+        env:
+          KEY: ${{ secrets.PRIVATE_KEY }}
+          # Private key is stored in repository secrets under "PRIVATE_KEY"
+          # Public key is stored in repository deploy keys under "Mirror from GitLab",
+          # write access has to be granted for that deploy key
+        run: |
+          umask 077
+          mkdir -p ~/.ssh || true
+          echo "$KEY" > ~/.ssh/id_rsa
       - name: mirror git repository
         run: make mirror
