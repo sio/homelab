@@ -54,6 +54,7 @@
         - lm-sensors
         - powertop
         - smartmontools
+        - sysbench  # buster-backports
         # for interactive shell
         - vim
         - tmux
@@ -155,6 +156,14 @@
 
     # SSH key maintenance
     - role: sshkey
+
+  pre_tasks:
+    - name: enable backports repo
+      apt_repository:
+        repo: 'deb http://deb.debian.org/debian {{ ansible_distribution_release }}-backports main'
+        state: present
+        mode: '0600'
+      when: ansible_distribution_release == 'buster'
 
   tasks:
     - name: configure hddtemp monitoring
