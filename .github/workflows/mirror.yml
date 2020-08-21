@@ -2,6 +2,9 @@ name: Mirror contents from GitLab
 on:
   schedule:
     - cron: '37 */4 * * *'
+  push:
+    branches:
+      - mirror
 
 
 jobs:
