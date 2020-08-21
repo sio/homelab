@@ -11,9 +11,9 @@ jobs:
   mirror:
     runs-on: ubuntu-latest
     steps:
-      - name: fetch the Makefile
+      - name: Fetch the Makefile
         run: curl -L "https://gitlab.com/sio/server_common/-/raw/master/Makefile" -o Makefile
-      - name: fetch ssh key
+      - name: Fetch ssh key
         env:
           KEY: ${{ secrets.PRIVATE_KEY }}
           # Private key is stored in repository secrets under "PRIVATE_KEY"
@@ -23,5 +23,5 @@ jobs:
           umask 077
           mkdir -p ~/.ssh || true
           echo "$KEY" > ~/.ssh/id_rsa
-      - name: mirror git repository
+      - name: Mirror git repository
         run: make mirror
