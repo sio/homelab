@@ -1,0 +1,14 @@
+name: Mirror contents from GitLab
+on:
+  schedule:
+    - cron: '37 */4 * * *'
+
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    steps:
+      - name: fetch the Makefile
+        run: curl -L "https://gitlab.com/sio/server_common/-/raw/master/Makefile" -o Makefile
+      - name: mirror git repository
+        run: make mirror
