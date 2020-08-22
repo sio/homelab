@@ -27,8 +27,8 @@ builders:
     iso_checksum_type: '{{ user `iso_checksum_type` }}'
 
     accelerator: kvm
-    memory: 2048  # increasing memory has little effect on build time
-    cpus: 1       # increasing cpu count may help to save up to 10 minutes
+    memory: 2750  # increasing memory has little effect on build time
+    cpus: 2       # increasing cpu count may help to save up to 10 minutes
     headless: yes
     vnc_bind_address: '{{ user `vnc_bind_address` }}'
     qemuargs:
