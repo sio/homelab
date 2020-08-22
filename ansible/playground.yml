@@ -1,0 +1,55 @@
+---
+- hosts: playground
+  become: yes
+  roles:
+    - role: upgrade
+    - role: motd
+    - role: server
+      server_remote_user: user
+      server_keys_public:
+        - '{{ infra_dir }}/keys/playground.pub'
+    - role: interactive
+      interactive_user: user
+    - role: packages
+      packages_install:
+        # Containerisation and virtualisation
+        - docker.io
+        - cpu-checker
+        - libvirt-clients
+        - libvirt-daemon-system
+        - packer
+        - qemu-kvm
+        - qemu-utils
+        # Developer tools
+        - git
+        - make
+        - cmake
+        - build-essential
+        # Other tools
+        - aria2
+        - psmisc
+        - python3-venv
+        - python3-yaml
+        - sudo
+        - sysbench
+        - tmux
+        - vim
+  pre_tasks:
+    - name: enable backports repo
+      apt_repository:
+        repo: 'deb http://deb.debian.org/debian {{ ansible_distribution_release }}-backports main'
+        state: present
+        mode: '0600'
+      when: ansible_distribution_release == 'buster'
+  tasks:
+    - name: modify user permissions
+      user:
+        name: user
+        groups: sudo,kvm,libvirt,libvirt-qemu,docker
+        append: yes
+    - name: enable passwordless sudo
+      lineinfile:
+        path: /etc/sudoers
+        line: user ALL=(ALL) NOPASSWD:ALL
+        state: present
+        validate: visudo -cf %s
