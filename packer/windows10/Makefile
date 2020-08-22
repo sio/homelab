@@ -55,6 +55,8 @@ $(DRIVERS_STORAGE)/temp/extracted.ok: $(DRIVERS_STORAGE)/virtio-win.rpm
 	-mkdir -p $(dir $@)/rpm $(dir $@)/iso
 	cd $(dir $@)/rpm && cmake -E tar xf ../../$(notdir $<)  # cmake uses libarchive to extract
 	cd $(dir $@)/iso && cmake -E tar xf ../rpm/usr/share/virtio-win/virtio-win.iso
+	chown $(USER) -R $(dir $@)
+	chmod u+w -R $(dir $@)
 	touch $@
 
 
