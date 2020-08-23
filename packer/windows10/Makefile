@@ -92,6 +92,7 @@ LOCAL_ISO=windows.iso
 CONNECTIONS=16
 $(LOCAL_ISO):
 	aria2c -o $@ -q -j$(CONNECTIONS) -x$(CONNECTIONS) -s$(CONNECTIONS) "$(REMOTE_ISO)"
+	sha256sum $@ | tee $(patsubst %.iso,%.sha256sum,$@)
 build: $(LOCAL_ISO)
 build: export VM_ISO:=$(LOCAL_ISO)
 endif
