@@ -51,6 +51,7 @@ $(DRIVERS_STORAGE)/netkvm.sys: | $(DRIVERS_STORAGE)/temp/extracted.ok
 
 
 .INTERMEDIATE: $(DRIVERS_STORAGE)/temp/extracted.ok
+USER?=$(shell whoami)
 $(DRIVERS_STORAGE)/temp/extracted.ok: $(DRIVERS_STORAGE)/virtio-win.rpm
 	-mkdir -p $(dir $@)/rpm $(dir $@)/iso
 	cd $(dir $@)/rpm && cmake -E tar xf ../../$(notdir $<)  # cmake uses libarchive to extract
