@@ -5,6 +5,8 @@ task:
   container:
     image: potyarkin/molecule:host-kvm  # Debian 10
     kvm: true
+    cpu: 4
+    memory: 6G
   env:
     CLONE_SHA: "{{ CI_COMMIT_SHA }}"
     CLONE_URL: "{{ CI_REPOSITORY_URL }}"
