@@ -17,7 +17,7 @@ PACKER_FLAGS+=-var password="$$VM_PASSWORD" -var hostname="$(VM_HOSTNAME)"
 ifdef VM_ISO
 export VM_ISO
 endif
-PACKER_FLAGS+=-var iso="$(VM_ISO)"
+PACKER_FLAGS+=-var iso="$$VM_ISO"
 
 
 ifdef VM_ISO_SHA256
@@ -82,3 +82,15 @@ endif
 # Default values for remote build
 remote-build: export VM_HOSTNAME?=windowsvm
 remote-build: export VM_PASSWORD?=windowspassword
+
+
+# Use multiple connections to increase download speed
+ifneq (,$(filter https://% http://%,$(VM_ISO)))
+REMOTE_ISO:=$(VM_ISO)
+LOCAL_ISO=windows.iso
+CONNECTIONS=16
+$(LOCAL_ISO):
+	aria2c -o $@ -q -j$(CONNECTIONS) -x$(CONNECTIONS) -s$(CONNECTIONS) "$(REMOTE_ISO)"
+build: $(LOCAL_ISO)
+build: export VM_ISO:=$(LOCAL_ISO)
+endif

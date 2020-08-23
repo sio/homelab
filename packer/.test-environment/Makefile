@@ -12,6 +12,7 @@ prepare: /.ready-interactive
 /.ready-for-packer:
 	apt-get update
 	apt-get -y install --no-install-recommends \
+		aria2 \
 		packer \
 		python3-yaml \
 		cmake \
