@@ -1,5 +1,6 @@
 ---
-- hosts: all
+- hosts: persistent
+  name: upgrade
   become: yes
   roles:
     - upgrade
