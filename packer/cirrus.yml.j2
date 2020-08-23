@@ -7,6 +7,7 @@ task:
     kvm: true
     cpu: 4
     memory: 6G
+  timeout_in: 90m
   env:
     CLONE_SHA: "{{ CI_COMMIT_SHA }}"
     CLONE_URL: "{{ CI_REPOSITORY_URL }}"
