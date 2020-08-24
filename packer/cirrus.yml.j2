@@ -10,6 +10,7 @@ task:
   env:
     CLONE_SHA: "{{ CI_COMMIT_SHA }}"
     CLONE_URL: "{{ CI_REPOSITORY_URL }}"
+    PACKER_LOG: 1  # it's hard to debug Qemu errors without verbose output
     PACKER_TARGET: "{{ PACKER_TARGET }}"
     VM_HOSTNAME: "{{ VM_HOSTNAME }}"
     VM_PASSWORD: "{{ VM_PASSWORD }}"
