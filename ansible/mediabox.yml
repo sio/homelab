@@ -58,6 +58,7 @@
         # for interactive shell
         - vim
         - tmux
+        - sudo
 
     # Interactive shell
     - role: interactive
@@ -182,3 +183,12 @@
         src: /usr/share/munin/plugins/hddtemp_smartctl
         dest: /etc/munin/plugins/hddtemp_smartctl
       notify: restart munin node
+
+    - name: enable passwordless sudo for interactive user
+      copy:
+        dest: /etc/sudoers.d/interactive
+        content: |
+          interactive ALL=(ALL) NOPASSWD:ALL
+        validate: visudo -cf %s
+        backup: yes
+        mode: '0400'
