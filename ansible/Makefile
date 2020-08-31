@@ -1,4 +1,5 @@
-INVENTORY?=~/infra/inventory.yml
+INFRA?=~/infra
+INVENTORY?=$(INFRA)/inventory.yml
 SHELL=/bin/bash
 
 PLAYBOOK_RUNNER?=ansible-playbook
@@ -6,6 +7,11 @@ PLAYBOOK_TIMER?=time
 PLAYBOOK_ARGS?=
 
 PLAYBOOKS=$(patsubst %.yml,%,$(wildcard *.yml))
+
+
+-include Makefile.secrets
+Makefile.secrets:
+	@ln -s $(INFRA)/Makefile.secrets $@ 2>/dev/null || true
 
 
 ifeq (,$(wildcard $(INVENTORY)))
@@ -37,10 +43,11 @@ SSH_AGENT_LIFETIME?=24h
 
 .PHONY: keys
 keys:
-ifneq (,$(strip $(SSH_KEYS_PRIVATE)))
 	@new_keys=""; \
 	for key in $(SSH_KEYS_PRIVATE); \
 	do \
+		[[ -e "$$key" ]] \
+		|| { echo "Identity file not found: $$key"; exit 101; }; \
 		fingerprint=$$(ssh-keygen -lf "$$key"|cut -d\  -f2); \
 		ssh-add -l \
 		|  grep -q "$$fingerprint" \
@@ -51,7 +58,6 @@ ifneq (,$(strip $(SSH_KEYS_PRIVATE)))
 		echo "Adding identities to ssh-agent..."; \
 		ssh-add -t $(SSH_AGENT_LIFETIME) $$new_keys; \
 	fi
-endif
 
 
 # Customization for all.yml

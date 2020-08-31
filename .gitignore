@@ -8,3 +8,5 @@ packer_cache
 /packer/*/packer.json
 
 /sysbench
+
+/ansible/Makefile.secrets

@@ -40,6 +40,7 @@ Sample layout:
 ```
 ~/infra/
        /inventory.yml
+       /Makefile.secrets
        /keys/
             /machineA
             /machineA.pub
