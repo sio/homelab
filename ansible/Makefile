@@ -27,6 +27,7 @@ endif
 
 
 .PHONY: environment-versions
+.DEFAULT_GOAL := environment-versions
 environment-versions:
 	$(PLAYBOOK_RUNNER) --version
 
