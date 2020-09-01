@@ -52,6 +52,8 @@
     - role: munin_node
       munin_master_cidr: 192.168.28.10/32
 
+    - role: munin_smart
+
     - role: grub
       grub_kernel_params:
         # Boot time user facing output
