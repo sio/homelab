@@ -1,4 +1,9 @@
 ---
+- name: install smartctl
+  package:
+    name: smartmontools
+    state: present
+
 - name: install smart_raw plugin
   get_url:
     url: https://raw.githubusercontent.com/sio/munin_plugin_smart_raw/master/smart_raw.py
