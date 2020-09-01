@@ -1,3 +1,8 @@
 ---
 # Optional
 munin_smart_user: root
+
+# Undefined by default, with sample values
+#munin_smart_drives: sda sdb
+#munin_smart_params: 187 188
+#munin_smart_smartctl: /path/to/smartctl

@@ -53,6 +53,7 @@
 
     - role: munin_node
     - role: munin_smart
+      munin_smart_params: 5 187 197 198  # 188 is meaningless for this drive
 
     - role: grub
       grub_kernel_params:
