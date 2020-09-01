@@ -1,0 +1,37 @@
+---
+- hosts: all
+  name: verify (inside)
+  become: yes
+  tasks:
+    - name: hello world
+      command: echo hello
+      register: hello
+      failed_when: "'hello' not in hello.stdout"
+      changed_when: "hello is not succeeded"
+
+    - name: wait for services to become available
+      wait_for:
+        port: '{{ item }}'
+        timeout: 30
+      with_items:
+        - 4949
+
+    - block:
+        - name: execute munin-run (config)
+          command: /usr/sbin/munin-run smart_raw config
+          register: run
+          changed_when: run is succeeded
+          failed_when: >
+            run is failed or
+            run.stdout is not search("graph_title S.M.A.R.T. Raw Values")
+        - name: execute munin-run (values)
+          command: /usr/sbin/munin-run smart_raw
+          register: run
+          changed_when: run is succeeded
+          failed_when: >
+            run is failed
+      rescue:
+        - name: show munin-run output
+          debug:
+            var: run.stdout_lines
+          failed_when: true

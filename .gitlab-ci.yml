@@ -316,6 +316,17 @@ test-role-munin_fdcount:
         - ansible/roles/server/**/*
 
 
+test-role-munin_smart:
+  extends: .test-ansible-role-kvm
+  variables:
+    ANSIBLE_ROLE: ../roles/munin_smart
+  rules:
+    - changes:
+        - ansible/roles/munin_smart/**/*
+        - ansible/roles/munin_node/**/*
+        - ansible/roles/server/**/*
+
+
 test-role-munin_master:
   extends: .test-ansible-role-kvm
   variables:

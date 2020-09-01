@@ -1,0 +1,14 @@
+---
+- name: install smart_raw plugin
+  get_url:
+    url: https://raw.githubusercontent.com/sio/munin_plugin_smart_raw/master/smart_raw.py
+    dest: '/etc/munin/plugins/smart_raw'
+    mode: '0755'
+  notify: restart munin node
+
+- name: configure smart_raw plugin
+  template:
+    src: templates/plugin.conf
+    dest: '/etc/munin/plugin-conf.d/smart_raw'
+    mode: '0644'
+  notify: restart munin node
