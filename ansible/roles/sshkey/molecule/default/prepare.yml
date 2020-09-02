@@ -7,7 +7,7 @@
         name: '{{ item }}'
         state: present
       loop:
-        - alice
+        # alice is intentionally missing
         - bob
         - charlie
 
@@ -27,8 +27,6 @@
         key: '{{ lookup("file", item.key) }}'
         state: present
       loop:
-        - user: alice
-          key: '{{ lookup("env", "MOLECULE_EPHEMERAL_DIRECTORY") }}/alice-one.pub'
         - user: bob
           key: '{{ lookup("env", "MOLECULE_EPHEMERAL_DIRECTORY") }}/alice-one.pub'
         - user: charlie

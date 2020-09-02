@@ -1,5 +1,11 @@
 ---
 
+- name: create user accounts if missing
+  user:
+    name: '{{ item }}'
+    state: present
+  loop: '{{ sshkey_only|list }}'
+
 - name: gather facts on existing user accounts
   getent:
     database: passwd
