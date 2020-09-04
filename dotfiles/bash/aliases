@@ -229,6 +229,9 @@ alias vim='vim -p'
 cli-stats() {
     local output_len="$1"
     [[ -z "$output_len" ]] && output_len=10
+    local hist_len
+    hist_len=$(wc -l "$HISTFILE"|cut -d\  -f1)
+    echo -e "TOP $output_len FREQUENTLY USED COMMANDS\n(out of $hist_len history entries)"
     sed 's:|: :g' "$HISTFILE"|awk '{print $1}'|sort|uniq -c|sort -rn|head -n "$output_len"
 }
 
