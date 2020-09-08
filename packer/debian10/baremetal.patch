@@ -1,0 +1,19 @@
+58a59,76
+> 
+> 
+> # Extra configuration for baremetal deployment (without Packer)
+> #
+> # Put baremetal.cfg into root directory of Debian Installer USB drive
+> # and modify syslinux.cfg:
+> #   timeout=1
+> # Extra kernel parameters:
+> #   auto
+> #   preseed/file=/hd-media/baremetal.cfg
+> #   preseed/file/checksum=MD5SUM_OF_THIS_FILE
+> d-i passwd/root-password string ChangeThisImmediately
+> d-i passwd/root-password-again string ChangeThisImmediately
+> d-i language string en
+> d-i country string US
+> d-i hostname string unassigned-debian-system
+> d-i domain string unassigned-domain
+> d-i auto-install/enable boolean true

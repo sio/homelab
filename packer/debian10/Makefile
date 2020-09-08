@@ -23,3 +23,11 @@ endif
 # Default values for remote build
 remote-build: export VM_HOSTNAME?=guest
 remote-build: export VM_PASSWORD?=hello
+
+
+baremetal.patch:
+	diff preseed.cfg baremetal.cfg > $@
+
+
+baremetal.cfg: baremetal.patch preseed.cfg
+	patch preseed.cfg baremetal.patch -o $@
