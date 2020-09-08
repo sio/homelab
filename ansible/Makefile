@@ -29,6 +29,7 @@ endif
 .PHONY: environment-versions
 .DEFAULT_GOAL := environment-versions
 environment-versions:
+	@date
 	$(PLAYBOOK_RUNNER) --version
 
 
