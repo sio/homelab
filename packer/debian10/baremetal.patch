@@ -1,8 +1,8 @@
---- preseed.cfg	2020-09-08 17:55:28.316608000 +0300
+--- baremetal.cfg	2020-09-08 17:55:28.316608000 +0300
 +++ baremetal.cfg	2020-09-08 17:55:28.285358300 +0300
 @@ -56,3 +56,21 @@
  d-i finish-install/reboot_in_progress note
- 
+
  d-i preseed/late_command string echo "PermitRootLogin yes" >> /target/etc/ssh/sshd_config
 +
 +
