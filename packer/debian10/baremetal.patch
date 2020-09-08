@@ -1,19 +1,24 @@
-58a59,76
-> 
-> 
-> # Extra configuration for baremetal deployment (without Packer)
-> #
-> # Put baremetal.cfg into root directory of Debian Installer USB drive
-> # and modify syslinux.cfg:
-> #   timeout=1
-> # Extra kernel parameters:
-> #   auto
-> #   preseed/file=/hd-media/baremetal.cfg
-> #   preseed/file/checksum=MD5SUM_OF_THIS_FILE
-> d-i passwd/root-password string ChangeThisImmediately
-> d-i passwd/root-password-again string ChangeThisImmediately
-> d-i language string en
-> d-i country string US
-> d-i hostname string unassigned-debian-system
-> d-i domain string unassigned-domain
-> d-i auto-install/enable boolean true
+--- preseed.cfg	2020-09-08 17:55:28.316608000 +0300
++++ baremetal.cfg	2020-09-08 17:55:28.285358300 +0300
+@@ -56,3 +56,21 @@
+ d-i finish-install/reboot_in_progress note
+ 
+ d-i preseed/late_command string echo "PermitRootLogin yes" >> /target/etc/ssh/sshd_config
++
++
++# Extra configuration for baremetal deployment (without Packer)
++#
++# Put baremetal.cfg into root directory of Debian Installer USB drive
++# and modify syslinux.cfg:
++#   timeout=1
++# Extra kernel parameters:
++#   auto
++#   preseed/file=/hd-media/baremetal.cfg
++#   preseed/file/checksum=MD5SUM_OF_THIS_FILE
++d-i passwd/root-password string ChangeThisImmediately
++d-i passwd/root-password-again string ChangeThisImmediately
++d-i language string en
++d-i country string US
++d-i hostname string unassigned-debian-system
++d-i domain string unassigned-domain
++d-i auto-install/enable boolean true

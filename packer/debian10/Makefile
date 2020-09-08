@@ -26,8 +26,11 @@ remote-build: export VM_PASSWORD?=hello
 
 
 baremetal.patch:
-	diff preseed.cfg baremetal.cfg > $@
+	diff -Naur preseed.cfg baremetal.cfg > $@
 
-
-baremetal.cfg: baremetal.patch preseed.cfg
+baremetal.cfg: preseed.cfg baremetal.patch
 	patch preseed.cfg baremetal.patch -o $@
+
+baremetal-efi.cfg: preseed.cfg baremetal.patch baremetal-efi.patch
+	cat $(filter %.patch,$^) | patch -o $@
+
