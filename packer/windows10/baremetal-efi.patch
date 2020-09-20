@@ -1,0 +1,161 @@
+diff --git a/packer/windows10/autounattend.xml b/packer/windows10/autounattend.xml
+index e10b28f..b96c857 100644
+--- a/packer/windows10/autounattend.xml
++++ b/packer/windows10/autounattend.xml
+@@ -6,20 +6,6 @@
+    -->
+   <settings pass="windowsPE">
+ 
+-    <component name="Microsoft-Windows-PnpCustomizationsWinPE"
+-               language="neutral"
+-               processorArchitecture="amd64"
+-               publicKeyToken="31bf3856ad364e35"
+-               versionScope="nonSxS"
+-               xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State"
+-               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+-      <DriverPaths>
+-        <PathAndCredentials wcm:keyValue="1" wcm:action="add">
+-          <Path>B:\</Path>
+-        </PathAndCredentials>
+-      </DriverPaths>
+-    </component>
+-
+     <component name="Microsoft-Windows-International-Core-WinPE"
+                language="neutral"
+                processorArchitecture="amd64"
+@@ -28,14 +14,14 @@
+                xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+       <SetupUILanguage>
+-        <UILanguage>en-US</UILanguage>
++        <UILanguage>ru-RU</UILanguage>
+         <WillShowUI>OnError</WillShowUI>
+       </SetupUILanguage>
+-      <InputLocale>en-US</InputLocale>
+-      <SystemLocale>en-US</SystemLocale>
+-      <UILanguage>en-US</UILanguage>
+-      <UILanguageFallback>en-US</UILanguageFallback>
+-      <UserLocale>en-US</UserLocale>
++      <InputLocale>ru-RU</InputLocale>
++      <SystemLocale>ru-RU</SystemLocale>
++      <UILanguage>ru-RU</UILanguage>
++      <UILanguageFallback>ru-RU</UILanguageFallback>
++      <UserLocale>ru-RU</UserLocale>
+     </component>
+ 
+     <component name="Microsoft-Windows-Setup"
+@@ -52,8 +38,18 @@
+           <WillWipeDisk>true</WillWipeDisk>
+           <CreatePartitions>
+             <CreatePartition wcm:action="add">
+-              <Type>Primary</Type>
++              <Type>EFI</Type>
+               <Order>1</Order>
++              <Size>100</Size>
++            </CreatePartition>
++            <CreatePartition wcm:action="add">
++              <Type>MSR</Type>
++              <Order>2</Order>
++              <Size>128</Size>
++            </CreatePartition>
++            <CreatePartition wcm:action="add">
++              <Type>Primary</Type>
++              <Order>3</Order>
+               <Extend>true</Extend>
+             </CreatePartition>
+           </CreatePartitions>
+@@ -61,6 +57,16 @@
+             <ModifyPartition wcm:action="add">
+               <PartitionID>1</PartitionID>
+               <Order>1</Order>
++              <Format>FAT32</Format>
++              <Label>System</Label>
++            </ModifyPartition>
++            <ModifyPartition wcm:action="add">
++              <PartitionID>2</PartitionID>
++              <Order>2</Order>
++            </ModifyPartition>
++            <ModifyPartition wcm:action="add">
++              <PartitionID>3</PartitionID>
++              <Order>3</Order>
+               <Active>true</Active>
+               <Format>NTFS</Format>
+               <Label>WINDOWS</Label>
+@@ -83,13 +89,13 @@
+             More information: https://superuser.com/questions/715368
+             -->
+             <Metadata wcm:action="add">
+-              <Key>/IMAGE/NAME</Key>
+-              <Value>Windows 10 Pro</Value>
++              <Key>/IMAGE/INDEX</Key>
++              <Value>1</Value>
+             </Metadata>
+           </InstallFrom>
+           <InstallTo>
+             <DiskID>0</DiskID>
+-            <PartitionID>1</PartitionID>
++            <PartitionID>3</PartitionID>
+           </InstallTo>
+           <InstallToAvailablePartition>false</InstallToAvailablePartition>
+         </OSImage>
+@@ -117,7 +123,7 @@
+                versionScope="nonSxS"
+                xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+-      <ComputerName>TempHostname</ComputerName> <!-- max. 15 chars -->
++      <ComputerName>Windows10</ComputerName> <!-- max. 15 chars -->
+       <RegisteredOwner/>
+     </component>
+ 
+@@ -179,11 +185,11 @@
+                versionScope="nonSxS"
+                xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+-      <InputLocale>en-US</InputLocale>
+-      <SystemLocale>en-US</SystemLocale>
+-      <UILanguage>en-US</UILanguage>
+-      <UILanguageFallback>en-US</UILanguageFallback>
+-      <UserLocale>en-US</UserLocale>
++      <InputLocale>ru-RU</InputLocale>
++      <SystemLocale>ru-RU</SystemLocale>
++      <UILanguage>ru-RU</UILanguage>
++      <UILanguageFallback>ru-RU</UILanguageFallback>
++      <UserLocale>ru-RU</UserLocale>
+     </component>
+ 
+     <component name="Microsoft-Windows-Shell-Setup"
+@@ -205,9 +211,9 @@
+       <UserAccounts>
+         <LocalAccounts>
+           <LocalAccount wcm:action="add">
+-            <Name>root</Name>
++            <Name>user</Name>
+             <Password>
+-              <Value>TemporaryPass</Value>
++              <Value></Value>
+               <PlainText>true</PlainText>
+             </Password>
+             <Group>Administrators</Group>
+@@ -226,20 +232,12 @@
+ 
+       <AutoLogon>
+         <Enabled>true</Enabled>
+-        <Username>root</Username>
++        <Username>user</Username>
+         <Password>
+-          <Value>TemporaryPass</Value>
++          <Value></Value>
+           <PlainText>true</PlainText>
+         </Password>
+       </AutoLogon>
+-      <FirstLogonCommands>
+-        <SynchronousCommand wcm:action="add">
+-          <Order>1</Order>
+-          <Description>Configure and start essential services (WinRM, Qemu Balloon)</Description>
+-          <CommandLine>powershell.exe -NoLogo -NonInteractive -ExecutionPolicy RemoteSigned -File A:\initialize.ps1</CommandLine>
+-          <RequiresUserInput>false</RequiresUserInput>
+-        </SynchronousCommand>
+-      </FirstLogonCommands>
+     </component>
+ 
+   </settings>
