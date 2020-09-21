@@ -23,4 +23,5 @@ sysbench:
 .sysbench-run:
 	@date
 	$(SYSBENCH) --threads=4 --cpu-max-prime=10000 cpu run
+	$(SYSBENCH) --threads=4 --cpu-max-prime=20000 cpu run
 	$(SYSBENCH) --threads=4 memory run
