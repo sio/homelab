@@ -1,5 +1,13 @@
 ---
 # Configure homelab machines (baremetal layer)
+#
+# New machine needs the following variables to be defined in inventory:
+#   - server_force_inventory_hostname: yes, to replace default hostname
+#   - server_keys_public: to enable key-based access after password login via SSH is disabled
+#   - server_root_password: new password to replace the default value
+#   - sshkey_only: to avoid leaving outdated SSH keys on the machine
+#   - wol_interface: wake-on-lan interface name
+#   - wol_macaddress: wake-on-lan MAC address
 
 - hosts: lab
   gather_facts: no
