@@ -46,6 +46,7 @@
     - role: unattended
     - role: motd
     - role: canary  # clean shutdown with dumb UPS
+    - role: wol
     - role: server
       server_remote_user: op
     - role: interactive
