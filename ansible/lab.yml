@@ -43,7 +43,9 @@
 
   roles:
     - role: upgrade
+    - role: unattended
     - role: motd
+    - role: canary  # clean shutdown with dumb UPS
     - role: server
       server_remote_user: op
     - role: interactive
@@ -65,6 +67,9 @@
         - sysbench
         - tmux
         - vim
+    - role: munin_node
+    - role: munin_smart
+    - role: sshkey
 
   tasks:
     - name: modify user permissions
