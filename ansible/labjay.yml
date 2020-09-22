@@ -1,0 +1,22 @@
+---
+# Host specific extras, see lab.yml for generic setup
+
+- hosts: labjay
+  gather_facts: no
+  become: yes
+  pre_tasks:
+    - name: wake up target machines
+      delegate_to: localhost
+      wakeonlan:
+        mac: '{{ wol_macaddress }}'
+
+    - name: wait for target machines to boot
+      delegate_to: localhost
+      wait_for:
+        host: '{{ (ansible_ssh_host|default(ansible_host))|default(inventory_hostname) }}'
+        port: 22
+        delay: 10
+        timeout: 60
+
+    - name: gather facts
+      setup:
