@@ -26,6 +26,12 @@ PLAYBOOK_ARGS+=--ask-vault-pass
 endif
 
 
+# Convenient way to limit target hosts
+ifdef HOSTS
+PLAYBOOK_ARGS+=--limit "$(HOSTS)"
+endif
+
+
 .PHONY: environment-versions
 .DEFAULT_GOAL := environment-versions
 environment-versions:
@@ -60,6 +66,17 @@ keys:
 		echo "Adding identities to ssh-agent..."; \
 		ssh-add -t $(SSH_AGENT_LIFETIME) $$new_keys; \
 	fi
+
+
+.PHONY: .require-hosts
+.require-hosts:
+ifndef HOSTS
+	$(error Required variable is not defined: HOSTS)
+endif
+
+
+# Shutdown must only be called with a specific list of hosts
+shutdown: .require-hosts
 
 
 # Customization for all.yml

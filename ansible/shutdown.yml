@@ -1,0 +1,10 @@
+---
+# Shutdown Linux machines (you probably want to --limit hosts)
+
+- hosts: all
+  gather_facts: no
+  become: yes
+  tasks:
+    - name: shutdown linux machines
+      shell: /sbin/shutdown -c && /sbin/shutdown -h now
+      ignore_errors: yes
