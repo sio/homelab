@@ -1,13 +1,7 @@
-ansible
+molecule
+molecule-vagrant
+molecule-docker
+
+ansible-lint!=4.3.0 # 4.3.0: https://gitlab.com/sio/server_common/-/jobs/693768455
+testinfra
 yamllint
-
-# Molecule 3.0 breaks Vagrant driver:
-#   https://github.com/ansible-community/molecule-vagrant/issues/8
-# Molecule 2.22 has bug in shell dependency handler:
-#   https://github.com/ansible-community/molecule/pull/2524
-# Here we use Molecule 2.22 with backported fix for that bug
-https://github.com/sio/molecule/releases/download/2.23-dev-backport-hotfix/molecule-2.23-dev-backport-hotfix.tar.gz#egg=molecule[docker,vagrant]
-
-# Ansible-lint 4.3.0 introduced some breaking changes
-#    https://gitlab.com/sio/server_common/-/jobs/693768455
-ansible-lint!=4.3.0

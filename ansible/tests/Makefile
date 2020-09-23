@@ -34,6 +34,10 @@ MOLECULE_ACTIONS=\
 	verify
 
 
+YAMLLINT_CONFIG_FILE=$(abspath yamllint.yml)
+export YAMLLINT_CONFIG_FILE
+
+
 define message
 Usage: $(MAKE) [target]
 

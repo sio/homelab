@@ -12,11 +12,7 @@ verifier:
   options:
     v: 1
 
-lint:
-  name: yamllint
-  options:
-    config-data:
-      rules:
-        line-length: disable
-        truthy:
-          allowed-values: ['yes', 'no', 'true', 'false']
+lint: |
+  set -e
+  yamllint .
+  ansible-lint

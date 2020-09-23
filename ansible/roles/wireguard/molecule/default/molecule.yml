@@ -23,5 +23,3 @@ provisioner:
 # refuses frequent connection attempts
 verifier:
   name: ansible
-  lint:
-    name: ansible-lint
