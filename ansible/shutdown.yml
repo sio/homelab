@@ -7,5 +7,7 @@
   tasks:
     - name: shutdown linux machines
       shell: /sbin/shutdown -c && /sbin/shutdown -h now
-      ignore_errors: yes
       when: '{{ initial_ping|default({"failed": True}) is failed }}'
+      register: shutdown
+      changed_when: shutdown is failed  # shell module is expected to fail
+      failed_when: no
