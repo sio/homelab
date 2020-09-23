@@ -14,6 +14,7 @@
     dest: /etc/gerbera/config.xml  # needs to be writable by gerbera user
     src: 'templates/config-{{ ansible_distribution_release }}.xml'
     backup: yes
+    mode: '0644'
   notify: restart gerbera
 
 - name: enable gerbera service

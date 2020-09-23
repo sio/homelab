@@ -10,4 +10,4 @@ https://github.com/sio/molecule/releases/download/2.23-dev-backport-hotfix/molec
 
 # Ansible-lint 4.3.0 introduced some breaking changes
 #    https://gitlab.com/sio/server_common/-/jobs/693768455
-ansible-lint==4.2.0
+ansible-lint!=4.3.0
