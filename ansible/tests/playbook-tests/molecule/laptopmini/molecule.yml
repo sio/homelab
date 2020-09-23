@@ -26,11 +26,6 @@ platforms:
   - name: laptopmini
     box: debian/buster64
     memory: 1024
-    provision: true
-    interfaces:
-      - auto_config: true
-        network_name: private_network
-        type: dhcp
 
 dependency:
   name: shell

@@ -10,7 +10,6 @@ platforms:
   - name: debian10-vm
     box: debian/buster64
     memory: 1024
-    provision: true
 
 provisioner:
   log: true
