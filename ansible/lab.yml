@@ -9,39 +9,16 @@
 #   - wol_interface: wake-on-lan interface name
 #   - wol_macaddress: wake-on-lan MAC address
 
+
+- name: wake up all lab machines
+  import_playbook: wakeup.yml
+  vars:
+    hosts: lab
+
+
 - hosts: lab
-  gather_facts: no
   become: yes
   pre_tasks:
-    - name: bring all machines online
-      delegate_to: localhost
-      block:
-        - name: check if target machines are online
-          shell: >-
-            ping -c 1 -w 2
-            {{ (ansible_ssh_host|default(ansible_host))|default(inventory_hostname) }}
-            2>&1
-          register: initial_ping
-          changed_when: no
-          failed_when: initial_ping.rc != 0
-          ignore_errors: yes
-
-        - name: wake up target machines
-          wakeonlan:
-            mac: '{{ wol_macaddress }}'
-          when: initial_ping is failed
-
-        - name: wait for target machines to boot
-          wait_for:
-            host: '{{ (ansible_ssh_host|default(ansible_host))|default(inventory_hostname) }}'
-            port: 22
-            delay: 10
-            timeout: 60
-          when: initial_ping is failed
-
-    - name: gather facts
-      setup:
-
     - name: enable backports repo
       apt_repository:
         repo: 'deb http://deb.debian.org/debian {{ ansible_distribution_release }}-backports main'
@@ -93,8 +70,8 @@
         state: present
         validate: visudo -cf %s
 
-  post_tasks:
-    - name: shutdown machines that were offline
-      shell: /sbin/shutdown -c && /sbin/shutdown -h now
-      ignore_errors: yes
-      when: initial_ping is failed
+
+- name: shutdown machines that were offline
+  import_playbook: shutdown.yml
+  vars:
+    hosts: lab
