@@ -6,8 +6,8 @@
   become: yes
   tasks:
     - name: shutdown linux machines
-      shell: /sbin/shutdown -c && /sbin/shutdown -h now
+      shell: sleep 2; /sbin/shutdown -c; /sbin/shutdown -h now
       when: '{{ initial_ping|default({"failed": True}) is failed }}'
-      register: shutdown
-      changed_when: shutdown is failed  # shell module is expected to fail
-      failed_when: no
+      async: 1  # https://stackoverflow.com/a/48424672
+      poll: 0
+      changed_when: yes
