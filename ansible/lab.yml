@@ -13,7 +13,7 @@
 - name: wake up all lab machines
   import_playbook: wakeup.yml
   vars:
-    hosts: lab
+    limit_hosts: lab
 
 
 - hosts: lab
@@ -74,4 +74,4 @@
 - name: shutdown machines that were offline
   import_playbook: shutdown.yml
   vars:
-    hosts: lab
+    limit_hosts: lab

@@ -1,7 +1,7 @@
 ---
 # Shutdown Linux machines (you probably want to --limit hosts)
 
-- hosts: '{{ hosts|default("all") }}'
+- hosts: '{{ limit_hosts|default("all") }}'
   gather_facts: no
   become: yes
   tasks:

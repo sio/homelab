@@ -5,7 +5,7 @@
 - name: wake up the machine
   import_playbook: wakeup.yml
   vars:
-    hosts: labjay
+    limit_hosts: labjay
 
 
 - hosts: labjay
