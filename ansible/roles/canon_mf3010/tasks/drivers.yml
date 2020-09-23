@@ -4,6 +4,7 @@
   file:
     path: '{{ canon_drivers_dir }}'
     state: directory
+    mode: '0755'
 
 - name: check if drivers archive is present
   stat:
@@ -33,6 +34,7 @@
     remote_src: yes
     src: '{{ canon_drivers_archive }}'
     dest: '{{ canon_drivers_dir }}'
+    mode: '0755'
 
 - name: locate drivers files
   find:

@@ -5,3 +5,4 @@
     block: '{{ motd }}'
     create: true
     marker: '- - - - - - - - - - - - - - - - - - - - - - - - - - - - {mark}'
+    mode: '0444'

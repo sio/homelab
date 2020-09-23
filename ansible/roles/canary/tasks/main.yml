@@ -10,6 +10,7 @@
     src: '{{ item }}'
     dest: '/etc/systemd/system/{{ item|basename }}'
     backup: yes
+    mode: '0644'
   loop:
     - templates/canary.service
     - templates/canary.timer
