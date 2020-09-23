@@ -44,7 +44,7 @@
 
     - name: wait for services to become available outside
       wait_for:
-        host: '{{ hostvars["debian10-vm"]["ansible_host"] }}'
+        host: '{{ ansible_host }}'
         port: '{{ item }}'
         timeout: 30
       with_items:
@@ -74,7 +74,7 @@
     - block:
         - name: fetch munin front page from good src IP
           uri:
-            url: 'http://{{ hostvars["debian10-vm"]["ansible_host"] }}/munin/'
+            url: 'http://{{ ansible_host }}/munin/'
             return_content: yes
           register: page
           failed_when: '"Munin" not in page.content or page.status != 200'

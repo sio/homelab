@@ -9,7 +9,7 @@
 
     - name: wait for services to become available
       wait_for:
-        host: '{{ hostvars["debian10-vm"]["ansible_host"] }}'
+        host: '{{ ansible_host }}'
         port: '{{ item }}'
         timeout: 30
       with_items:
@@ -19,7 +19,7 @@
 
     - name: fetch front page (from outside)
       uri:
-        url: 'http://{{ hostvars["debian10-vm"]["ansible_host"] }}:49152'
+        url: 'http://{{ ansible_host }}:49152'
         return_content: yes
       register: page
       failed_when: >-

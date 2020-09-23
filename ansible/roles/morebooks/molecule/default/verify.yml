@@ -1,6 +1,5 @@
 ---
 - hosts: all
-  name: verify (inside)
   tasks:
     - name: hello world
       command: echo hello
@@ -41,14 +40,13 @@
       register: page
       failed_when: '"Книжная квартирка" in page.content or page.status != 200'
 
-- hosts: localhost
-  name: verify (outside)
-  tasks:
-    - name: wait for services to become available
+    - name: wait for services to become available (outside)
       wait_for:
-        host: '{{ hostvars["debian10-vm"]["ansible_host"] }}'
+        host: '{{ ansible_host }}'
         port: '{{ item }}'
         timeout: 30
       with_items:
         - 80
         - 443
+      delegate_to: localhost
+      become: no
