@@ -1,6 +1,6 @@
 ---
 
-- hosts: debian10-docker
+- hosts: all
   become: true
   roles:
     - role: interactive

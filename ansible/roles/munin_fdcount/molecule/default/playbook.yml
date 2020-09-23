@@ -1,6 +1,6 @@
 ---
 
-- hosts: debian10-vm
+- hosts: all
   become: true
   roles:
     - role: munin_fdcount
