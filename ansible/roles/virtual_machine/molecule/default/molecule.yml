@@ -11,6 +11,10 @@ platforms:
     box: debian/buster64
     cpu_mode: host-passthrough
     memory: 2048
+  - name: debian11-vm
+    box: debian/testing64
+    cpu_mode: host-passthrough
+    memory: 2048
 
 provisioner:
   log: true

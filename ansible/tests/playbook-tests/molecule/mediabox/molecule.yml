@@ -24,8 +24,15 @@ driver:
     name: libvirt
 
 platforms:
-  - name: mediabox
+  - name: debian10-vm
+    groups:
+      - mediabox
     box: debian/buster64
+    memory: 1024
+  - name: debian11-vm
+    groups:
+      - mediabox
+    box: debian/testing64
     memory: 1024
 
 dependency:
