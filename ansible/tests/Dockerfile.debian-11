@@ -1,0 +1,10 @@
+# Clean environment for applying Ansible roles
+# Docker Hub: potyarkin/molecule:debian-11
+FROM debian:bullseye-slim
+RUN \
+    apt-get update && \
+    apt-get install -y \
+        sudo \
+        python3 \
+        && \
+    apt-get clean
