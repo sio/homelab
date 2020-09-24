@@ -36,12 +36,14 @@
   file:
     path: '{{ item.path }}'
     state: directory
+    mode: '0755'
   with_items: '{{ samba_shares }}'
 
 - name: configure samba server
   template:
     src: templates/samba.conf.j2
     dest: /etc/samba/smb.conf
+    mode: '0644'
   notify: restart samba server
 
 - name: start samba server

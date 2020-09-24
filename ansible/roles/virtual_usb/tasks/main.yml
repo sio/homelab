@@ -6,6 +6,7 @@
   file:
     state: directory
     path: '{{ item }}'
+    mode: '0755'
   loop:
     - '{{ virtual_usb_definition|dirname }}'
     - '{{ virtual_usb_udev_rule|dirname }}'

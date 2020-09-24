@@ -6,6 +6,7 @@
   unarchive:  # backups must be sortable by filename
     src: '{{ lookup("fileglob", hlc_restore_dir + "/*", wantlist=True)|sort|last }}'
     dest: '{{ hlc_paths.data }}'
+    mode: '0755'
     creates: '{{ hlc_paths.data }}/database.sqlite'
     owner: '{{ hlc_username }}'
     group: '{{ hlc_username }}'

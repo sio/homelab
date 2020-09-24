@@ -7,5 +7,6 @@
     state: present
     line: '{{ item }}'
     create: yes
+    mode: '0644'
   with_items: '{{ modules }}'
   notify: update initramfs

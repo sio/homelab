@@ -28,6 +28,7 @@
   file:
     dest: '{{ virtual_machine_image|dirname }}'
     state: directory
+    mode: '0755'
 
 - name: check if virtual machine image exists
   stat:

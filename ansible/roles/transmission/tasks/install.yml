@@ -43,6 +43,7 @@
   template:
     src: templates/settings.json.j2
     dest: '{{ transmission_config }}/settings.json'
+    mode: '0600'
   check_mode: yes
   register: transmission_config_check
 

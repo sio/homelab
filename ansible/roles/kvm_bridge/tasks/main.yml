@@ -23,6 +23,7 @@
     content: ''
     force: no  # do not overwrite existing file
     dest: '{{ kvm_bridge_config_file }}'
+    mode: '0644'
 
 - name: check if bridge entry was previously created
   lineinfile:

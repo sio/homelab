@@ -10,6 +10,7 @@
       file:
         state: directory
         path: '{{ item }}'
+        mode: '0755'
       with_items:
         - /etc/letsencrypt/live/morebooks.ml
         - /etc/ssl/private

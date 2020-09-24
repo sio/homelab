@@ -24,6 +24,7 @@
   file:
     path: '{{ supysonic_music_dir }}'
     state: directory
+    mode: '0755'
 
 - name: add music folder to supysonic
   # become: '{{ supysonic_user }}' will trigger an error
