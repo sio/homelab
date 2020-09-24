@@ -13,6 +13,17 @@ platforms:
     tmpfs:
       - /run
       - /tmp
+  - name: debian11-docker
+    image: potyarkin/molecule:debian-11-systemd
+    pre_build_image: true
+    command: /sbin/init
+    privileged: yes
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /lib/modules:/lib/modules:ro
+    tmpfs:
+      - /run
+      - /tmp
 
 provisioner:
   log: true
