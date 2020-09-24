@@ -1,5 +1,7 @@
 ---
 
+- include: assert.yml
+
 - name: create user accounts if missing
   user:
     name: '{{ item }}'

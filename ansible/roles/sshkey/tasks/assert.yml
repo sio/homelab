@@ -1,0 +1,5 @@
+---
+- name: check that required variables are defined
+  assert:
+    that:
+      - sshkey_only is defined

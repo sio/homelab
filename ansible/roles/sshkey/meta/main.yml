@@ -1,10 +1,4 @@
 ---
-dependencies:
-  - role: require
-    require:
-      defined:
-        - sshkey_only
-
 galaxy_info:
   role_name: sshkey
   author: Vitaly Potyarkin
