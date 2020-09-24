@@ -3,6 +3,11 @@
 #
 ---
 
+- name: update package list (apt)
+  apt:
+    cache_valid_time: 3600
+  when: ansible_pkg_mgr == 'apt'
+
 - name: install essential packages
   package:
     name: '{{ server_packages }}'
