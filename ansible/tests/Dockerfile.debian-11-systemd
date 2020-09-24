@@ -12,4 +12,5 @@ RUN apt-get update && \
     apt-get install -y \
         systemd \
         && \
+    ln -s /lib/systemd/systemd /sbin/init && \
     apt-get clean
