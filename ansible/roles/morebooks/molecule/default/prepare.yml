@@ -3,7 +3,9 @@
   tasks:
     - name: install pyopenssl
       package:
-        name: python-openssl
+        name:
+          - python-openssl
+          - python3-openssl
         state: present
 
     - name: create certificate directories
