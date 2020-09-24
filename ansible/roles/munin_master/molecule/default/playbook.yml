@@ -5,7 +5,7 @@
   roles:
     - role: munin_master
       server_keys_public:
-        - '{{ lookup("env", "MOLECULE_EPHEMERAL_DIRECTORY") }}/testkey.pub'
+        - '{{ molecule_ephemeral_directory }}/testkey.pub'
       munin_master_nodes:
         - name: localhost
           address: 127.0.0.1

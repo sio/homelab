@@ -10,7 +10,7 @@ provisioner:
   inventory:
     group_vars:
       all:
-        infra_dir: '{{ lookup("env", "MOLECULE_EPHEMERAL_DIRECTORY") }}'
+        infra_dir: '{{ molecule_ephemeral_directory }}'
 
 driver:
   name: vagrant

@@ -5,4 +5,4 @@
       delegate_to: localhost
       get_url:
         url: https://raw.githubusercontent.com/hashicorp/vagrant/master/keys/vagrant.pub
-        dest:  '{{ lookup("env", "MOLECULE_EPHEMERAL_DIRECTORY") }}/vagrant-insecure.pub'
+        dest:  '{{ molecule_ephemeral_directory }}/vagrant-insecure.pub'

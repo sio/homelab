@@ -6,7 +6,7 @@
     supysonic_music_dir: /music
     supysonic_url: url.to.supysonic
     server_keys_public:
-      - '{{ lookup("env", "MOLECULE_EPHEMERAL_DIRECTORY") }}/testkey.pub'
+      - '{{ molecule_ephemeral_directory }}/testkey.pub'
   roles:
     - role: munin_master
     - role: supysonic

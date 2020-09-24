@@ -13,7 +13,7 @@
 
     - name: create ssh keys on control machine
       openssh_keypair:
-        path: '{{ lookup("env", "MOLECULE_EPHEMERAL_DIRECTORY") }}/{{ item }}'
+        path: '{{ molecule_ephemeral_directory }}/{{ item }}'
       loop:
         - alice-one
         - alice-two
@@ -28,6 +28,6 @@
         state: present
       loop:
         - user: bob
-          key: '{{ lookup("env", "MOLECULE_EPHEMERAL_DIRECTORY") }}/alice-one.pub'
+          key: '{{ molecule_ephemeral_directory }}/alice-one.pub'
         - user: charlie
-          key: '{{ lookup("env", "MOLECULE_EPHEMERAL_DIRECTORY") }}/charlie.pub'
+          key: '{{ molecule_ephemeral_directory }}/charlie.pub'

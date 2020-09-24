@@ -6,7 +6,7 @@
     - role: sshkey
       sshkey_only:
         alice:
-          - '{{ lookup("env", "MOLECULE_EPHEMERAL_DIRECTORY") + "/alice-one.pub" }}'
-          - '{{ lookup("env", "MOLECULE_EPHEMERAL_DIRECTORY") + "/alice-two.pub" }}'
+          - '{{ molecule_ephemeral_directory + "/alice-one.pub" }}'
+          - '{{ molecule_ephemeral_directory + "/alice-two.pub" }}'
         bob:
-          - '{{ lookup("env", "MOLECULE_EPHEMERAL_DIRECTORY") + "/bob.pub" }}'
+          - '{{ molecule_ephemeral_directory + "/bob.pub" }}'

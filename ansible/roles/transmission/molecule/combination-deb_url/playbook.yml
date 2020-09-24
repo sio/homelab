@@ -4,7 +4,7 @@
   become: true
   vars:
     server_keys_public:
-      - '{{ lookup("env", "MOLECULE_EPHEMERAL_DIRECTORY") }}/testkey.pub'
+      - '{{ molecule_ephemeral_directory }}/testkey.pub'
     transmission_instance:
       name: main
       port: 51001

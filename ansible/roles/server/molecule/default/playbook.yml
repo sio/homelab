@@ -5,4 +5,4 @@
   roles:
     - role: server
       server_keys_public:
-        - '{{ lookup("env", "MOLECULE_EPHEMERAL_DIRECTORY") }}/testkey.pub'
+        - '{{ molecule_ephemeral_directory }}/testkey.pub'
