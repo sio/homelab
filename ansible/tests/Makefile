@@ -38,6 +38,10 @@ YAMLLINT_CONFIG_FILE=$(abspath yamllint.yml)
 export YAMLLINT_CONFIG_FILE
 
 
+ANSIBLE_STDOUT_CALLBACK?=yaml
+export ANSIBLE_STDOUT_CALLBACK
+
+
 define message
 Usage: $(MAKE) [target]
 
