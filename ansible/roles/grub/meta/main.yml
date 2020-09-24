@@ -1,13 +1,4 @@
 ---
-dependencies:
-  - role: require
-    require:
-      defined:
-        - grub_kernel_params
-      equals:
-        ansible_os_family: Debian
-        ansible_pkg_mgr: apt
-
 galaxy_info:
   role_name: grub
   author: Vitaly Potyarkin

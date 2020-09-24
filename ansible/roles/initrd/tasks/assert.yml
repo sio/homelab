@@ -1,0 +1,7 @@
+---
+
+- name: check assertions
+  assert:
+    that:
+      - modules is defined
+      - ansible_os_family == "Debian"

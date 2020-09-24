@@ -227,15 +227,6 @@ test-role-packages:
         - ansible/roles/packages/**/*
 
 
-test-role-require:
-  extends: .test-ansible-role
-  variables:
-    ANSIBLE_ROLE: ../roles/require
-  rules:
-    - changes:
-        - ansible/roles/require/**/*
-
-
 test-role-sshkey:
   extends: .test-ansible-role
   variables:

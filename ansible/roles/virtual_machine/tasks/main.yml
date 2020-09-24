@@ -1,5 +1,7 @@
 ---
 
+- include: assert.yml
+
 - name: install virtualization tools
   apt:
     name:

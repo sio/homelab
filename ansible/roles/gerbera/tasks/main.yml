@@ -1,5 +1,7 @@
 ---
 
+- include: assert.yml
+
 - name: install gerbera
   package:
     name:

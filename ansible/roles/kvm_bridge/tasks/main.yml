@@ -1,5 +1,7 @@
 ---
 
+- include: assert.yml
+
 - name: update networking facts
   setup:
     filter: ansible_default_ipv4

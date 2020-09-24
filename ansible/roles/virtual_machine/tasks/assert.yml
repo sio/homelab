@@ -1,0 +1,9 @@
+---
+
+- name: check assertions
+  assert:
+    that:
+      - ansible_os_family == "Debian"
+      - ansible_pkg_mgr == "apt"
+      - virtual_machine_image is defined
+      - virtual_machine_image_url is defined

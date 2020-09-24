@@ -1,4 +1,6 @@
 ---
+- include: assert.yml
+
 - name: put modules in initramfs
   lineinfile:
     name: '{{ initrd_module_list }}'

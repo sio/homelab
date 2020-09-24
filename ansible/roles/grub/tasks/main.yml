@@ -10,6 +10,9 @@
 #     - splash
 #
 ---
+
+- include: assert.yml
+
 - name: straighten all escaped line breaks
   replace:
     name: '{{ grub_defaults }}'

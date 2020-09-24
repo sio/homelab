@@ -1,9 +1,5 @@
 ---
 dependencies:
-  - role: require
-    require:
-      defined:
-        - munin_fdcount_target
   - role: munin_node
 
 galaxy_info:

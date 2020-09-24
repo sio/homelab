@@ -3,6 +3,8 @@
 #
 ---
 
+- include: assert.yml
+
 # Install and configure daemon
 - include: install.yml
 

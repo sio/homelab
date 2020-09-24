@@ -1,13 +1,5 @@
 ---
 dependencies:
-  - role: require
-    require:
-      defined:
-        - supysonic_music_dir
-        - supysonic_url
-      equals:
-        ansible_os_family: Debian
-        ansible_pkg_mgr: apt
   - role: server
 
 galaxy_info:

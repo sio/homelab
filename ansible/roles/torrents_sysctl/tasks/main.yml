@@ -3,6 +3,8 @@
 #
 ---
 
+- include: assert.yml
+
 - name: ensure required packages are installed
   package:
     name:

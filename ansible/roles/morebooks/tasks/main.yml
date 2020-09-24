@@ -5,6 +5,9 @@
 # included earlier.
 #
 ---
+
+- include: assert.yml
+
 # System wide configuration
 - include: os.yml
 

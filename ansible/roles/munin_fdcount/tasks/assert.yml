@@ -1,0 +1,6 @@
+---
+
+- name: check assertions
+  assert:
+    that:
+      - munin_fdcount_target is defined

@@ -1,11 +1,4 @@
 ---
-dependencies:
-  - role: require
-    require:
-      equals:
-        ansible_os_family: Debian
-        ansible_pkg_mgr: apt
-
 galaxy_info:
   role_name: kvm_bridge
   author: Vitaly Potyarkin

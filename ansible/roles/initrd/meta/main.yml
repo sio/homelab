@@ -1,12 +1,4 @@
 ---
-dependencies:
-  - role: require
-    require:
-      defined:
-        - modules
-      equals:
-        ansible_os_family: Debian
-
 galaxy_info:
   role_name: initrd
   author: Vitaly Potyarkin

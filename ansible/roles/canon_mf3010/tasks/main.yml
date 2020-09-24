@@ -1,5 +1,7 @@
 ---
 
+- include: assert.yml
+
 - include: drivers.yml
 
 - include: cups.yml

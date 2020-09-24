@@ -1,4 +1,7 @@
 ---
+
+- include: assert.yml
+
 - name: install fdcount plugin
   get_url:
     url: https://github.com/sio/munin_plugin_fdcount/raw/master/fdcount.py

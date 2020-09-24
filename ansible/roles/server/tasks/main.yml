@@ -3,6 +3,8 @@
 #
 ---
 
+- include: assert.yml
+
 - name: change hostname according to inventory
   hostname:
     name: '{{ inventory_hostname_short }}'

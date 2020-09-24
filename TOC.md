@@ -17,7 +17,6 @@
         - [Configure munin master](ansible/roles/munin_master/README.md)
         - [Configure munin node](ansible/roles/munin_node/README.md)
         - [Manage extra packages not handled by other roles](ansible/roles/packages/README.md)
-        - [Check required variables before doing any work](ansible/roles/require/README.md)
         - [Share files over Windows local network](ansible/roles/samba/README.md)
         - [Base role for remotely controlled servers](ansible/roles/server/README.md)
         - [Definitive role for ssh key management](ansible/roles/sshkey/README.md)

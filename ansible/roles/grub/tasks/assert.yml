@@ -1,0 +1,8 @@
+---
+
+- name: check assertions
+  assert:
+    that:
+      - grub_kernel_params is defined
+      - ansible_os_family == "Debian"
+      - ansible_pkg_mgr == "apt"

@@ -1,6 +1,7 @@
 # Set up a server for Supysonic
 ---
 
+- include: assert.yml
 - include: install.yml
 - include: supysonic.yml
 - include: watcher.yml
