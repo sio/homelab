@@ -19,7 +19,7 @@
 - name: configure gerbera
   template:
     dest: /etc/gerbera/config.xml  # needs to be writable by gerbera user
-    src: 'templates/config-{{ ansible_distribution_release }}.xml'
+    src: '{{ gerbera_config_template }}'
     backup: yes
     mode: '0644'
   notify: restart gerbera
