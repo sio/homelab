@@ -3,3 +3,8 @@
 - name: reboot
   reboot:
   when: kvm_bridge_reboot
+
+- name: restart bridge interface
+  service:
+    name: 'ifup@{{ kvm_bridge_interface }}'
+    state: restarted

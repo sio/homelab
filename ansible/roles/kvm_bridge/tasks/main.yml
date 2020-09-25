@@ -46,7 +46,7 @@
     replace: '{{ kvm_bridge_interface }}'
     backup: yes
   when: (ansible_default_ipv4.interface != kvm_bridge_interface) and not kvm_bridge_created.found
-  notify: reboot
+  notify: restart bridge interface
 
 - name: check if bridge is enabled on startup
   lineinfile:
@@ -62,7 +62,7 @@
     path: '{{ kvm_bridge_config_file }}'
     line: 'auto {{ kvm_bridge_interface }}'
   when: not kvm_bridge_auto.found
-  notify: reboot
+  notify: restart bridge interface
 
 - name: check if bridge entry exists in config file
   lineinfile:
@@ -78,7 +78,7 @@
     path: '{{ kvm_bridge_config_file }}'
     line: 'iface {{ kvm_bridge_interface }} {{ kvm_bridge_fallback_iface }}'
   when: not kvm_bridge_definition.found
-  notify: reboot
+  notify: restart bridge interface
 
 - name: add physical interface to bridge
   interfaces_file:
@@ -91,7 +91,7 @@
     bridge_ports: '{{ ansible_default_ipv4.interface }}'
     pre-up: 'ip addr flush {{ ansible_default_ipv4.interface }}'
   when: (ansible_default_ipv4.interface != kvm_bridge_interface) and not kvm_bridge_created.found
-  notify: reboot
+  notify: restart bridge interface
 
 - name: specify bridge interface options
   interfaces_file:
@@ -102,7 +102,7 @@
     backup: yes
   loop: '{{ kvm_bridge_options|dict2items }}'
   when: (ansible_default_ipv4.interface != kvm_bridge_interface) and not kvm_bridge_created.found
-  notify: reboot
+  notify: restart bridge interface
 
 - name: read /etc/network/interfaces
   slurp:
@@ -111,5 +111,11 @@
 - name: show /etc/network/interfaces
   debug:
     msg: '{{ (interfaces["content"]|b64decode).splitlines() }}'
+
+- name: enable bridge interface
+  service:
+    name: 'ifup@{{ kvm_bridge_interface }}'
+    state: started
+    enabled: yes
 
 - meta: flush_handlers  # Reboot immediately before applying further roles
