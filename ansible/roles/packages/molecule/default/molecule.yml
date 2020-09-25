@@ -9,8 +9,5 @@ platforms:
     image: potyarkin/molecule:debian-11
     pre_build_image: true
 
-provisioner:
-  log: true
-
 verifier:
   name: ansible

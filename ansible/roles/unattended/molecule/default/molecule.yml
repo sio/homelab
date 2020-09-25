@@ -8,6 +8,3 @@ platforms:
   - name: debian11-docker
     image: potyarkin/molecule:debian-11
     pre_build_image: true
-
-provisioner:
-  log: true

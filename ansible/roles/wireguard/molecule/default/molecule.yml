@@ -14,9 +14,6 @@ platforms:
     box: debian/testing64
     memory: 1024
 
-provisioner:
-  log: true
-
 # Testinfra tests fail because the firewall on test instance
 # refuses frequent connection attempts
 verifier:

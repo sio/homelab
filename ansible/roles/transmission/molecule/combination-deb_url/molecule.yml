@@ -23,9 +23,6 @@ dependency:
     && ls -l "$MOLECULE_EPHEMERAL_DIRECTORY"/testkey*
     '
 
-provisioner:
-  log: true
-
 # Testinfra tests fail because the firewall on test instance
 # refuses frequent connection attempts
 verifier:

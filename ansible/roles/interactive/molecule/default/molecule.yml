@@ -17,6 +17,3 @@ dependency:
     || ssh-keygen -q -t ed25519 -a 10 -f "$MOLECULE_EPHEMERAL_DIRECTORY"/testkey -C "" -N ""
     && ls -l "$MOLECULE_EPHEMERAL_DIRECTORY"/testkey*
     '
-
-provisioner:
-  log: true
