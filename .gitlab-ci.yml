@@ -422,6 +422,7 @@ test-role-virtual_machine:
   extends: .test-ansible-role-kvm
   variables:
     ANSIBLE_ROLE: ../roles/virtual_machine
+    CIRRUS_RAM: 8G
   rules:
     - changes:
         - ansible/roles/kvm_bridge/**/*
