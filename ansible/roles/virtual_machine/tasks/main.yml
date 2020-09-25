@@ -8,7 +8,6 @@
       - qemu-kvm
       - libvirt-clients
       - libvirt-daemon-system
-      - python-libvirt
       - python3-libvirt
       - ksmtuned
     state: present

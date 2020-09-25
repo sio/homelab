@@ -6,7 +6,7 @@
       - apache2
       - ffmpeg
       - libapache2-mod-wsgi-py3
-      - python-certbot-apache
+      - python3-certbot-apache
       - python3
     state: present
 

@@ -4,7 +4,6 @@
     - name: install pyopenssl
       package:
         name:
-          - python-openssl
           - python3-openssl
         state: present
 
