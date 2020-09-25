@@ -9,6 +9,11 @@
         url: https://raw.githubusercontent.com/hashicorp/vagrant/master/keys/vagrant.pub
         dest:  '{{ molecule_ephemeral_directory }}/vagrant-insecure.pub'
 
+    - name: update package lists
+      apt:
+        cache_valid_time: 36000  # 10 hours
+      when: ansible_pkg_mgr == 'apt'
+
     - name: install pyopenssl
       package:
         name:

@@ -6,6 +6,11 @@
   setup:
     filter: ansible_default_ipv4
 
+- name: update package lists
+  apt:
+    cache_valid_time: 36000  # 10 hours
+  when: ansible_pkg_mgr == 'apt'
+
 - name: install bridge utils
   package:
     name: bridge-utils

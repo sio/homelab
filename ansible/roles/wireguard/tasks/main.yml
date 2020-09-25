@@ -7,6 +7,11 @@
     mode: '0600'
   when: ansible_distribution_release == 'buster'
 
+- name: update package lists
+  apt:
+    cache_valid_time: 36000  # 10 hours
+  when: ansible_pkg_mgr == 'apt'
+
 - name: install VPN packages
   package:
     name: wireguard

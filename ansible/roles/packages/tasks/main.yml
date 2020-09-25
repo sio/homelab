@@ -5,6 +5,7 @@
     name: '{{ packages_install }}'
     state: present
     install_recommends: '{{ packages_recommends }}'
+    cache_valid_time: 36000  # 10 hours
   when: packages_install and ansible_pkg_mgr == 'apt'
 
 - name: remove requested packages

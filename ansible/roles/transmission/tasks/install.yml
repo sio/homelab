@@ -16,6 +16,11 @@
     groups: '{{ transmission_user }}'
     append: yes
 
+- name: update package lists
+  apt:
+    cache_valid_time: 36000  # 10 hours
+  when: ansible_pkg_mgr == 'apt'
+
 - name: install transmission
   package:
     name:
