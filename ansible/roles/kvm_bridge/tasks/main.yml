@@ -13,7 +13,9 @@
 
 - name: install bridge utils
   package:
-    name: bridge-utils
+    name:
+      - bridge-utils
+      - ifupdown
     state: present
 
 - name: enable IP forwarding
