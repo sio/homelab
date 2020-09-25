@@ -12,6 +12,6 @@ def test_echo(host):
 
 
 def test_installed(host):
-    package = host.package('transmission-daemon')
+    package = host.package('fonts-materialdesignicons-webfont')
     assert package.is_installed
-    assert package.version == '2.94-2.1'
+    assert package.version == '1.4.57-1'
