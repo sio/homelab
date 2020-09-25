@@ -24,7 +24,7 @@
   debconf:
     name: locales
     question: locales/locales_to_be_generated
-    value: 'en_US.UTF-8 UTF-8, {{ server_locale.name }} {{ server_locale.charset }}'
+    value: '{{ ["en_US.UTF-8 UTF-8", server_locale.name + " " + server_locale.charset] | unique | join(", ") }}'
     vtype: multiselect
 
 - name: generate locales
