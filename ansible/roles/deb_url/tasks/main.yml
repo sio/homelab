@@ -24,8 +24,12 @@
     checksum: '{{ item.checksum }}'
     mode: '0600'
   with_items: '{{ deb_url_packages }}'
+  loop_control:
+    label: '{{ item.url }}'
 
 - name: install custom packages
   apt:
     deb: '{{ deb_url_storage }}/{{ item.checksum }}'
   with_items: '{{ deb_url_packages }}'
+  loop_control:
+    label: '{{ item.url }}'
