@@ -5,6 +5,10 @@ driver:
 provisioner:
   name: ansible
   log: true
+  inventory:
+    group_vars:
+      all:
+        ansible_python_interpreter: /usr/bin/python3
 
 verifier:
   name: testinfra
