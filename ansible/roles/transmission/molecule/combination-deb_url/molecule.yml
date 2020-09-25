@@ -10,9 +10,7 @@ platforms:
   - name: debian10-vm
     box: debian/buster64
     memory: 1024
-  - name: debian11-vm
-    box: debian/testing64
-    memory: 1024
+  # TODO: Build patched packages for Bullseye and add to tested platforms
 
 dependency:
   name: shell
