@@ -15,6 +15,10 @@ CONTENT_PATCH?=$(patsubst %.iso,%.patch,$(INPUT_ISO))
 CMAKE?=cmake
 ISO_MBR_HEADER?=$(CONTENT_DIR)/../isohdpfx.bin
 ISO_EFI_PARTITION?=$(CONTENT_DIR)/../isoefipart.bin
+BOOT_EFI?=yes
+ifeq (yes,$(BOOT_EFI))
+BOOT_EFI_ARGS=-bios /usr/share/qemu/OVMF.fd
+endif
 
 
 .PHONY: env-check
@@ -64,6 +68,7 @@ boot:
 		-device virtio-net,netdev=user.0 \
 		-vnc 127.0.0.1:99 \
 		-cdrom $(OUTPUT_ISO) \
+		$(BOOT_EFI_ARGS) \
 		-netdev user,id=user.0,hostfwd=tcp::4040-:5985
 
 
