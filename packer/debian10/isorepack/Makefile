@@ -79,8 +79,8 @@ $(OUTPUT_ISO): $(CONTENT_DIR) $(ISO_HEADER) | env-check
 		-as mkisofs \
 		-o $(OUTPUT_ISO) \
 		-isohybrid-mbr $(ISO_HEADER) \
-		-c isolinux/boot.cat \
-		-b isolinux/isolinux.bin \
+		-c $$(find $(CONTENT_DIR) -name boot.cat -type f -printf '%P\n') \
+		-b $$(find $(CONTENT_DIR) -name isolinux.bin -type f -printf '%P\n') \
 		-no-emul-boot \
 		-boot-load-size 4 \
 		-boot-info-table \
