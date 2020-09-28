@@ -48,8 +48,9 @@ repack: $(OUTPUT_ISO)
 .PHONY: clean
 clean:
 	$(RM) -r \
-		"$(OUTPUT_ISO)" \
 		"$(CONTENT_DIR)" \
+		"$(OUTPUT_ISO)" \
+		"$(OUTPUT_ISO).sha256sum" \
 
 
 $(INPUT_ISO):
