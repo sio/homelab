@@ -11,7 +11,8 @@
     - role: interactive
       interactive_user: user
     - role: packages
-      packages_install: '{{ playground_packages }}'
+      packages_install: '{{ playground_packages }}'  # group_vars/all.yml
+      packages_recommends: no
   pre_tasks:
     - name: enable backports repo
       apt_repository:
