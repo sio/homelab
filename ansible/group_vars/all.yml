@@ -1,0 +1,26 @@
+---
+playground_packages:
+  # Containerisation and virtualisation
+  - cpu-checker
+  - docker.io
+  - libvirt-clients
+  - libvirt-daemon-system
+  - packer
+  - qemu-kvm
+  - qemu-utils
+  - vagrant
+  - vagrant-libvirt
+  # Developer tools
+  - git
+  - make
+  - cmake
+  - build-essential
+  # Other tools
+  - aria2
+  - psmisc
+  - python3-venv
+  - python3-yaml
+  - sudo
+  - sysbench
+  - tmux
+  - vim

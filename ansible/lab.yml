@@ -37,22 +37,7 @@
     - role: interactive
       interactive_user: op
     - role: packages
-      packages_install:
-        # Developer tools
-        - git
-        - make
-        - cmake
-        - build-essential
-        - packer
-        # Other tools
-        - aria2
-        - psmisc
-        - python3-venv
-        - python3-yaml
-        - sudo
-        - sysbench
-        - tmux
-        - vim
+      packages_install: '{{ playground_packages }}'
     - role: munin_node
     - role: munin_smart
     - role: sshkey

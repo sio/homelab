@@ -11,29 +11,7 @@
     - role: interactive
       interactive_user: user
     - role: packages
-      packages_install:
-        # Containerisation and virtualisation
-        - docker.io
-        - cpu-checker
-        - libvirt-clients
-        - libvirt-daemon-system
-        - packer
-        - qemu-kvm
-        - qemu-utils
-        # Developer tools
-        - git
-        - make
-        - cmake
-        - build-essential
-        # Other tools
-        - aria2
-        - psmisc
-        - python3-venv
-        - python3-yaml
-        - sudo
-        - sysbench
-        - tmux
-        - vim
+      packages_install: '{{ playground_packages }}'
   pre_tasks:
     - name: enable backports repo
       apt_repository:
