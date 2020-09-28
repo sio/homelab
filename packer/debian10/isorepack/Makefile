@@ -34,7 +34,7 @@ env:
 
 
 .PHONY: unpack
-unpack: $(CONTENT_DIR) | env-check
+unpack: $(CONTENT_DIR)
 
 
 .PHONY: patch
@@ -42,7 +42,7 @@ patch:
 
 
 .PHONY: repack
-repack: $(OUTPUT_ISO) | env-check
+repack: $(OUTPUT_ISO)
 
 
 .PHONY: clean
@@ -59,7 +59,7 @@ $(INPUT_ISO):
 	sha256sum $@ > $@.sha256sum
 
 
-$(CONTENT_DIR): $(INPUT_ISO)
+$(CONTENT_DIR): $(INPUT_ISO) | env-check
 	mkdir -p $(CONTENT_DIR)
 	export ISO=$(abspath $(INPUT_ISO)); \
 	cd $(CONTENT_DIR) && $(CMAKE) -E tar xf $$ISO
@@ -71,7 +71,7 @@ $(ISO_HEADER):
 	dd if=$(INPUT_ISO) bs=1 count=432 of=$@
 
 
-$(OUTPUT_ISO): $(CONTENT_DIR) $(ISO_HEADER)
+$(OUTPUT_ISO): $(CONTENT_DIR) $(ISO_HEADER) | env-check
 	cd $(CONTENT_DIR) && \
 		md5sum $$(find ! -name "md5sum.txt" ! -path "./isolinux/*" -follow -type f) \
 		> md5sum.txt
