@@ -61,7 +61,8 @@ $(INPUT_ISO):
 
 $(CONTENT_DIR): $(INPUT_ISO)
 	mkdir -p $(CONTENT_DIR)
-	$(CMAKE) -E tar -xf $(INPUT_ISO) -C $(CONTENT_DIR)
+	export ISO=$(abspath $(INPUT_ISO)); \
+	cd $(CONTENT_DIR) && $(CMAKE) -E tar xf $$ISO
 	chmod -R +w $(CONTENT_DIR)
 
 
