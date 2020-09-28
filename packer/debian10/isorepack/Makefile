@@ -101,12 +101,18 @@ $(OUTPUT_ISO): $(CONTENT_DIR) $(ISO_MBR_HEADER) | env-check
 		> md5sum.txt
 	xorriso \
 		-as mkisofs \
+		-r \
 		-o $(OUTPUT_ISO) \
 		-isohybrid-mbr $(ISO_MBR_HEADER) \
-		-c $$(find $(CONTENT_DIR) -name boot.cat -type f -printf '%P\n') \
 		-b $$(find $(CONTENT_DIR) -name isolinux.bin -type f -printf '%P\n') \
-		-no-emul-boot \
+		-c $$(find $(CONTENT_DIR) -name boot.cat -type f -printf '%P\n') \
 		-boot-load-size 4 \
 		-boot-info-table \
+		-no-emul-boot \
+		-eltorito-alt-boot \
+		-e $$(find $(CONTENT_DIR) -name efi.img -type f -printf '%P\n') \
+		-no-emul-boot \
+		-isohybrid-gpt-basdat \
+		-isohybrid-apm-hfsplus \
 		$(CONTENT_DIR)
 	$(MAKE) $(OUTPUT_ISO).sha256sum
