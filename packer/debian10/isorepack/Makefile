@@ -76,7 +76,7 @@ $(INPUT_ISO):
 	curl \
 		-o $@ \
 		-L "$(REMOTE_ISO)"
-	$(MAKE) $@.sha256sum
+	$(MAKE) $@.sha256sum --assume-old=$@
 
 
 %.iso.sha256sum: %.iso
@@ -115,4 +115,4 @@ $(OUTPUT_ISO): $(CONTENT_DIR) $(ISO_MBR_HEADER) | env-check
 		-isohybrid-gpt-basdat \
 		-isohybrid-apm-hfsplus \
 		$(CONTENT_DIR)
-	$(MAKE) $(OUTPUT_ISO).sha256sum
+	$(MAKE) $(OUTPUT_ISO).sha256sum --assume-old=$(OUTPUT_ISO)
