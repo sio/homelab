@@ -14,6 +14,7 @@ CONTENT_PATCH?=$(patsubst %.iso,%.patch,$(INPUT_ISO))
 # Internal variables
 CMAKE?=cmake
 ISO_HEADER?=$(CONTENT_DIR)/../isohdpfx.bin
+ISO_EFI_PARTITION?=$(CONTENT_DIR)/../isoefipart.bin
 
 
 .PHONY: env-check
@@ -51,6 +52,19 @@ clean:
 		"$(CONTENT_DIR)" \
 		"$(OUTPUT_ISO)" \
 		"$(OUTPUT_ISO).sha256sum" \
+
+
+.PHONY: boot
+boot:
+	kvm \
+		-m 1024M \
+		-smp cpus=2,sockets=2 \
+		-machine type=pc,accel=kvm \
+		-cpu qemu64 \
+		-device virtio-net,netdev=user.0 \
+		-vnc 127.0.0.1:99 \
+		-cdrom $(OUTPUT_ISO) \
+		-netdev user,id=user.0,hostfwd=tcp::4040-:5985
 
 
 $(INPUT_ISO):
