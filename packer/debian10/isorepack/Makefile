@@ -12,8 +12,8 @@ CONTENT_PATCH?=$(patsubst %.iso,%.patch,$(INPUT_ISO))
 
 
 # Internal variables
-$(CMAKE)?=cmake
-$(ISO_HEADER)?=$(CONTENT_DIR)/../isohdpfx.bin
+CMAKE?=cmake
+ISO_HEADER?=$(CONTENT_DIR)/../isohdpfx.bin
 
 
 .PHONY: env-check
