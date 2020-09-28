@@ -24,11 +24,11 @@ platforms:
       - playground
     box: debian/buster64
     memory: 1024
-  - name: debian11-vm
-    groups:
-      - playground
-    box: debian/testing64
-    memory: 1024
+# - name: debian11-vm  # TODO: enable CI for testing when packer is readded to package repo
+#   groups:
+#     - playground
+#   box: debian/testing64
+#   memory: 1024
 
 dependency:
   name: shell
