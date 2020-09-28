@@ -56,7 +56,11 @@ $(INPUT_ISO):
 	curl \
 		-o $@ \
 		-L "$(REMOTE_ISO)"
-	sha256sum $@ > $@.sha256sum
+	$(MAKE) $@.sha256sum
+
+
+%.iso.sha256sum: %.iso
+	sha256sum $< > $@
 
 
 $(CONTENT_DIR): $(INPUT_ISO) | env-check
@@ -85,3 +89,4 @@ $(OUTPUT_ISO): $(CONTENT_DIR) $(ISO_HEADER) | env-check
 		-boot-load-size 4 \
 		-boot-info-table \
 		$(CONTENT_DIR)
+	$(MAKE) $(OUTPUT_ISO).sha256sum
