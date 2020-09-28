@@ -1,5 +1,5 @@
 ---
-- hosts: playground
+- hosts: playground  # TODO: integrate into lab.yml, remove playground.yml
   become: yes
   roles:
     - role: upgrade
