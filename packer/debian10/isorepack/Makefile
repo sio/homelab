@@ -7,6 +7,7 @@
 REMOTE_ISO?=https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-10.6.0-amd64-netinst.iso
 INPUT_ISO?=input.iso
 OUTPUT_ISO?=output.iso
+PRESEED=../baremetal.cfg
 CONTENT_DIR?=isocontent
 CONTENT_PATCH?=$(patsubst %.iso,%.patch,$(INPUT_ISO))
 
@@ -43,7 +44,11 @@ unpack: $(CONTENT_DIR)
 
 
 .PHONY: patch
-patch:
+patch: $(CONTENT_DIR)
+	export INITRD_GZ=$$(find $(CONTENT_DIR) -regextype egrep -regex '.*install\.\w*/initrd.gz') && \
+	gunzip $$INITRD_GZ && \
+	echo $(PRESEED) | cpio -H newc -o -A -F $${INITRD_GZ%.gz} && \
+	gzip $${INITRD_GZ%.gz}
 
 
 .PHONY: repack
@@ -95,7 +100,7 @@ $(ISO_MBR_HEADER):
 	dd if=$(INPUT_ISO) bs=1 count=432 of=$@
 
 
-$(OUTPUT_ISO): $(CONTENT_DIR) $(ISO_MBR_HEADER) | env-check
+$(OUTPUT_ISO): $(CONTENT_DIR) $(ISO_MBR_HEADER) patch | env-check
 	cd $(CONTENT_DIR) && \
 		md5sum $$(find ! -name "md5sum.txt" ! -path "./isolinux/*" -follow -type f) \
 		> md5sum.txt
