@@ -13,7 +13,7 @@ CONTENT_PATCH?=$(patsubst %.iso,%.patch,$(INPUT_ISO))
 
 # Internal variables
 CMAKE?=cmake
-ISO_HEADER?=$(CONTENT_DIR)/../isohdpfx.bin
+ISO_MBR_HEADER?=$(CONTENT_DIR)/../isohdpfx.bin
 ISO_EFI_PARTITION?=$(CONTENT_DIR)/../isoefipart.bin
 
 
@@ -85,19 +85,19 @@ $(CONTENT_DIR): $(INPUT_ISO) | env-check
 	chmod -R +w $(CONTENT_DIR)
 
 
-.INTERMEDIATE: $(ISO_HEADER)
-$(ISO_HEADER):
+.INTERMEDIATE: $(ISO_MBR_HEADER)
+$(ISO_MBR_HEADER):
 	dd if=$(INPUT_ISO) bs=1 count=432 of=$@
 
 
-$(OUTPUT_ISO): $(CONTENT_DIR) $(ISO_HEADER) | env-check
+$(OUTPUT_ISO): $(CONTENT_DIR) $(ISO_MBR_HEADER) | env-check
 	cd $(CONTENT_DIR) && \
 		md5sum $$(find ! -name "md5sum.txt" ! -path "./isolinux/*" -follow -type f) \
 		> md5sum.txt
 	xorriso \
 		-as mkisofs \
 		-o $(OUTPUT_ISO) \
-		-isohybrid-mbr $(ISO_HEADER) \
+		-isohybrid-mbr $(ISO_MBR_HEADER) \
 		-c $$(find $(CONTENT_DIR) -name boot.cat -type f -printf '%P\n') \
 		-b $$(find $(CONTENT_DIR) -name isolinux.bin -type f -printf '%P\n') \
 		-no-emul-boot \
