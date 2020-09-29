@@ -20,6 +20,7 @@ BOOT_EFI?=yes
 ifeq (yes,$(BOOT_EFI))
 BOOT_EFI_ARGS=-bios /usr/share/qemu/OVMF.fd
 endif
+BOOT_DISK?=
 
 
 .PHONY: env-check
@@ -98,12 +99,20 @@ boot:
 		-drive id=pendrive,file=$(OUTPUT_ISO),format=raw,if=none \
 		-device usb-storage,drive=pendrive \
 		-boot menu=on \
-		$(BOOT_EFI_ARGS) \
+		$(BOOT_EFI_ARGS) $(BOOT_DISK_ARGS) \
 		-netdev user,id=user.0,hostfwd=tcp::4040-:5985
 
 
 ../baremetal.cfg:
 	$(MAKE) -C .. baremetal.cfg
+
+
+ifdef BOOT_DISK
+BOOT_DISK_ARGS=-drive file=$(BOOT_DISK),if=virtio,format=qcow2
+boot: $(BOOT_DISK)
+$(BOOT_DISK):
+	qemu-img create -f qcow2 $(BOOT_DISK) 10G
+endif
 
 
 $(INPUT_ISO):
