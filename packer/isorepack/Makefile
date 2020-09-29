@@ -41,8 +41,8 @@ env:
 		xorriso \
 
 
-debian-preseed-image: export INPUT_ISO=debian-10.iso
 debian-preseed-image: export PRESEED=../debian10/baremetal.cfg
+debian-preseed-image: export CONTENT_PATCH=debian-10.patch
 debian-preseed-image:
 	$(MAKE) repack
 
