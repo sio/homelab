@@ -99,6 +99,22 @@ check:
 	./check-readme.sh
 
 
+.PHONY: check-debian-release
+check-debian-release:
+	@for RELEASE in debian10 debian11; \
+	do \
+		ERRORS=$$(find .. -name molecule.yml \
+			! -path '*/.*/*' \
+			! -path '../tests/molecule.yml' \
+			-exec grep -L $$RELEASE {} \;) ;\
+		[ -z "$$ERRORS" ] || { \
+			echo "Missing test instance for: $$RELEASE"; \
+			echo "$$ERRORS"; \
+			RETCODE=199; \
+		}; \
+	done; \
+	[ -z "$$RETCODE" ] || exit $$RETCODE;
+
 include Makefile.venv
 Makefile.venv:
 	curl \
