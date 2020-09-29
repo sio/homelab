@@ -7,7 +7,7 @@
 REMOTE_ISO?=https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-10.6.0-amd64-netinst.iso
 INPUT_ISO?=input.iso
 OUTPUT_ISO?=output.iso
-PRESEED=../baremetal.cfg
+PRESEED?=preseed.cfg
 CONTENT_DIR?=isocontent
 CONTENT_PATCH?=$(patsubst %.iso,%.patch,$(INPUT_ISO))
 
@@ -42,6 +42,7 @@ env:
 
 
 debian-preseed-image: export INPUT_ISO=debian-10.iso
+debian-preseed-image: export PRESEED=../debian10/baremetal.cfg
 debian-preseed-image:
 	$(MAKE) repack
 
@@ -109,8 +110,8 @@ boot:
 		-netdev user,id=user.0,hostfwd=tcp::4040-:5985
 
 
-../baremetal.cfg:
-	$(MAKE) -C .. baremetal.cfg
+../debian10/baremetal.cfg:
+	$(MAKE) -C $(dir $@) $(notdir $@)
 
 
 ifdef BOOT_DISK
