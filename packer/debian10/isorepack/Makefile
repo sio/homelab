@@ -41,6 +41,11 @@ env:
 		xorriso \
 
 
+debian-preseed-image: export INPUT_ISO=debian-10.iso
+debian-preseed-image:
+	$(MAKE) repack
+
+
 .PHONY: unpack
 unpack: $(CONTENT_DIR)
 
