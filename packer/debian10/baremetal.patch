@@ -14,7 +14,7 @@
 
  d-i debian-installer/locale string en_US
  d-i keyboard-configuration/xkb-keymap select us
-@@ -52,7 +57,24 @@
+@@ -52,7 +57,25 @@
  popularity-contest popularity-contest/participate boolean false
  d-i grub-installer/only_debian boolean true
  d-i grub-installer/with_other_os boolean true
@@ -40,3 +40,4 @@
 +d-i hostname string unassigned-debian-system
 +d-i domain string unassigned-domain
 +d-i auto-install/enable boolean true
++d-i debian-installer/exit/halt boolean true
