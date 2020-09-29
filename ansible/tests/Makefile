@@ -106,7 +106,7 @@ check-debian-release:
 		ERRORS=$$(find .. -name molecule.yml \
 			! -path '*/.*/*' \
 			! -path '../tests/molecule.yml' \
-			-exec grep -L $$RELEASE {} \;) ;\
+			-exec grep -LE "^[^#]*$$RELEASE" {} \;) ;\
 		[ -z "$$ERRORS" ] || { \
 			echo "Missing test instance for: $$RELEASE"; \
 			echo "$$ERRORS"; \
