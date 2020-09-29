@@ -102,6 +102,10 @@ boot:
 		-netdev user,id=user.0,hostfwd=tcp::4040-:5985
 
 
+../baremetal.cfg:
+	$(MAKE) -C .. baremetal.cfg
+
+
 $(INPUT_ISO):
 	curl \
 		-o $@ \
