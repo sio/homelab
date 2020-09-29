@@ -44,7 +44,17 @@ unpack: $(CONTENT_DIR)
 
 
 .PHONY: patch
-patch: $(CONTENT_DIR)
+patch: patch-menu
+
+
+.PHONY: patch-menu
+patch-menu: $(CONTENT_DIR) $(CONTENT_PATCH) $(PRESEED)
+	cd $(CONTENT_DIR) && patch -p0 < $(abspath $(CONTENT_PATCH))
+	cp $(PRESEED) $(CONTENT_DIR)/preseed.cfg
+
+
+.PHONY: patch-initrd
+patch-initrd: $(CONTENT_DIR) $(PRESEED)
 	export INITRD_GZ=$$(find $(CONTENT_DIR) -regextype egrep -regex '.*install\.\w*/initrd.gz') && \
 	gunzip $$INITRD_GZ && \
 	echo $(PRESEED) | cpio -H newc -o -A -F $${INITRD_GZ%.gz} && \
@@ -61,6 +71,18 @@ clean:
 		"$(CONTENT_DIR)" \
 		"$(OUTPUT_ISO)" \
 		"$(OUTPUT_ISO).sha256sum" \
+
+
+.PHONY: diff
+diff:
+ifndef CONTENT_ORIG
+	$(error Variable not defined: CONTENT_ORIG)
+endif
+	diff -ruN --ignore-trailing-space $(CONTENT_ORIG) $(CONTENT_DIR) > $(CONTENT_PATCH) || true
+	sed -i \
+		-e 's:^--- $(CONTENT_ORIG)/*:--- :g' \
+		-e 's:^+++ $(CONTENT_DIR)/*:+++ :g' \
+		$(CONTENT_PATCH)
 
 
 .PHONY: boot
