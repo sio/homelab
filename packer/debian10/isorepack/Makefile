@@ -72,7 +72,10 @@ boot:
 		-cpu qemu64 \
 		-device virtio-net,netdev=user.0 \
 		-vnc 127.0.0.1:99 \
-		-cdrom $(OUTPUT_ISO) \
+		-device qemu-xhci \
+		-drive id=pendrive,file=$(OUTPUT_ISO),format=raw,if=none \
+		-device usb-storage,drive=pendrive \
+		-boot menu=on \
 		$(BOOT_EFI_ARGS) \
 		-netdev user,id=user.0,hostfwd=tcp::4040-:5985
 
