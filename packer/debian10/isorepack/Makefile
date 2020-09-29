@@ -49,7 +49,7 @@ patch: patch-menu
 
 .PHONY: patch-menu
 patch-menu: $(CONTENT_DIR) $(CONTENT_PATCH) $(PRESEED)
-	cd $(CONTENT_DIR) && patch -p0 < $(abspath $(CONTENT_PATCH))
+	cd $(CONTENT_DIR) && patch -p0 --no-backup-if-mismatch < $(abspath $(CONTENT_PATCH))
 	cp $(PRESEED) $(CONTENT_DIR)/preseed.cfg
 
 
