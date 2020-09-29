@@ -1,10 +1,13 @@
 diff -ruN --ignore-trailing-space /mnt/boot/grub/grub.cfg isocontent/boot/grub/grub.cfg
 --- boot/grub/grub.cfg	2020-09-26 10:18:22.000000000 +0000
 +++ boot/grub/grub.cfg	2020-09-29 08:20:16.681200218 +0000
-@@ -24,6 +24,16 @@
+@@ -24,6 +24,19 @@
  insmod play
  play 960 440 1 0 4 440 1
  set theme=/boot/grub/theme/1
++set timeout_style=menu
++set timeout=15
++set default="0"
 +menuentry --hotkey=a 'UNATTENDED AUTOMATED INSTALL (WIPE DISK)' {
 +    set background_color=black
 +    linux    /install.amd/vmlinuz vga=788 --- quiet \
