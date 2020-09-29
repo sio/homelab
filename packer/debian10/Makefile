@@ -26,7 +26,7 @@ remote-build: export VM_PASSWORD?=hello
 
 
 PATCHES=baremetal.patch
-ifdef EFI
+ifeq (yes,EFI)
 PATCHES+=baremetal-efi.patch
 endif
 

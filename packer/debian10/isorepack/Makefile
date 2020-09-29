@@ -16,9 +16,10 @@ CONTENT_PATCH?=$(patsubst %.iso,%.patch,$(INPUT_ISO))
 CMAKE?=cmake
 ISO_MBR_HEADER?=$(CONTENT_DIR)/../isohdpfx.bin
 ISO_EFI_PARTITION?=$(CONTENT_DIR)/../isoefipart.bin
-BOOT_EFI?=yes
-ifeq (yes,$(BOOT_EFI))
+EFI?=yes
+ifeq (yes,$(EFI))
 BOOT_EFI_ARGS=-bios /usr/share/qemu/OVMF.fd
+export EFI
 endif
 BOOT_DISK?=
 
