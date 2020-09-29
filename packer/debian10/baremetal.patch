@@ -1,6 +1,24 @@
---- baremetal.cfg	2020-09-08 17:55:28.316608000 +0300
-+++ baremetal.cfg	2020-09-08 17:55:28.285358300 +0300
-@@ -56,3 +56,21 @@
+--- baremetal.cfg	2020-09-29 07:26:46.436713000 +0000
++++ baremetal.cfg	2020-09-29 09:02:06.053138875 +0000
+@@ -4,7 +4,12 @@
+ # https://www.debian.org/releases/buster/example-preseed.txt
+
+ d-i partman/early_command \
+-       string debconf-set partman-auto/disk "$(list-devices disk | head -n1)"
++       string \
++           USBDEV=$(list-devices usb-partition|sed 's|\(.*\).|\1|'|head -n1); \
++           [ -z "$USBDEV" ] && USBDEV="usb drive not in use"; \
++           BOOTDEV=$(list-devices disk|grep -v "$USBDEV"|head -n1); \
++           debconf-set partman-auto/disk $BOOTDEV; \
++           debconf-set grub-installer/bootdev $BOOTDEV; \
+
+ d-i debian-installer/locale string en_US
+ d-i keyboard-configuration/xkb-keymap select us
+@@ -52,7 +57,24 @@
+ popularity-contest popularity-contest/participate boolean false
+ d-i grub-installer/only_debian boolean true
+ d-i grub-installer/with_other_os boolean true
+-d-i grub-installer/bootdev string default
  d-i finish-install/reboot_in_progress note
 
  d-i preseed/late_command string echo "PermitRootLogin yes" >> /target/etc/ssh/sshd_config
