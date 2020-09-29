@@ -7,7 +7,7 @@
 -       string debconf-set partman-auto/disk "$(list-devices disk | head -n1)"
 +       string \
 +           USBDEV=$(list-devices usb-partition|sed 's|\(.*\).|\1|'|head -n1); \
-+           [ -z "$USBDEV" ] && USBDEV="usb drive not in use"; \
++           [ -n "$USBDEV" ] || USBDEV="usb drive not in use"; \
 +           BOOTDEV=$(list-devices disk|grep -v "$USBDEV"|head -n1); \
 +           debconf-set partman-auto/disk $BOOTDEV; \
 +           debconf-set grub-installer/bootdev $BOOTDEV; \
