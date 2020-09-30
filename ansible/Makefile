@@ -6,6 +6,10 @@ PLAYBOOK_RUNNER?=ansible-playbook
 PLAYBOOK_TIMER?=time
 PLAYBOOK_ARGS?=
 
+ANSIBLE_STDOUT_CALLBACK?=yaml
+export ANSIBLE_STDOUT_CALLBACK
+
+
 PLAYBOOKS=$(patsubst %.yml,%,$(wildcard *.yml))
 
 
