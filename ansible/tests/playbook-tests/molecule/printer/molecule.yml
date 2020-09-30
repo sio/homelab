@@ -13,7 +13,7 @@ provisioner:
         ansible_python_interpreter: /usr/bin/python3
         server_keys_public:
           - '{{ molecule_ephemeral_directory }}/testkey.pub'
-        canon_allow_cidr: '{{ hostvars["printer"]["ansible_host"] }}/24'
+        canon_allow_cidr: '{{ ansible_default_ipv4.address }}/24'
 
 driver:
   name: vagrant

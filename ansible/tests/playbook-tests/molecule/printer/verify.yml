@@ -34,7 +34,7 @@
 
     - name: check that CUPS web interface is available from LAN
       wait_for:
-        host: '{{ hostvars["printer"]["ansible_host"] }}'
+        host: '{{ ansible_host }}'
         port: 631
         timeout: 30
       delegate_to: localhost
@@ -42,7 +42,7 @@
 
     - name: fetch CUPS front page (from outside)
       uri:
-        url: 'http://{{ hostvars["printer"]["ansible_host"] }}:631'
+        url: 'http://{{ ansible_host }}:631'
         return_content: yes
       register: page
       failed_when: >-
@@ -53,7 +53,7 @@
 
     - name: fetch CUPS administation page (from outside)
       uri:
-        url: 'http://{{ hostvars["printer"]["ansible_host"] }}:631/admin'
+        url: 'http://{{ ansible_host }}:631/admin'
         return_content: yes
       register: page
       failed_when: >-
