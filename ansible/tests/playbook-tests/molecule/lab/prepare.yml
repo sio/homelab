@@ -1,0 +1,11 @@
+---
+- import_playbook: ../laptopmini/prepare.yml  # Vagrant public key
+
+- hosts: localhost
+  become: yes
+  gather_facts: no
+  tasks:
+    - name: install ping binary  # python3-apt bindings might not be present on host
+      shell: which ping || { apt-get update; apt-get -y install iputils-ping; }
+      register: install
+      changed_when: install.stdout_lines|length > 2

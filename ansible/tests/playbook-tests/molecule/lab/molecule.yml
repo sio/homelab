@@ -7,7 +7,6 @@ provisioner:
     ANSIBLE_ROLES_PATH: ../../../../roles
   playbooks:
     converge: ../../../../lab.yml
-    prepare: ../laptopmini/prepare.yml
   inventory:
     group_vars:
       all:
