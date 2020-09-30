@@ -1,0 +1,6 @@
+---
+- hosts: all
+  tasks:
+    - name: read variables from top-level group_vars/
+      include_vars: ../../../../group_vars/all.yml
+- import_playbook: ../../../../laptopmini.yml
