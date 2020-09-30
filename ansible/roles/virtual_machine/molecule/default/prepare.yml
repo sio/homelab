@@ -1,0 +1,14 @@
+---
+- hosts: debian11-vm
+  become: yes
+  tasks:
+    - name: use non-default repo to avoid angering Fastly
+      replace:
+        path: /etc/apt/sources.list
+        regexp: '\w+\.debian\.org'
+        replace: debian.mirrors.ovh.net  # this mirror is not behind Fastly
+        backup: yes
+
+    - name: update package lists
+      apt:
+        update_cache: yes
