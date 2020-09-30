@@ -18,6 +18,9 @@
 
 - hosts: lab
   become: yes
+  vars:
+    server_remote_user: op
+    interactive_user: op
   pre_tasks:
     - name: enable backports repo
       apt_repository:
@@ -33,9 +36,7 @@
     - role: canary  # clean shutdown with dumb UPS
     - role: wol
     - role: server
-      server_remote_user: op
     - role: interactive
-      interactive_user: op
     - role: packages
       packages_install: '{{ playground_packages }}'  # group_vars/all.yml
       packages_recommends: no
