@@ -1,5 +1,6 @@
 - hosts: all
   become: yes
+  gather_facts: no
   tasks:
     - name: download vagrant default key
       delegate_to: localhost
