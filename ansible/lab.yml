@@ -47,7 +47,7 @@
     - name: modify user permissions
       user:
         name: op
-        groups: sudo,kvm,libvirt,libvirt-qemu
+        groups: sudo,kvm,libvirt,libvirt-qemu,docker
         append: yes
     - name: enable passwordless sudo
       lineinfile:

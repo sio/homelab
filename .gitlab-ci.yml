@@ -480,16 +480,16 @@ test-playbook-mediabox:
         - ansible/roles/upgrade/**/*
 
 
-test-playbook-playground:
+test-playbook-lab:
   extends: .test-ansible-role-kvm
   stage: test-playbook
   variables:
     ANSIBLE_ROLE: playbook-tests
-    MOLECULE_SCENARIO: playground
+    MOLECULE_SCENARIO: lab
   rules:
     - changes:
-        - ansible/playground.yml
-        - ansible/tests/playbook-tests/molecule/playground/**/*
+        - ansible/lab.yml
+        - ansible/tests/playbook-tests/molecule/lab/**/*
         - ansible/roles/upgrade/**/*
         - ansible/roles/motd/**/*
         - ansible/roles/server/**/*

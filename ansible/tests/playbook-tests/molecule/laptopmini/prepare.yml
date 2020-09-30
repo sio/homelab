@@ -1,4 +1,4 @@
-- hosts: laptopmini
+- hosts: all
   become: yes
   tasks:
     - name: download vagrant default key

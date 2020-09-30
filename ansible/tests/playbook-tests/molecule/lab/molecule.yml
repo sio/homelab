@@ -6,12 +6,21 @@ provisioner:
   env:
     ANSIBLE_ROLES_PATH: ../../../../roles
   playbooks:
-    converge: ../../../../playground.yml
+    converge: ../../../../lab.yml
+    prepare: ../laptopmini/prepare.yml
   inventory:
     group_vars:
       all:
         ansible_python_interpreter: /usr/bin/python3
         infra_dir: '{{ molecule_ephemeral_directory }}'
+        server_keys_public:
+          - '{{ molecule_ephemeral_directory }}/keys/lab.pub'
+        sshkey_only:
+          op:
+            - '{{ molecule_ephemeral_directory }}/keys/lab.pub'
+          vagrant:
+            - '{{ molecule_ephemeral_directory }}/vagrant-insecure.pub'
+
 
 driver:
   name: vagrant
@@ -21,12 +30,12 @@ driver:
 platforms:
   - name: debian10-vm
     groups:
-      - playground
+      - lab
     box: debian/buster64
     memory: 1024
 # - name: debian11-vm  # TODO: enable CI for testing when packer is readded to package repo
 #   groups:
-#     - playground
+#     - lab
 #   box: debian/testing64
 #   memory: 1024
 
@@ -35,9 +44,9 @@ dependency:
   command: >
     /bin/sh -c '
     mkdir -p "$MOLECULE_EPHEMERAL_DIRECTORY/keys"
-    && test -f "$MOLECULE_EPHEMERAL_DIRECTORY"/keys/playground
-    || ssh-keygen -q -t ed25519 -a 10 -f "$MOLECULE_EPHEMERAL_DIRECTORY"/keys/playground -C "" -N ""
-    && ls -l "$MOLECULE_EPHEMERAL_DIRECTORY"/keys/playground*
+    && test -f "$MOLECULE_EPHEMERAL_DIRECTORY"/keys/lab
+    || ssh-keygen -q -t ed25519 -a 10 -f "$MOLECULE_EPHEMERAL_DIRECTORY"/keys/lab -C "" -N ""
+    && ls -l "$MOLECULE_EPHEMERAL_DIRECTORY"/keys/lab*
     '
 
 # Testinfra tests fail because the firewall on test instance
