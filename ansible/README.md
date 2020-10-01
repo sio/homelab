@@ -39,8 +39,9 @@ Sample layout:
 
 ```
 ~/infra/
-       /inventory.yml
        /Makefile.secrets
+       /inventory.yml
+       /ssh_client.cfg
        /keys/
             /machineA
             /machineA.pub
