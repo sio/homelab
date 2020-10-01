@@ -58,6 +58,10 @@
         validate: visudo -cf %s
 
 
+- import_playbook: labjay.yml
+- import_playbook: labtee.yml
+
+
 - name: shutdown machines that were offline
   import_playbook: shutdown.yml
   vars:
