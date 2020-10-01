@@ -14,8 +14,11 @@ PLAYBOOKS=$(patsubst %.yml,%,$(wildcard *.yml))
 
 
 -include Makefile.secrets
-Makefile.secrets:
-	@ln -s $(INFRA)/Makefile.secrets $@ 2>/dev/null || true
+Makefile.secrets: | $(HOME)/.ssh/config.d/infra.cfg
+	-ln -vs $(INFRA)/Makefile.secrets $@
+$(HOME)/.ssh/config.d/infra.cfg:
+	mkdir -p $(dir $@)
+	-ln -vs $(INFRA)/ssh_client.cfg $@
 
 
 ifeq (,$(wildcard $(INVENTORY)))
