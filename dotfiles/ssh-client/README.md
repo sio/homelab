@@ -1,3 +1,3 @@
-# Sample of ssh client configuration
+# Expandable ssh client configuration
 
-This topic is not installable by `bootstrap.sh` yet
+Place your machine specific edits into `~/.ssh/config.d/*.cfg`

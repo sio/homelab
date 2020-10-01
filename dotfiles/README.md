@@ -15,7 +15,7 @@ See [bootstrap.sh](./bootstrap.sh) for more information.
 
 ### Topics that are not bootstrappable at the moment
 
-- **ssh-client** - the config file is not really generic, needs more thinking
+- *None listed at the moment*
 
 ### Topics that are not yet added to the dotfiles repo
 

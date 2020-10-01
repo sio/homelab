@@ -1,0 +1,10 @@
+#
+# Default configuration for Git hosts
+#
+
+Host gitlab.com
+    User git
+    IdentitiesOnly yes
+Host github.com
+    User git
+    IdentitiesOnly yes
