@@ -14,6 +14,7 @@
       apt_repository:
         repo: 'deb http://deb.debian.org/debian/ {{ ansible_distribution_release }} main contrib non-free'
         state: present
+        mode: '0644'
 
     - name: update package lists
       apt:

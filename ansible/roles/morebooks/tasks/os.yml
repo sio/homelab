@@ -16,7 +16,7 @@
   apt_repository:
     repo: 'deb-src http://deb.debian.org/debian {{ ansible_distribution_release }} main'
     state: present
-    mode: '0600'
+    mode: '0644'
 
 - name: install required build-dependencies
   apt:

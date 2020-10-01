@@ -4,7 +4,7 @@
   apt_repository:
     repo: 'deb http://deb.debian.org/debian {{ ansible_distribution_release }}-backports main'
     state: present
-    mode: '0600'
+    mode: '0644'
   when: ansible_distribution_release == 'buster'
 
 - name: update package lists
