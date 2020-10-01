@@ -73,6 +73,7 @@ Local Git repository may be used for keeping track of changes.
 - **interactive**
 - **motd**
 - **packages**
+- **sshkey**
 - **unattended**
 - **wol**
 
@@ -84,6 +85,7 @@ Local Git repository may be used for keeping track of changes.
 - **munin_fdcount**: depends on munin, server
 - **munin_master**: depends on server
 - **munin_node**: uses the test suite of munin_master
+- **munin_smart**: depends on server
 - **samba**: depends on server
 - **server**: uses UFW, firewall can not load kernel modules in Docker
 - **supysonic**: depends on server
@@ -91,6 +93,7 @@ Local Git repository may be used for keeping track of changes.
 - **transmission**: depends on server, torrents_sysctl
 - **virtual_machine**: requires nested virtualization
 - **virtual_usb**: udevadm does not work in Docker
+- **wireguard**: modifies network interfaces
 
 
 ## Test status by playbook
