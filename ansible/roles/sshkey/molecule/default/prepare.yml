@@ -20,6 +20,7 @@
         - bob
         - charlie
       delegate_to: localhost
+      become: no
 
     - name: configure ssh keys for initial state
       authorized_key:
