@@ -1,4 +1,7 @@
 ---
+ansible_python_interpreter: /usr/bin/python3
+
+
 ansible_distribution_release: >- # https://github.com/ansible/ansible/issues/19874
   {{
   {
@@ -12,6 +15,7 @@ ansible_debian_release: >-  # non-idempotent, might easily change testing<>bulls
   if (ansible_facts.distribution_major_version.split("/")+[None])[1] in ["sid", "unstable"]
   else ansible_facts.distribution_release
   }}
+
 
 playground_packages:
   # Containerisation and virtualisation
