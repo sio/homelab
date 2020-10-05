@@ -1,7 +1,9 @@
 ---
+# Use Python 3 on controlled hosts by default
 ansible_python_interpreter: /usr/bin/python3
 
 
+# Correctly detect Debian testing
 ansible_distribution_release: >- # https://github.com/ansible/ansible/issues/19874
   {{
   {
@@ -17,6 +19,7 @@ ansible_debian_release: >-  # non-idempotent, might easily change testing<>bulls
   }}
 
 
+# Common packages for playground machines
 playground_packages:
   # Containerisation and virtualisation
   - cpu-checker
