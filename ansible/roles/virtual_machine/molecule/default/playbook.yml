@@ -2,6 +2,8 @@
 
 - hosts: all
   become: true
+  vars_files:
+    - ../../../../group_vars/all.yml
   vars:
     qcow2_image: '/guest-image.qcow2'
   roles:
@@ -15,4 +17,5 @@
         bridge_fd: 0
     - role: virtual_machine
       virtual_machine_image: '{{ qcow2_image }}'
-      virtual_machine_image_url: 'https://gitlab.com/sio/server_common/-/jobs/artifacts/master/raw/artifacts/guest-image.qcow2?job=packer-debian10'  # noqa 204
+      virtual_machine_image_url: '{{ vm_image_debian10 }}'
+      virtual_machine_image_checksum: 'sha256:{{ vm_image_debian10_checksum }}'
