@@ -70,9 +70,7 @@
     - role: munin_master
       munin_master_nodes:
         - name: mediabox
-          address: 127.0.0.1
         - name: laptopmini
-          address: laptopmini
 
     # LAN file sharing
     - role: samba
