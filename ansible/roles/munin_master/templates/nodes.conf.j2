@@ -2,6 +2,7 @@
 
 {% for node in munin_master_nodes %}
 [{{ node.name }}]
+use_node_name yes  # important, no graphs otherwise
 address {{ node.address|default(node.name) }}
 port {{ node.port|default('4949') }}
 
