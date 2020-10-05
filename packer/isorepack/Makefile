@@ -4,7 +4,7 @@
 
 
 # Configurable parameters
-REMOTE_ISO?=https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-10.6.0-amd64-netinst.iso
+REMOTE_ISO?=https://cdimage.debian.org/cdimage/unofficial/non-free/cd-including-firmware/10.6.0+nonfree/amd64/iso-cd/firmware-10.6.0-amd64-netinst.iso
 INPUT_ISO?=input.iso
 OUTPUT_ISO?=output.iso
 PRESEED?=preseed.cfg
