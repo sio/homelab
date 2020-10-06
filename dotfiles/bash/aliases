@@ -1,4 +1,6 @@
+#
 # Invoke by adding `source aliases` to ~/.bashrc
+#
 
 
 # Improved file listing
@@ -10,14 +12,18 @@ alias ls='LC_COLLATE=C ls -F -h \
 alias la='ls -A'
 alias ll='ls -l'
 
+
 # Colored grep whenever possible
 alias grep='grep --color=auto'
+
 
 # Strip comments from file and print it to stdout
 alias bones="grep -Ev '^\s*#|^\s*$'"
 
+
 # Pretty print files to stdout, add filename headers
 alias show="tail -v -n+0"
+
 
 # Show file listing when changing current directory
 _cd_with_listing() {
@@ -44,17 +50,20 @@ alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 
+
 # Pretty diff like `git diff`
 _diff_pretty() {
     command diff --color=always "$@" | less -rXF
 }
 alias diff=_diff_pretty
 
+
 # Make directory and cd into it
 mkcd() {
     [ ! -d "$1" ] && mkdir -p -- "$1"
     cd -- "$1"
 }
+
 
 # Touch file and create required parent directories
 # https://stackoverflow.com/a/19288855/3275560
@@ -65,6 +74,7 @@ mktouch() {
         touch -- "$f"
     done
 }
+
 
 # Manipulate multiple git repos
 gitall() {
@@ -124,6 +134,7 @@ _gitallclone() {
     done
 }
 
+
 # Set terminal title from shell
 # https://stackoverflow.com/a/1687708
 title() {
@@ -131,6 +142,7 @@ title() {
     echo -ne '\033]2;'"$@"'\007'
     echo ''
 }
+
 
 # Cross-platform file opener
 start() {
@@ -167,6 +179,7 @@ clip() {
 
 # Do not clutter asciicasts with nesting levels
 alias asciinema='_NESTED_LEVEL=0 asciinema'
+
 
 # Tree implementation (for Msys on Windows and any OS that's missing it)
 #
