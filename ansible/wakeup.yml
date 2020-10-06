@@ -3,11 +3,10 @@
 
 - hosts: '{{ limit_hosts|default("all") }}'
   gather_facts: no
-  become: yes
+  become: no
   tasks:
     - name: bring all machines online
       delegate_to: localhost
-      become: no
       block:
         - name: check if target machines are online
           shell: >-
@@ -20,17 +19,31 @@
           failed_when: initial_ping.rc != 0
           ignore_errors: yes
 
-        - name: wake up target machines
+        - name: wake up physical machines
           wakeonlan:
             mac: '{{ wol_macaddress }}'
-          when: initial_ping is failed
+          when: initial_ping is failed and wol_macaddress is defined
+          register: wakeup
+
+        - name: wake up virtual machines
+          virt:
+            name: '{{ vm_name|default(inventory_hostname) }}'
+            state: running
+          delegate_to: '{{ vm_hypervisor }}'
+          when: initial_ping is failed and vm_hypervisor is defined
+          register: wakeup
+
+        - name: check that at least one wake up action was initiated
+          assert:
+            that:
+              - initial_ping is success or wakeup is defined
 
         - name: wait for target machines to boot
           wait_for:
             host: '{{ (ansible_ssh_host|default(ansible_host))|default(inventory_hostname) }}'
             port: '{{ wol_port_check|default(22) }}'
             timeout: '{{ wol_boot_timeout|default(60) }}'
-          when: initial_ping is failed
+          when: initial_ping is failed and wakeup is defined
 
     - name: remember initial ping status for next plays
       set_fact:
