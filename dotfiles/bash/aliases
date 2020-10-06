@@ -153,6 +153,18 @@ start() {
     done
 }
 
+
+# Cross-platform clipboard
+clip() {
+    local clipboard=""
+    which clip  &>/dev/null && clipboard="command clip"
+    which xclip &>/dev/null && clipboard="xclip -selection clipboard"
+    [[ -z "$clipboard" ]] && { echo No clipboard manager detected >&2; return 1; }
+
+    $clipboard
+}
+
+
 # Do not clutter asciicasts with nesting levels
 alias asciinema='_NESTED_LEVEL=0 asciinema'
 
