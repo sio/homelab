@@ -25,6 +25,13 @@
           when: initial_ping is failed and wol_macaddress is defined
           register: wakeup
 
+        - name: wait for physical machines to boot
+          wait_for: &machine_up
+            host: '{{ (ansible_ssh_host|default(ansible_host))|default(inventory_hostname) }}'
+            port: '{{ wol_port_check|default(22) }}'
+            timeout: '{{ wol_boot_timeout|default(60) }}'
+          when: initial_ping is failed and wol_macaddress is defined
+
         - name: wake up virtual machines
           virt:
             name: '{{ vm_name|default(inventory_hostname) }}'
@@ -33,17 +40,14 @@
           when: initial_ping is failed and vm_hypervisor is defined
           register: wakeup
 
-        - name: check that at least one wake up action was initiated
-          assert:
-            that:
-              - initial_ping is success or wakeup is defined
+        - name: wait for virtual machines to boot
+          wait_for: *machine_up
+          when: initial_ping is failed and vm_hypervisor is defined
 
-        - name: wait for target machines to boot
-          wait_for:
-            host: '{{ (ansible_ssh_host|default(ansible_host))|default(inventory_hostname) }}'
-            port: '{{ wol_port_check|default(22) }}'
-            timeout: '{{ wol_boot_timeout|default(60) }}'
-          when: initial_ping is failed and wakeup is defined
+    - name: check that at least one wake up action was initiated
+      assert:
+        that:
+          - initial_ping is success or wakeup is defined
 
     - name: remember initial ping status for next plays
       set_fact:
