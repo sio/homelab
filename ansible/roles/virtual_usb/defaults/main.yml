@@ -5,6 +5,6 @@ virtual_usb_device: '0x2759'  # MF3010
 virtual_usb_domain: 'printer'
 
 # Internal
-virtual_usb_templates_dir: /root/libvirt_usb_definitions
+virtual_usb_templates_dir: /etc/libvirt_usb_definitions
 virtual_usb_definition: '{{ virtual_usb_templates_dir }}/{{ virtual_usb_vendor }}_{{ virtual_usb_device}}.xml'
 virtual_usb_udev_rule: '/etc/udev/rules.d/libvirt_usb_{{ virtual_usb_vendor}}_{{ virtual_usb_device }}.rules'

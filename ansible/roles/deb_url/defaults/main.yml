@@ -1,5 +1,5 @@
 ---
-deb_url_storage: /root/deb_url/
+deb_url_storage: /var/cache/deb_url/
 deb_url_packages: []
 # deb_url_packages:
 #   - url: http://example.com/my/package.deb
