@@ -488,7 +488,9 @@ test-playbook-lab:
     MOLECULE_SCENARIO: lab
   rules:
     - changes:
-        - ansible/lab.yml
+        - ansible/lab*.yml
+        - ansible/wakeup.yml
+        - ansible/shutdown.yml
         - ansible/tests/playbook-tests/molecule/lab/**/*
         - ansible/roles/upgrade/**/*
         - ansible/roles/motd/**/*
