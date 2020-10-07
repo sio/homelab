@@ -25,7 +25,7 @@ update:
 
 .PRECIOUS: %/.venv-updated
 %/.venv-updated: %/.venv-created %.pip
-	$*/bin/pip install --upgrade pip setuptools
+	$*/bin/pip install --upgrade pip setuptools wheel
 	$*/bin/pip install --upgrade -r $*.pip
 	touch $@
 
