@@ -28,8 +28,10 @@ endif
 
 # Ask for vault password if inventory is encrypted
 # (wildcard performs tilde expansion)
+ifeq  (,$(findstring -vault-pass,$(PLAYBOOK_ARGS)))
 ifneq (,$(findstring $$ANSIBLE_VAULT,$(firstword $(file < $(wildcard $(INVENTORY))))))
 PLAYBOOK_ARGS+=--ask-vault-pass
+endif
 endif
 
 
