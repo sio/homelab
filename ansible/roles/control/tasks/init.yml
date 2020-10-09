@@ -1,0 +1,34 @@
+---
+
+- name: create user group for operator
+  group:
+    name: '{{ control_username }}'
+    state: present
+
+- name: create user account for operator
+  user:
+    name: '{{ control_username }}'
+    state: present
+    groups: '{{ control_username }}'
+    append: yes
+
+- name: create infrastructre secrets directory
+  file:
+    path: '{{ control_infra_dir }}'
+    state: directory
+    mode: '0700'
+    owner: '{{ control_username }}'
+
+- name: initialize secrets git repo
+  command:
+    cmd: git init
+    creates: '{{ control_infra_dir }}/.git'
+    chdir: '{{ control_infra_dir }}'
+
+- name: enforce file permissions for secrets directory
+  file:
+    path: '{{ control_infra_dir }}'
+    state: directory
+    mode: '0700'
+    owner: '{{ control_username }}'
+    recurse: yes

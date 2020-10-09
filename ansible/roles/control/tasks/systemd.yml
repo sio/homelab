@@ -1,0 +1,35 @@
+---
+
+- name: copy secrets management scripts
+  copy:
+    src: '{{ item }}'
+    dest: '{{ control_scripts_dir + "/" + item|basename }}'
+    mode: '0755'
+    backup: yes
+  loop:
+    - scripts/control-secrets-clear.sh
+    - scripts/control-secrets-fetch.sh
+    - scripts/control-secrets-init.sh
+    - scripts/ssh-askpass-noninteractive.sh
+  loop_control:
+    label: '{{ item|basename }}'
+
+- name: create systemd units
+  template:
+    src: '{{ item }}'
+    dest: '/etc/systemd/system/{{ item|basename }}'
+    mode: '0600'
+    backup: yes
+  loop:
+    - templates/control-secrets.service
+    - templates/control-sshagent.service
+    - templates/control-sshagent.socket
+  loop_control:
+    label: '{{ item|basename }}'
+  notify: reload systemd
+
+- name: enable secrets management at boot
+  systemd:
+    name: control-secrets.service
+    enabled: yes
+    daemon_reload: yes
