@@ -1,6 +1,6 @@
 diff -ruN --ignore-trailing-space /mnt/boot/grub/grub.cfg isocontent/boot/grub/grub.cfg
---- boot/grub/grub.cfg	2020-09-26 10:18:22.000000000 +0000
-+++ boot/grub/grub.cfg	2020-09-29 08:20:16.681200218 +0000
+--- boot/grub/grub.cfg	2020-09-26 13:18:28.000000000 +0300
++++ boot/grub/grub.cfg	2020-10-10 22:15:43.129318009 +0300
 @@ -24,6 +24,19 @@
  insmod play
  play 960 440 1 0 4 440 1
@@ -21,3 +21,30 @@ diff -ruN --ignore-trailing-space /mnt/boot/grub/grub.cfg isocontent/boot/grub/g
  menuentry --hotkey=g 'Graphical install' {
      set background_color=black
      linux    /install.amd/vmlinuz vga=788 --- quiet
+diff -ruN --ignore-trailing-space /mnt/isolinux/isolinux.cfg isocontent/isolinux/isolinux.cfg
+--- isolinux/isolinux.cfg	2020-09-26 13:18:28.000000000 +0300
++++ isolinux/isolinux.cfg	2020-10-10 22:19:31.806797739 +0300
+@@ -2,6 +2,5 @@
+ # search path for the c32 support libraries (libcom32, libutil etc.)
+ path
+ include menu.cfg
+-default vesamenu.c32
+ prompt 0
+-timeout 0
++default preseed
+diff -ruN --ignore-trailing-space /mnt/isolinux/menu.cfg isocontent/isolinux/menu.cfg
+--- isolinux/menu.cfg	2020-09-26 13:18:28.000000000 +0300
++++ isolinux/menu.cfg	2020-10-10 22:19:19.670931565 +0300
+@@ -5,6 +5,12 @@
+ include stdmenu.cfg
+ include gtk.cfg
+ include txt.cfg
++timeout 50
++default preseed
++label preseed
++	menu label ^UNATTENDED AUTOMATED INSTALL (WIPE DISK)
++	kernel /install.amd/vmlinuz
++	append vga=788 initrd=/install.amd/initrd.gz --- quiet auto language=en country=US keymap=en preseed/file=/cdrom/preseed.cfg
+ menu begin advanced
+     menu label ^Advanced options
+ 	menu title Advanced options
