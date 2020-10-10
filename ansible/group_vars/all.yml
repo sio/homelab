@@ -3,6 +3,10 @@
 ansible_python_interpreter: /usr/bin/python3
 
 
+# Proper su invocation on modern Debian systems
+ansible_become_flags: '{{ "-" if ansible_become_method == "su" else "" }}'
+
+
 # Correctly detect Debian testing
 ansible_distribution_release: >- # https://github.com/ansible/ansible/issues/19874
   {{
