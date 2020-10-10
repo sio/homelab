@@ -11,7 +11,11 @@
         - name: check if target machines are online
           shell: >-
             ping -c 1 -w 2
-            {{ (ansible_ssh_host|default(ansible_host))|default(inventory_hostname) }}
+            {{
+            (hostvars[inventory_hostname].ansible_ssh_host
+            |default(hostvars[inventory_hostname].ansible_host))
+            |default(inventory_hostname)
+            }}
             2>&1
           register: initial_ping
           when: initial_ping is not defined
@@ -27,7 +31,12 @@
 
         - name: wait for physical machines to boot
           wait_for: &machine_up
-            host: '{{ (ansible_ssh_host|default(ansible_host))|default(inventory_hostname) }}'
+            host: >-
+              {{
+              (hostvars[inventory_hostname].ansible_ssh_host
+              |default(hostvars[inventory_hostname].ansible_host))
+              |default(inventory_hostname)
+              }}
             port: '{{ wol_port_check|default(22) }}'
             timeout: '{{ wol_boot_timeout|default(60) }}'
           when: initial_ping is failed and wol_macaddress is defined
