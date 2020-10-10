@@ -71,6 +71,8 @@
       munin_master_nodes:
         - name: mediabox
         - name: laptopmini
+        - name: labjay
+        - name: labtee
 
     # LAN file sharing
     - role: samba
