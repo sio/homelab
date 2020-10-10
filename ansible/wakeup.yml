@@ -17,16 +17,16 @@
             |default(inventory_hostname)
             }}
             2>&1
-          register: initial_ping
+          register: ping
           when: initial_ping is not defined
           changed_when: no
-          failed_when: initial_ping.rc != 0
+          failed_when: ping.rc != 0
           ignore_errors: yes
 
         - name: wake up physical machines
           wakeonlan:
             mac: '{{ wol_macaddress }}'
-          when: initial_ping is failed and wol_macaddress is defined
+          when: ping is failed and wol_macaddress is defined
           register: wakeup_phy
 
         - name: wait for physical machines to boot
@@ -39,25 +39,26 @@
               }}
             port: '{{ wol_port_check|default(22) }}'
             timeout: '{{ wol_boot_timeout|default(60) }}'
-          when: initial_ping is failed and wol_macaddress is defined
+          when: ping is failed and wol_macaddress is defined
 
         - name: wake up virtual machines
           virt:
             name: '{{ vm_name|default(inventory_hostname) }}'
             state: running
           delegate_to: '{{ vm_hypervisor }}'
-          when: initial_ping is failed and vm_hypervisor is defined
+          when: ping is failed and vm_hypervisor is defined
           register: wakeup_vm
 
         - name: wait for virtual machines to boot
           wait_for: *machine_up
-          when: initial_ping is failed and vm_hypervisor is defined
+          when: ping is failed and vm_hypervisor is defined
 
     - name: check that at least one wake up action was initiated
       assert:
         that:
-          - initial_ping is success or wakeup_phy is changed or wakeup_vm is changed
+          - ping is success or wakeup_phy is changed or wakeup_vm is changed
 
     - name: remember initial ping status for next plays
       set_fact:
-        initial_ping: '{{ initial_ping }}'
+        initial_ping: '{{ ping }}'
+      when: initial_ping is not defined
