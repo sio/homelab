@@ -27,7 +27,7 @@
           wakeonlan:
             mac: '{{ wol_macaddress }}'
           when: initial_ping is failed and wol_macaddress is defined
-          register: wakeup
+          register: wakeup_phy
 
         - name: wait for physical machines to boot
           wait_for: &machine_up
@@ -47,7 +47,7 @@
             state: running
           delegate_to: '{{ vm_hypervisor }}'
           when: initial_ping is failed and vm_hypervisor is defined
-          register: wakeup
+          register: wakeup_vm
 
         - name: wait for virtual machines to boot
           wait_for: *machine_up
@@ -56,7 +56,7 @@
     - name: check that at least one wake up action was initiated
       assert:
         that:
-          - initial_ping is success or wakeup is defined
+          - initial_ping is success or wakeup_phy is changed or wakeup_vm is changed
 
     - name: remember initial ping status for next plays
       set_fact:
