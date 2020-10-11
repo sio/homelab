@@ -2,6 +2,7 @@
 # Wake up devices that were powered off (you probably want to --limit hosts)
 
 - hosts: '{{ limit_hosts|default("all") }}'
+  name: wakeup
   gather_facts: no
   become: no
   tasks:
