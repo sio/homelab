@@ -5,8 +5,6 @@
 ---
 - hosts: laptopmini
   become: yes
-  vars:
-    munin_master_cidr: 192.168.28.10/32
   roles:
     - role: upgrade
     - role: packages
