@@ -6,6 +6,7 @@ Makefile.venv
 
 packer_cache
 /packer/*/packer.json
+*.iso
 
 /sysbench
 
