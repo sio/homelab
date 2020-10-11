@@ -54,3 +54,14 @@ playground_packages:
   - sysbench
   - tmux
   - vim
+
+
+# Common packages for baremetal deployments
+baremetal_packages:
+  - acpi-support
+  - cpufrequtils
+  - downtimed
+  - linux-cpupower
+  - lm-sensors
+  - powertop
+  - smartmontools

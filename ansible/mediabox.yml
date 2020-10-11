@@ -45,17 +45,10 @@
     - role: motd
     - role: canary  # clean shutdown with dumb UPS
     - role: packages
+      packages_install: '{{ baremetal_packages }}'
+    - role: packages
       packages_install:
-        # server stuff
-        - acpi-support
-        - cpufrequtils
-        - downtimed
-        - linux-cpupower
-        - lm-sensors
-        - powertop
-        - smartmontools
         - sysbench  # buster-backports
-        # for interactive shell
         - vim
         - tmux
         - sudo

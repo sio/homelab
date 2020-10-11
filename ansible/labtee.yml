@@ -10,4 +10,6 @@
 
 - hosts: labtee
   become: yes
-  tasks: []
+  roles:
+    - role: packages
+      packages_install: '{{ baremetal_packages }}'
