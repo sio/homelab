@@ -1,0 +1,4 @@
+All *.sh files within this directory will be automatically sourced into each
+Bash session in addition to configuration defined in "$COMMON/dotfiles/bash".
+
+Put machine specific overrides here.

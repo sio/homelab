@@ -13,4 +13,8 @@ COMMON="$HOME/.common"
 # _OVERRIDE_PROMPT_COLOR=1
 
 # Host-specific modifications should be defined here
-[[ -s ~/.bashrc.override ]] && . ~/.bashrc.override || true
+for config_file in ~/.bashrc.d/*.sh
+do
+    [[ ! -s "$config_file" ]] || . "$config_file"
+done
+unset config_file
