@@ -17,31 +17,22 @@ umask 0077
 [[ -z "$SSH_KEYS" ]] && { echo SSH_KEYS is not defined; exit 104; }
 
 
-# Load SSH keys into agent
-#
-# For non-interactive password pipe to work
-# DISPLAY and SSH_ASKPASS environment variables must be provided
-for IDENTITY in $SSH_KEYS
-do
-    while true
-    do
-        echo -n $(systemd-ask-password "Enter passphrase for $IDENTITY:") \
-        |  ssh-add -t "$SECRETS_TIMEOUT_SECONDS" "$IDENTITY" \
-        && break
-    done
-done
-
-
 # Load Ansible Vault password into kernel keyring
 #
 # ANSIBLE_VAULT_KEYNAME must be provided by environment
+# This query must come first to give time for ssh-agent to initialize properly
 FIFO=$(mktemp -u --tmpdir 'control-secrets-init-XXXXXXX' 2>/dev/null)
 mkfifo -m 600 "$FIFO"
+echo "Saving Ansible Vault password for $INVENTORY..."
 while true
 do
-    VAULT_PASS=$(systemd-ask-password "Enter Ansible Vault password:")
+    VAULT_PASS=$(systemd-ask-password --timeout=0 "Enter Ansible Vault password:")
     echo -n "$VAULT_PASS" > "$FIFO" &
-    ansible-vault decrypt "$INVENTORY" --vault-password-file="$FIFO" --output=/dev/null || continue
+    ansible-vault decrypt "$INVENTORY" --vault-password-file="$FIFO" --output=/dev/null \
+    || {
+        echo Incorrect password, retrying...
+        continue
+    }
 
     KEY_ID=$(keyctl add user "$ANSIBLE_VAULT_KEYNAME" dummy-value @u)
     keyctl setperm "$KEY_ID" 0x003f0000
@@ -50,3 +41,20 @@ do
     break
 done
 rm "$FIFO" || true
+
+
+# Load SSH keys into agent
+#
+# For non-interactive password pipe to work
+# DISPLAY and SSH_ASKPASS environment variables must be provided
+for IDENTITY in $SSH_KEYS
+do
+    echo "Adding $IDENTITY to ssh-agent..."
+    while true
+    do
+        echo -n $(systemd-ask-password --timeout=0 "Enter passphrase for $IDENTITY:") \
+        |  ssh-add -t "$SECRETS_TIMEOUT_SECONDS" "$IDENTITY" \
+        && break
+        echo "Incorrect passphrase, retrying..."
+    done
+done
