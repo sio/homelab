@@ -16,7 +16,7 @@
         mode: '0755'
 
     - name: create test keys
-      shell: >-
+      command: >-
         ssh-keygen -q -t ed25519 -a 10 -f {{ item|quote }} -C "test key" -N TestPassphrase
       args:
         creates: '{{ item }}'

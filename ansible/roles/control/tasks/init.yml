@@ -21,7 +21,7 @@
 
 - name: initialize secrets git repo
   command:
-    cmd: git init
+    cmd: git init  # noqa 303
     creates: '{{ control_infra_dir }}/.git'
     chdir: '{{ control_infra_dir }}'
 
