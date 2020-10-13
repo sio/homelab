@@ -5,4 +5,4 @@
     that:
       - ansible_os_family == "Debian"
       - ansible_pkg_mgr == "apt"
-      - control_sshkeys|len > 0
+      - control_sshkeys|length > 0
