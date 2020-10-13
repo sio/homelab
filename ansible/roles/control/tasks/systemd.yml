@@ -6,6 +6,13 @@
     state: directory
     mode: 0755
 
+- name: create directory for ssh-agent socket
+  file:
+    path: '{{ control_sshagent_socket }}'
+    state: directory
+    mode: 0700
+    owner: '{{ control_username }}'
+
 - name: copy secrets management scripts
   copy:
     src: '{{ item }}'

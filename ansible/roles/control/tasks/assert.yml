@@ -6,3 +6,5 @@
       - ansible_os_family == "Debian"
       - ansible_pkg_mgr == "apt"
       - control_sshkeys|length > 0
+      - control_sshagent_socket.startswith("/")
+      - control_sshagent_socket.split("/")|length > 4

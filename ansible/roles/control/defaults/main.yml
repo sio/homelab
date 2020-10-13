@@ -7,7 +7,7 @@ control_sshkeys: []  # List of paths to private keys
 control_inventory: '{{ control_infra_dir }}/inventory.yml'
 
 # These values are fine for most usecases
-control_sshagent_socket: /var/run/control_sshagent.socket
+control_sshagent_socket: /var/run/control-secrets/sshagent.socket
 control_scripts_dir: /usr/local/bin/control
 control_packages:
   - ansible
