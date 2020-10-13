@@ -8,7 +8,7 @@
 
 - name: create directory for ssh-agent socket
   file:
-    path: '{{ control_sshagent_socket }}'
+    path: '{{ control_sshagent_socket|dirname }}'
     state: directory
     mode: 0700
     owner: '{{ control_username }}'
