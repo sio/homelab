@@ -11,4 +11,5 @@ Environment=SSH_AUTH_SOCK={{ control_sshagent_socket|quote }}
 ExecStart=/usr/bin/ssh-agent -D -a "$SSH_AUTH_SOCK"
 User={{ control_username }}
 Group={{ control_username }}
+UMask=0077
 NoNewPrivileges=True

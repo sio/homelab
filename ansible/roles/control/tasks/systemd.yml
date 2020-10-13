@@ -29,7 +29,6 @@
   loop:
     - templates/control-secrets.service
     - templates/control-sshagent.service
-    - templates/control-sshagent.socket
   loop_control:
     label: '{{ item|basename }}'
   notify: reload systemd
