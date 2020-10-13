@@ -3,9 +3,11 @@
 - hosts: all
   become: yes
   tasks:
-    - name: install ssh-keygen
+    - name: install packages
       apt:
-        name: openssh-client
+        name:
+          - openssh-client
+          - ansible
         state: present
         cache_valid_time: 3600
 
@@ -17,10 +19,29 @@
 
     - name: create test keys
       command: >-
-        ssh-keygen -q -t ed25519 -a 10 -f {{ item|quote }} -C "test key" -N TestPassphrase
+        ssh-keygen
+        -q -t ed25519 -a 10
+        -f {{ item|quote }}
+        -C "test key:{{ item }}"
+        -N TestPassphrase
       args:
         creates: '{{ item }}'
       loop:
         - /test/keys/one
         - /test/keys/two
         - /test/keys/three fifths
+
+    - name: create test inventory
+      shell: |-
+        set -eo pipefail
+        mkfifo /tmp/fifo
+        echo -n TestPassword > /tmp/fifo &
+        mkdir -p {{ control_inventory|dirname|quote }}
+        touch {{ control_inventory|quote }}
+        ansible-vault encrypt {{ control_inventory|quote }} --vault-password-file /tmp/fifo
+        rm /tmp/fifo
+      args:
+        creates: '{{ control_inventory }}'
+        executable: /bin/bash
+      vars:
+        control_inventory: /home/operator/infra/inventory.yml
