@@ -281,6 +281,15 @@ test-role-wol:
 # Test Ansible roles in KVM virtual machines (Vagrant-Libvirt)
 #
 
+test-role-control:
+  extends: .test-ansible-role-kvm
+  variables:
+    ANSIBLE_ROLE: ../roles/control
+  rules:
+    - changes:
+        - ansible/roles/control/**/*
+
+
 test-role-gerbera:
   extends: .test-ansible-role-kvm
   variables:

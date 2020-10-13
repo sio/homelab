@@ -1,0 +1,26 @@
+---
+
+- hosts: all
+  become: yes
+  tasks:
+    - name: install ssh-keygen
+      apt:
+        name: openssh-client
+        state: present
+        cache_valid_time: 3600
+
+    - name: create directory for test keys
+      file:
+        path: /test/keys
+        state: directory
+        mode: '0755'
+
+    - name: create test keys
+      shell: >-
+        ssh-keygen -q -t ed25519 -a 10 -f {{ item|quote }} -C "test key" -N TestPassphrase
+      args:
+        creates: '{{ item }}'
+      loop:
+        - /test/keys/one
+        - /test/keys/two
+        - /test/keys/three fifths

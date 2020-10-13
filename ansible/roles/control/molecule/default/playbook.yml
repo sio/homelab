@@ -1,0 +1,10 @@
+---
+
+- hosts: all
+  become: true
+  roles:
+    - role: control
+      control_sshkeys:
+        - /test/keys/one
+        - /test/keys/two
+        - /test/keys/three fifths
