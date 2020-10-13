@@ -11,7 +11,7 @@ WantedBy=sockets.target
 
 [Socket]
 ListenStream={{ control_sshagent_socket|quote }}
-User={{ control_username }}
-Group={{ control_username }}
+SocketUser={{ control_username }}
+SocketGroup={{ control_username }}
 SocketMode=0600
 DirectoryMode=0700
