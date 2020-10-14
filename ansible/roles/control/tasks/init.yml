@@ -12,6 +12,14 @@
     groups: '{{ control_username }}'
     append: yes
 
+- name: define environment variables for operator
+  template:
+    src: templates/pam_environment
+    dest: '/home/{{ control_username }}/.pam_environment'
+    mode: '0400'
+    owner: '{{ control_username }}'
+    backup: yes
+
 - name: create infrastructre secrets directory
   file:
     path: '{{ control_infra_dir }}'
