@@ -13,3 +13,6 @@
     update_cache: yes
     cache_valid_time: 3600
   when: ansible_pkg_mgr == "apt"
+
+# TODO: handle /var/run/reboot-required
+# TODO: handle needrestart/checkrestart
