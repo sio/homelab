@@ -15,6 +15,7 @@ umask 0077
 [[ -z "$SSH_ASKPASS" ]] && { echo SSH_ASKPASS is not defined; exit 104; }
 [[ -z "$SSH_AUTH_SOCK" ]] && { echo SSH_AUTH_SOCK is not defined; exit 104; }
 [[ -z "$SSH_KEYS" ]] && { echo SSH_KEYS is not defined; exit 104; }
+[[ "$EUID" != 0 ]] && { echo systemd-ask-password requires superuser privileges; exit 101; }
 
 
 # Load Ansible Vault password into kernel keyring
@@ -35,14 +36,18 @@ do
     }
 
     # Dancing around keyctl setperm: https://mjg59.dreamwidth.org/37333.html
+    KEYRING_ID="@u"  # root user keyring
     KEY_ID=$(keyctl add user "$ANSIBLE_VAULT_KEYNAME" dummy-value @s)
+    keyctl link "$KEY_ID" "$KEYRING_ID"
     keyctl setperm "$KEY_ID" 0x3f3f0000
-    keyctl link "$KEY_ID" @u
-    keyctl unlink "$KEY_ID" @s
     keyctl timeout "$KEY_ID" "$SECRETS_TIMEOUT_SECONDS"
 
     # Save password to kernel keyring
     echo -n "$VAULT_PASS" | keyctl pupdate "$KEY_ID"
+
+    # Transfer key ownership to operator account
+    keyctl unlink "$KEY_ID" @s
+    keyctl chown "$KEY_ID" $(id -u "$CONTROL_USERNAME")
     break
 done
 rm "$FIFO" || true
