@@ -20,6 +20,23 @@
     owner: '{{ control_username }}'
     backup: yes
 
+- name: create requirements file for custom ansible installation
+  copy:
+    content: |
+      ansible
+    dest: '/home/{{ control_username }}/bin/app.venv/ansible-playbook.pip'
+    mode: '0644'
+    owner: '{{ control_username }}'
+    backup: yes
+
+- name: create custom ansible virtualenv for operator
+  command: >
+    su - {{ control_username }} --shell=/bin/sh -c
+    'make ansible-playbook -C "/home/{{ control_username }}/bin/app.venv"'
+  args:
+    creates: '/home/{{ control_username }}/bin/app.venv/ansible-playbook/bin/ansible-playbook'
+    warn: no  # becoming unprivileged does not really work
+
 - name: create infrastructure secrets directory
   file:
     path: '{{ control_infra_dir }}'
