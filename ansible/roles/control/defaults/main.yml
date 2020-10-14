@@ -14,5 +14,5 @@ control_packages:
   - git
   - keyutils
   - openssh-client
-control_keyring_id_vault_password: 'ansible-vault:{{ control_inventory }}'
+control_ansible_vault_keyname: 'ansible-vault:{{ control_inventory }}'
 control_secrets_timeout_seconds: '{{ 30*24*60*60 }}'  # 30 days
