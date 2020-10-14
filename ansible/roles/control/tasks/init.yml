@@ -14,8 +14,8 @@
 
 - name: define environment variables for operator
   template:
-    src: templates/pam_environment
-    dest: '/home/{{ control_username }}/.pam_environment'
+    src: templates/control_environment.sh
+    dest: '/home/{{ control_username }}/.bashrc.d/control_environment.sh'
     mode: '0400'
     owner: '{{ control_username }}'
     backup: yes

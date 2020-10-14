@@ -4,6 +4,9 @@
   become: true
   roles:
     - role: control
+      control_inventory: /test/inventory/inventory.yml  # outside of $HOME to avoid messing up
+                                                        # directory permissions while creating
+                                                        # inventory in prepare.yml
       control_sshkeys:
         - /test/keys/one
         - /test/keys/two

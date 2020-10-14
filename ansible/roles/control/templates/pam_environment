@@ -1,3 +1,0 @@
-# {{ ansible_managed }}
-INVENTORY={{ control_inventory|quote }}
-ANSIBLE_VAULT_KEYNAME={{ control_keyring_id_vault_password|quote }}

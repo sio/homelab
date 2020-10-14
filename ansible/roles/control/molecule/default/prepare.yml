@@ -44,4 +44,4 @@
         creates: '{{ control_inventory }}'
         executable: /bin/bash
       vars:
-        control_inventory: /home/operator/infra/inventory.yml
+        control_inventory: /test/inventory/inventory.yml
