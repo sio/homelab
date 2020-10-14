@@ -34,9 +34,14 @@ do
         continue
     }
 
-    KEY_ID=$(keyctl add user "$ANSIBLE_VAULT_KEYNAME" dummy-value @u)
-    keyctl setperm "$KEY_ID" 0x003f0000
+    # Dancing around keyctl setperm: https://mjg59.dreamwidth.org/37333.html
+    KEY_ID=$(keyctl add user "$ANSIBLE_VAULT_KEYNAME" dummy-value @s)
+    keyctl setperm "$KEY_ID" 0x3f3f0000
+    keyctl link "$KEY_ID" @u
+    keyctl unlink "$KEY_ID" @s
     keyctl timeout "$KEY_ID" "$SECRETS_TIMEOUT_SECONDS"
+
+    # Save password to kernel keyring
     echo -n "$VAULT_PASS" | keyctl pupdate "$KEY_ID"
     break
 done
