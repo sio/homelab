@@ -20,7 +20,7 @@
     owner: '{{ control_username }}'
     backup: yes
 
-- name: create infrastructre secrets directory
+- name: create infrastructure secrets directory
   file:
     path: '{{ control_infra_dir }}'
     state: directory
