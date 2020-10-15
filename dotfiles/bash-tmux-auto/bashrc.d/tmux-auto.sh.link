@@ -1,4 +1,11 @@
 if [[ $- == *i* ]]
 then
-    # TODO: copy code from laptopmini
+    if [[ -z "$TMUX" && -z "$TMUX_PANE" ]]
+    then
+        echo 'Press Ctrl+C to cancel Tmux launch...'
+        sleep 5 && {
+            tmux attach || tmux new
+            exit
+        }
+    fi
 fi
