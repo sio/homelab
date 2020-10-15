@@ -2,6 +2,7 @@ molecule
 molecule-vagrant
 molecule-docker
 
+ansible
 ansible-lint!=4.3.0 # 4.3.0: https://gitlab.com/sio/server_common/-/jobs/693768455
 testinfra
 yamllint
