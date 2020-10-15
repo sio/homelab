@@ -1,4 +1,4 @@
-molecule
+molecule!=3.1.*
 molecule-vagrant
 molecule-docker
 
