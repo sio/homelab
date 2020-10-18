@@ -12,6 +12,9 @@ min_packer_version: "1.3.2"  # disk_detect_zeroes
 variables:
   root_password: please never use the default value
   hostname: guest-debian10
+  iso_url: https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-10.6.0-amd64-netinst.iso
+  iso_checksum_url: https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/SHA256SUMS
+  iso_checksum_type: sha256
 
 builders:
   - type: qemu
@@ -20,9 +23,9 @@ builders:
     vm_name: '{{ user `hostname` }}-image.qcow2'
     disk_size: 8000
 
-    iso_url: https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-10.6.0-amd64-netinst.iso
-    iso_checksum_url: https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/SHA256SUMS
-    iso_checksum_type: sha256
+    iso_url: '{{ user `iso_url` }}'
+    iso_checksum_url: '{{ user `iso_checksum_url` }}'
+    iso_checksum_type: '{{ user `iso_checksum_type` }}'
 
     accelerator: kvm
     memory: 1024

@@ -20,6 +20,13 @@ ifndef VM_PASSWORD
 endif
 
 
+# Custom images for Debian Testing
+debian-testing: build
+debian-testing: export ISO_URL=https://cdimage.debian.org/cdimage/weekly-builds/amd64/iso-cd/debian-testing-amd64-netinst.iso
+debian-testing: export ISO_CHECKSUM_URL=https://cdimage.debian.org/cdimage/weekly-builds/amd64/iso-cd/SHA256SUMS
+debian-testing: PACKER_FLAGS+=-var iso_url="$$ISO_URL" -var iso_checksum_url="$$ISO_CHECKSUM_URL"
+
+
 # Default values for remote build
 remote-build: export VM_HOSTNAME?=guest
 remote-build: export VM_PASSWORD?=hello
