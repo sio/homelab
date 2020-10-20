@@ -81,6 +81,8 @@ stages:
   stage: build
   variables:
     CIRRUS_CONFIG: packer/cirrus.yml.j2
+    VM_HOSTNAME: guest
+    VM_PASSWORD: hello
   script:
     # Build VM image in Cirrus CI
     - cirrus-run | tee build.log
@@ -108,12 +110,21 @@ packer-debian10:
   extends: .packer-build
   variables:
     PACKER_TARGET: debian10
-    VM_HOSTNAME: guest
-    VM_PASSWORD: hello
   rules:
     - *trigger-docker-build
     - if: '$CI_COMMIT_REF_NAME == "master"'
       when: always  # any pipeline on master must include this job for URLs to remain valid
+    - changes:
+        - packer/debian10/**/*
+
+
+packer-debian-testing:
+  extends: .packer-build
+  variables:
+    PACKER_ACTION: debian-testing
+    PACKER_TARGET: debian10  # use the same recipe as for stable
+  rules:
+    - *trigger-docker-build
     - changes:
         - packer/debian10/**/*
 

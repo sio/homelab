@@ -24,7 +24,7 @@ task:
     - make -C "packer/.test-environment" /.ready-for-packer
   packer_script:
     - cd "packer/$PACKER_TARGET"
-    - make build
+    - make "{{ PACKER_ACTION|default('build') }}"
     - make checksum
   image_artifacts:
     path: "**/*.qcow2"
