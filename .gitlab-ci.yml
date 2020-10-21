@@ -95,7 +95,7 @@ stages:
   artifacts:
     paths:
       - artifacts
-    expire_in: 11 days  # rebuilds are scheduled every 10 days
+    expire_in: 12 hours  # latest branch artifacts are never expired since GitLab 13.4
   dependencies: []  # do not download any artifacts from previous stages
 
 
