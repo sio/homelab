@@ -13,13 +13,19 @@ information
 
 Typical initialization:
 
-```sh
-$ git clone --recursive "https://gitlab.com/sio/server_common.git" ~/.common
-...
-$ ~/.common/dotfiles/bootstrap.sh ~/.common/dotfiles/topics-cli.list
-...
-$ exec bash  # restart shell with new settings
-```
+  - For persistent machines use Ansible role:
+    [roles/interactive](ansible/roles/interactive/)
+  - For playground machines:
+    ```sh
+    apt update; apt -y install git vim make  # git and some optional tools
+
+    git clone --recursive "https://gitlab.com/sio/server_common.git" ~/.common
+
+    make -C ~/.common/dotfiles cli
+    make -C ~/.common/dotfiles bash-no-tmout  # only relevant for playground machines
+
+    exec bash  # restart shell with new settings
+    ```
 
 
 ## Directory structure
