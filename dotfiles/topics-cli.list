@@ -9,6 +9,7 @@ ansible
 app.venv
 bash
 git
+git-opensource
 ipython
 ssh-client
 tmux

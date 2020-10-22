@@ -1,0 +1,6 @@
+Include these files from your ~/.gitconfig:
+
+    [include]
+        path = .gitconfig.d/user.cfg
+
+Unfortunately wildcards are not supported.
