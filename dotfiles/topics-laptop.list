@@ -5,6 +5,7 @@
 # Check individual topic directories to see what configuration will be applied.
 #
 
+bash-tmux-auto
 fonts
 xfce-startup
 xfce-settings
