@@ -1,6 +1,12 @@
 # MAIN ENTRYPOINT FOR CONTINUOUS INTEGRATION JOBS
 #
 # Tests are executed on infrastructure provided by GitLab CI
+#
+# Schedule for full CI runs is defined via GitLab web ui:
+#   branch: master
+#   cron: 5 4 1,11,21 * * (UTC)
+#   vars:
+#     TRIGGER_DOCKER_BUILD: true
 
 
 stages:
