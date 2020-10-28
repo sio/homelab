@@ -6,7 +6,7 @@ Description=Timer for %j SMART self-test on /dev/%i
 
 
 [Timer]
-OnCalendar={{ smarttest_schedule[item] }}  # weekly, monthly
+OnCalendar={{ smarttest_schedule[item] }}
 RandomizedDelaySec=12h
 Persistent=yes
 
