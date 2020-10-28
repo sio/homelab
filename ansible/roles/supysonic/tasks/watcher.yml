@@ -5,6 +5,7 @@
     src: templates/watcher.service.j2
     dest: '/etc/systemd/system/supysonic-watcher.service'
     mode: '0644'
+    backup: yes
 
 - name: start watcher
   service:

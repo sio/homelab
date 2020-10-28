@@ -49,6 +49,7 @@
     src: templates/samba.conf.j2
     dest: /etc/samba/smb.conf
     mode: '0644'
+    backup: yes
   notify: restart samba server
 
 - name: start samba server

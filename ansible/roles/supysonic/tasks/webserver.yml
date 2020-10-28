@@ -12,6 +12,7 @@
     src: templates/apache.conf.j2
     dest: '/etc/apache2/sites-enabled/{{ supysonic_url }}.conf'
     mode: '0644'
+    backup: yes
   notify: reload web server
 
 - name: configure web server reply to incorrect domain names

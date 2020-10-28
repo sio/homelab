@@ -30,6 +30,7 @@
     mode:  '{{ item.mode  | default("0644") }}'
     owner: '{{ item.owner | default(hlc_username) }}'
     group: '{{ item.group | default(hlc_username) }}'
+    backup: yes
   with_items:
     - src: 'templates/backup.py.j2'
       dest: '{{ hlc_paths.app }}/backup.py'
@@ -42,6 +43,7 @@
     src: 'templates/webserver.conf.j2'
     dest: '{{ hlc_http_config }}'
     mode:  '0644'
+    backup: yes
   notify: reload web server
 
 - name: configure web server reply to incorrect domain names
