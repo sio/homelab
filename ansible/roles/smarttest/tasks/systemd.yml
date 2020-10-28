@@ -1,0 +1,30 @@
+---
+
+- name: install systemd services
+  template:
+    src: 'templates/smarttest-@.service'
+    dest: '/etc/systemd/system/smarttest-{{ item }}@.service'
+    mode: '0644'
+    backup: yes
+  loop: '{{ smarttest_test_types }}'
+  notify: reload systemd
+
+- name: install systemd timers
+  template:
+    src: 'templates/smarttest-@.timer'
+    dest: '/etc/systemd/system/smarttest-{{ item }}@.timer'
+    mode: '0644'
+    backup: yes
+  loop: '{{ smarttest_test_types }}'
+  notify: restart smarttest timers
+
+- name: enable systemd timers
+  systemd:
+    name: 'smarttest-{{ item.1 }}@{{ item.0 }}.timer'
+    state: started
+    enabled: yes
+    daemon_reload: yes
+  loop: '{{ smarttest_drives_enabled | product(smarttest_test_types) | list }}'
+
+- meta: flush_handlers  # Handlers will not behave the same for multiple invocations of the role:
+                        #   - 'restart smarttest timers' depends on role variables

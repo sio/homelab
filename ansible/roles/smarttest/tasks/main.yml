@@ -1,0 +1,5 @@
+---
+
+- include: assert.yml
+- include: packages.yml
+- include: systemd.yml

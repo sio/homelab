@@ -1,0 +1,10 @@
+# {{ ansible_managed }}
+
+
+[Unit]
+Description=Launch %j SMART self-test on /dev/%i
+
+
+[Service]
+Type=simple
+ExecStart=/usr/sbin/smartctl -t %j /dev/%i

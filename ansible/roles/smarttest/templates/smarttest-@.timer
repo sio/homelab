@@ -1,0 +1,15 @@
+# {{ ansible_managed }}
+
+
+[Unit]
+Description=Timer for %j SMART self-test on /dev/%i
+
+
+[Timer]
+OnCalendar={{ smarttest_schedule[item] }}  # weekly, monthly
+RandomizedDelaySec=12h
+Persistent=yes
+
+
+[Install]
+WantedBy=timers.target

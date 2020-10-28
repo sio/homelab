@@ -1,0 +1,27 @@
+# Values below are fine for most use cases
+
+smarttest_schedule:
+  short: weekly  # https://www.freedesktop.org/software/systemd/man/systemd.time.html
+  long: monthly
+
+smarttest_packages:
+  - smartmontools
+
+smarttest_test_types: '{{ smarttest_schedule|list }}'
+
+smarttest_drives_enabled: '{{ smarttest_drives_all }}'
+
+smarttest_drives_all: >-
+  {{
+  ansible_devices
+  | dict2items
+  | json_query("
+      [].{
+        device: key,
+        virtual: to_number(value.virtual),
+        removable: to_number(value.removable)
+      }[?
+        virtual!=`1`
+        && removable==`0`
+      ].device")
+  }}
