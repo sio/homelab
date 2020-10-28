@@ -1,0 +1,10 @@
+---
+
+- name: debug role variables
+  debug:
+    var: debug_content
+    verbosity: 1
+  vars:
+    debug_content:
+      - smarttest_drives_all: '{{ smarttest_drives_all }}'
+      - smarttest_test_types: '{{ smarttest_test_types }}'
