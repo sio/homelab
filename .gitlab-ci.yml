@@ -505,14 +505,17 @@ test-playbook-mediabox:
         - ansible/roles/munin_fdcount/**/*
         - ansible/roles/munin_master/**/*
         - ansible/roles/munin_node/**/*
+        - ansible/roles/munin_smart/**/*
         - ansible/roles/packages/**/*
         - ansible/roles/samba/**/*
+        - ansible/roles/sshkey/**/*
         - ansible/roles/server/**/*
         - ansible/roles/supysonic/**/*
         - ansible/roles/torrents_sysctl/**/*
         - ansible/roles/transmission/**/*
         - ansible/roles/unattended/**/*
         - ansible/roles/upgrade/**/*
+        - ansible/roles/wol/**/*
 
 
 test-playbook-lab:
@@ -527,11 +530,16 @@ test-playbook-lab:
         - ansible/wakeup.yml
         - ansible/shutdown.yml
         - ansible/tests/playbook-tests/molecule/lab/**/*
-        - ansible/roles/upgrade/**/*
-        - ansible/roles/motd/**/*
-        - ansible/roles/server/**/*
+        - ansible/roles/canary/**/*
         - ansible/roles/interactive/**/*
+        - ansible/roles/motd/**/*
+        - ansible/roles/munin_node/**/*
+        - ansible/roles/munin_smart/**/*
         - ansible/roles/packages/**/*
+        - ansible/roles/server/**/*
+        - ansible/roles/unattended/**/*
+        - ansible/roles/upgrade/**/*
+        - ansible/roles/wol/**/*
 
 
 test-playbook-printer:
@@ -565,7 +573,9 @@ test-playbook-laptopmini:
         - ansible/roles/grub/**/*
         - ansible/roles/initrd/**/*
         - ansible/roles/interactive/**/*
-        - ansible/roles/packages/**/*
-        - ansible/roles/upgrade/**/*
         - ansible/roles/munin_node/**/*
+        - ansible/roles/munin_smart/**/*
+        - ansible/roles/packages/**/*
         - ansible/roles/server/**/*
+        - ansible/roles/sshkey/**/*
+        - ansible/roles/upgrade/**/*
