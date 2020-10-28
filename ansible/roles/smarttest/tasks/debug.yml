@@ -3,7 +3,7 @@
 - name: debug role variables
   debug:
     var: debug_content
-    verbosity: 1
+    verbosity: '{{ 0 if lookup("env", "CI") else 1 }}'
   vars:
     debug_content:
       - smarttest_drives_all: '{{ smarttest_drives_all }}'
