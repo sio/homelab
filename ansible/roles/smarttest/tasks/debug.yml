@@ -8,3 +8,4 @@
     debug_content:
       - smarttest_drives_all: '{{ smarttest_drives_all }}'
       - smarttest_test_types: '{{ smarttest_test_types }}'
+      - ansible_devices: '{{ ansible_devices }}'

@@ -15,7 +15,6 @@ smarttest_drives_all: >-
   {{
   ansible_devices
   | dict2items
-  | selectattr("value.virtual", "in", [0, "0", false])
   | selectattr("value.removable", "in", [0, "0", false])
   | map(attribute="key")
   | list
