@@ -15,13 +15,8 @@ smarttest_drives_all: >-
   {{
   ansible_devices
   | dict2items
-  | json_query("
-      [].{
-        device: key,
-        virtual: to_number(value.virtual),
-        removable: to_number(value.removable)
-      }[?
-        virtual!=`1`
-        && removable==`0`
-      ].device")
+  | selectattr("value.virtual", "eq", 0)
+  | selectattr("value.removable", "eq", "0")
+  | map(attribute="key")
+  | list
   }}
