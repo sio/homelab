@@ -510,6 +510,7 @@ test-playbook-mediabox:
         - ansible/roles/samba/**/*
         - ansible/roles/sshkey/**/*
         - ansible/roles/server/**/*
+        - ansible/roles/smarttest/**/*
         - ansible/roles/supysonic/**/*
         - ansible/roles/torrents_sysctl/**/*
         - ansible/roles/transmission/**/*
@@ -537,6 +538,7 @@ test-playbook-lab:
         - ansible/roles/munin_smart/**/*
         - ansible/roles/packages/**/*
         - ansible/roles/server/**/*
+        - ansible/roles/smarttest/**/*
         - ansible/roles/unattended/**/*
         - ansible/roles/upgrade/**/*
         - ansible/roles/wol/**/*
@@ -577,5 +579,6 @@ test-playbook-laptopmini:
         - ansible/roles/munin_smart/**/*
         - ansible/roles/packages/**/*
         - ansible/roles/server/**/*
+        - ansible/roles/smarttest/**/*
         - ansible/roles/sshkey/**/*
         - ansible/roles/upgrade/**/*

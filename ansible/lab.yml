@@ -35,6 +35,7 @@
     - role: motd
     - role: canary  # clean shutdown with dumb UPS
     - role: wol
+    - role: smarttest
     - role: server
     - role: interactive
     - role: packages

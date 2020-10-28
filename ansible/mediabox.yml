@@ -45,6 +45,7 @@
     - role: motd
     - role: canary  # clean shutdown with dumb UPS
     - role: wol
+    - role: smarttest
     - role: packages
       packages_install: '{{ baremetal_packages }}'
     - role: packages
