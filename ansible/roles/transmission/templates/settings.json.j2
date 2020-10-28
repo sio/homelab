@@ -52,7 +52,7 @@
     "rpc-port": {{ transmission_instance.port_rpc }},
     "rpc-url": "/transmission/",
     "rpc-username": "transmission",
-    "rpc-whitelist": "127.0.0.1,192.168.*.*",
+    "rpc-whitelist": "127.0.0.1,{{ ansible_default_ipv4.address.split('.')[:2]|join('.') }}.*.*",
     "rpc-whitelist-enabled": true,
     "scrape-paused-torrents-enabled": true,
     "script-torrent-done-enabled": false,
