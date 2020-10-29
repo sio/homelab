@@ -45,5 +45,6 @@
       Administrator: "{{ supysonic_admin }}"
       Password: "{{ supysonic_pass }}"
   when: supysonic_init.changed
+  changed_when: yes
   tags:
     - skip_ansible_lint  # [503: run when changed]
