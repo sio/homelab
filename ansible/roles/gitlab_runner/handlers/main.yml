@@ -1,0 +1,21 @@
+---
+
+- name: register gitlab runner
+  command:
+    cmd: >-
+      su - {{ gitlab_runner_user }} --shell=/bin/sh -c
+      'gitlab-runner register
+      --non-interactive
+      --template-config {{ gitlab_runner_template_path|quote }}
+      --config {{ gitlab_runner_config_path|quote }}
+      --registration-token {{ gitlab_runner_token|quote }}
+      --url {{ gitlab_runner_ci_host|quote }}
+      --executor {{ gitlab_runner_executor|quote }}
+      --tag-list "{{ gitlab_runner_tags|join(",") }}"'
+    warn: no
+
+- name: restart gitlab runner
+  systemd:
+    name: gitlab-runner
+    state: restarted
+    daemon_reload: yes

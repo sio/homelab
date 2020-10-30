@@ -1,0 +1,28 @@
+gitlab_runner_config_path: /etc/gitlab-runner/config.toml
+gitlab_runner_template_path: /etc/gitlab-runner/template.toml
+gitlab_runner_config: templates/config.toml
+gitlab_runner_template: templates/template.toml
+gitlab_runner_user: gitlab-runner  # created by deb package
+
+
+gitlab_runner_token: not-provided
+gitlab_runner_ci_host: https://gitlab.com/
+gitlab_runner_tags: []
+gitlab_runner_executor: shell
+gitlab_runner_params:  # template-specific dictionary of parameters
+  name: 'Baremetal shell runner on {{ inventory_hostname|default(ansible_host) }}'
+  url: '{{ gitlab_runner_ci_host }}'
+  token: '{{ gitlab_runner_token }}'
+  executor: '{{ gitlab_runner_executor }}'
+
+
+gitlab_runner_packages_pre:
+  - apt-transport-https
+  - debian-archive-keyring
+gitlab_runner_repo_key: https://packages.gitlab.com/runner/gitlab-runner/gpgkey
+gitlab_runner_repo_list: "\
+  https://packages.gitlab.com/install/repositories/runner/gitlab-runner/config_file.list\
+  ?os={{ ansible_os_family|lower }}\
+  &dist={{ ansible_distribution_release|lower }}\
+  &source=script\
+  "
