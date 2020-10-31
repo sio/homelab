@@ -15,6 +15,11 @@ stages:
   - test-kvm
   - test-playbook
 
+
+include:
+  - .gitlab/ci/previous-pipeline.yml
+
+
 #
 # Job templates
 #
