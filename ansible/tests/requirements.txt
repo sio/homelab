@@ -1,6 +1,7 @@
-molecule!=3.1.*
-molecule-vagrant
+molecule>=3.2.0a0
 molecule-docker
+molecule-vagrant
+python-vagrant
 
 ansible
 ansible-lint!=4.3.0 # 4.3.0: https://gitlab.com/sio/server_common/-/jobs/693768455
