@@ -19,6 +19,7 @@ gitlab_runner_params:  # template-specific dictionary of parameters
 gitlab_runner_packages_pre:
   - apt-transport-https
   - debian-archive-keyring
+  - gnupg
 gitlab_runner_repo_key: https://packages.gitlab.com/runner/gitlab-runner/gpgkey
 gitlab_runner_repo_list: "\
   https://packages.gitlab.com/install/repositories/runner/gitlab-runner/config_file.list\
