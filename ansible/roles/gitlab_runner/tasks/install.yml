@@ -77,3 +77,13 @@
     enabled: yes
     state: started
     daemon_reload: yes
+
+- name: enforce directory permissions for configuration
+  file:
+    state: directory
+    path: '{{ item }}'
+    mode: '0755'
+  loop:
+    - '{{ gitlab_runner_config|dirname }}'
+    - '{{ gitlab_runner_registration_script|dirname }}'
+  notify: restart gitlab runner
