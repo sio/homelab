@@ -5,3 +5,6 @@
   roles:
     - role: gitlab_runner
       gitlab_runner_token: '{{ lookup("env", "GITLAB_RUNNER_TOKEN") }}'
+      gitlab_runner_tags:
+        - test
+        - molecule
