@@ -501,6 +501,26 @@ test-role-wireguard:
 # Test full Ansible playbooks
 #
 
+test-playbook-control:
+  extends: .test-ansible-role-kvm
+  stage: test-playbook
+  variables:
+    ANSIBLE_ROLE: playbook-tests
+    MOLECULE_SCENARIO: control
+  rules:
+    - changes:
+        - ansible/control.yml
+        - ansible/tests/playbook-tests/molecule/control/**/*
+        - ansible/roles/control/**/*
+        - ansible/roles/gitlab_runner/**/*
+        - ansible/roles/interactive/**/*
+        - ansible/roles/motd/**/*
+        - ansible/roles/server/**/*
+        - ansible/roles/sshkey/**/*
+        - ansible/roles/unattended/**/*
+        - ansible/roles/upgrade/**/*
+
+
 test-playbook-mediabox:
   extends: .test-ansible-role-kvm
   stage: test-playbook
