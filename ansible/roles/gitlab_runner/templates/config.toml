@@ -1,9 +1,0 @@
-# {{ ansible_managed }}
-
-
-concurrent = 1      # do not run multiple jobs simultaneously
-check_interval = 0  # use default
-
-
-[session_server]
-  session_timeout = 1800

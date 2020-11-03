@@ -1,8 +1,0 @@
-# {{ ansible_managed }}
-{% set params = gitlab_runner_params %}
-
-
-[[runners]]
-{% for key, value in params.items() %}
-  {{ key }} = "{{ value }}"
-{% endfor %}

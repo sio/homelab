@@ -6,29 +6,28 @@
     path: '{{ item }}'
     mode: '0755'
   loop:
-    - '{{ gitlab_runner_config_path|dirname }}'
-    - '{{ gitlab_runner_template_path|dirname }}'
+    - '{{ gitlab_runner_config|dirname }}'
+    - '{{ gitlab_runner_registration_script|dirname }}'
     - /etc/apt/sources.list.d/
     - /etc/systemd/system/gitlab-runner.service.d/
 
-- name: create template for new runners
+- name: create registration script
   template:
-    src: '{{ gitlab_runner_template }}'
-    dest: '{{ gitlab_runner_template_path }}'
-    mode: '0644'
+    src: templates/register-runners.sh
+    dest: '{{ gitlab_runner_registration_script }}'
+    mode: '0700'
+    owner: '{{ gitlab_runner_user }}'
     backup: yes
   notify:
     - restart gitlab runner
     - register gitlab runner
 
-- name: create initial configuration file
-  template:
-    src: '{{ gitlab_runner_config }}'
-    dest: '{{ gitlab_runner_config_path }}'
-    mode: '0660'
-    owner: root
-    group: gitlab-runner
-    backup: yes
+- name: create configuration file
+  copy:
+    content: ''
+    dest: '{{ gitlab_runner_config }}'
+    mode: '0700'
+    owner: '{{ gitlab_runner_user }}'
     force: no
 
 - name: execute gitlab-runner as unprivileged user
