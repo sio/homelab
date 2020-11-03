@@ -1,0 +1,203 @@
+#
+# STAGE: TEST-KVM
+#
+
+#
+# Job templates
+#
+
+
+.test-ansible-role-kvm:
+  # Tests that require full virtualization are delegated to Cirrus CI
+  stage: test-kvm
+  image: potyarkin/cirrus-run
+  timeout: 2 hours  # Cirrus CI is flaky sometimes and restarts hanged runners
+  script:
+    - export REQUIREMENTS_CHECKSUM=$(sha256sum ansible/tests/requirements.txt|cut -c -64)
+    - cirrus-run
+  variables:
+    CIRRUS_GITHUB_REPO: sio/.cirrus-ci-jobs
+    CIRRUS_SHOW_BUILD_LOG: always
+    # CIRRUS_API_TOKEN: Masked value. Defined in GitLab web interface
+  dependencies: []  # do not download any artifacts from previous stages
+
+
+#
+# Test Ansible roles in KVM virtual machines (Vagrant-Libvirt)
+#
+
+
+test-role-control:
+  extends: .test-ansible-role-kvm
+  variables:
+    ANSIBLE_ROLE: ../roles/control
+  rules:
+    - changes:
+        - ansible/roles/control/**/*
+
+
+test-role-gerbera:
+  extends: .test-ansible-role-kvm
+  variables:
+    ANSIBLE_ROLE: ../roles/gerbera
+  rules:
+    - changes:
+        - ansible/roles/gerbera/**/*
+        - ansible/roles/server/**/*
+
+
+test-role-morebooks:
+  extends: .test-ansible-role-kvm
+  variables:
+    ANSIBLE_ROLE: ../roles/morebooks
+  rules:
+    - changes:
+        - ansible/roles/morebooks/**/*
+        - ansible/roles/server/**/*
+
+
+test-role-samba:
+  extends: .test-ansible-role-kvm
+  variables:
+    ANSIBLE_ROLE: ../roles/samba
+  rules:
+    - changes:
+        - ansible/roles/samba/**/*
+        - ansible/roles/server/**/*
+
+
+test-role-kvm_bridge:
+  extends: .test-ansible-role-kvm
+  variables:
+    ANSIBLE_ROLE: ../roles/kvm_bridge
+  rules:
+    - changes:
+        - ansible/roles/kvm_bridge/**/*
+
+
+test-role-munin_fdcount:
+  extends: .test-ansible-role-kvm
+  variables:
+    ANSIBLE_ROLE: ../roles/munin_fdcount
+  rules:
+    - changes:
+        - ansible/roles/munin_fdcount/**/*
+        - ansible/roles/munin_node/**/*
+        - ansible/roles/server/**/*
+
+
+test-role-munin_smart:
+  extends: .test-ansible-role-kvm
+  variables:
+    ANSIBLE_ROLE: ../roles/munin_smart
+  rules:
+    - changes:
+        - ansible/roles/munin_smart/**/*
+        - ansible/roles/munin_node/**/*
+        - ansible/roles/server/**/*
+
+
+test-role-munin_master:
+  extends: .test-ansible-role-kvm
+  variables:
+    ANSIBLE_ROLE: ../roles/munin_master
+  rules:
+    - changes:
+        - ansible/roles/munin_master/**/*
+        - ansible/roles/munin_node/**/*
+        - ansible/roles/server/**/*
+
+
+test-role-server:
+  extends: .test-ansible-role-kvm
+  variables:
+    ANSIBLE_ROLE: ../roles/server
+  rules:
+    - changes:
+        - ansible/roles/server/**/*
+
+
+test-role-supysonic:
+  extends: .test-ansible-role-kvm
+  variables:
+    ANSIBLE_ROLE: ../roles/supysonic
+  rules:
+    - changes:
+        - ansible/roles/supysonic/**/*
+        - ansible/roles/server/**/*
+
+
+test-role-supysonic-munin:
+  extends: .test-ansible-role-kvm
+  variables:
+    ANSIBLE_ROLE: ../roles/supysonic
+    MOLECULE_SCENARIO: combination-munin
+  rules:
+    - changes:
+        - ansible/roles/munin_master/**/*
+        - ansible/roles/munin_node/**/*
+        - ansible/roles/server/**/*
+        - ansible/roles/supysonic/**/*
+
+
+test-role-torrents_sysctl:
+  extends: .test-ansible-role-kvm
+  variables:
+    ANSIBLE_ROLE: ../roles/torrents_sysctl
+  rules:
+    - changes:
+        - ansible/roles/torrents_sysctl/**/*
+
+
+test-role-transmission:
+  extends: .test-ansible-role-kvm
+  variables:
+    ANSIBLE_ROLE: ../roles/transmission
+  rules:
+    - changes:
+        - ansible/roles/server/**/*
+        - ansible/roles/torrents_sysctl/**/*
+        - ansible/roles/transmission/**/*
+
+
+test-role-transmission-deb_url:
+  extends: .test-ansible-role-kvm
+  variables:
+    ANSIBLE_ROLE: ../roles/transmission
+    MOLECULE_SCENARIO: combination-deb_url
+  rules:
+    - changes:
+        - ansible/roles/deb_url/**/*
+        - ansible/roles/server/**/*
+        - ansible/roles/torrents_sysctl/**/*
+        - ansible/roles/transmission/**/*
+
+
+test-role-virtual_machine:
+  extends: .test-ansible-role-kvm
+  variables:
+    ANSIBLE_ROLE: ../roles/virtual_machine
+    CIRRUS_RAM: 8G
+  rules:
+    - changes:
+        - ansible/roles/kvm_bridge/**/*
+        - ansible/roles/virtual_machine/**/*
+        - packer/debian10/**/*
+
+
+test-role-virtual_usb:
+  extends: .test-ansible-role-kvm
+  variables:
+    ANSIBLE_ROLE: ../roles/virtual_usb
+  rules:
+    - changes:
+        - ansible/roles/virtual_usb/**/*
+
+
+test-role-wireguard:
+  extends: .test-ansible-role-kvm
+  variables:
+    ANSIBLE_ROLE: ../roles/wireguard
+  rules:
+    - changes:
+        - ansible/roles/wireguard/**/*

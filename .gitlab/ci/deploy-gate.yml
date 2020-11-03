@@ -1,3 +1,7 @@
+#
+# STAGE: DEPLOY-GATE
+#
+
 .require-success-of-previous-pipeline-in-this-branch:
   variables:
     PREV_CI_PIPELINE: https://gitlab.com/api/v4/projects/$CI_PROJECT_ID/pipelines?ref=$CI_COMMIT_BRANCH&per_page=1&page=2

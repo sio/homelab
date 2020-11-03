@@ -1,0 +1,164 @@
+#
+# STAGE: BUILD
+#
+
+#
+# Job templates
+#
+
+
+.docker-build:
+  stage: build
+  image: docker:latest
+  services:
+    - docker:dind
+  variables:
+    CI_REGISTRY_USER: potyarkin
+    CI_REGISTRY: docker.io
+    # CI_REGISTRY_PASSWORD: Masked value. Defined in GitLab web interface
+  script:
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" "$CI_REGISTRY"
+    - docker build --pull -t "$CI_REGISTRY_IMAGE" - < "$DOCKERFILE"  # no build context
+    - docker push "$CI_REGISTRY_IMAGE"
+  dependencies: []  # do not download any artifacts from previous stages
+
+
+.packer-build:
+  extends: .test-ansible-role-kvm  # cirrus-run
+  stage: build
+  variables:
+    CIRRUS_CONFIG: packer/cirrus.yml.j2
+    VM_HOSTNAME: guest
+    VM_PASSWORD: hello
+  script:
+    # Build VM image in Cirrus CI
+    - cirrus-run | tee build.log
+    # Download artifacts from Cirrus CI
+    - export CIRRUS_ARTIFACTS_BUILD=$(grep -m 1 -Eo 'build/[0-9]+' build.log|cut -c 7-)
+    - python packer/cirrus_artifacts.py | tee artifacts.list
+    - mkdir artifacts && cd artifacts
+    - xargs -n 1 wget -q < ../artifacts.list
+    - sha256sum -c *.sha256sum
+  artifacts:
+    paths:
+      - artifacts
+    expire_in: 12 hours  # latest branch artifacts are never expired since GitLab 13.4
+  dependencies: []  # do not download any artifacts from previous stages
+
+
+.push-to-master: &push-to-master
+  if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_REF_NAME == "master"'
+  when: always
+
+
+.trigger-docker-build: &trigger-docker-build
+  if: '$TRIGGER_DOCKER_BUILD'
+  when: always
+
+
+#
+# Build virtual machine images
+#
+
+
+packer-debian10:
+  # Artifact URL:
+  #  https://gitlab.com/sio/server_common/-/jobs/artifacts/master/raw/artifacts/guest-image.qcow2?job=packer-debian10
+  #  https://gitlab.com/sio/server_common/-/jobs/artifacts/master/raw/artifacts/guest-image.sha256sum?job=packer-debian10
+  extends: .packer-build
+  variables:
+    PACKER_TARGET: debian10
+  rules:
+    - *trigger-docker-build
+    - if: '$CI_COMMIT_REF_NAME == "master"'
+      when: always  # any pipeline on master must include this job for URLs to remain valid
+    - changes:
+        - packer/debian10/**/*
+
+
+packer-debian-testing:
+  extends: .packer-build
+  variables:
+    PACKER_ACTION: debian-testing
+    PACKER_TARGET: debian10  # use the same recipe as for stable
+  rules:
+    - *trigger-docker-build
+    - changes:
+        - packer/debian10/**/*
+
+
+#
+# Build Docker containers
+#
+
+
+molecule-host-alpine:
+  extends: .docker-build
+  variables:
+    DOCKERFILE: ansible/tests/Dockerfile.host
+    CI_REGISTRY_IMAGE: potyarkin/molecule:host
+  rules:
+    - *trigger-docker-build
+    - <<: *push-to-master
+      changes:
+        - ansible/tests/Dockerfile.host
+
+
+molecule-host-kvm:
+  extends: .docker-build
+  variables:
+    DOCKERFILE: ansible/tests/Dockerfile.host-kvm
+    CI_REGISTRY_IMAGE: potyarkin/molecule:host-kvm
+  rules:
+    - *trigger-docker-build
+    - <<: *push-to-master
+      changes:
+        - ansible/tests/Dockerfile.host-kvm
+
+
+molecule-guest-debian-10:
+  extends: .docker-build
+  variables:
+    DOCKERFILE: ansible/tests/Dockerfile.debian-10
+    CI_REGISTRY_IMAGE: potyarkin/molecule:debian-10
+  rules:
+    - *trigger-docker-build
+    - <<: *push-to-master
+      changes:
+        - ansible/tests/Dockerfile.debian-10
+
+
+molecule-guest-debian-10-systemd:
+  extends: .docker-build
+  variables:
+    DOCKERFILE: ansible/tests/Dockerfile.debian-10-systemd
+    CI_REGISTRY_IMAGE: potyarkin/molecule:debian-10-systemd
+  rules:
+    - *trigger-docker-build
+    - <<: *push-to-master
+      changes:
+        - ansible/tests/Dockerfile.debian-10-systemd
+
+
+molecule-guest-debian-11:
+  extends: .docker-build
+  variables:
+    DOCKERFILE: ansible/tests/Dockerfile.debian-11
+    CI_REGISTRY_IMAGE: potyarkin/molecule:debian-11
+  rules:
+    - *trigger-docker-build
+    - <<: *push-to-master
+      changes:
+        - ansible/tests/Dockerfile.debian-11
+
+
+molecule-guest-debian-11-systemd:
+  extends: .docker-build
+  variables:
+    DOCKERFILE: ansible/tests/Dockerfile.debian-11-systemd
+    CI_REGISTRY_IMAGE: potyarkin/molecule:debian-11-systemd
+  rules:
+    - *trigger-docker-build
+    - <<: *push-to-master
+      changes:
+        - ansible/tests/Dockerfile.debian-11-systemd

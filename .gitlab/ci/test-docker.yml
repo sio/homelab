@@ -1,0 +1,133 @@
+#
+# STAGE: TEST-DOCKER
+#
+
+#
+# Job templates
+#
+
+
+.test-ansible-role:
+  stage: test-docker
+  image: potyarkin/molecule:host
+  services:
+    - docker:dind
+  script:
+    - cd ansible/tests && make test
+  cache:
+    paths:
+      - "$CI_PROJECT_DIR/cache"
+    key:
+      prefix: molecule-venv-v3
+      files:
+        - ansible/tests/requirements.txt
+  variables:
+    PIP_CACHE_DIR: "$CI_PROJECT_DIR/cache/pip"
+    VENVDIR: "$CI_PROJECT_DIR/venv"  # do not cache to track latest PyPI releases
+    PY_COLORS: '1'  # https://www.jeffgeerling.com/blog/2020/getting-colorized-output-molecule-and-ansible-on-github-actions-ci
+    ANSIBLE_FORCE_COLOR: '1'
+  dependencies: []  # do not download any artifacts from previous stages
+
+
+#
+# Test Ansible roles in Docker containers
+#
+
+
+test-role-canary:
+  extends: .test-ansible-role
+  variables:
+    ANSIBLE_ROLE: ../roles/canary
+  rules:
+    - changes:
+        - ansible/roles/canary/**/*
+
+
+test-role-canon_mf3010:
+  extends: .test-ansible-role
+  variables:
+    ANSIBLE_ROLE: ../roles/canon_mf3010
+  rules:
+    - changes:
+        - ansible/roles/canon_mf3010/**/*
+
+
+test-role-deb_url:
+  extends: .test-ansible-role
+  variables:
+    ANSIBLE_ROLE: ../roles/deb_url
+  rules:
+    - changes:
+        - ansible/roles/deb_url/**/*
+
+
+test-role-gitlab_runner:
+  extends: .test-ansible-role
+  variables:
+    ANSIBLE_ROLE: ../roles/gitlab_runner
+  rules:
+    - changes:
+        - ansible/roles/gitlab_runner/**/*
+
+
+test-role-interactive:
+  extends: .test-ansible-role
+  variables:
+    ANSIBLE_ROLE: ../roles/interactive
+  rules:
+    - changes:
+        - ansible/roles/interactive/**/*
+
+
+test-role-motd:
+  extends: .test-ansible-role
+  variables:
+    ANSIBLE_ROLE: ../roles/motd
+  rules:
+    - changes:
+        - ansible/roles/motd/**/*
+
+
+test-role-packages:
+  extends: .test-ansible-role
+  variables:
+    ANSIBLE_ROLE: ../roles/packages
+  rules:
+    - changes:
+        - ansible/roles/packages/**/*
+
+
+test-role-smarttest:
+  extends: .test-ansible-role
+  variables:
+    ANSIBLE_ROLE: ../roles/smarttest
+  rules:
+    - changes:
+        - ansible/roles/smarttest/**/*
+
+
+test-role-sshkey:
+  extends: .test-ansible-role
+  variables:
+    ANSIBLE_ROLE: ../roles/sshkey
+  rules:
+    - changes:
+        - ansible/roles/sshkey/**/*
+
+
+test-role-unattended:
+  extends: .test-ansible-role
+  variables:
+    ANSIBLE_ROLE: ../roles/unattended
+  rules:
+    - changes:
+        - ansible/roles/unattended/**/*
+
+
+test-role-wol:
+  extends: .test-ansible-role
+  variables:
+    ANSIBLE_ROLE: ../roles/wol
+  rules:
+    - changes:
+        - ansible/roles/wol/**/*

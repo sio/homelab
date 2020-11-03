@@ -1,0 +1,125 @@
+#
+# STAGE: TEST-PLAYBOOK
+#
+
+
+#
+# Test full Ansible playbooks
+#
+
+
+test-playbook-control:
+  extends: .test-ansible-role-kvm
+  stage: test-playbook
+  variables:
+    ANSIBLE_ROLE: playbook-tests
+    MOLECULE_SCENARIO: control
+  rules:
+    - changes:
+        - ansible/control.yml
+        - ansible/tests/playbook-tests/molecule/control/**/*
+        - ansible/roles/control/**/*
+        - ansible/roles/gitlab_runner/**/*
+        - ansible/roles/interactive/**/*
+        - ansible/roles/motd/**/*
+        - ansible/roles/server/**/*
+        - ansible/roles/sshkey/**/*
+        - ansible/roles/unattended/**/*
+        - ansible/roles/upgrade/**/*
+
+
+test-playbook-mediabox:
+  extends: .test-ansible-role-kvm
+  stage: test-playbook
+  variables:
+    ANSIBLE_ROLE: playbook-tests
+    MOLECULE_SCENARIO: mediabox
+  rules:
+    - changes:
+        - ansible/mediabox.yml
+        - ansible/tests/playbook-tests/molecule/mediabox/**/*
+        - ansible/roles/canary/**/*
+        - ansible/roles/deb_url/**/*
+        - ansible/roles/gerbera/**/*
+        - ansible/roles/interactive/**/*
+        - ansible/roles/motd/**/*
+        - ansible/roles/munin_fdcount/**/*
+        - ansible/roles/munin_master/**/*
+        - ansible/roles/munin_node/**/*
+        - ansible/roles/munin_smart/**/*
+        - ansible/roles/packages/**/*
+        - ansible/roles/samba/**/*
+        - ansible/roles/sshkey/**/*
+        - ansible/roles/server/**/*
+        - ansible/roles/smarttest/**/*
+        - ansible/roles/supysonic/**/*
+        - ansible/roles/torrents_sysctl/**/*
+        - ansible/roles/transmission/**/*
+        - ansible/roles/unattended/**/*
+        - ansible/roles/upgrade/**/*
+        - ansible/roles/wol/**/*
+
+
+test-playbook-lab:
+  extends: .test-ansible-role-kvm
+  stage: test-playbook
+  variables:
+    ANSIBLE_ROLE: playbook-tests
+    MOLECULE_SCENARIO: lab
+  rules:
+    - changes:
+        - ansible/lab*.yml
+        - ansible/wakeup.yml
+        - ansible/shutdown.yml
+        - ansible/tests/playbook-tests/molecule/lab/**/*
+        - ansible/roles/canary/**/*
+        - ansible/roles/interactive/**/*
+        - ansible/roles/motd/**/*
+        - ansible/roles/munin_node/**/*
+        - ansible/roles/munin_smart/**/*
+        - ansible/roles/packages/**/*
+        - ansible/roles/server/**/*
+        - ansible/roles/smarttest/**/*
+        - ansible/roles/unattended/**/*
+        - ansible/roles/upgrade/**/*
+        - ansible/roles/wol/**/*
+
+
+test-playbook-printer:
+  extends: .test-ansible-role-kvm
+  stage: test-playbook
+  variables:
+    ANSIBLE_ROLE: playbook-tests
+    MOLECULE_SCENARIO: printer
+  rules:
+    - changes:
+        - ansible/printer.yml
+        - ansible/tests/playbook-tests/molecule/printer/**/*
+        - ansible/roles/canon_mf3010/**/*
+        - ansible/roles/motd/**/*
+        - ansible/roles/packages/**/*
+        - ansible/roles/server/**/*
+        - ansible/roles/unattended/**/*
+        - ansible/roles/upgrade/**/*
+
+
+test-playbook-laptopmini:
+  extends: .test-ansible-role-kvm
+  stage: test-playbook
+  variables:
+    ANSIBLE_ROLE: playbook-tests
+    MOLECULE_SCENARIO: laptopmini
+  rules:
+    - changes:
+        - ansible/laptopmini.yml
+        - ansible/tests/playbook-tests/molecule/laptopmini/**/*
+        - ansible/roles/grub/**/*
+        - ansible/roles/initrd/**/*
+        - ansible/roles/interactive/**/*
+        - ansible/roles/munin_node/**/*
+        - ansible/roles/munin_smart/**/*
+        - ansible/roles/packages/**/*
+        - ansible/roles/server/**/*
+        - ansible/roles/smarttest/**/*
+        - ansible/roles/sshkey/**/*
+        - ansible/roles/upgrade/**/*
