@@ -35,22 +35,3 @@
         validate: visudo -cf %s
         mode: '0440'
         backup: yes
-
-    - name: add extra dependency between daemons
-      block:
-        - name: create unit override directory for gitlab-runner
-          file:
-            dest: /etc/systemd/system/gitlab-runner.service.d/
-            state: directory
-            mode: '0755'
-        - name: start gitlab-runner after control-secrets
-          copy:
-            content: |
-              [Unit]
-              After=control-secrets.service
-              Requires=control-secrets.service
-            dest: /etc/systemd/system/gitlab-runner.service.d/control-secrets.conf
-            mode: '0644'
-            backup: yes
-          notify: restart gitlab runner
-
