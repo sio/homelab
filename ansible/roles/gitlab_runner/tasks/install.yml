@@ -36,6 +36,13 @@
       [Service]
       User={{ gitlab_runner_user }}
       NoNewPrivileges=yes
+      ExecStart=
+      ExecStart=/usr/bin/gitlab-runner \
+        run \
+        --working-directory /home/{{ gitlab_runner_user }} \
+        --config {{ gitlab_runner_config|quote }} \
+        --service gitlab-runner \
+        --syslog
     dest: /etc/systemd/system/gitlab-runner.service.d/unprivileged.conf
     mode: '0644'
     backup: yes
