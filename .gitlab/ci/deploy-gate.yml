@@ -4,7 +4,12 @@
 
 .require-success-of-previous-pipeline-in-this-branch:
   variables:
-    PREV_CI_PIPELINE: https://gitlab.com/api/v4/projects/$CI_PROJECT_ID/pipelines?ref=$CI_COMMIT_BRANCH&per_page=1&page=2
+    CHECK_BRANCH: $CI_COMMIT_BRANCH
+    API_CI_PIPELINE_URL: https://gitlab.com/api/v4/projects/$CI_PROJECT_ID/pipelines?ref=$CHECK_BRANCH&per_page=1
+    CURR_CI_PIPELINE: $API_CI_PIPELINE_URL&page=1
+    PREV_CI_PIPELINE: $API_CI_PIPELINE_URL&page=2
   before_script:
     - echo "$PREV_CI_PIPELINE"
     - curl -s "$PREV_CI_PIPELINE" | tee /dev/stderr | grep '"status":"success"'
+  script:
+    - exit 0
