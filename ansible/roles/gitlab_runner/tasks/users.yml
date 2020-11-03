@@ -1,0 +1,14 @@
+---
+
+- name: create group for gitlab-runner
+  group:
+    name: '{{ gitlab_runner_user }}'
+    state: present
+
+- name: create user for gitlab-runner
+  user:
+    name: '{{ gitlab_runner_user }}'
+    state: present
+    groups: '{{ gitlab_runner_user }}'
+    append: yes
+    create_home: yes
