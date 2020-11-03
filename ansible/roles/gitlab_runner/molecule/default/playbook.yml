@@ -8,3 +8,6 @@
       gitlab_runner_tags:
         - test
         - molecule
+      gitlab_runner_extra_registration_params:
+        name: test-runner
+        access-level: ref_protected
