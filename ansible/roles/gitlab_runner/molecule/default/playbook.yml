@@ -1,9 +1,15 @@
 ---
 
+- hosts: debian11-docker
+  gather_facts: no
+  become: no
+  tasks:
+    - name: use correct distribution release name (detection impossible in slim docker container)
+      set_fact:
+        ansible_distribution_release: Bullseye
+
 - hosts: all
   become: true
-  vars_files:
-    - ../../../../group_vars/all.yml
   roles:
     - role: gitlab_runner
       gitlab_runner_token: '{{ lookup("env", "GITLAB_RUNNER_TOKEN") }}'
