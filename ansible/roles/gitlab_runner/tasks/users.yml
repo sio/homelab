@@ -12,3 +12,4 @@
     groups: '{{ gitlab_runner_user }}'
     append: yes
     create_home: yes
+    skeleton: /dev/null
