@@ -246,6 +246,15 @@ test-role-deb_url:
         - ansible/roles/deb_url/**/*
 
 
+test-role-gitlab_runner:
+  extends: .test-ansible-role
+  variables:
+    ANSIBLE_ROLE: ../roles/gitlab_runner
+  rules:
+    - changes:
+        - ansible/roles/gitlab_runner/**/*
+
+
 test-role-interactive:
   extends: .test-ansible-role
   variables:
