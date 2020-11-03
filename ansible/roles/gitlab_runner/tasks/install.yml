@@ -68,7 +68,7 @@
 - name: update package lists
   apt:
     update_cache: yes
-  when: apt_repo.changed  # noqa
+  when: apt_repo is changed  # noqa 503
 
 - name: install gitlab runner
   package:
