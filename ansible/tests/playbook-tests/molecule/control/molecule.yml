@@ -18,13 +18,11 @@ provisioner:
           - /test/keys/three fifths
         infra_dir: '{{ molecule_ephemeral_directory }}'
         secret_gitlab_runner_token: ''
-        server_keys_public:
-          - '{{ molecule_ephemeral_directory }}/keys/lab.pub'
+        server_keys_public: '{{ sshkey_only.vagrant[0] }}'
         sshkey_only:
-          op:
-            - '{{ molecule_ephemeral_directory }}/keys/lab.pub'
           vagrant:
             - '{{ molecule_ephemeral_directory }}/vagrant-insecure.pub'
+            - '{{ molecule_ephemeral_directory }}/keys/lab.pub'
     host_vars:
       debian11-vm:
         gitlab_runner_repo_release: buster  # bullseye repos are not yet populated at GitLab
