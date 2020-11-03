@@ -11,6 +11,11 @@ provisioner:
     group_vars:
       all:
         ansible_python_interpreter: /usr/bin/python3
+        control_inventory: /test/inventory/inventory.yml
+        control_sshkeys:
+          - /test/keys/one
+          - /test/keys/two
+          - /test/keys/three fifths
         infra_dir: '{{ molecule_ephemeral_directory }}'
         secret_gitlab_runner_token: ''
         server_keys_public:
