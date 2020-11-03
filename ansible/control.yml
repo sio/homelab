@@ -1,0 +1,56 @@
+---
+
+# On premises infrastructure control node
+#
+# Runs Ansible playbooks triggered either automatically by GitLab CI
+# or manually by operator
+#
+# Requires manual entering of passkeys and vault passwords after each reboot or
+# after 30 days of uptime
+
+- hosts: control
+  become: yes
+  roles:
+    - role: upgrade
+    - role: unattended
+    - role: motd
+    - role: sshkey
+    - role: server
+
+    - role: control
+    - role: gitlab_runner
+      gitlab_runner_token: '{{ secret_gitlab_runner_token }}'
+      gitlab_runner_tags:
+        - apply-infrastructure-config
+      gitlab_runner_extra_registration_params:
+        name: on-premises-control-node
+        access-level: ref_protected
+
+  tasks:
+    - name: allow gitlab-runner to sudo as operator
+      copy:
+        content: |
+          gitlab-runner ALL=(operator) NOPASSWD: SETENV: LOG_OUTPUT: /usr/bin/make all
+        dest: /etc/sudoers.d/gitlab-runner
+        validate: visudo -cf %s
+        mode: '0440'
+        backup: yes
+
+    - name: add extra dependency between daemons
+      block:
+        - name: create unit override directory for gitlab-runner
+          file:
+            dest: /etc/systemd/system/gitlab-runner.service.d/
+            state: directory
+            mode: '0755'
+        - name: start gitlab-runner after control-secrets
+          copy:
+            content: |
+              [Unit]
+              After=control-secrets.service
+              Requires=control-secrets.service
+            dest: /etc/systemd/system/gitlab-runner.service.d/control-secrets.conf
+            mode: '0644'
+            backup: yes
+          notify: restart gitlab runner
+
