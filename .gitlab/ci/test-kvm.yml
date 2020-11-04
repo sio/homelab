@@ -22,6 +22,11 @@
   dependencies: []  # do not download any artifacts from previous stages
 
 
+.option-skip-test: &option-skip-test
+  if: '$SKIP_TEST'
+  when: never
+
+
 #
 # Test Ansible roles in KVM virtual machines (Vagrant-Libvirt)
 #
