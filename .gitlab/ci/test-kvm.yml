@@ -32,6 +32,7 @@ test-role-control:
   variables:
     ANSIBLE_ROLE: ../roles/control
   rules:
+    - *option-skip-test
     - changes:
         - ansible/roles/control/**/*
 
@@ -41,6 +42,7 @@ test-role-gerbera:
   variables:
     ANSIBLE_ROLE: ../roles/gerbera
   rules:
+    - *option-skip-test
     - changes:
         - ansible/roles/gerbera/**/*
         - ansible/roles/server/**/*
@@ -51,6 +53,7 @@ test-role-morebooks:
   variables:
     ANSIBLE_ROLE: ../roles/morebooks
   rules:
+    - *option-skip-test
     - changes:
         - ansible/roles/morebooks/**/*
         - ansible/roles/server/**/*
@@ -61,6 +64,7 @@ test-role-samba:
   variables:
     ANSIBLE_ROLE: ../roles/samba
   rules:
+    - *option-skip-test
     - changes:
         - ansible/roles/samba/**/*
         - ansible/roles/server/**/*
@@ -71,6 +75,7 @@ test-role-kvm_bridge:
   variables:
     ANSIBLE_ROLE: ../roles/kvm_bridge
   rules:
+    - *option-skip-test
     - changes:
         - ansible/roles/kvm_bridge/**/*
 
@@ -80,6 +85,7 @@ test-role-munin_fdcount:
   variables:
     ANSIBLE_ROLE: ../roles/munin_fdcount
   rules:
+    - *option-skip-test
     - changes:
         - ansible/roles/munin_fdcount/**/*
         - ansible/roles/munin_node/**/*
@@ -91,6 +97,7 @@ test-role-munin_smart:
   variables:
     ANSIBLE_ROLE: ../roles/munin_smart
   rules:
+    - *option-skip-test
     - changes:
         - ansible/roles/munin_smart/**/*
         - ansible/roles/munin_node/**/*
@@ -102,6 +109,7 @@ test-role-munin_master:
   variables:
     ANSIBLE_ROLE: ../roles/munin_master
   rules:
+    - *option-skip-test
     - changes:
         - ansible/roles/munin_master/**/*
         - ansible/roles/munin_node/**/*
@@ -113,6 +121,7 @@ test-role-server:
   variables:
     ANSIBLE_ROLE: ../roles/server
   rules:
+    - *option-skip-test
     - changes:
         - ansible/roles/server/**/*
 
@@ -122,6 +131,7 @@ test-role-supysonic:
   variables:
     ANSIBLE_ROLE: ../roles/supysonic
   rules:
+    - *option-skip-test
     - changes:
         - ansible/roles/supysonic/**/*
         - ansible/roles/server/**/*
@@ -133,6 +143,7 @@ test-role-supysonic-munin:
     ANSIBLE_ROLE: ../roles/supysonic
     MOLECULE_SCENARIO: combination-munin
   rules:
+    - *option-skip-test
     - changes:
         - ansible/roles/munin_master/**/*
         - ansible/roles/munin_node/**/*
@@ -145,6 +156,7 @@ test-role-torrents_sysctl:
   variables:
     ANSIBLE_ROLE: ../roles/torrents_sysctl
   rules:
+    - *option-skip-test
     - changes:
         - ansible/roles/torrents_sysctl/**/*
 
@@ -154,6 +166,7 @@ test-role-transmission:
   variables:
     ANSIBLE_ROLE: ../roles/transmission
   rules:
+    - *option-skip-test
     - changes:
         - ansible/roles/server/**/*
         - ansible/roles/torrents_sysctl/**/*
@@ -166,6 +179,7 @@ test-role-transmission-deb_url:
     ANSIBLE_ROLE: ../roles/transmission
     MOLECULE_SCENARIO: combination-deb_url
   rules:
+    - *option-skip-test
     - changes:
         - ansible/roles/deb_url/**/*
         - ansible/roles/server/**/*
@@ -179,6 +193,7 @@ test-role-virtual_machine:
     ANSIBLE_ROLE: ../roles/virtual_machine
     CIRRUS_RAM: 8G
   rules:
+    - *option-skip-test
     - changes:
         - ansible/roles/kvm_bridge/**/*
         - ansible/roles/virtual_machine/**/*
@@ -190,6 +205,7 @@ test-role-virtual_usb:
   variables:
     ANSIBLE_ROLE: ../roles/virtual_usb
   rules:
+    - *option-skip-test
     - changes:
         - ansible/roles/virtual_usb/**/*
 
@@ -199,5 +215,6 @@ test-role-wireguard:
   variables:
     ANSIBLE_ROLE: ../roles/wireguard
   rules:
+    - *option-skip-test
     - changes:
         - ansible/roles/wireguard/**/*

@@ -29,6 +29,11 @@
   dependencies: []  # do not download any artifacts from previous stages
 
 
+.option-skip-test: &option-skip-test
+  if: '$SKIP_TEST'
+  when: never
+
+
 #
 # Test Ansible roles in Docker containers
 #
@@ -39,6 +44,7 @@ test-role-canary:
   variables:
     ANSIBLE_ROLE: ../roles/canary
   rules:
+    - *option-skip-test
     - changes:
         - ansible/roles/canary/**/*
 
@@ -48,6 +54,7 @@ test-role-canon_mf3010:
   variables:
     ANSIBLE_ROLE: ../roles/canon_mf3010
   rules:
+    - *option-skip-test
     - changes:
         - ansible/roles/canon_mf3010/**/*
 
@@ -57,6 +64,7 @@ test-role-deb_url:
   variables:
     ANSIBLE_ROLE: ../roles/deb_url
   rules:
+    - *option-skip-test
     - changes:
         - ansible/roles/deb_url/**/*
 
@@ -66,6 +74,7 @@ test-role-gitlab_runner:
   variables:
     ANSIBLE_ROLE: ../roles/gitlab_runner
   rules:
+    - *option-skip-test
     - changes:
         - ansible/roles/gitlab_runner/**/*
 
@@ -75,6 +84,7 @@ test-role-interactive:
   variables:
     ANSIBLE_ROLE: ../roles/interactive
   rules:
+    - *option-skip-test
     - changes:
         - ansible/roles/interactive/**/*
 
@@ -84,6 +94,7 @@ test-role-motd:
   variables:
     ANSIBLE_ROLE: ../roles/motd
   rules:
+    - *option-skip-test
     - changes:
         - ansible/roles/motd/**/*
 
@@ -93,6 +104,7 @@ test-role-packages:
   variables:
     ANSIBLE_ROLE: ../roles/packages
   rules:
+    - *option-skip-test
     - changes:
         - ansible/roles/packages/**/*
 
@@ -102,6 +114,7 @@ test-role-smarttest:
   variables:
     ANSIBLE_ROLE: ../roles/smarttest
   rules:
+    - *option-skip-test
     - changes:
         - ansible/roles/smarttest/**/*
 
@@ -111,6 +124,7 @@ test-role-sshkey:
   variables:
     ANSIBLE_ROLE: ../roles/sshkey
   rules:
+    - *option-skip-test
     - changes:
         - ansible/roles/sshkey/**/*
 
@@ -120,6 +134,7 @@ test-role-unattended:
   variables:
     ANSIBLE_ROLE: ../roles/unattended
   rules:
+    - *option-skip-test
     - changes:
         - ansible/roles/unattended/**/*
 
@@ -129,5 +144,6 @@ test-role-wol:
   variables:
     ANSIBLE_ROLE: ../roles/wol
   rules:
+    - *option-skip-test
     - changes:
         - ansible/roles/wol/**/*

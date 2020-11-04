@@ -15,6 +15,7 @@ test-playbook-control:
     ANSIBLE_ROLE: playbook-tests
     MOLECULE_SCENARIO: control
   rules:
+    - *option-skip-test
     - changes:
         - ansible/control.yml
         - ansible/tests/playbook-tests/molecule/control/**/*
@@ -35,6 +36,7 @@ test-playbook-mediabox:
     ANSIBLE_ROLE: playbook-tests
     MOLECULE_SCENARIO: mediabox
   rules:
+    - *option-skip-test
     - changes:
         - ansible/mediabox.yml
         - ansible/tests/playbook-tests/molecule/mediabox/**/*
@@ -67,6 +69,7 @@ test-playbook-lab:
     ANSIBLE_ROLE: playbook-tests
     MOLECULE_SCENARIO: lab
   rules:
+    - *option-skip-test
     - changes:
         - ansible/lab*.yml
         - ansible/wakeup.yml
@@ -92,6 +95,7 @@ test-playbook-printer:
     ANSIBLE_ROLE: playbook-tests
     MOLECULE_SCENARIO: printer
   rules:
+    - *option-skip-test
     - changes:
         - ansible/printer.yml
         - ansible/tests/playbook-tests/molecule/printer/**/*
@@ -110,6 +114,7 @@ test-playbook-laptopmini:
     ANSIBLE_ROLE: playbook-tests
     MOLECULE_SCENARIO: laptopmini
   rules:
+    - *option-skip-test
     - changes:
         - ansible/laptopmini.yml
         - ansible/tests/playbook-tests/molecule/laptopmini/**/*

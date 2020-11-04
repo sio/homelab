@@ -25,3 +25,8 @@
     - curl "$CHECK_PIPELINE" | tee /dev/stderr | grep "$CHECK_MARKER"
   script:
     - exit 0
+
+
+.option-skip-deploy-gate: &option-skip-deploy-gate
+  if: '$SKIP_DEPLOY_GATE'
+  allow_failure: true

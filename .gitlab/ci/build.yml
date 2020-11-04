@@ -56,6 +56,11 @@
   when: always
 
 
+.option-skip-build: &option-skip-build
+  if: '$SKIP_BUILD'
+  when: never
+
+
 #
 # Build virtual machine images
 #
@@ -69,6 +74,7 @@ packer-debian10:
   variables:
     PACKER_TARGET: debian10
   rules:
+    - *option-skip-build
     - *trigger-docker-build
     - if: '$CI_COMMIT_REF_NAME == "master"'
       when: always  # any pipeline on master must include this job for URLs to remain valid
@@ -82,6 +88,7 @@ packer-debian-testing:
     PACKER_ACTION: debian-testing
     PACKER_TARGET: debian10  # use the same recipe as for stable
   rules:
+    - *option-skip-build
     - *trigger-docker-build
     - changes:
         - packer/debian10/**/*
@@ -98,6 +105,7 @@ molecule-host-alpine:
     DOCKERFILE: ansible/tests/Dockerfile.host
     CI_REGISTRY_IMAGE: potyarkin/molecule:host
   rules:
+    - *option-skip-build
     - *trigger-docker-build
     - <<: *push-to-master
       changes:
@@ -110,6 +118,7 @@ molecule-host-kvm:
     DOCKERFILE: ansible/tests/Dockerfile.host-kvm
     CI_REGISTRY_IMAGE: potyarkin/molecule:host-kvm
   rules:
+    - *option-skip-build
     - *trigger-docker-build
     - <<: *push-to-master
       changes:
@@ -122,6 +131,7 @@ molecule-guest-debian-10:
     DOCKERFILE: ansible/tests/Dockerfile.debian-10
     CI_REGISTRY_IMAGE: potyarkin/molecule:debian-10
   rules:
+    - *option-skip-build
     - *trigger-docker-build
     - <<: *push-to-master
       changes:
@@ -134,6 +144,7 @@ molecule-guest-debian-10-systemd:
     DOCKERFILE: ansible/tests/Dockerfile.debian-10-systemd
     CI_REGISTRY_IMAGE: potyarkin/molecule:debian-10-systemd
   rules:
+    - *option-skip-build
     - *trigger-docker-build
     - <<: *push-to-master
       changes:
@@ -146,6 +157,7 @@ molecule-guest-debian-11:
     DOCKERFILE: ansible/tests/Dockerfile.debian-11
     CI_REGISTRY_IMAGE: potyarkin/molecule:debian-11
   rules:
+    - *option-skip-build
     - *trigger-docker-build
     - <<: *push-to-master
       changes:
@@ -158,6 +170,7 @@ molecule-guest-debian-11-systemd:
     DOCKERFILE: ansible/tests/Dockerfile.debian-11-systemd
     CI_REGISTRY_IMAGE: potyarkin/molecule:debian-11-systemd
   rules:
+    - *option-skip-build
     - *trigger-docker-build
     - <<: *push-to-master
       changes:
