@@ -30,3 +30,11 @@
 .option-skip-deploy-gate: &option-skip-deploy-gate
   if: '$SKIP_DEPLOY_GATE'
   allow_failure: true
+
+
+require-success-of-previous-pipeline:
+  extends: .check-pipeline-status
+  stage: deploy-gate
+  rules:
+    - *option-skip-deploy-gate
+    - if: '$CI_COMMIT_BRANCH == "deploy"'
