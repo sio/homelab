@@ -27,6 +27,9 @@ task:
     {% if MOLECULE_SCENARIO is defined %}
     MOLECULE_SCENARIO: "{{ MOLECULE_SCENARIO }}"
     {% endif %}
+    {% if REQUIREMENTS_TXT is defined %}
+    REQUIREMENTS_TXT: "{{ REQUIREMENTS_TXT.split('/') | list | last }}"
+    {% endif %}
 
     # Force colored output
     PY_COLORS: '1'  # https://www.jeffgeerling.com/blog/2020/getting-colorized-output-molecule-and-ansible-on-github-actions-ci

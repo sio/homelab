@@ -115,6 +115,11 @@ check-debian-release:
 	done; \
 	[ -z "$$RETCODE" ] || exit $$RETCODE;
 
+
+molecule-git.pip:  # cooperation with https://gitlab.com/sio/ci-with-molecule-git
+	curl -o "$@" -L "https://gitlab.com/sio/ci-with-molecule-git/-/raw/master/molecule-git.pip"
+
+
 include Makefile.venv
 Makefile.venv:
 	curl \
