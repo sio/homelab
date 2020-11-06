@@ -9,3 +9,6 @@
       shell: which ping || { apt-get update; apt-get -y install iputils-ping; }
       register: install
       changed_when: install.stdout_lines|length > 2
+
+# Replace apt repository on testing with a non-Fastly one
+- import_playbook: ../../../../roles/virtual_machine/molecule/default/prepare.yml
