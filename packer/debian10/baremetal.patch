@@ -40,4 +40,4 @@
 +d-i hostname string unassigned-debian-system
 +d-i domain string unassigned-domain
 +d-i auto-install/enable boolean true
-+d-i debian-installer/exit/halt boolean true
++d-i debian-installer/exit/poweroff boolean true
