@@ -14,6 +14,7 @@
     url: https://github.com/sio/munin_plugin_smart_raw/raw/master/smart_raw.py
     dest: '/etc/munin/plugins/smart_raw'
     mode: '0755'
+    checksum: '{{ munin_smart_plugin_checksum|default("") }}'
   notify: restart munin node
 
 - name: configure smart_raw plugin

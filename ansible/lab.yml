@@ -38,12 +38,12 @@
     - role: smarttest
     - role: server
     - role: interactive
-    - role: packages
-      packages_install: '{{ playground_packages }}'  # group_vars/all.yml
-      packages_recommends: no
     - role: munin_node
     - role: munin_smart
     - role: sshkey
+    - role: packages
+      packages_install: '{{ playground_packages }}'  # group_vars/all.yml
+      packages_recommends: no
 
   tasks:
     - name: modify user permissions
