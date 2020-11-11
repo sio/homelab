@@ -72,6 +72,10 @@ keys:
 	done; \
 	if [[ ! -z "$$new_keys" ]]; \
 	then \
+		[[ ! -z "$$NON_INTERACTIVE" ]] && { \
+			echo Can not query for passphrase in non-interactive mode; \
+			exit 105; \
+		}; \
 		echo "Adding identities to ssh-agent..."; \
 		ssh-add -t $(SSH_AGENT_LIFETIME) $$new_keys; \
 	fi
