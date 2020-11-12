@@ -1,4 +1,6 @@
 ---
+sshkey_allow_extra: no
+
 # sshkey_only:
 #   userA:
 #     - path/to/key.pub
