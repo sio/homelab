@@ -1,0 +1,11 @@
+# Actual playbook we are testing
+- import_playbook: ../../../../lab.yml
+
+
+# Reboot instance between converge and idempotence to restore communication
+# with Fastly CDN
+- hosts: all
+  become: yes
+  tasks:
+    - name: reboot test instance
+      reboot:

@@ -5,8 +5,6 @@ provisioner:
   name: ansible
   env:
     ANSIBLE_ROLES_PATH: ../../../../roles
-  playbooks:
-    converge: ../../../../lab.yml
   inventory:
     group_vars:
       all:
