@@ -9,3 +9,4 @@
   tasks:
     - name: reboot test instance
       reboot:
+      changed_when: false
