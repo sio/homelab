@@ -49,11 +49,6 @@ task:
     fingerprint_script:
       - echo "Python packages cache"
       - echo "$CACHE_KEY"
-  vagrant_cache:  # ~40 sec speedup on cache hit without reupload
-                  # ~60 sec slowdown on cache upload
-    folder: $HOME/.vagrant.d/boxes
-    fingerprint_script:
-      - echo 'Base images: Debian 10, Debian 11 (testing)'
 
   # Clone correct repo instead of dummy GitHub placeholder
   clone_script:
@@ -77,16 +72,9 @@ task:
     - cd ansible/tests
     - make test
 
-  # Clean up volatile items in cache
-  volatile_cache_script:
-    - find "$HOME/.vagrant.d/boxes" -type f -name box_update_check -delete -print || echo "Exit code: $?"
-
   # Debugging information
   always:
     cache_debug_script:
-      - du -sh "$HOME/.vagrant.d/boxes" || echo "Exit code: $?"
-      - ls -l "$HOME/.vagrant.d/boxes" || echo "Exit code: $?"
-      - find "$HOME/.vagrant.d/boxes" -type f || echo "Exit code: $?"
       - find "$HOME/cache" -type f || echo "Exit code: $?"
     kvm_debug_script:
       - free -h
