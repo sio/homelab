@@ -8,11 +8,11 @@ driver:
 
 platforms:
   - name: debian10-vm
-    box: debian/buster64
+    box: potyarkin/debian10
     cpu_mode: host-passthrough
     memory: 2048
   - name: debian11-vm
-    box: debian/testing64
+    box: potyarkin/debian11
     cpu_mode: host-passthrough
     memory: 2048
 

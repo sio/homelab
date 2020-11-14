@@ -24,12 +24,12 @@ platforms:
   - name: debian10-vm
     groups:
       - printer
-    box: debian/buster64
+    box: potyarkin/debian10
     memory: 1024
   - name: debian11-vm
     groups:
       - printer
-    box: debian/testing64
+    box: potyarkin/debian11
     memory: 1024
 
 dependency:

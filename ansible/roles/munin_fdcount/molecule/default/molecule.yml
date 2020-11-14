@@ -8,10 +8,10 @@ driver:
 
 platforms:
   - name: debian10-vm
-    box: debian/buster64
+    box: potyarkin/debian10
     memory: 1024
   - name: debian11-vm
-    box: debian/testing64
+    box: potyarkin/debian11
     memory: 1024
 
 dependency:
