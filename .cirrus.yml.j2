@@ -36,6 +36,9 @@ task:
     ANSIBLE_FORCE_COLOR: '1'
 
     # Variables that might be helpful for debugging
+    {% if DEBUG is defined %}
+    DEBUG: "{{ DEBUG }}"
+    {% endif %}
     #   DEBUG: 1
     #   VIRSH_DEBUG: 1
     #   LIBVIRT_DEBUG: 2
