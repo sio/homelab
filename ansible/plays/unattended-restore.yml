@@ -6,7 +6,7 @@
     - name: restore unattended upgrades to previous state
       systemd:
         name: '{{ item.item }}'
-        state: enabled
+        enabled: yes
         daemon_reload: yes
       loop: '{{ unattended_disable.results }}'
       when: item is changed  # noqa

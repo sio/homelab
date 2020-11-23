@@ -9,7 +9,7 @@
     - name: temporarily disable unattended upgrades
       systemd:
         name: '{{ item }}'
-        state: disabled
+        enabled: no
         daemon_reload: yes
       loop:
         - apt-daily.timer
