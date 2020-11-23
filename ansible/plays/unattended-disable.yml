@@ -19,3 +19,4 @@
     - name: wait for current unattended upgrade to finish
       command:
         systemd-run --property="After=apt-daily.service apt-daily-upgrade.service" --wait /bin/true
+      changed_when: false
