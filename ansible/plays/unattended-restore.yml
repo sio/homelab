@@ -9,4 +9,6 @@
         enabled: yes
         daemon_reload: yes
       loop: '{{ unattended_disable.results }}'
+      loop_control:
+        label: '{{ item.item }}'
       when: item is changed  # noqa
