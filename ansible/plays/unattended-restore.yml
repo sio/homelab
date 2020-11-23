@@ -1,6 +1,7 @@
 # To be used in pair with ./unattended-disable.yml
 
 - hosts: '{{ limit_hosts|default("all") }}'
+  gather_facts: no
   become: yes
   tasks:
     - name: restore unattended upgrades to previous state
