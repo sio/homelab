@@ -1,0 +1,21 @@
+# To be used in pair with ./unattended-restore.yml
+#
+# https://unix.stackexchange.com/questions/463498/
+# https://stackoverflow.com/a/51919678
+
+- hosts: '{{ limit_hosts|default("all") }}'
+  become: yes
+  tasks:
+    - name: temporarily disable unattended upgrades
+      systemd:
+        name: '{{ item }}'
+        state: disabled
+        daemon_reload: yes
+      loop:
+        - apt-daily.timer
+        - apt-daily-upgrade.timer
+      register: unattended_disable
+
+    - name: wait for current unattended upgrade to finish
+      command:
+        systemd-run --property="After=apt-daily.service apt-daily-upgrade.service" --wait /bin/true
