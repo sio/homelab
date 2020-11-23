@@ -12,7 +12,6 @@
   become: yes
   roles:
     - role: upgrade
-    - role: unattended
     - role: motd
     - role: sshkey
     - role: server
@@ -25,6 +24,8 @@
       gitlab_runner_extra_registration_params:
         name: on-premises-control-node
         access-level: ref_protected
+
+    - role: unattended
 
   tasks:
     - name: allow gitlab-runner to sudo as operator

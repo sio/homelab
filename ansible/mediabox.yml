@@ -41,7 +41,6 @@
   roles:
     # OS maintenance
     - role: upgrade
-    - role: unattended
     - role: motd
     - role: canary  # clean shutdown with dumb UPS
     - role: wol
@@ -154,6 +153,9 @@
 
     # SSH key maintenance
     - role: sshkey
+
+    # Other maintenance
+    - role: unattended
 
   pre_tasks:
     - name: enable backports repo

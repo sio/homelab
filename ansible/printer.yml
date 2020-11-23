@@ -6,9 +6,8 @@
   become: yes
   roles:
     - role: upgrade
-    - role: unattended
     - role: motd
     - role: packages
     - role: server
-
     - role: canon_mf3010
+    - role: unattended
