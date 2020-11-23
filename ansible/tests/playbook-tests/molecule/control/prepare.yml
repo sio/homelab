@@ -1,3 +1,4 @@
 ---
+- import_playbook: ../../../../plays/unattended-disable.yml
 - import_playbook: ../laptopmini/prepare.yml  # Vagrant public key
 - import_playbook: ../../../../roles/control/molecule/default/prepare.yml

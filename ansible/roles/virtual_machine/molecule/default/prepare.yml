@@ -1,4 +1,6 @@
 ---
+- import_playbook: ../../../../plays/unattended-disable.yml
+
 - hosts: debian11-vm
   become: yes
   tasks:
