@@ -154,9 +154,6 @@
     # SSH key maintenance
     - role: sshkey
 
-    # Other maintenance
-    - role: unattended
-
   pre_tasks:
     - name: enable backports repo
       apt_repository:

@@ -25,7 +25,6 @@
         - [Install Supysonic music server](ansible/roles/supysonic/README.md)
         - [Tweak system settings for torrenting](ansible/roles/torrents_sysctl/README.md)
         - [Install Transmission torrent client](ansible/roles/transmission/README.md)
-        - [Upgrade Debian system automatically](ansible/roles/unattended/README.md)
         - [Apply all package updates](ansible/roles/upgrade/README.md)
         - [Optimizations for running Debian from USB flash drive](ansible/roles/usbroot/README.md)
         - [Setup guest virtual machines with libvirt/kvm](ansible/roles/virtual_machine/README.md)

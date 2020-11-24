@@ -1,5 +1,4 @@
 ---
-- import_playbook: ../../../../plays/unattended-disable.yml
 
 - hosts: all
   become: yes

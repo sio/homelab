@@ -129,16 +129,6 @@ test-role-sshkey:
         - ansible/roles/sshkey/**/*
 
 
-test-role-unattended:
-  extends: .test-ansible-role
-  variables:
-    ANSIBLE_ROLE: ../roles/unattended
-  rules:
-    - *option-skip-test
-    - changes:
-        - ansible/roles/unattended/**/*
-
-
 test-role-wol:
   extends: .test-ansible-role
   variables:

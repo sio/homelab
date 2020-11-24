@@ -1,5 +1,3 @@
-- import_playbook: ../../../../plays/unattended-disable.yml
-
 - hosts: mediabox
   become: yes
   vars:

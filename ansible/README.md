@@ -76,7 +76,6 @@ Local Git repository may be used for keeping track of changes.
 - **packages**
 - **smarttest**
 - **sshkey**
-- **unattended**
 - **wol**
 
 ### Tested in Vagrant (Libvirt)

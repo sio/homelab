@@ -10,4 +10,3 @@
     - role: packages
     - role: server
     - role: canon_mf3010
-    - role: unattended

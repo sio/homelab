@@ -43,7 +43,6 @@
     - role: packages
       packages_install: '{{ playground_packages }}'  # group_vars/all.yml
       packages_recommends: no
-    - role: unattended
 
   tasks:
     - name: modify user permissions

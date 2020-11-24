@@ -1,5 +1,4 @@
 ---
-- import_playbook: ../../../../plays/unattended-disable.yml
 - import_playbook: ../laptopmini/prepare.yml  # Vagrant public key
 
 - hosts: localhost

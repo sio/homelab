@@ -30,7 +30,6 @@ test-playbook-control:
         - ansible/roles/motd/**/*
         - ansible/roles/server/**/*
         - ansible/roles/sshkey/**/*
-        - ansible/roles/unattended/**/*
         - ansible/roles/upgrade/**/*
 
 
@@ -62,7 +61,6 @@ test-playbook-mediabox:
         - ansible/roles/supysonic/**/*
         - ansible/roles/torrents_sysctl/**/*
         - ansible/roles/transmission/**/*
-        - ansible/roles/unattended/**/*
         - ansible/roles/upgrade/**/*
         - ansible/roles/wol/**/*
 
@@ -88,7 +86,6 @@ test-playbook-lab:
         - ansible/roles/packages/**/*
         - ansible/roles/server/**/*
         - ansible/roles/smarttest/**/*
-        - ansible/roles/unattended/**/*
         - ansible/roles/upgrade/**/*
         - ansible/roles/wol/**/*
 
@@ -108,7 +105,6 @@ test-playbook-printer:
         - ansible/roles/motd/**/*
         - ansible/roles/packages/**/*
         - ansible/roles/server/**/*
-        - ansible/roles/unattended/**/*
         - ansible/roles/upgrade/**/*
 
 
