@@ -2,6 +2,8 @@
 
 - hosts: all
   become: true
+  pre_tasks:
+    - include: ../../../../tasks/unattended-purge.yml
   roles:
     - role: canon_mf3010
       canon_configure_firewall: no  # impossible to test firewall in Docker

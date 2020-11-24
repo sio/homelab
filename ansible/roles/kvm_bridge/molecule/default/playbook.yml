@@ -2,6 +2,8 @@
 
 - hosts: all
   become: true
+  pre_tasks:
+    - include: ../../../../tasks/unattended-purge.yml
   roles:
     - role: kvm_bridge
       # IP address should not change in between test runs

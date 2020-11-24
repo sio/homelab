@@ -2,6 +2,8 @@
 
 - hosts: all
   become: true
+  pre_tasks:
+    - include: ../../../../tasks/unattended-purge.yml
   roles:
     - role: control
       control_inventory: /test/inventory/inventory.yml  # outside of $HOME to avoid messing up

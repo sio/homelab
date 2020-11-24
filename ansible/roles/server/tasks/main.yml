@@ -10,6 +10,8 @@
     name: '{{ inventory_hostname_short }}'
   when: server_force_inventory_hostname
 
+- include: ../../../tasks/unattended-purge.yml
+
 # Create necessary users and groups
 - include: users.yml
 

@@ -2,6 +2,8 @@
 
 - hosts: all
   become: true
+  pre_tasks:
+    - include: ../../../../tasks/unattended-purge.yml
   roles:
     - role: munin_smart
       munin_smart_plugin_checksum: 'sha256:20467a515462a486ee24ba136b758f6b659f442e1bcbd501d773c3ccc7758523'

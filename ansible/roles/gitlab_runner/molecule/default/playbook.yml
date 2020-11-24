@@ -11,6 +11,8 @@
 
 - hosts: all
   become: true
+  pre_tasks:
+    - include: ../../../../tasks/unattended-purge.yml
   roles:
     - role: gitlab_runner
       gitlab_runner_token: '{{ lookup("env", "GITLAB_RUNNER_TOKEN") }}'

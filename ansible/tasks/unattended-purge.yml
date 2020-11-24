@@ -1,0 +1,6 @@
+- name: disable unattended upgrades
+  apt:
+    name: unattended-upgrades
+    state: absent
+    purge: yes
+  when: ansible_pkg_mgr == 'apt'
