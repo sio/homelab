@@ -2,6 +2,7 @@
 - hosts: morebooks.ml
   become: yes
   roles:
+    - server
     - upgrade
     - motd
     - morebooks

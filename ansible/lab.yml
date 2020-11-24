@@ -30,12 +30,12 @@
       when: ansible_distribution_release == 'buster'
 
   roles:
+    - role: server
     - role: upgrade
     - role: motd
     - role: canary  # clean shutdown with dumb UPS
     - role: wol
     - role: smarttest
-    - role: server
     - role: interactive
     - role: munin_node
     - role: munin_smart

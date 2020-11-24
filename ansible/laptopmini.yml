@@ -6,6 +6,7 @@
 - hosts: laptopmini
   become: yes
   roles:
+    - role: server
     - role: upgrade
     - role: smarttest
     - role: packages

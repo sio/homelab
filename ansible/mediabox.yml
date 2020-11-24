@@ -40,6 +40,7 @@
   become: yes
   roles:
     # OS maintenance
+    - role: server
     - role: upgrade
     - role: motd
     - role: canary  # clean shutdown with dumb UPS

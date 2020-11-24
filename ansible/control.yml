@@ -11,10 +11,10 @@
 - hosts: control
   become: yes
   roles:
+    - role: server
     - role: upgrade
     - role: motd
     - role: sshkey
-    - role: server
 
     - role: control
     - role: gitlab_runner

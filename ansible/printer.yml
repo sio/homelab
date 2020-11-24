@@ -5,8 +5,8 @@
 - hosts: printer
   become: yes
   roles:
+    - role: server
     - role: upgrade
     - role: motd
     - role: packages
-    - role: server
     - role: canon_mf3010
