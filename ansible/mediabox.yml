@@ -54,6 +54,7 @@
         - vim
         - tmux
         - sudo
+        - iotop
 
     # Interactive shell
     - role: interactive
