@@ -129,6 +129,7 @@ test-role-server:
     - *option-skip-test
     - changes:
         - ansible/roles/server/**/*
+        - ansible/tasks/unattended-purge.yml
 
 
 test-role-supysonic:
