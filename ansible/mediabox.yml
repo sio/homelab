@@ -55,6 +55,7 @@
         - tmux
         - sudo
         - iotop
+        - rsync
 
     # Interactive shell
     - role: interactive
