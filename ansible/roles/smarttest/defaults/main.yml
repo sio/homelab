@@ -17,6 +17,6 @@ smarttest_drives_all: >-
   | dict2items
   | selectattr("value.removable", "in", [0, "0", false])
   | map(attribute="key")
-  | reject("regex", "loop\d*")
+  | reject("match", "loop\d*")
   | list
   }}
