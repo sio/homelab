@@ -6,6 +6,8 @@
   gather_facts: no
   become: no
   tasks:
+    - meta: clear_host_errors  # reset UNREACHABLE status if set
+
     - name: bring all machines online
       delegate_to: localhost
       block:
