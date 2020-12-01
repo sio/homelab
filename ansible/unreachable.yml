@@ -13,9 +13,3 @@
         groupname: '{{ unreachable_hosts_group|default("unreachable") }}'
       when: ping is unreachable
       changed_when: no
-
-    - name: show unreachable hosts
-      run_once: yes
-      delegate_to: localhost
-      debug:
-        var: groups
