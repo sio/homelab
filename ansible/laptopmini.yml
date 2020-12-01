@@ -4,6 +4,7 @@
 
 ---
 - hosts: laptopmini:!unreachable
+  name: laptopmini
   become: yes
   roles:
     - role: server
