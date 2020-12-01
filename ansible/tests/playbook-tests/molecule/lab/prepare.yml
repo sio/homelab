@@ -6,7 +6,15 @@
   gather_facts: no
   tasks:
     - name: install ping binary  # python3-apt bindings might not be present on host
-      shell: which ping || { apt-get update; apt-get -y install iputils-ping; }
+      shell:
+        which ping ||
+        { apt-get update;
+          apt-get -fy --no-install-recommends
+                  -o 'Dpkg::Options::=--force-confdef'
+                  -o 'Dpkg::Options::=--force-confold'
+                  install iputils-ping; }
+      environment:
+        DEBIAN_FRONTEND: noninteractive
       register: install
       changed_when: install.stdout_lines|length > 2
 
