@@ -1,5 +1,5 @@
 ---
-- hosts: persistent
+- hosts: all:!unreachable
   name: upgrade
   become: yes
   roles:

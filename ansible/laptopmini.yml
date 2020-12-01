@@ -3,7 +3,7 @@
 #
 
 ---
-- hosts: laptopmini
+- hosts: laptopmini:!unreachable
   become: yes
   roles:
     - role: server

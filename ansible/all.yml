@@ -1,5 +1,6 @@
 # A single entrypoint for all infrastructure maintenance
 ---
+- import_playbook: unreachable.yml
 - import_playbook: upgrade.yml
 - import_playbook: mediabox-hw.yml
 - import_playbook: mediabox.yml
