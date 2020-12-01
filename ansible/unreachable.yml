@@ -6,11 +6,12 @@
     - name: detect unreachable hosts
       ping:
       changed_when: no
+      failed_when: no
+      ignore_errors: yes
       register: ping
 
     - name: add unreachable hosts to inventory group
-      add_host:
-        hostname: '{{ inventory_hostname }}'
-        groupname: '{{ unreachable_hosts_group|default("unreachable") }}'
+      group_by:
+        key: '{{ unreachable_hosts_group|default("unreachable") }}'
       when: ping is unreachable
       changed_when: no
