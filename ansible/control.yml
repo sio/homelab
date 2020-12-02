@@ -29,8 +29,18 @@
     - name: allow gitlab-runner to sudo as operator
       copy:
         content: |
-          gitlab-runner ALL=(operator) NOPASSWD: SETENV: LOG_OUTPUT: /usr/bin/make all
+          gitlab-runner ALL=(operator) NOPASSWD: LOG_OUTPUT: /usr/local/bin/deploy-infrastructure.sh
         dest: /etc/sudoers.d/gitlab-runner
         validate: visudo -cf %s
         mode: '0440'
+        backup: yes
+
+    - name: create continuous deployment entrypoint
+      copy:
+        content: |
+          #!/bin/bash
+          source ~/.bashrc.d/control_environment.sh
+          /usr/bin/make all
+        dest: /usr/local/bin/deploy-infrastructure.sh
+        mode: '0555'
         backup: yes
