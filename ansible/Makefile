@@ -9,6 +9,9 @@ PLAYBOOK_ARGS?=
 ANSIBLE_STDOUT_CALLBACK?=yaml
 export ANSIBLE_STDOUT_CALLBACK
 
+export PY_COLORS=1
+export ANSIBLE_FORCE_COLOR=1
+
 
 PLAYBOOKS=$(patsubst %.yml,%,$(wildcard *.yml))
 
