@@ -16,6 +16,7 @@ stages:
   - test-playbook
   - deploy-gate
   - deploy
+  - notify
 
 
 include:
@@ -24,7 +25,7 @@ include:
   - .gitlab/ci/test-kvm.yml
   - .gitlab/ci/test-playbook.yml
   - .gitlab/ci/deploy-gate.yml
-  # .gitlab/ci/deploy.yml
+  - .gitlab/ci/deploy.yml
 
 
 workflow:

@@ -1,3 +1,37 @@
 #
-# STAGE: DEPLOY
+# STAGES: DEPLOY; NOTIFY
 #
+
+
+.option-enable-deploy: &option-enable-deploy
+  if: '$CI_COMMIT_BRANCH == "deploy"'
+
+
+infrastructure-maintenance:
+  stage: deploy
+  dependencies: []
+  tags:
+    - apply-infrastructure-config
+  script:
+    - cd ansible
+    - sudo -u operator /usr/local/bin/deploy-infrastructure.sh | tee playbook.log
+  artifacts:
+    paths:
+      - ansible/playbook.log
+    expire_in: 1 hour
+  rules:
+    - *option-enable-deploy
+
+
+ansible-detect-changes:
+  stage: notify
+  dependencies:
+    - infrastructure-maintenance
+  image: python:slim
+  variables:
+    ALLOWED_CHANGES_LIST: ansible/notify/skip.json
+  script:
+    - ansible/notify/detect_changes.py ansible/playbook.log
+  rules:
+    - <<: *option-enable-deploy
+      allow_failure: true
