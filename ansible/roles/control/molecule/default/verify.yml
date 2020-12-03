@@ -8,7 +8,7 @@
       changed_when: "hello is not succeeded"
 
     - name: check that ansible venv was created
-      file:
+      file:  # noqa 208
         state: present
         path: '/home/operator/bin/app.venv/ansible-playbook/bin/ansible-playbook'
       register: stat
