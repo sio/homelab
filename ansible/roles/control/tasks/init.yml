@@ -22,8 +22,7 @@
 
 - name: create requirements file for custom ansible installation
   copy:
-    content: |
-      ansible
+    content: '{{ control_pip_requirements|join("\n") }}'
     dest: '/home/{{ control_username }}/bin/app.venv/ansible-playbook.pip'
     mode: '0644'
     owner: '{{ control_username }}'

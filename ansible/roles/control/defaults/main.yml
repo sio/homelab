@@ -16,5 +16,7 @@ control_packages:
   - make
   - openssh-client
   - python3-venv
+control_pip_requirements:
+  - ansible
 control_ansible_vault_keyname: 'ansible-vault:{{ control_inventory }}'
 control_secrets_timeout_seconds: '{{ 30*24*60*60 }}'  # 30 days
