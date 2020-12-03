@@ -6,3 +6,10 @@
       register: hello
       failed_when: "'hello' not in hello.stdout"
       changed_when: "hello is not succeeded"
+
+    - name: check that ansible venv was created
+      file:
+        state: present
+        path: '/home/operator/bin/app.venv/ansible-playbook/bin/ansible-playbook'
+      register: stat
+      failed_when: stat is changed
