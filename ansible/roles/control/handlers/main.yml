@@ -3,3 +3,18 @@
 - name: reload systemd
   systemd:
     daemon_reload: yes
+
+- name: remove ansible virtual environment
+  listen: update ansible virtual environment
+  file:
+    path: '/home/{{ control_username }}/bin/app.venv/ansible-playbook'
+    state: absent
+
+- name: create ansible virtual environment
+  listen: update ansible virtual environment
+  command: >
+    su - {{ control_username }} --shell=/bin/sh -c
+    'make ansible-playbook -C "/home/{{ control_username }}/bin/app.venv"'
+  args:
+    creates: '/home/{{ control_username }}/bin/app.venv/ansible-playbook/bin/ansible-playbook'
+    warn: no  # becoming unprivileged does not really work

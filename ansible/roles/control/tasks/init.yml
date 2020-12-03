@@ -28,14 +28,7 @@
     mode: '0644'
     owner: '{{ control_username }}'
     backup: yes
-
-- name: create custom ansible virtualenv for operator
-  command: >
-    su - {{ control_username }} --shell=/bin/sh -c
-    'make ansible-playbook -C "/home/{{ control_username }}/bin/app.venv"'
-  args:
-    creates: '/home/{{ control_username }}/bin/app.venv/ansible-playbook/bin/ansible-playbook'
-    warn: no  # becoming unprivileged does not really work
+  notify: update ansible virtual environment
 
 - name: create infrastructure secrets directory
   file:
