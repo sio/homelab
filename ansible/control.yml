@@ -35,6 +35,15 @@
         mode: '0440'
         backup: yes
 
+    - name: enable passwordless sudo for operator
+      copy:
+        content: |
+          operator ALL=(ALL) NOPASSWD:ALL
+        dest: /etc/sudoers.d/operator
+        validate: visudo -cf %s
+        mode: '0440'
+        backup: yes
+
     - name: create continuous deployment entrypoint
       copy:
         content: |
