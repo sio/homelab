@@ -4,6 +4,8 @@
 - import_playbook: upgrade.yml
 - import_playbook: mediabox-hw.yml
 - import_playbook: mediabox.yml
+- import_playbook: hypervisor.yml
 - import_playbook: morebooks.yml
 - import_playbook: lab.yml
-- import_playbook: laptopmini.yml  # control node comes last
+- import_playbook: laptopmini.yml
+- import_playbook: control.yml  # control node comes last
