@@ -8,7 +8,7 @@ Description=SSH Agent for Ansible Control Node
 [Service]
 Type=simple
 Environment=SSH_AUTH_SOCK={{ control_sshagent_socket|quote }}
-ExecStartPre=/bin/mkdir -p {{ control_sshagent_socket|dirname|quote }}
+RuntimeDirectory={{ control_sshagent_socket|dirname|basename|quote }}
 ExecStart=/usr/bin/ssh-agent -D -a "$SSH_AUTH_SOCK"
 User={{ control_username }}
 Group={{ control_username }}
