@@ -35,7 +35,6 @@
     content: |-
       [Service]
       User={{ gitlab_runner_user }}
-      NoNewPrivileges=yes
       ExecStart=
       ExecStart=/usr/bin/gitlab-runner \
         run \
