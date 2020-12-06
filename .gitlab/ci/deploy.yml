@@ -14,6 +14,7 @@ infrastructure-maintenance:
     - apply-infrastructure-config
   script:
     - cd ansible
+    - chmod a+w .  # allow operator to create Makefile.secrets
     - sudo -u operator /usr/local/bin/deploy-infrastructure.sh | tee playbook.log
   artifacts:
     paths:
