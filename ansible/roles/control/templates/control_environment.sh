@@ -1,5 +1,6 @@
 # {{ ansible_managed }}
 
+export ANSIBLE_HOST_KEY_CHECKING=False
 export ANSIBLE_VAULT_KEYNAME={{ control_ansible_vault_keyname|quote }}
 export INFRA={{ control_infra_dir|quote }}
 export INVENTORY={{ control_inventory|quote }}
