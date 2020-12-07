@@ -1,15 +1,30 @@
-# Common configuration files for my Unix-like machines
+# Configuration as Code for Vitaly Potyarkin's infrastructure
 
-Configuration files (dotfiles) and other common files shared between
-my local and remote machines (mostly server-side stuff)
+This repository contains common configuration files (dotfiles) and
+configuration management code (ansible, packer) for my personal
+infrastructure.
 
-These files are meant to be placed into "$HOME/.common" directory on all of
-my Unix-like machines. Some kind of schedule has to be set up on each machine
-to fetch changes from origin repository on a regular basis.
+All changes are applied automatically via continuous delivery pipelines
+(GitLab SaaS). These pipelines are also executed on schedule to enforce
+consistent state across all machines and to combat configuration drift.
 
-Creating symbolic links from appropriate places enables all or
-part of shared configuration. See [bootstrap.sh](dotfiles/bootstrap.sh) for more
-information
+Since this is a personal project and all machines are more or less unique
+(pets), provisioning new instances is not automated. Typically it involves
+installing operating system on bare metal (preseed, autounattend) or in
+virtual machine (packer) and adding new hosts to Ansible inventory to be
+picked up by the next CD invocation.
+
+
+## Directory structure
+
+### ansible/
+
+Playbooks and roles for automating remote computer maintenance
+
+### dotfiles/
+
+Configuration files for command line and graphic tools, easily installed with a
+bootstrap script.
 
 Typical initialization:
 
@@ -26,18 +41,6 @@ Typical initialization:
 
     exec bash  # restart shell with new settings
     ```
-
-
-## Directory structure
-
-### ansible/
-
-Playbooks and roles for automating remote computer maintenance
-
-### dotfiles/
-
-Configuration files for command line and graphic tools, easily installed with a
-bootstrap script.
 
 ### packer/
 
