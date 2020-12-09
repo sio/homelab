@@ -1,3 +1,13 @@
+- name: disable systemd timers for unattended apt chores
+  service:
+    name: '{{ item }}'
+    enabled: no
+    state: stopped
+  loop:
+    - apt-daily.timer
+    - apt-daily-upgrade.timer
+  failed_when: no  # it's ok for these services to be absent
+
 - name: wait for unattended upgrades to finish (if running)
   command:
     systemd-run --property="After=apt-daily.service apt-daily-upgrade.service" --wait /bin/true
