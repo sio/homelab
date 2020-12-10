@@ -8,6 +8,7 @@ MOLECULE_EXTRA_ARGS+=--debug
 export VIRSH_DEBUG=1
 export LIBVIRT_DEBUG=2
 export LIBGUESTFS_DEBUG=1
+MOLECULE_GIT_REQUIREMENTS_SHA=$(DEBUG)
 endif
 ifdef MOLECULE_SCENARIO
 MOLECULE_ACTION_ARGS+=--scenario-name $(MOLECULE_SCENARIO)
@@ -119,8 +120,9 @@ check-debian-release:
 	[ -z "$$RETCODE" ] || exit $$RETCODE;
 
 
+MOLECULE_GIT_REQUIREMENTS_SHA?=master
 molecule-git.pip:  # cooperation with https://gitlab.com/sio/ci-with-molecule-git
-	curl -o "$@" -L "https://gitlab.com/sio/ci-with-molecule-git/-/raw/master/molecule-git.pip"
+	curl -o "$@" -L "https://gitlab.com/sio/ci-with-molecule-git/-/raw/$(MOLECULE_GIT_REQUIREMENTS_SHA)/molecule-git.pip"
 
 
 include Makefile.venv
