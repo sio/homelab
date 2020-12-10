@@ -4,7 +4,7 @@ This repository contains common configuration files (dotfiles) and
 configuration management code (ansible, packer) for my personal
 infrastructure.
 
-All changes are applied automatically via continuous delivery pipelines
+All changes are applied automatically via continuous delivery [pipelines]
 (GitLab SaaS). These pipelines are also executed on schedule to enforce
 consistent state across all machines and to combat configuration drift.
 
@@ -13,6 +13,8 @@ Since this is a personal project and all machines are more or less unique
 installing operating system on bare metal (preseed, autounattend) or in
 virtual machine (packer) and adding new hosts to Ansible inventory to be
 picked up by the next CD invocation.
+
+[pipelines]: https://gitlab.com/sio/server_common/pipelines?ref=deploy
 
 
 ## Directory structure
