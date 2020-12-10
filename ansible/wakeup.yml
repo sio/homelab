@@ -8,52 +8,37 @@
   tasks:
     - meta: clear_host_errors  # reset UNREACHABLE status if set
 
-    - name: bring all machines online
+    - name: detect machines that require wakeup
+      wait_for_connection:
+        timeout: 3
+      register: ping
+      when: wakeup_initiated is not defined
+      changed_when: ping is failed
+      failed_when: no
+
+    - name: wake up physical machines
+      wakeonlan:
+        mac: '{{ wol_macaddress }}'
       delegate_to: localhost
-      block:
-        - name: detect machines that require wakeup
-          shell: >-
-            ping -c 1 -w 2
-            {{
-            (hostvars[inventory_hostname].ansible_ssh_host
-            |default(hostvars[inventory_hostname].ansible_host))
-            |default(inventory_hostname)
-            }}
-            2>&1
-          register: ping
-          when: wakeup_initiated is not defined
-          changed_when: ping.rc != 0
-          failed_when: no
+      when: ping is changed and wol_macaddress is defined
+      register: wakeup_phy
 
-        - name: wake up physical machines
-          wakeonlan:
-            mac: '{{ wol_macaddress }}'
-          when: ping is changed and wol_macaddress is defined
-          register: wakeup_phy
+    - name: wait for physical machines to boot
+      wait_for_connection: &machine_up
+        timeout: '{{ wol_boot_timeout|default(60) }}'
+      when: ping is changed and wol_macaddress is defined
 
-        - name: wait for physical machines to boot
-          wait_for: &machine_up
-            host: >-
-              {{
-              (hostvars[inventory_hostname].ansible_ssh_host
-              |default(hostvars[inventory_hostname].ansible_host))
-              |default(inventory_hostname)
-              }}
-            port: '{{ wol_port_check|default(22) }}'
-            timeout: '{{ wol_boot_timeout|default(60) }}'
-          when: ping is changed and wol_macaddress is defined
+    - name: wake up virtual machines
+      virt:
+        name: '{{ vm_name|default(inventory_hostname) }}'
+        state: running
+      delegate_to: '{{ vm_hypervisor }}'
+      when: ping is changed and vm_hypervisor is defined
+      register: wakeup_vm
 
-        - name: wake up virtual machines
-          virt:
-            name: '{{ vm_name|default(inventory_hostname) }}'
-            state: running
-          delegate_to: '{{ vm_hypervisor }}'
-          when: ping is changed and vm_hypervisor is defined
-          register: wakeup_vm
-
-        - name: wait for virtual machines to boot
-          wait_for: *machine_up
-          when: ping is changed and vm_hypervisor is defined
+    - name: wait for virtual machines to boot
+      wait_for_connection: *machine_up
+      when: ping is changed and vm_hypervisor is defined
 
     - name: check that at least one wake up action was initiated
       assert:

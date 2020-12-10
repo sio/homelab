@@ -3,15 +3,12 @@
   gather_facts: no
   ignore_unreachable: yes
   tasks:
-    - name: detect unreachable hosts
-      ping:
-      changed_when: no
-      failed_when: no
-      ignore_errors: yes
-      register: ping
-
-    - name: add unreachable hosts to inventory group
-      group_by:
-        key: '{{ unreachable_hosts_group|default("unreachable") }}'
-      when: ping is unreachable
-      changed_when: no
+    - block:
+        - name: detect unreachable hosts
+          wait_for_connection:
+            timeout: 3
+      rescue:
+        - name: add unreachable hosts to inventory group
+          group_by:
+            key: '{{ unreachable_hosts_group|default("unreachable") }}'
+          changed_when: no
