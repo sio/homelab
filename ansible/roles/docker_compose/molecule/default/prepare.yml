@@ -1,0 +1,16 @@
+---
+
+- hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: create initial docker-compose.yml
+      copy:
+        content: |
+          version: "2"
+          services:
+            web:
+              image: nginx
+              ports:
+                - '80:80'
+        dest: '{{ molecule_ephemeral_directory }}/docker-compose.yml'
+        mode: '0644'

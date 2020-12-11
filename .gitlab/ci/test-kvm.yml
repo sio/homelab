@@ -42,6 +42,16 @@ test-role-control:
         - ansible/roles/control/**/*
 
 
+test-role-docker_compose:
+  extends: .test-ansible-role-kvm
+  variables:
+    ANSIBLE_ROLE: ../roles/docker_compose
+  rules:
+    - *option-skip-test
+    - changes:
+        - ansible/roles/docker_compose/**/*
+
+
 test-role-gerbera:
   extends: .test-ansible-role-kvm
   variables:
