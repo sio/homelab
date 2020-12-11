@@ -1,0 +1,7 @@
+---
+
+- name: restart compose project
+  systemd:
+    name: '{{ docker_compose_service }}'
+    state: restarted
+    daemon_reload: yes

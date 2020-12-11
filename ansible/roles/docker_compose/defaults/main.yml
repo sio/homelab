@@ -1,0 +1,14 @@
+---
+# You may want to modify these
+docker_compose_project: project
+docker_compose_file: null  # path to compose file on control host
+docker_compose_url: null   # URL to download compose file from
+docker_compose_dir: '/stacks/{{ docker_compose_project }}'
+docker_compose_pull: yes  # update images each time systemd unit starts
+
+# These values are OK to be left as is
+docker_compose_exe: /usr/bin/docker-compose
+docker_compose_service: 'docker-compose-{{ docker_compose_project }}.service'
+docker_compose_packages:
+  - docker.io
+  - docker-compose

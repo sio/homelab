@@ -1,0 +1,24 @@
+# {{ ansible_managed }}
+
+
+[Unit]
+Desription=Docker Compose - {{ docker_compose_project }}
+Requires=docker.service network-online.target
+After=docker.service network-online.target
+
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+WorkingDirectory={{ docker_compose_dir|quote }}
+{% if docker_compose_pull %}
+ExecStartPre={{ docker_compose_exe|quote }} pull
+{% endif %}
+ExecStart={{ docker_compose_exe|quote }} up -d
+ExecStop={{ docker_compose_exe|quote }} down
+ExecReload={{ docker_compose_exe|quote }} pull
+ExecReload={{ docker_compose_exe|quote }} up -d
+
+
+[Install]
+WantedBy=multi-user.target

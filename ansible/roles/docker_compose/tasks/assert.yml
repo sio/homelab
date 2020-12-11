@@ -1,0 +1,8 @@
+---
+
+- name: check assertions
+  assert:
+    that:
+      - ansible_os_family == "Debian"
+      - ansible_pkg_mgr == "apt"
+      - docker_compose_file or docker_compose_url
