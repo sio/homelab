@@ -82,6 +82,16 @@
     GITLAB_RUNNER_DISABLE_SKEL: 'true'
   notify: restart gitlab runner
 
+- name: check aptitude status for gitlab runner
+  command: aptitude search '?name(^gitlab-runner$)?action(hold)'
+  changed_when: no
+  failed_when: no
+  register: aptitude_search
+
+- name: disable aptitude updates for gitlab runner
+  command: aptitude hold gitlab-runner
+  when: aptitude_search.rc == 1
+
 - name: enable runner service
   systemd:
     name: gitlab-runner

@@ -3,3 +3,5 @@
 - include: assert.yml
 - include: users.yml
 - include: install.yml
+- include: update.yml
+  when: (lookup("env", "CI")|lower) not in ["true", "1", "yes"]

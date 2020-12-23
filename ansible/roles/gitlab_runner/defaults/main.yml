@@ -12,6 +12,7 @@ gitlab_runner_extra_registration_params: # command-line params for 'gitlab-runne
 
 
 gitlab_runner_packages_pre:
+  - aptitude
   - apt-transport-https
   - ca-certificates
   - debian-archive-keyring
