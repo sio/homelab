@@ -1,0 +1,16 @@
+- hosts: control
+  name: transition existing control host to use new config path
+  become: yes
+  tasks:
+    - name: stop gitlab-runner
+      service:
+        name: gitlab-runner
+        state: stopped
+
+    - name: move config to new location
+      command:
+        cmd: mv /etc/gitlab-runner /etc/gitlab-runner-custom
+        creates: /etc/gitlab-runner-custom
+        removes: /etc/gitlab-runner
+
+- import_playbook: control.yml
