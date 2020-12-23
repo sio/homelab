@@ -1,5 +1,5 @@
-gitlab_runner_config: /etc/gitlab-runner/config.toml
-gitlab_runner_registration_script: /etc/gitlab-runner/register.sh
+gitlab_runner_config: /etc/gitlab-runner-custom/config.toml
+gitlab_runner_registration_script: /etc/gitlab-runner-custom/register.sh
 gitlab_runner_user: gitlab-runner
 
 

@@ -5,3 +5,7 @@
     that:
       - ansible_os_family == "Debian"
       - ansible_pkg_mgr == "apt"
+      - gitlab_runner_config|dirname != "/etc/gitlab-runner"  # will break on update -
+                                                              # permissions are modified
+                                                              # by dpkg hooks
+      - gitlab_runner_registration_script|dirname != "/etc/gitlab-runner"
