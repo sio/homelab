@@ -24,7 +24,12 @@
 
 - name: create configuration file
   copy:
-    content: ''
+    content: |
+      concurrent = 1
+      check_interval = 0
+
+      [session_server]
+        session_timeout = 1800
     dest: '{{ gitlab_runner_config }}'
     mode: '0700'
     owner: '{{ gitlab_runner_user }}'
