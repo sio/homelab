@@ -42,6 +42,7 @@
     regexp: '^\w*PermitRootLogin'
     line: 'PermitRootLogin no'
     state: present
+    validate: '/usr/sbin/sshd -T -f %s'
   notify: restart ssh server
 
 - name: disable password auth via ssh
@@ -50,4 +51,5 @@
     regexp: '^\w*PasswordAuthentication'
     line: 'PasswordAuthentication no'
     state: present
+    validate: '/usr/sbin/sshd -T -f %s'
   notify: restart ssh server

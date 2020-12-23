@@ -40,6 +40,7 @@
     dest: /etc/ssh/sshd_config
     regexp: '^(\w*AcceptEnv LANG LC.*)$'
     line: '# \1'
+    validate: '/usr/sbin/sshd -T -f %s'
     backrefs: yes
     backup: yes
   notify: restart ssh server
