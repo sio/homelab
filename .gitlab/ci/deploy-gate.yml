@@ -37,4 +37,6 @@ require-success-of-previous-pipeline:
   stage: deploy-gate
   rules:
     - *option-skip-deploy-gate
+    - if: '$CI_PIPELINE_SOURCE == "web"'
+      allow_failure: true
     - if: '$CI_COMMIT_BRANCH == "deploy"'
