@@ -4,4 +4,7 @@
 - include: users.yml
 - include: install.yml
 - include: update.yml
-  when: (lookup("env", "CI")|lower) not in ["true", "1", "yes"]
+  when:
+    (lookup("env", "CI")|lower) not in ["true", "1", "yes"]
+    and
+    ansible_connection not in ["docker", "local"]
