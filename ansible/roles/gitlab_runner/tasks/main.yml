@@ -9,6 +9,7 @@
     filter: ansible_fqdn
   delegate_to: localhost
   delegate_facts: yes
+  become: no
   run_once: yes
   changed_when: no
 
