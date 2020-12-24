@@ -7,6 +7,7 @@
   apt:
     name: gitlab-runner
     state: latest  # noqa 403 - latest is intentional
+  notify: restart gitlab runner
 
 - name: disable package updates for gitlab runner
   command: aptitude hold gitlab-runner  # noqa 301 - 'when' is added to the whole 'include'
