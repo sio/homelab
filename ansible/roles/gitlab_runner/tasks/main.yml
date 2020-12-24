@@ -8,3 +8,5 @@
     (lookup("env", "CI")|lower) not in ["true", "1", "yes"]
     and
     ansible_connection not in ["docker", "local"]
+    and
+    ansible_fqdn != hostvars.localhost.ansible_fqdn
