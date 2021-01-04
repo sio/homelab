@@ -1,0 +1,15 @@
+---
+# Host specific extras, see lab.yml for generic setup
+
+
+- name: wake up the machine
+  import_playbook: wakeup.yml
+  vars:
+    limit_hosts: labaie
+
+
+- hosts: labaie
+  become: yes
+  roles:
+    - role: packages
+      packages_install: '{{ baremetal_packages }}'
