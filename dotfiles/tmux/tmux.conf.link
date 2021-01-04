@@ -55,7 +55,3 @@ if-shell -b '[ "$(echo "$TMUX_VERSION >= 2.5" | bc)" = 1 ]' \
   "bind -T copy-mode-vi y send-keys -X copy-pipe-and-cancel 'xclip -in -selection clipboard'"
 # In newer Tmux (>=2.5) the following must be used
 #bind -T copy-mode-vi y send-keys -X copy-pipe-and-cancel 'xclip -in -selection clipboard'
-
-
-# Fast return to the last window
-bind-key C-a last-window
