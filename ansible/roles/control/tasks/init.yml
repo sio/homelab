@@ -46,6 +46,6 @@
   file:
     path: '{{ control_infra_dir }}'
     state: directory
-    mode: '0700'
+    mode: u=rwX,g=,o=  # https://superuser.com/a/1317715
     owner: '{{ control_username }}'
     recurse: yes
