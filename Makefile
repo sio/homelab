@@ -22,6 +22,10 @@ sysbench:
 .PHONY: .sysbench-run
 .sysbench-run:
 	@date
+	-lscpu | cat /proc/cpuinfo
+	-free -h | free -m
+	-lspci -nn
+	-lsusb
 	$(SYSBENCH) --threads=4 --cpu-max-prime=10000 cpu run
 	$(SYSBENCH) --threads=4 --cpu-max-prime=20000 cpu run
 	$(SYSBENCH) --threads=4 memory run
