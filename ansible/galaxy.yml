@@ -1,0 +1,10 @@
+namespace: potyarkin
+name: homelab
+version: 2.0.0
+description: Playbooks and roles used to manage hobbyist infrastructure
+authors:
+  - Vitaly Potyarkin
+readme: README.md
+license:
+  - Apache-2.0
+repository: https://gitlab.com/sio/server_common
