@@ -96,3 +96,20 @@
         state: present
         mode: '0644'
       when: ansible_distribution_release == 'buster'
+
+    - name: enable passwordless sudo for user
+      copy:
+        content: |
+          user ALL=(ALL) NOPASSWD:ALL
+        dest: /etc/sudoers.d/user
+        validate: visudo -cf %s
+        mode: '0440'
+        backup: yes
+
+    - name: enable custom config in login shells
+      copy:
+        content: |
+          source ~/.bashrc
+        dest: /home/user/.bash_profile
+        owner: user
+        group: user
