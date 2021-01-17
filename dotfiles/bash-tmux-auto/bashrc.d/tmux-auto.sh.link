@@ -1,9 +1,26 @@
+countdown() {
+    local pre_msg="$2"
+    if [[ -n "$pre_msg" ]]
+    then
+        echo "$pre_msg"
+    fi
+
+    local wait_sec="$1"
+    local i
+    for i in $(seq "$wait_sec" -1 1)
+    do
+        printf "\r%${#wait_sec}d seconds remaining..." "$i"
+        sleep 1
+    done
+    printf "\n"
+}
+
+
 if [[ $- == *i* ]]
 then
     if [[ -z "$TMUX" && -z "$TMUX_PANE" ]]
     then
-        echo 'Press Ctrl+C to cancel Tmux launch...'
-        sleep 5 && {
+        countdown 3 'Press Ctrl+C to cancel Tmux launch...' && {
             tmux attach || tmux new
             exit
         }
