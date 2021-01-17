@@ -115,6 +115,7 @@
         state: present
         mode: '0644'
 
+  tasks:
     - name: enable passwordless sudo for user
       copy:
         content: |
