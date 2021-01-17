@@ -32,6 +32,7 @@
         - git
         - make
         - tmux
+        - bc # used in my Tmux config
         - vim-gtk3  # GUI build has more stuff enabled at compile time
 
         # System administration
@@ -125,3 +126,4 @@
         dest: /home/user/.bash_profile
         owner: user
         group: user
+        mode: '0644'
