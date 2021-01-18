@@ -11,5 +11,5 @@ wireguard_peers: []  # list of dicts with: public_key, endpoint, allowed_ips
 wireguard_role: '{{ "server" if wireguard_is_server else "client" }}'
 wireguard_config_dir: /etc/wireguard
 wireguard_config_interface: '{{ wireguard_config_dir }}/{{ wireguard_interface }}.conf'
-wireguard_config_private_key: '{{ wireguard_config_dir }}/key_private'
-wireguard_config_public_key: '{{ wireguard_config_dir }}/key_public'
+wireguard_config_private_key: '{{ wireguard_config_dir }}/{{ wireguard_interface }}_key_private'
+wireguard_config_public_key: '{{ wireguard_config_dir }}/{{ wireguard_interface }}_key_public'
