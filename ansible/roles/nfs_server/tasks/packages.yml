@@ -1,0 +1,13 @@
+---
+
+- name: update package lists
+  apt:
+    cache_valid_time: 36000  # 10 hours
+  changed_when: false
+  when: ansible_pkg_mgr == 'apt'
+
+- name: install software packages
+  package:
+    name: '{{ nfs_server_packages }}'
+    state: present
+  notify: restart nfs server

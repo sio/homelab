@@ -1,0 +1,48 @@
+---
+
+- name: configure nfs exports
+  template:
+    src: templates/exports.j2
+    path: /etc/exports
+    mode: '0600'
+    backup: yes
+  notify: update nfs exports
+
+- name: configure nfs common
+  lineinfile:
+    path: /etc/default/nfs-common
+    mode: '0644'
+    regexp: '^{{ item.key }}='
+    line: '{{ item.key }}={{ item.value|quote }}'
+  with_dict:
+    NEED_STATD: 'no'
+    NEED_IDMAPD: 'yes'
+  notify: restart nfs server
+
+- name: configure nfs server
+  lineinfile:
+    path: /etc/default/nfs-kernel-server
+    mode: '0644'
+    regexp: '^{{ item.key }}='
+    line: '{{ item.key }}={{ item.value|quote }}'
+  with_dict:
+    RPCNFSDOPTS: '-N 2 -N 3'
+    RPCMOUNTDOPTS: '--manage-gids -N 2 -N 3'
+  notify: restart nfs server
+
+- name: disable rpcbind
+  systemd:
+    name: '{{ item }}'
+    state: stopped
+    masked: yes
+    enabled: no
+  loop:
+    - rpcbind.service
+    - rpcbind.socket
+
+- name: allow nfs4 in firewall
+  ufw:
+    port: '2049'
+    proto: tcp
+    rule: allow
+  when: firewall_auto_config|default(True)

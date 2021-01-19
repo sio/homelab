@@ -1,0 +1,12 @@
+---
+
+nfs_server_exports: []
+# - path: /srv/nfs/directory
+#   cidr: 192.168.1.0/24
+#   options: rw,sync
+
+nfs_server_exports_default_cidr: '{{ ansible_default_ipv4.address }}/24'
+nfs_server_exports_default_options: ro,sync
+
+nfs_server_packages:
+  - nfs-kernel-server
