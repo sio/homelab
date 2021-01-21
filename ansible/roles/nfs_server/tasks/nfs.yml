@@ -3,7 +3,7 @@
 - name: configure nfs exports
   template:
     src: templates/exports.j2
-    path: /etc/exports
+    dest: /etc/exports
     mode: '0600'
     backup: yes
   notify: update nfs exports
