@@ -1,0 +1,18 @@
+# Main molecule configuration is located in ansible/roles/tests/molecule.yml
+# Invoke with `molecule --base-config $LOCATION`
+---
+driver:
+  name: vagrant
+  provider:
+    name: libvirt
+
+platforms:
+  - name: debian10-vm
+    box: potyarkin/debian10
+    memory: 1024
+  - name: debian11-vm
+    box: potyarkin/debian11
+    memory: 1024
+
+verifier:
+  name: ansible

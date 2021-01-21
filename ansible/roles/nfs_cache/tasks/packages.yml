@@ -10,4 +10,4 @@
   package:
     name: '{{ nfs_cache_packages }}'
     state: present
-  notify: restart nfs server
+  notify: restart cachefilesd

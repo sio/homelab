@@ -1,0 +1,8 @@
+---
+
+- hosts: all
+  become: true
+  pre_tasks:
+    - include: ../../../../tasks/unattended-purge.yml
+  roles:
+    - role: nfs_cache
