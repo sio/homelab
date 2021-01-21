@@ -1,5 +1,12 @@
 ---
 
+- name: enable backports repo
+  apt_repository:
+    repo: 'deb http://deb.debian.org/debian {{ ansible_distribution_release }}-backports main'
+    state: present
+    mode: '0644'
+  when: ansible_distribution_release == 'buster'
+
 - name: update package lists
   apt:
     cache_valid_time: 36000  # 10 hours

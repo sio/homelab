@@ -6,4 +6,4 @@ nfs_cache_levels:
   stop: 3
 
 nfs_cache_packages:
-  - cachefilesd
+  - cachefilesd  # requires buster-backports or bullseye
