@@ -8,3 +8,4 @@
     - role: nfs_server
       nfs_server_exports:
         - path: /tmp
+      firewall_auto_config: false
