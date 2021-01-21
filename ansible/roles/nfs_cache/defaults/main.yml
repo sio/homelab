@@ -1,0 +1,9 @@
+nfs_cache_location: /var/cache/fscache
+
+nfs_cache_levels:
+  run:  7
+  cull: 5
+  stop: 3
+
+nfs_cache_packages:
+  - cachefilesd

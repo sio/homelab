@@ -1,0 +1,31 @@
+---
+
+- name: create directory for storing cache
+  file:
+    state: directory
+    path: '{{ nfs_cache_location }}'
+    mode: '0755'
+
+- name: enable caching
+  lineinfile:
+    path: /etc/default/cachefilesd
+    mode: '0644'
+    regexp: '^{{ item.key }}='
+    line: '{{ item.key }}={{ item.value|quote }}'
+    backup: yes
+  with_dict:
+    RUN: 'yes'
+  notify: restart cachefilesd
+
+- name: configure cachefilesd
+  template:
+    src: templates/cachefilesd.conf
+    dest: /etc/cachefilesd.conf
+    mode: '0600'
+    backup: yes
+  notify: restart cachefilesd
+
+- name: enable cachefilesd
+  systemd:
+    name: cachefilesd
+    enabled: yes

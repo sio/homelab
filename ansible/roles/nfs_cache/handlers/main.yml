@@ -1,0 +1,8 @@
+---
+
+- name: restart cachefilesd
+  systemd:
+    name: cachefilesd
+    state: restarted
+    enabled: yes
+    daemon_reload: yes
