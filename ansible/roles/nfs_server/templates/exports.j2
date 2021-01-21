@@ -1,4 +1,4 @@
 # {{ ansible_managed }}
 {% for export in nfs_server_exports %}
-{{ export.path }} {{ export.cidr|default(nfs_server_exports_default_cidr }}({{ export.options|default(nfs_server_exports_default_options) }})
+{{ export.path }} {{ export.cidr|default(nfs_server_exports_default_cidr) }}({{ export.options|default(nfs_server_exports_default_options) }})
 {% endfor %}
