@@ -131,6 +131,17 @@ test-role-munin_master:
         - ansible/roles/server/**/*
 
 
+test-role-nfs_server:
+  extends: .test-ansible-role-kvm
+  variables:
+    ANSIBLE_ROLE: ../roles/nfs_server
+  rules:
+    - *option-skip-test
+    - changes:
+        - ansible/roles/nfs_server/**/*
+        - ansible/tasks/unattended-purge.yml
+
+
 test-role-server:
   extends: .test-ansible-role-kvm
   variables:
