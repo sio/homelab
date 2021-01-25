@@ -16,6 +16,8 @@
         - smplayer
         - transgui
         - audacious
+        - google-chrome-stable
+        - remmina
 
         # Desktop environment
         - task-xfce-desktop
@@ -26,7 +28,6 @@
         - gvfs-backends  # Android file transfer over USB
         - rar
         - unrar
-        - google-chrome-stable
 
         # Interactive shell
         - git
