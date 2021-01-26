@@ -4,6 +4,7 @@ include ../Makefile.packer
 DRIVERS_VERSION=0.1.171-1
 DRIVERS_URL=https://fedorapeople.org/groups/virt/virtio-win/repo/stable/virtio-win-$(DRIVERS_VERSION).noarch.rpm
 DRIVERS_STORAGE?=drivers
+DRIVERS_MOUNTPOINT=$(DRIVERS_STORAGE)_mnt
 PACKER_ARTIFACTS+=$(DRIVERS_STORAGE)
 PACKER_FLAGS+=-var drivers="$(DRIVERS_STORAGE)"
 
@@ -41,7 +42,14 @@ drivers: $(DRIVERS_STORAGE).img
 
 
 $(DRIVERS_STORAGE).img: $(DRIVERS_STORAGE)/netkvm.sys
-	virt-make-fs --format=raw --type=vfat $(DRIVERS_STORAGE) $@
+	# virt-make-fs can not create floppies larger than 1.44MB
+	dd if=/dev/zero of=$@ bs=1M count=3
+	mkfs.vfat -F 12 -M 0xF0 -n DRIVERS -I -v $@
+	mkdir -p $(DRIVERS_MOUNTPOINT)
+	guestmount -a $@ -m /dev/sda $(DRIVERS_MOUNTPOINT)  # libguestfs-tools
+	cp -R $(DRIVERS_STORAGE)/* $(DRIVERS_MOUNTPOINT)
+	guestunmount $(DRIVERS_MOUNTPOINT)
+	rmdir $(DRIVERS_MOUNTPOINT)
 
 
 $(DRIVERS_STORAGE)/netkvm.sys: | $(DRIVERS_STORAGE)/temp/extracted.ok
