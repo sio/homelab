@@ -2,7 +2,13 @@ include ../Makefile.packer
 
 
 DRIVERS_VERSION?=0.1.185-2
-DRIVERS_URL=https://fedorapeople.org/groups/virt/virtio-win/repo/stable/virtio-win-$(DRIVERS_VERSION).noarch.rpm
+DRIVERS_URL?=https://fedorapeople.org/groups/virt/virtio-win/repo/stable/virtio-win-$(DRIVERS_VERSION).noarch.rpm
+ifeq (latest,$(DRIVERS_VERSION))
+DRIVERS_URL=https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/latest-virtio/virtio-win.noarch.rpm
+endif
+ifeq (stable,$(DRIVERS_VERSION))
+DRIVERS_URL=https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/stable-virtio/virtio-win.noarch.rpm
+endif
 DRIVERS_STORAGE?=drivers
 DRIVERS_MOUNTPOINT=$(DRIVERS_STORAGE)_mnt
 PACKER_ARTIFACTS+=$(DRIVERS_STORAGE)
