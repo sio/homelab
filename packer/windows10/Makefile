@@ -37,7 +37,11 @@ validate build: | drivers
 
 
 .PHONY: drivers
-drivers: $(DRIVERS_STORAGE)/netkvm.sys
+drivers: $(DRIVERS_STORAGE).img
+
+
+$(DRIVERS_STORAGE).img: $(DRIVERS_STORAGE)/netkvm.sys
+	virt-make-fs --format=raw --type=vfat $(DRIVERS_STORAGE) $@
 
 
 $(DRIVERS_STORAGE)/netkvm.sys: | $(DRIVERS_STORAGE)/temp/extracted.ok
