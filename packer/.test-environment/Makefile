@@ -19,6 +19,7 @@ prepare: /.ready-interactive
 		cpu-checker \
 		qemu-kvm \
 		qemu-utils \
+		libguestfs-tools \
 		libvirt-clients \
 		libvirt-daemon-system
 	touch $@
