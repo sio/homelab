@@ -41,6 +41,7 @@ validate build: | drivers
 drivers: $(DRIVERS_STORAGE).img
 
 
+$(DRIVERS_STORAGE).img: PATH:=/sbin:$(PATH)
 $(DRIVERS_STORAGE).img: $(DRIVERS_STORAGE)/netkvm.sys
 	# virt-make-fs can not create floppies larger than 1.44MB
 	dd if=/dev/zero of=$@ bs=1M count=3
