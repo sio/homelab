@@ -32,7 +32,8 @@ builders:
     headless: yes
     vnc_bind_address: '{{ user `vnc_bind_address` }}'
     qemuargs:
-      - ['-drive', 'file=output/{{ user `hostname` }}-image.qcow2,format=qcow2,if=virtio,cache=writeback,discard=unmap,detect-zeroes=unmap']
+      - ['-device', 'virtio-blk-pci,drive=disk0,bootindex=0']
+      - ['-drive', 'file=output/{{ user `hostname` }}-image.qcow2,format=qcow2,if=none,id=disk0,cache=writeback,discard=unmap,detect-zeroes=unmap']
       - ['-drive', 'file={{ user `drivers` }}.img,format=raw,if=ide']
 
     http_directory: ''
