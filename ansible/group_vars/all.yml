@@ -33,6 +33,7 @@ playground_packages:
   # Containerisation and virtualisation
   - cpu-checker
   - docker.io
+  - libguestfs-tools
   - libvirt-clients
   - libvirt-daemon-system
   - packer
