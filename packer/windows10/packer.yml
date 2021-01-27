@@ -54,11 +54,32 @@ builders:
     winrm_timeout: 2h  # time for installer to finish and for winrm to start
 
 provisioners:
+  - type: file
+    sources:
+      - winrm_security.cmd
+    destination: C:\Windows\Temp\
+
   - type: windows-shell
     inline:
-      - wmic computersystem where caption='%computername%' rename '{{ user `hostname` }}'
-      - net user root {{ user `password` }}
-      - shutdown /s /t 0 /d p:4:1 /c "Packer Shutdown"
+      # Configure hostname and password
+      - call wmic computersystem where caption='%computername%' rename '{{ user `hostname` }}'
+      - call net user root {{ user `password` }}
+
+      # Disable insecure WinRM connections (script is executed in a background process)
+      - schtasks /create
+        /tn "WinRM Hardening"
+        /tr "C:\Windows\Temp\winrm_security.cmd"
+        /sc once
+        /st "00:00"
+        /et "00:11"
+        /rl HIGHEST
+      - schtasks /run /tn "WinRM Hardening"
+      - timeout 15
+
+  - type: shell-local
+    inline:
+      - sleep 60  # wait for winrm_security.cmd to initiate shutdown
+
 
 ## SAMPLE QEMU COMMAND LINE TO TEST CREATED IMAGE
 # /usr/bin/qemu-system-x86_64 \
