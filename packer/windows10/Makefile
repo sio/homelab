@@ -10,8 +10,12 @@ ifeq (stable,$(DRIVERS_VERSION))
 DRIVERS_URL=https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/stable-virtio/virtio-win.noarch.rpm
 endif
 DRIVERS_STORAGE?=drivers
+DRIVERS_IMAGE=$(DRIVERS_STORAGE).img
+DRIVERS_IMAGE_TYPE?=harddisk
 DRIVERS_MOUNTPOINT=$(DRIVERS_STORAGE)_mnt
-PACKER_ARTIFACTS+=$(DRIVERS_STORAGE)
+
+
+PACKER_ARTIFACTS+=$(DRIVERS_STORAGE) $(DRIVERS_IMAGE) $(DRIVERS_MOUNTPOINT)
 PACKER_FLAGS+=-var drivers="$(DRIVERS_STORAGE)"
 
 
@@ -44,11 +48,12 @@ validate build: | drivers
 
 
 .PHONY: drivers
-drivers: $(DRIVERS_STORAGE).img
+drivers: $(DRIVERS_IMAGE)
 
 
-$(DRIVERS_STORAGE).img: PATH:=/sbin:$(PATH)
-$(DRIVERS_STORAGE).img: $(DRIVERS_STORAGE)/netkvm.sys
+ifeq (floppy,$(DRIVERS_IMAGE_TYPE))
+$(DRIVERS_IMAGE): PATH:=/sbin:$(PATH)
+$(DRIVERS_IMAGE): $(DRIVERS_STORAGE)/netkvm.sys
 	# virt-make-fs can not create floppies larger than 1.44MB
 	dd if=/dev/zero of=$@ bs=1M count=3
 	mkfs.vfat -F 12 -M 0xF0 -n DRIVERS -I -v $@
@@ -57,6 +62,11 @@ $(DRIVERS_STORAGE).img: $(DRIVERS_STORAGE)/netkvm.sys
 	cp -R $(DRIVERS_STORAGE)/* $(DRIVERS_MOUNTPOINT)
 	guestunmount $(DRIVERS_MOUNTPOINT)
 	rmdir $(DRIVERS_MOUNTPOINT)
+endif
+ifeq (harddisk,$(DRIVERS_IMAGE_TYPE))
+$(DRIVERS_IMAGE): $(DRIVERS_STORAGE)/netkvm.sys
+	virt-make-fs --partition --format=raw --type=fat -- $(DRIVERS_STORAGE) $@
+endif
 
 
 $(DRIVERS_STORAGE)/netkvm.sys: | $(DRIVERS_STORAGE)/temp/extracted.ok

@@ -15,7 +15,7 @@
                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
       <DriverPaths>
         <PathAndCredentials wcm:keyValue="1" wcm:action="add">
-          <Path>B:\</Path>
+          <Path>C:\</Path>  <!-- Emulated IDE drive with virtio-win drivers on FAT partition -->
         </PathAndCredentials>
       </DriverPaths>
     </component>
@@ -48,7 +48,7 @@
       <DiskConfiguration>
         <WillShowUI>OnError</WillShowUI>
         <Disk wcm:action="add">
-          <DiskID>0</DiskID>
+          <DiskID>1</DiskID>
           <WillWipeDisk>true</WillWipeDisk>
           <CreatePartitions>
             <CreatePartition wcm:action="add">
@@ -88,7 +88,7 @@
             </Metadata>
           </InstallFrom>
           <InstallTo>
-            <DiskID>0</DiskID>
+            <DiskID>1</DiskID>
             <PartitionID>1</PartitionID>
           </InstallTo>
           <InstallToAvailablePartition>false</InstallToAvailablePartition>

@@ -32,8 +32,8 @@ builders:
     headless: yes
     vnc_bind_address: '{{ user `vnc_bind_address` }}'
     qemuargs:
-      - ['-fdb', 'fat:rw:floppy:{{ user `drivers` }}']  # max floppy size 2.88MB instead of 1.44MB
-                                                        # fat-type=16 does not work with 'floppy'
+      - ['-drive', 'file=output/{{ user `hostname` }}-image.qcow2,format=qcow2,if=virtio,cache=writeback,discard=unmap,detect-zeroes=unmap']
+      - ['-drive', 'file={{ user `drivers` }}.img,format=raw,if=ide']
 
     http_directory: ''
     communicator: winrm
