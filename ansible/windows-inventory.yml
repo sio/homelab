@@ -1,0 +1,11 @@
+all:
+  hosts:
+    windows:
+      ansible_host: localhost
+      ansible_port: 5985
+      ansible_user: root
+      ansible_password: '123456'
+      ansible_connection: winrm
+      ansible_winrm_message_encryption: always
+      ansible_winrm_scheme: http
+      ansible_winrm_transport: ntlm #basic

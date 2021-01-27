@@ -1,0 +1,5 @@
+- hosts: windows
+  become: yes
+  gather_facts: no
+  tasks:
+    - win_ping:
