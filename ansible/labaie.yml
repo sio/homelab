@@ -10,6 +10,59 @@
 
 - hosts: labaie
   become: yes
+
+  vars:
+    vm_image: /win10-playground.qcow2
+    vm_base: /home/op/.common/packer/windows10/output/windows10-image.qcow2
+
+  pre_tasks:
+    - name: create base windows10 image
+      command:
+        cmd: make build
+        chdir: /home/op/.common/packer/windows10
+        creates: '{{ vm_base }}'
+      environment:
+        VM_ISO: '{{ lookup("env", "VM_ISO") }}'
+        VM_HOSTNAME: windows10
+        VM_PASSWORD: '{{ lookup("env", "VM_PASSWORD") }}'
+
+    - name: derive vm image from base
+      command:
+        cmd: >
+          qemu-img create
+          -f qcow2
+          -F qcow2
+          -b {{ vm_base|quote }}
+          {{ vm_image|quote }}
+        creates: '{{ vm_image }}'
+
+    - name: change ownership of vm image
+      file:
+        path: '{{ vm_image }}'
+        mode: '0600'
+        owner: libvirt-qemu
+        group: libvirt-qemu
+
+    - name: relax apparmor restrictions for qemu
+      copy:
+        content: |
+          #include <tunables/global>
+          profile LIBVIRT_TEMPLATE flags=(attach_disconnected) {
+            #include <abstractions/libvirt-qemu>
+            /**.qcow2 rwk,
+          }
+        dest: /etc/apparmor.d/libvirt/TEMPLATE.qemu
+        backup: yes
+        mode: '0644'
+
   roles:
     - role: packages
       packages_install: '{{ baremetal_packages }}'
+
+    - role: kvm_bridge
+    - role: virtual_machine
+      virtual_machine_name: windows10
+      virtual_machine_memory: 4096
+      virtual_machine_cpus: 2
+      virtual_machine_image: '{{ vm_image }}'
+      virtual_machine_image_url: 'null'
