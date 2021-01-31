@@ -37,6 +37,7 @@
         - vim-gtk3  # GUI build has more stuff enabled at compile time
 
         # System administration
+        - ansible
         - psmisc
         - smartmontools
         - sysbench  # buster-backports
