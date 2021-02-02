@@ -66,3 +66,15 @@
       virtual_machine_cpus: 2
       virtual_machine_image: '{{ vm_image }}'
       virtual_machine_image_url: 'null'
+
+
+- hosts: labaie
+  become: yes
+  vars:
+    virtual_machine_image: '/vm/{{ virtual_machine_name }}.qcow2'
+    virtual_machine_image_url: '{{ vm_image_debian10 }}'
+    virtual_machine_image_checksum: 'sha256:{{ vm_image_debian10_checksum }}'
+  roles:
+    - role: virtual_machine
+      virtual_machine_name: test-debian
+      virtual_machine_memory: 600 # MiB
