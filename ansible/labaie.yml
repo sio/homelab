@@ -10,6 +10,20 @@
 
 - hosts: labaie
   become: yes
+  roles:
+    - role: packages
+      packages_install: '{{ baremetal_packages }}'
+
+
+- hosts: labaie
+  become: yes
+  roles:
+    - role: kvm_bridge  # Must be the only role in this play
+                        # Otherwise ssh connection might get broken while running handlers
+
+
+- hosts: labaie
+  become: yes
 
   vars:
     vm_image: /win10-playground.qcow2
@@ -56,10 +70,6 @@
         mode: '0644'
 
   roles:
-    - role: packages
-      packages_install: '{{ baremetal_packages }}'
-
-    - role: kvm_bridge
     - role: virtual_machine
       virtual_machine_name: windows10
       virtual_machine_memory: 4096
