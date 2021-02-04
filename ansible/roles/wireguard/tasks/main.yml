@@ -93,7 +93,7 @@
     port: '{{ wireguard_port }}'
     proto: udp
     rule: allow
-  when: wireguard_is_server and not wireguard_skip_firewall|default(False)
+  when: wireguard_is_server and firewall_auto_config|default(True)
 
 - name: enable IP forwarding
   sysctl:

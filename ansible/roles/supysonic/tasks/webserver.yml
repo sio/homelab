@@ -41,4 +41,5 @@
   with_items:
     - http
     - https
+  when: firewall_auto_config|default(True)
   notify: reload firewall

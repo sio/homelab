@@ -20,6 +20,7 @@
     rule: allow
     proto: tcp
     src: '{{ munin_master_cidr }}'
+  when: firewall_auto_config|default(True)
   notify: reload firewall
 
 - name: configure allowed IP range for munin master

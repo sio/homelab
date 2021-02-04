@@ -7,4 +7,4 @@
 - include: cups.yml
 
 - include: firewall.yml
-  when: canon_configure_firewall|default(True)
+  when: firewall_auto_config|default(True)

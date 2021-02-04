@@ -11,4 +11,5 @@
   with_items:
     - '{{ transmission_instance.port }}'
     - '{{ transmission_instance.port_rpc }}'
+  when: firewall_auto_config|default(True)
   notify: reload firewall

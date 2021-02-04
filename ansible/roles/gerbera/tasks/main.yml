@@ -40,4 +40,5 @@
     - '1900'
     - '2869'
     - '{{ gerbera_port }}'
+  when: firewall_auto_config|default(True)
   notify: reload firewall

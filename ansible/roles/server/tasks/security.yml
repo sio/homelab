@@ -15,6 +15,7 @@
     port: ssh
     rule: limit
     proto: tcp
+  when: firewall_auto_config|default(True)
   notify: reload firewall
 
 - name: block outgoing mail
@@ -22,12 +23,14 @@
     port: smtp
     rule: deny
     direction: out
+  when: firewall_auto_config|default(True)
   notify: reload firewall
 
 - name: deny all incoming requests by default
   ufw:
     state: enabled  # also reloads firewall
     policy: deny
+  when: firewall_auto_config|default(True)
   notify: reload firewall
 
 - name: enable firewall (ufw)

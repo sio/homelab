@@ -69,4 +69,5 @@
     138: udp
     139: tcp
     445: tcp
+  when: firewall_auto_config|default(True)
   notify: reload firewall
