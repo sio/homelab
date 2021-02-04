@@ -107,6 +107,23 @@
   when: (ansible_default_ipv4.interface != kvm_bridge_interface) and not kvm_bridge_created.found
   notify: restart bridge interface
 
+- name: install ufw
+  package:
+    name: ufw
+    state: present
+  when: firewall_auto_config|default(True)
+
+- name: allow forwarding via bridge interface in firewall
+  lineinfile:
+    path: /etc/ufw/before.rules
+    line: '-I FORWARD -p all -i {{ kvm_bridge_interface }} -j ACCEPT'
+    insertbefore: COMMIT
+    state: present
+    mode: '0640'
+    backup: yes
+  when: firewall_auto_config|default(True)
+  notify: reload firewall
+
 - name: read /etc/network/interfaces
   slurp:
     src: /etc/network/interfaces

@@ -1,4 +1,8 @@
 ---
 
+- name: reload firewall
+  ufw:
+    state: reloaded
+
 - name: restart bridge interface
   shell: ifdown {{ kvm_bridge_interface }}; ifup {{ kvm_bridge_interface }}
