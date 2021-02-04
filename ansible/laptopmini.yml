@@ -39,6 +39,7 @@
 
         # System administration
         - ansible
+        - nmap
         - psmisc
         - smartmontools
         - sysbench  # buster-backports
