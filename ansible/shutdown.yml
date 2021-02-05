@@ -6,30 +6,31 @@
   gather_facts: no
   become: yes
   tasks:
-    - name: shutdown linux machines
-      shell: sleep 2; /sbin/shutdown -c; /sbin/shutdown -h now
+    - block:
       when: wakeup_initiated|default(True)
-      async: 1  # https://stackoverflow.com/a/48424672
-      poll: 0
-      changed_when: yes
-      failed_when: no
-      ignore_unreachable: yes
+        - name: shutdown linux machines
+          shell: sleep 2; /sbin/shutdown -c; /sbin/shutdown -h now
+          async: 1  # https://stackoverflow.com/a/48424672
+          poll: 0
+          changed_when: yes
+          failed_when: no
+          ignore_unreachable: yes
 
-    - name: wait for shutdown
-      wait_for_connection:
-        timeout: 2
-        connect_timeout: 2
-      register: connection
-      changed_when: connection is failed
-      failed_when: no
-      retries: 5
-      delay: 1
-      until: connection is changed
+        - name: wait for shutdown
+          wait_for_connection:
+            timeout: 2
+            connect_timeout: 2
+          register: connection
+          changed_when: connection is failed
+          failed_when: no
+          retries: 5
+          delay: 1
+          until: connection is changed
 
-    - name: check shutdown success
-      assert:
-        that:
-          - connection is changed
-          - '"msg" in connection'
-        fail_msg: Shutdown was not completed
-        success_msg: Shutdown completed
+        - name: check shutdown success
+          assert:
+            that:
+              - connection is changed
+              - '"msg" in connection'
+            fail_msg: Shutdown was not completed
+            success_msg: Shutdown completed
