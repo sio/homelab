@@ -3,6 +3,7 @@
         "detect machines that require wakeup",
         "wake up physical machines",
         "wake up virtual machines",
+        "wait for shutdown",
         "shutdown linux machines"
     ]
 }
