@@ -44,6 +44,10 @@ PLAYBOOK_ARGS+=--limit "$(HOSTS)"
 endif
 
 
+# Read inventory directory
+PLAYBOOK_ARGS+=-i ./inventory/
+
+
 .PHONY: environment-versions
 .DEFAULT_GOAL := environment-versions
 environment-versions:
