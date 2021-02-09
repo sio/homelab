@@ -1,0 +1,5 @@
+---
+
+# Good starting point for new virtual machines
+vm_image_debian10: https://gitlab.com/sio/server_common/-/jobs/artifacts/master/raw/artifacts/guest-image.qcow2?job=packer-debian10
+vm_image_debian10_checksum: https://gitlab.com/sio/server_common/-/jobs/artifacts/master/raw/artifacts/guest-image.sha256sum?job=packer-debian10

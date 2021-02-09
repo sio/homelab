@@ -1,0 +1,24 @@
+---
+
+# Use Python 3 on controlled hosts by default
+ansible_python_interpreter: /usr/bin/python3
+
+
+# Proper su invocation on modern Debian systems
+ansible_become_flags: '{{ "-" if ansible_become_method|default(None) == "su" else "" }}'
+
+
+# Correctly detect Debian testing
+ansible_distribution_release: >- # https://github.com/ansible/ansible/issues/19874
+  {{
+  {
+    'stable': 'buster',
+    'testing': 'bullseye',
+  }[ansible_debian_release] | default(ansible_debian_release)
+  }}
+ansible_debian_release: >-  # non-idempotent, might easily change testing<>bullseye
+  {{
+  ansible_facts.distribution_major_version.split("/")[0]
+  if (ansible_facts.distribution_major_version.split("/")+[None])[1] in ["sid", "unstable"]
+  else ansible_facts.distribution_release
+  }}

@@ -1,0 +1,40 @@
+---
+
+# Common packages for playground machines
+playground_packages:
+  # Containerisation and virtualisation
+  - cpu-checker
+  - docker.io
+  - libguestfs-tools
+  - libvirt-clients
+  - libvirt-daemon-system
+  - packer
+  - qemu-kvm
+  - qemu-utils
+  - vagrant
+  - vagrant-libvirt
+  # Developer tools
+  - git
+  - make
+  - cmake
+  - build-essential
+  # Other tools
+  - aria2
+  - psmisc
+  - python3-venv
+  - python3-yaml
+  - sudo
+  - sysbench
+  - tmux
+  - vim
+
+
+# Common packages for baremetal deployments
+baremetal_packages:
+  - acpi-support
+  - cpufrequtils
+  - downtimed
+  - linux-cpupower
+  - lm-sensors
+  - powertop
+  - smartmontools
