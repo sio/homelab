@@ -1,0 +1,39 @@
+all:
+  vars:
+    munin_master_cidr: '{{ secret_munin_master_cidr }}'
+  children:
+    lab:
+      vars:
+        server_force_inventory_hostname: yes
+        server_keys_public: '{{ secret_server_keys_public  }}'
+        server_root_password: '{{ secret_server_root_password }}'
+        sshkey_only: '{{ secret_sshkey_only }}'
+  hosts:
+    control:
+      control_sshkeys: '{{ secret_control_sshkeys }}'
+      gitlab_runner_token: '{{ secret_gitlab_runner_token }}'
+      server_force_inventory_hostname: yes
+      server_keys_public: '{{ secret_server_keys_public  }}'
+      server_root_password: '{{ secret_server_root_password }}'
+      sshkey_only: '{{ secret_sshkey_only }}'
+    labaie:
+      wol_interface: '{{ secret_wol_interface }}'
+      wol_macaddress: '{{ secret_wol_macaddress }}'
+    labjay:
+      wol_macaddress: '{{ secret_wol_macaddress }}'
+    labtee:
+      wol_macaddress: '{{ secret_wol_macaddress }}'
+    laptopmini:
+      server_keys_public: '{{ secret_server_keys_public  }}'
+      sshkey_only: '{{ secret_sshkey_only }}'
+    mediabox:
+      interactive_ssh_key: '{{ secret_interactive_ssh_key }}'
+      server_keys_public: '{{ secret_server_keys_public  }}'
+      sshkey_only: '{{ secret_sshkey_only }}'
+      wol_interface: '{{ secret_wol_interface }}'
+      wol_macaddress: '{{ secret_wol_macaddress }}'
+    morebooks.ml:
+      server_keys_public: '{{ secret_server_keys_public  }}'
+      server_remote_user: '{{ secret_server_remote_user }}'
+      server_root_password: '{{ secret_server_root_password }}'
+      sshkey_only: '{{ secret_sshkey_only }}'

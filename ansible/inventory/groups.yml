@@ -1,0 +1,16 @@
+all:
+  children:
+    hypervisor:
+      hosts:
+        mediabox:
+    lab:
+      hosts:
+        labaie:
+        labjay:
+        labtee:
+  hosts:
+    control:
+    laptopmini:
+    mediabox:
+    morebooks.ml:
+    playground:
