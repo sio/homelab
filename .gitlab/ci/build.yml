@@ -99,7 +99,7 @@ packer-debian-testing:
 #
 
 
-molecule-host-alpine:
+molecule-host-docker:
   extends: .docker-build
   variables:
     DOCKERFILE: ansible/tests/Dockerfile.host
