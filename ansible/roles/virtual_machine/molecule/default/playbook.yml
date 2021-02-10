@@ -3,7 +3,8 @@
 - hosts: all
   become: true
   vars_files:
-    - ../../../../group_vars/all.yml
+    - ../../../../inventory/group_vars/all/ansible.yml
+    - ../../../../inventory/group_vars/all/vm.yml
   vars:
     qcow2_image: '/guest-image.qcow2'
   pre_tasks:

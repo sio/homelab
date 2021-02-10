@@ -3,7 +3,7 @@
 - hosts: all
   become: true
   vars_files:
-    - ../../../../group_vars/all.yml
+    - ../../../../inventory/group_vars/all/ansible.yml
   vars:
     server_keys_public:
       - '{{ molecule_ephemeral_directory }}/testkey.pub'
