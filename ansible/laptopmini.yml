@@ -29,6 +29,9 @@
         - gvfs-backends  # Android file transfer over USB
         - rar
         - unrar
+        - aspell-ru
+        - hunspell-ru
+        - myspell-ru
 
         # Interactive shell
         - git
@@ -48,6 +51,7 @@
         - firmware-linux
         - firmware-linux-free
         - firmware-linux-nonfree
+        - nvidia-driver
 
         # Laptop optimisation
         - acpi-support
