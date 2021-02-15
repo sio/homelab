@@ -17,20 +17,18 @@
           ignore_unreachable: yes
 
         - name: wait for shutdown
-          wait_for_connection:
-            timeout: 2
-            connect_timeout: 2
-          register: connection
-          changed_when: connection is failed
-          failed_when: no
-          retries: 5
+          delegate_to: localhost
+          shell: >-
+            ping -c 1 -w 1
+            {{
+            (hostvars[inventory_hostname].ansible_ssh_host
+            |default(hostvars[inventory_hostname].ansible_host))
+            |default(inventory_hostname)
+            }}
+            2>&1
+          register: ping
+          retries: 10
           delay: 1
-          until: connection is changed
-
-        - name: check shutdown success
-          assert:
-            that:
-              - connection is changed
-              - '"msg" in connection'
-            fail_msg: Shutdown was not completed
-            success_msg: Shutdown completed
+          until: ping.rc != 0
+          failed_when: ping.rc == 0
+          changed_when: no
