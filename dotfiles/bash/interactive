@@ -20,3 +20,7 @@ HISTSIZE=100000
 HISTFILESIZE=$HISTSIZE
 HISTCONTROL=ignorespace:ignoredups:erasedups  # save only last occurence of command
 PROMPT_COMMAND="history -a; $PROMPT_COMMAND"  # make history available to new shells immediately
+
+
+# Automatically change directory without typing 'cd '
+shopt -s autocd
