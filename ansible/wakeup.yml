@@ -25,7 +25,7 @@
 
     - name: wait for physical machines to boot
       wait_for_connection: &machine_up
-        timeout: '{{ wol_boot_timeout|default(60) }}'
+        timeout: '{{ wol_boot_timeout|default(150) }}'
       when: ping is changed and wol_macaddress is defined
 
     - name: wake up virtual machines
