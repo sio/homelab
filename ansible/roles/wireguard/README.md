@@ -9,7 +9,6 @@ See `defaults/main.yml` for configuration parameters
 - TODO: Are PostUp/PostDown iptables NAT rules required for my use case?
 - TODO: Add automated tests for `wireguard_is_client: yes`
 - TODO: Expand verify.yml for automated tests
-- TODO: Check if `PersistentKeepalive` is required
 
 
 ## Useful links
