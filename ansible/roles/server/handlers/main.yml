@@ -7,3 +7,6 @@
 - name: reload firewall
   ufw:
     state: reloaded
+
+- name: refresh host facts
+  setup:

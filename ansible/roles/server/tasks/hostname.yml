@@ -4,6 +4,7 @@
   hostname:
     name: '{{ inventory_hostname_short }}'
   when: server_force_inventory_hostname
+  notify: refresh host facts
 
 - name: set localhost hostname in /etc/hosts
   vars:
@@ -19,6 +20,7 @@
     regexp: '^127\.0\.1\.1'
     line: '127.0.1.1 {{ localhost_hostname }}'
     backup: yes
+  notify: refresh host facts
 
 - name: set loopback address in /etc/hosts
   lineinfile:
@@ -27,3 +29,4 @@
     regexp: '^127\.0\.0\.1'
     line: '127.0.0.1 localhost'
     backup: yes
+  notify: refresh host facts
