@@ -1,0 +1,58 @@
+<domain type='kvm'>
+  <name>{{ virtual_machine_name }}</name>
+  <uuid>{{ virtual_machine_name|to_uuid }}</uuid>
+  <memory unit='MiB'>{{ virtual_machine_memory }}</memory>
+  <vcpu placement='static'>{{ virtual_machine_cpus }}</vcpu>
+  <os>
+    <type>hvm</type>
+    <boot dev='hd'/>
+  </os>
+  <features>
+    <acpi/>
+    <apic/>
+    <pae/>
+    <hyperv>
+      <relaxed state='on'/>
+      <vpindex state='on'/>
+      <synic state='on'/>
+      <stimer state='on'/>
+    </hyperv>
+    <kvm>
+      <hidden state='on'/>
+    </kvm>
+  </features>
+  <cpu mode='host-passthrough' check='none'>
+    <topology sockets='1' dies='1' cores='{{ virtual_machine_cpus }}' threads='1'/>
+    <feature name='hypervisor' policy='disable'/>
+  </cpu>
+  <clock offset='localtime'>
+    <timer name='rtc' tickpolicy='catchup'/>
+    <timer name='pit' tickpolicy='delay'/>
+    <timer name='hpet' present='no'/>
+    <timer name='hypervclock' present='yes'/>
+  </clock>
+  <on_poweroff>destroy</on_poweroff>
+  <on_reboot>restart</on_reboot>
+  <on_crash>destroy</on_crash>
+  <devices>
+    <emulator>{{ virtual_machine_emulator }}</emulator>
+    <disk type='file' device='disk'>
+      <driver name='qemu' type='qcow2'/>
+      <source file='{{ virtual_machine_image }}'/>
+      <target dev='vda' bus='virtio'/>
+    </disk>
+    <interface type='bridge'>
+      <source bridge='{{ virtual_machine_bridge }}'/>
+      <mac address='02:34:56:{{ (virtual_machine_name|hash("md5"))[:6]|slice(3)|map("join")|join(":") }}'/>
+      <model type='virtio'/>
+    </interface>
+    <input type='mouse' bus='ps2'/>
+    <input type='keyboard' bus='ps2'/>
+    <graphics type='spice' autoport='yes'>
+      <listen type='address'/>
+      <image compression='off'/>
+      <clipboard copypaste='no'/>
+      <filetransfer enable='no'/>
+    </graphics>
+  </devices>
+</domain>
