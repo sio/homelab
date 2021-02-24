@@ -1,7 +1,7 @@
 ---
 galaxy_info:
   role_name: canon_mf3010
-  author: Vitaly Potyarkin
+  author: potyarkin
   description: Print server for Canon MF3010
   license: Apache-2.0
   min_ansible_version: 2.4

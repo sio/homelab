@@ -5,7 +5,7 @@ dependencies:
 
 galaxy_info:
   role_name: control
-  author: Vitaly Potyarkin
+  author: potyarkin
   description: Custom control node for my infrastructure
   license: Apache-2.0
   min_ansible_version: 2.0

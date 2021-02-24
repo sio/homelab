@@ -4,7 +4,7 @@ dependencies:
 
 galaxy_info:
   role_name: samba
-  author: Vitaly Potyarkin
+  author: potyarkin
   description: Install Samba server for file sharing on LAN
   license: Apache-2.0
   min_ansible_version: 2.0
