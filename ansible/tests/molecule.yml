@@ -19,4 +19,4 @@ verifier:
 lint: |
   set -e
   yamllint .
-  ansible-lint --exclude molecule
+  ansible-lint --exclude molecule -x yaml
