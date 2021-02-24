@@ -18,6 +18,7 @@
 
         - name: wait for shutdown
           delegate_to: localhost
+          become: no
           shell: >-
             ping -c 1 -w 1
             {{
