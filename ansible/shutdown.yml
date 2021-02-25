@@ -28,7 +28,7 @@
             }}
             2>&1
           register: ping
-          retries: 10
+          retries: 60
           delay: 1
           until: ping.rc != 0
           failed_when: ping.rc == 0
