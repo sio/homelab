@@ -39,6 +39,7 @@
         - tmux
         - bc # used in my Tmux config
         - vim-gtk3  # GUI build has more stuff enabled at compile time
+        - curl
 
         # System administration
         - ansible
