@@ -47,6 +47,7 @@
         - psmisc
         - smartmontools
         - sysbench  # buster-backports
+        - iotop
 
         # Hardware support
         - firmware-linux
