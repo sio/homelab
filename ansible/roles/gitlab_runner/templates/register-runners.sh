@@ -16,6 +16,6 @@ gitlab-runner register \
     --registration-token {{ gitlab_runner_token|quote }} \
     --executor {{ gitlab_runner_executor|quote }} \
     {% for key, value in gitlab_runner_extra_registration_params.items() %}
-    --{{ key }} {{ value|quote }} \
+    --{{ key }} {{ value|quote if value else '' }} \
     {% endfor -%}
     --tag-list "{{ gitlab_runner_tags|join(",") }}"
