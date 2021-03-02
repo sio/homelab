@@ -23,17 +23,16 @@
     - register gitlab runner
 
 - name: create configuration file
-  copy:
-    content: |
-      concurrent = 1
-      check_interval = 0
-
-      [session_server]
-        session_timeout = 1800
+  template:
+    src: '{{ lookup("first_found", config_toml_paths) }}'
     dest: '{{ gitlab_runner_config }}'
     mode: '0700'
     owner: '{{ gitlab_runner_user }}'
     force: no
+  vars:
+    config_toml_paths:
+      - 'templates/config-{{ gitlab_runner_executor }}.toml'
+      - 'templates/config-shell.toml'
 
 - name: execute gitlab-runner as unprivileged user
   copy:
