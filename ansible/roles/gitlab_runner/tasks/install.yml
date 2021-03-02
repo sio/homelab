@@ -34,6 +34,14 @@
       - 'templates/config-{{ gitlab_runner_executor }}.toml'
       - 'templates/config-shell.toml'
 
+- name: set number of concurrent jobs
+  lineinfile:
+    path: '{{ gitlab_runner_config }}'
+    regexp: '^concurrent\s*=.*'
+    line: 'concurrent = {{ gitlab_runner_concurrent_jobs }}'
+    mode: '0700'
+  notify: restart gitlab runner
+
 - name: execute gitlab-runner as unprivileged user
   copy:
     content: |-

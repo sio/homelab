@@ -5,6 +5,7 @@ gitlab_runner_user: gitlab-runner
 
 gitlab_runner_ci_host: https://gitlab.com/
 gitlab_runner_executor: shell
+gitlab_runner_concurrent_jobs: 1
 gitlab_runner_tags: []
 gitlab_runner_token: ''
 gitlab_runner_extra_registration_params: # command-line params for 'gitlab-runner register'
