@@ -1,0 +1,50 @@
+---
+
+- name: install dependencies
+  package:
+    name: '{{ ci_runners_manager_packages }}'
+    state: present
+
+- name: fetch pulumi release tarball
+  get_url:
+    url: '{{ ci_runners_manager_pulumi_url }}'
+    dest: '{{ ci_runners_manager_pulumi_tarball }}'
+    checksum: '{{ ci_runners_manager_pulumi_checksum[ci_runners_manager_pulumi_version] }}'
+    mode: '0644'
+  notify: install pulumi
+
+- name: create infrastructure configuration directory
+  file:
+    path: '{{ ci_runners_manager_config_dir }}'
+    state: directory
+    owner: '{{ ci_runners_manager_user }}'
+    mode: '0700'
+
+- name: clone infrastructure configuration files
+  command: >
+    su - {{ ci_runners_manager_user }} --shell=/bin/sh -c
+    'git clone "{{ ci_runners_manager_config_repo }}" .'
+  args:
+    chdir: '{{ ci_runners_manager_config_dir }}'
+    creates: '{{ ci_runners_manager_config_dir }}/.git'
+    warn: no  # becoming unprivileged does not work in Ansible
+
+- name: install systemd service and timer
+  copy:
+    src: '{{ ci_runners_manager_config_dir }}/systemd/{{ item }}'
+    dest: '/etc/systemd/system/{{ item }}'
+    mode: '0644'
+    remote_src: yes
+  loop:
+    - gitlab-runner-fleet.service
+    - gitlab-runner-fleet.timer
+  notify: restart fleet manager
+
+- name: configure infrastucture secrets for CI fleet
+  template:
+    src: templates/environment.j2
+    dest: '{{ ci_runners_manager_config_env }}'
+    owner: '{{ ci_runners_manager_user }}'
+    mode: '0600'
+    backup: yes
+  notify: restart fleet manager

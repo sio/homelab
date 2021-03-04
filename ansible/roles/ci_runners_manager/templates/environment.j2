@@ -1,0 +1,7 @@
+# {{ ansible_managed }}
+
+PULUMI={{ ci_runners_manager_pulumi_dir|quote }}/pulumi
+
+{% for key, value in ci_runners_manager_secrets.items() %}
+{{ key }}={{ value|quote }}
+{% endfor %}

@@ -1,0 +1,22 @@
+---
+
+- name: remove old pulumi version
+  listen: install pulumi
+  file:
+    path: '{{ ci_runners_manager_pulumi_dir }}'
+    state: absent
+
+- name: unpack pulumi release tarball
+  listen: install pulumi
+  unarchive:
+    src: '{{ ci_runners_manager_pulumi_tarball }}'
+    dest: '{{ ci_runners_manager_pulumi_dir|dirname }}'
+    mode: u=rwX,g=rX,o=rX
+    remote_src: yes
+
+- name: restart fleet manager
+  systemd:
+    name: gitlab-runners-fleet.timer
+    state: restarted
+    enabled: yes
+    daemon_reload: yes

@@ -1,0 +1,23 @@
+---
+ci_runners_manager_user: ci-runners-manager
+ci_runners_manager_packages:
+  - curl
+  - make
+  - openssh-client
+  - python3-venv
+ci_runners_manager_secrets: {}
+
+
+ci_runners_manager_pulumi_dir: /opt/pulumi
+ci_runners_manager_pulumi_tarball: '{{  ci_runners_manager_pulumi_dir }}.tar.gz'
+ci_runners_manager_pulumi_version: 2.21.2
+ci_runners_manager_pulumi_url:
+  "https://get.pulumi.com/releases/sdk/pulumi\
+  -v{{ ci_runners_manager_pulumi_version }}-linux-x64.tar.gz"
+ci_runners_manager_pulumi_checksum:
+  2.21.2: sha256:43156e5062f680d3ad9b1df3f3ab053b6895fc648c22a5a14773be9c5d9e57ff
+
+
+ci_runners_manager_config_repo: https://github.com/sio/gitlab-runners-fleet.git
+ci_runners_manager_config_dir: /etc/gitlab-runners-fleet
+ci_runners_manager_config_env: /etc/gitlab-runners-fleet.env
