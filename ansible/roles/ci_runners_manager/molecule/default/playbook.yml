@@ -1,0 +1,13 @@
+---
+
+- hosts: all
+  become: true
+  pre_tasks:
+    - include: ../../../../tasks/unattended-purge.yml
+  roles:
+    - role: ci_runners_manager
+      ci_runners_manager_secrets:
+        GITLAB_API_TOKEN: "GitLab API token with read-write access"
+        GITLAB_RUNNER_TOKEN: "GitLab runner registration token"
+        HCLOUD_TOKEN: "Hetzner Cloud API token"
+        PULUMI_CONFIG_PASSPHRASE: "Passphrase to unlock Pulumi config/secrets"

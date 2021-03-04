@@ -60,6 +60,16 @@ test-role-canon_mf3010:
         - ansible/roles/canon_mf3010/**/*
 
 
+test-role-ci_runners_manager:
+  extends: .test-ansible-role
+  variables:
+    ANSIBLE_ROLE: ../roles/ci_runners_manager
+  rules:
+    - *option-skip-test
+    - changes:
+        - ansible/roles/ci_runners_manager/**/*
+
+
 test-role-deb_url:
   extends: .test-ansible-role
   variables:
