@@ -23,9 +23,8 @@
 - name: clone infrastructure configuration files
   command: >
     su - {{ ci_runners_manager_user }} --shell=/bin/sh -c
-    'git clone "{{ ci_runners_manager_config_repo }}" .'
+    'git clone "{{ ci_runners_manager_config_repo }}" "{{ ci_runners_manager_config_dir }}"'
   args:
-    chdir: '{{ ci_runners_manager_config_dir }}'
     creates: '{{ ci_runners_manager_config_dir }}/.git'
     warn: no  # becoming unprivileged does not work in Ansible
 
