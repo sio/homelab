@@ -2,6 +2,7 @@
 ci_runners_manager_user: ci-runners-manager
 ci_runners_manager_packages:
   - curl
+  - git
   - make
   - openssh-client
   - python3-venv
