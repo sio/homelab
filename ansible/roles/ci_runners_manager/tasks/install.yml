@@ -36,8 +36,8 @@
     mode: '0644'
     remote_src: yes
   loop:
-    - gitlab-runner-fleet.service
-    - gitlab-runner-fleet.timer
+    - gitlab-runners-fleet.service
+    - gitlab-runners-fleet.timer
   notify: restart fleet manager
 
 - name: configure infrastucture secrets for CI fleet
