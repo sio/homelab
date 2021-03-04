@@ -9,6 +9,12 @@ all:
         server_root_password: '{{ secret_server_root_password }}'
         sshkey_only: '{{ secret_sshkey_only }}'
   hosts:
+    ci-runners-manager:
+      ci_runners_manager_secrets: '{{ secret_ci_runners_manager_tokens }}'
+      server_force_inventory_hostname: yes
+      server_keys_public: '{{ secret_server_keys_public  }}'
+      server_root_password: '{{ secret_server_root_password }}'
+      sshkey_only: '{{ secret_sshkey_only }}'
     control:
       control_sshkeys: '{{ secret_control_sshkeys }}'
       gitlab_runner_token: '{{ secret_gitlab_runner_token }}'

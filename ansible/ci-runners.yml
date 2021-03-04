@@ -1,0 +1,10 @@
+---
+
+- hosts: ci-runners-manager
+  become: yes
+  roles:
+    - role: server
+    - role: upgrade
+    - role: motd
+    - role: sshkey
+    - role: ci_runners_manager
