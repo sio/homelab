@@ -8,6 +8,10 @@
       changed_when: "hello is not succeeded"
 
     - name: check if Makefile is ready to be invoked
-      command: /usr/bin/make check-software -C /etc/gitlab-runners-fleet
+      shell: |-
+        set -eo pipefail
+        set -a  # https://unix.stackexchange.com/a/79084
+        . /etc/gitlab-runners-fleet.env
+        /usr/bin/make check-software -C /etc/gitlab-runners-fleet
       register: check
       failed_when: check.rc != 0
