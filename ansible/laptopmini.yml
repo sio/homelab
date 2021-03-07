@@ -14,6 +14,7 @@
       packages_install:
         # Desktop apps
         - smplayer
+        - vlc
         - transgui
         - audacious
         - google-chrome-stable
