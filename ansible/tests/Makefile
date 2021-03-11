@@ -91,6 +91,8 @@ versions: venv
 	$(VENV)/python --version
 	$(MOLECULE) --version
 	$(ANSIBLE) --version
+	$(VENV)/ansible-lint --version
+	$(VENV)/yamllint --version
 
 
 .PHONY: help
