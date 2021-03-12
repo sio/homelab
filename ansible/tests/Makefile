@@ -18,6 +18,8 @@ endif
 ANSIBLE?=$(VENV)/ansible
 ANSIBLE_ROLES=$(patsubst %/molecule,%,$(wildcard ../roles/*/molecule))
 
+export PY_COLORS=1
+export ANSIBLE_FORCE_COLOR=1
 
 VENVDIR?=$(abspath ./.venv)
 

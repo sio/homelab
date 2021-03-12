@@ -31,10 +31,6 @@ task:
     REQUIREMENTS_TXT: "{{ REQUIREMENTS_TXT.split('/') | list | last }}"
     {% endif %}
 
-    # Force colored output
-    PY_COLORS: '1'  # https://www.jeffgeerling.com/blog/2020/getting-colorized-output-molecule-and-ansible-on-github-actions-ci
-    ANSIBLE_FORCE_COLOR: '1'
-
     # Variables that might be helpful for debugging
     {% if DEBUG is defined %}
     DEBUG: "{{ DEBUG }}"
