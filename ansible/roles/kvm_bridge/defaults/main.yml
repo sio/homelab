@@ -5,4 +5,5 @@ kvm_bridge_options:
   bridge_maxwait: 0
   bridge_fd: 0
 kvm_bridge_fallback_iface: inet dhcp
+kvm_bridge_fallback_force: no
 kvm_bridge_config_file: /etc/network/interfaces
