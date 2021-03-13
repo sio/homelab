@@ -12,6 +12,7 @@
   roles:
     - role: kvm_bridge
       kvm_bridge_fallback_iface: inet static
+      kvm_bridge_fallback_force: yes
       kvm_bridge_options:
         address: '{{ ansible_default_ipv4.address }}'
         gateway:  '{{ ansible_default_ipv4.gateway }}'
