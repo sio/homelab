@@ -26,6 +26,7 @@ playground_packages:
   - sudo
   - sysbench
   - tmux
+  - bc  # goes with tmux
   - vim
 
 
