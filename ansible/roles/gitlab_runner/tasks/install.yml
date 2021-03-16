@@ -11,6 +11,14 @@
     - /etc/apt/sources.list.d/
     - /etc/systemd/system/gitlab-runner.service.d/
 
+- name: create unregistration script
+  template:
+    src: templates/unregister-runners.sh
+    dest: '{{ gitlab_runner_unregister_script }}'
+    mode: '0700'
+    owner: '{{ gitlab_runner_user }}'
+    backup: yes
+
 - name: create registration script
   template:
     src: templates/register-runners.sh
