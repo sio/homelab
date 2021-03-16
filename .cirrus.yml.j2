@@ -56,8 +56,6 @@ task:
 
   # CI environment does not provide systemd,
   # we have to start the daemons manually
-  iptables_legacy_script:
-    - update-alternatives --set iptables /usr/sbin/iptables-legacy
   dbus_background_script:
     - mkdir -p /var/run/dbus
     - /usr/bin/dbus-daemon --system --nofork --nopidfile
@@ -97,6 +95,7 @@ task:
       - ifconfig || echo "Exit code: $?"
       - cat /etc/network/interfaces || echo "Exit code: $?"
       - brctl show || echo "Exit code: $?"
+      - uname -a || echo "Exit code: $?"
       - iptables -S || echo "Exit code: $?"
       - iptables-legacy -S || echo "Exit code: $?"
       - iptables-nft -S || echo "Exit code: $?"
