@@ -136,12 +136,3 @@
         validate: visudo -cf %s
         mode: '0440'
         backup: yes
-
-    - name: enable custom config in login shells
-      copy:
-        content: |
-          source ~/.bashrc
-        dest: /home/user/.bash_profile
-        owner: user
-        group: user
-        mode: '0644'

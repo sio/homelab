@@ -1,0 +1,2 @@
+test -s ~/.profile && . ~/.profile
+test -s ~/.bashrc  && . ~/.bashrc
