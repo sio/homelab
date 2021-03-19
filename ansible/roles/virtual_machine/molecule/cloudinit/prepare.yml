@@ -1,0 +1,43 @@
+---
+- hosts: localhost
+  become: no
+  gather_facts: no
+  vars:
+    virtual_machine_cloudinit_cfg: '{{ molecule_ephemeral_directory }}/cloudinit'
+  tasks:
+    - name: create cloudinit config dir
+      file:
+        path: '{{ virtual_machine_cloudinit_cfg }}'
+        state: directory
+        mode: '0755'
+    - name: create simple cloudinit metadata
+      copy:
+        content: |
+          instance-id: id-local01
+          local-hostname: cloud-instance
+        dest: '{{ virtual_machine_cloudinit_cfg }}/meta-data'
+        mode: '0644'
+    - name: create simple cloudinit userdata
+      copy:
+        content: |
+          #cloud-config
+          groups:
+            - testgroup: [root, testuser]
+          users:
+            - testuser
+        dest: '{{ virtual_machine_cloudinit_cfg }}/user-data'
+        mode: '0644'
+
+- hosts: debian11-vm
+  become: yes
+  tasks:
+    - name: use non-default repo to avoid angering Fastly
+      replace:
+        path: /etc/apt/sources.list
+        regexp: '\w+\.debian\.org'
+        replace: debian.mirrors.ovh.net  # this mirror is not behind Fastly
+        backup: yes
+
+    - name: update package lists
+      apt:
+        update_cache: yes

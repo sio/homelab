@@ -1,0 +1,22 @@
+# Main molecule configuration is located in ansible/roles/tests/molecule.yml
+# Invoke with `molecule --base-config $LOCATION`
+---
+driver:
+  name: vagrant
+  provider:
+    name: libvirt
+
+platforms:
+  - name: debian10-vm
+    box: potyarkin/debian10
+    cpu_mode: host-passthrough
+    memory: 2048
+  - name: debian11-vm
+    box: potyarkin/debian11
+    cpu_mode: host-passthrough
+    memory: 2048
+
+# Testinfra tests fail because the firewall on test instance
+# refuses frequent connection attempts
+verifier:
+  name: ansible

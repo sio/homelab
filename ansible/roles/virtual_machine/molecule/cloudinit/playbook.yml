@@ -1,0 +1,25 @@
+---
+
+- hosts: all
+  become: true
+  vars_files:
+    - ../../../../inventory/group_vars/all/ansible.yml
+    - ../../../../inventory/group_vars/all/vm.yml
+  pre_tasks:
+    - include: ../../../../tasks/unattended-purge.yml
+  roles:
+    - role: kvm_bridge
+      kvm_bridge_fallback_iface: inet static
+      kvm_bridge_fallback_force: yes
+      kvm_bridge_options:
+        address: '{{ ansible_default_ipv4.address }}'
+        gateway:  '{{ ansible_default_ipv4.gateway }}'
+        bridge_stp: 'off'
+        bridge_maxwait: 0
+        bridge_fd: 0
+    - role: virtual_machine
+      virtual_machine_image: '/guest.qcow2'
+      virtual_machine_image_url: 'https://cdimage.debian.org/cdimage/openstack/current-10/debian-10-openstack-amd64.qcow2'
+      virtual_machine_image_checksum: 'sha256:https://cdimage.debian.org/cdimage/openstack/current-10/SHA256SUMS'
+      virtual_machine_cloudinit_cfg: '{{ molecule_ephemeral_directory }}/cloudinit'
+      virtual_machine_cloudinit_iso: '/guest-cloudinit.iso'

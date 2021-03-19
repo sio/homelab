@@ -216,6 +216,19 @@ test-role-virtual_machine:
         - packer/debian10/**/*
 
 
+test-role-virtual_machine_cloudinit:
+  extends: .test-ansible-role-kvm
+  variables:
+    ANSIBLE_ROLE: ../roles/virtual_machine
+    MOLECULE_SCENARIO: cloudinit
+    CIRRUS_RAM: 8G
+  rules:
+    - *option-skip-test
+    - changes:
+        - ansible/roles/kvm_bridge/**/*
+        - ansible/roles/virtual_machine/**/*
+
+
 test-role-virtual_usb:
   extends: .test-ansible-role-kvm
   variables:
