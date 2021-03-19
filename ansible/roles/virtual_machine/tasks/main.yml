@@ -14,6 +14,9 @@
     install_recommends: no
     cache_valid_time: 3600
 
+- include: cloudinit.yml
+  when: virtual_machine_cloudinit_cfg is defined
+
 - name: start virtualization services
   service:
     name: '{{ item }}'

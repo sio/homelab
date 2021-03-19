@@ -7,3 +7,5 @@
       - ansible_pkg_mgr == "apt"
       - virtual_machine_image is defined
       - virtual_machine_image_url is defined
+      - virtual_machine_cloudinit_cfg is not defined or
+        virtual_machine_cloudinit_iso|length > 0

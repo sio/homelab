@@ -26,6 +26,13 @@
       <source file='{{ virtual_machine_image }}'/>
       <target dev='vda' bus='virtio'/>
     </disk>
+{% if virtual_machine_cloudinit_cfg is defined %}
+    <disk type='file' device='cdrom'>
+      <driver name='qemu' type='raw'/>
+      <source file='{{ virtual_machine_cloudinit_iso }}'/>
+      <readonly/>
+    </disk>
+{% endif %}
     <interface type='bridge'>
       <source bridge='{{ virtual_machine_bridge }}'/>
       <mac address='02:34:56:{{ (virtual_machine_name|hash("md5"))[:6]|slice(3)|map("join")|join(":") }}'/>

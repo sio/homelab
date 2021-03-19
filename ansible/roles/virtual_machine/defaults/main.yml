@@ -9,3 +9,7 @@ virtual_machine_memory: 1024 # MiB
 virtual_machine_cpus: 1
 virtual_machine_emulator: /usr/bin/qemu-system-x86_64
 virtual_machine_template: templates/domain.xml.j2
+
+# virtual_machine_cloudinit_cfg: path to configuration dir on Ansible controller
+virtual_machine_cloudinit_iso: ''
+virtual_machine_cloudinit_iso_content: '{{ virtual_machine_cloudinit_iso }}_content/'

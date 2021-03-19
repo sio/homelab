@@ -1,0 +1,26 @@
+---
+
+- name: install iso creation tools
+  package:
+    name:
+      - genisoimage
+    state: present
+
+- name: copy cloudinit configuration files
+  copy:
+    src: '{{ virtual_machine_cloudinit_cfg }}/'  # copy contents without top-level directory
+    dest: '{{ virtual_machine_cloudinit_iso_content }}'
+    mode: 'u=rwX,g=rwX,o='
+  register: cloudinit_config
+
+- name: generate ISO image with CIDATA
+  shell:
+    genisoimage
+      -output {{ virtual_machine_cloudinit_iso|quote }}
+      -volid CIDATA
+      -joliet
+      -rock
+      *
+  args:
+    chdir: '{{ virtual_machine_cloudinit_iso_content }}'
+  when: cloudinit_config.changed  # noqa no-handler
