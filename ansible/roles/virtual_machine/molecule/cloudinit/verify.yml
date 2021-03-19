@@ -31,6 +31,9 @@
     - name: detect guest IP address
       shell: virsh domifaddr guest0|grep ipv4|awk '{ print $4 }'
       register: guest_addr
+      until: guest_addr.stdout|trim|length > 0
+      retries: 60
+      delay: 1
 
     - name: wait for HTTP server on VM to become available
       wait_for:
