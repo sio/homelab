@@ -29,6 +29,24 @@
             - apache2
         dest: '{{ virtual_machine_cloudinit_cfg }}/user-data'
         mode: '0644'
+    - name: create simple cloudinit network config
+      copy:
+        content: '{{ network_config|to_yaml }}'
+        dest: '{{ virtual_machine_cloudinit_cfg }}/network-config'
+        mode: '0644'
+      vars:
+        network_config:
+          version: 2
+          ethernets:
+            interface0:
+              match:
+                name: e*
+              set-name: interface0
+              addresses:
+                - "{{ ansible_default_ipv4.address.rsplit('.',1)|first }}\
+                  .{{ ansible_default_ipv4.address.rsplit('.',1)|last|int + 1 }}\
+                  /{{ ansible_default_ipv4.netmask }}"
+              gateway4: '{{ ansible_default_ipv4.gateway }}'
 
 - hosts: debian11-vm
   become: yes
