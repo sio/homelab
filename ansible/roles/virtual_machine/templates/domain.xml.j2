@@ -51,5 +51,11 @@
       <rate period='2000' bytes='1234'/>
       <backend model='random'>/dev/random</backend>
     </rng>
+    <serial type='pty'>
+      <target port='0'/>
+    </serial>
+    <console type='pty'>
+      <target type='serial' port='0'/>
+    </console>
   </devices>
 </domain>
