@@ -27,3 +27,13 @@
         state: running
       register: running
       failed_when: "'guest0' not in running.list_vms"
+
+    - name: detect guest IP address
+      shell: virsh domifaddr guest0|grep ipv4|awk '{ print $4 }'
+      register: guest_addr
+
+    - name: wait for HTTP server on VM to become available
+      wait_for:
+        host: '{{ guest_addr.stdout.split("/")|first }}'
+        port: 80
+        timeout: 120

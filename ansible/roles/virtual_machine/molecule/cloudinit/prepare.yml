@@ -25,6 +25,8 @@
             - testgroup: [root, testuser]
           users:
             - testuser
+          packages:
+            - apache2
         dest: '{{ virtual_machine_cloudinit_cfg }}/user-data'
         mode: '0644'
 
