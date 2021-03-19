@@ -1,7 +1,6 @@
 ---
 - hosts: localhost
   become: no
-  gather_facts: no
   vars:
     virtual_machine_cloudinit_cfg: '{{ molecule_ephemeral_directory }}/cloudinit'
   tasks:
