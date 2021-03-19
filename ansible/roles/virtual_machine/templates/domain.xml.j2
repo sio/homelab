@@ -47,5 +47,9 @@
       <clipboard copypaste='no'/>
       <filetransfer enable='no'/>
     </graphics>
+    <rng model='virtio'>
+      <rate period='2000' bytes='1234'/>
+      <backend model='random'>/dev/random</backend>
+    </rng>
   </devices>
 </domain>
