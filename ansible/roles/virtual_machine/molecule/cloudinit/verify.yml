@@ -28,15 +28,30 @@
       register: running
       failed_when: "'guest0' not in running.list_vms"
 
-    - name: detect guest IP address
-      shell: virsh domifaddr guest0|grep ipv4|awk '{ print $4 }'
-      register: guest_addr
-      until: guest_addr.stdout|trim|length > 0
+    - name: read dnsmasq leases on molecule host
+      delegate_to: localhost
+      become: no
+      set_fact:
+        guest_lease: '{{ guest_lease }}'
       retries: 60
       delay: 1
+      vars:
+        leases_path: '{{ lookup("fileglob", "/var/lib/libvirt/dnsmasq/*.status") }}'
+        leases: '{{ lookup("file", leases_path )|from_json }}'
+        guest_lease: '{{ leases|sort(attribute="expiry-time")|selectattr("hostname","equalto","cloud-instance-"+inventory_hostname)|last }}'
+
+    - name: show DHCP lease as detected
+      debug:
+        var: guest_lease
+
+    - name: check that DHCP lease detection was successful
+      assert:
+        that:
+          - ('hostname' in guest_lease)
+          - guest_lease['mac-address'].startswith('02:34:56')
 
     - name: wait for HTTP server on VM to become available
       wait_for:
-        host: '{{ guest_addr.stdout.split("/")|first }}'
+        host: '{{ guest_lease["ip-address"] }}'
         port: 80
         timeout: 120

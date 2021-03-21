@@ -21,5 +21,5 @@
       virtual_machine_image: '/guest.qcow2'
       virtual_machine_image_url: 'https://cdimage.debian.org/cdimage/cloud/buster/daily/20210319-581/debian-10-genericcloud-amd64-daily-20210319-581.qcow2'
       virtual_machine_image_checksum: 'sha512:https://cdimage.debian.org/cdimage/cloud/buster/daily/20210319-581/SHA512SUMS'
-      virtual_machine_cloudinit_cfg: '{{ molecule_ephemeral_directory }}/cloudinit'
+      virtual_machine_cloudinit_cfg: '{{ molecule_ephemeral_directory }}/cloudinit/{{ inventory_hostname }}'
       virtual_machine_cloudinit_iso: '/guest-cloudinit.iso'

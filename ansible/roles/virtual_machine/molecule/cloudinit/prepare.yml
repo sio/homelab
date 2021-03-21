@@ -1,51 +1,38 @@
 ---
-- hosts: localhost
+- hosts: all
   become: no
   vars:
-    virtual_machine_cloudinit_cfg: '{{ molecule_ephemeral_directory }}/cloudinit'
+    virtual_machine_cloudinit_cfg: '{{ molecule_ephemeral_directory }}/cloudinit/{{ inventory_hostname }}/'
   tasks:
-    - name: create cloudinit config dir
-      file:
-        path: '{{ virtual_machine_cloudinit_cfg }}'
-        state: directory
-        mode: '0755'
-    - name: create simple cloudinit metadata
-      copy:
-        content: |
-          instance-id: id-local01
-          local-hostname: cloud-instance
-        dest: '{{ virtual_machine_cloudinit_cfg }}/meta-data'
-        mode: '0644'
-    - name: create simple cloudinit userdata
-      copy:
-        content: |
-          #cloud-config
-          groups:
-            - testgroup: [root, testuser]
-          users:
-            - testuser
-          packages:
-            - apache2
-        dest: '{{ virtual_machine_cloudinit_cfg }}/user-data'
-        mode: '0644'
-    - name: create simple cloudinit network config
-      copy:
-        content: '{{ network_config|to_yaml }}'
-        dest: '{{ virtual_machine_cloudinit_cfg }}/network-config'
-        mode: '0644'
-      vars:
-        network_config:
-          version: 2
-          ethernets:
-            interface0:
-              match:
-                name: e*
-              set-name: interface0
-              addresses:
-                - "{{ ansible_default_ipv4.address.rsplit('.',1)|first }}\
-                  .{{ ansible_default_ipv4.address.rsplit('.',1)|last|int + 1 }}\
-                  /{{ ansible_default_ipv4.netmask }}"
-              gateway4: '{{ ansible_default_ipv4.gateway }}'
+    - delegate_to: localhost
+      block:
+        - name: create cloudinit config dir
+          file:
+            path: '{{ virtual_machine_cloudinit_cfg }}'
+            state: directory
+            mode: '0755'
+        - name: create simple cloudinit metadata
+          copy:
+            content: |
+              instance-id: id-local01
+              local-hostname: cloud-instance-{{ inventory_hostname }}
+            dest: '{{ virtual_machine_cloudinit_cfg }}/meta-data'
+            mode: '0644'
+        - name: create simple cloudinit userdata
+          copy:
+            content: |
+              #cloud-config
+              groups:
+                - testgroup: [root, testuser]
+              users:
+                - testuser
+                - name: root
+                  plain_text_passwd: rootpasswd
+                  lock_passwd: false
+              packages:
+                - apache2
+            dest: '{{ virtual_machine_cloudinit_cfg }}/user-data'
+            mode: '0644'
 
 - hosts: debian11-vm
   become: yes
