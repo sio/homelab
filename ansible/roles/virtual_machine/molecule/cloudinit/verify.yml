@@ -28,17 +28,42 @@
       register: running
       failed_when: "'guest0' not in running.list_vms"
 
-    - name: read dnsmasq leases on molecule host
+    - name: wait for dnsmasq lease file
+      delegate_to: localhost
+      become: no
+      find:
+        paths: /var/lib/libvirt/dnsmasq
+        patterns: '*.status'
+      register: find
+      until: find.matched > 0
+      retries: 60
+      delay: 1
+
+    - name: show dnsmasq lease file
+      debug:
+        msg: '{{ lookup("file", (find.files|last).path) }}'
+
+    - name: wait for dnsmasq lease to be issued
+      delegate_to: localhost
+      become: no
+      wait_for:
+        path: '{{ (find.files|last).path }}'
+        search_regex: 'cloud-instance-{{ inventory_hostname }}'
+        timeout: 60
+
+    - name: read dnsmasq lease
       delegate_to: localhost
       become: no
       set_fact:
-        guest_lease: '{{ guest_lease }}'
-      retries: 60
-      delay: 1
+        guest_leases: '{{ guest_leases }}'
       vars:
-        leases_path: '{{ lookup("fileglob", "/var/lib/libvirt/dnsmasq/*.status") }}'
+        leases_path: '{{ (find.files|last).path }}'
         leases: '{{ lookup("file", leases_path )|from_json }}'
-        guest_lease: '{{ leases|sort(attribute="expiry-time")|selectattr("hostname","equalto","cloud-instance-"+inventory_hostname)|last }}'
+        guest_leases: '{{ leases|sort(attribute="expiry-time")|selectattr("hostname","equalto","cloud-instance-"+inventory_hostname) }}'
+
+    - name: read dnsmasq leases on molecule host
+      set_fact:
+        guest_lease: '{{ guest_leases|last }}'
 
     - name: show DHCP lease as detected
       debug:
