@@ -43,4 +43,4 @@
       {{ hostvars[inventory_hostname]["ansible_" + wol_interface].macaddress }}
   when: ansible_connection != 'docker'
 
-- meta: flush_handlers  # because handler behavior changes based on role variable
+- meta: flush_handlers  # because handler behavior changes based on role variable  # noqa unnamed-task

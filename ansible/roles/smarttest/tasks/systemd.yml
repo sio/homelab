@@ -26,5 +26,5 @@
     daemon_reload: yes
   loop: '{{ smarttest_drives_enabled | product(smarttest_test_types) | list }}'
 
-- meta: flush_handlers  # Handlers will not behave the same for multiple invocations of the role:
+- meta: flush_handlers  # Handlers will not behave the same for multiple invocations of the role:  # noqa unnamed-task
                         #   - 'restart smarttest timers' depends on role variables

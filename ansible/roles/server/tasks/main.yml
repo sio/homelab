@@ -24,4 +24,4 @@
 # Protect the system
 - include: security.yml
 
-- meta: flush_handlers
+- meta: flush_handlers  # noqa unnamed-task

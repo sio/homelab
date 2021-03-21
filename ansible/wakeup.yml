@@ -6,7 +6,7 @@
   gather_facts: no
   become: no
   tasks:
-    - meta: clear_host_errors  # reset UNREACHABLE status if set
+    - meta: clear_host_errors  # reset UNREACHABLE status if set  # noqa unnamed-task
 
     - name: detect machines that require wakeup
       wait_for_connection:

@@ -3,4 +3,4 @@
 - include: assert.yml
 - include: packages.yml
 - include: compose.yml
-- meta: flush_handlers
+- meta: flush_handlers  # noqa unnamed-task

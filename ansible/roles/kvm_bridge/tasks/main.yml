@@ -133,4 +133,4 @@
   debug:
     msg: '{{ (interfaces["content"]|b64decode).splitlines() }}'
 
-- meta: flush_handlers  # reconfigure network immediately before applying further roles
+- meta: flush_handlers  # reconfigure network immediately before applying further roles  # noqa unnamed-task
