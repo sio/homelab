@@ -22,4 +22,5 @@
     - role: virtual_machine
       virtual_machine_image: '{{ qcow2_image }}'
       virtual_machine_image_url: '{{ vm_image_debian10 }}'
+      virtual_machine_image_resize: '20G'
       virtual_machine_image_checksum: 'sha256:{{ vm_image_debian10_checksum }}'

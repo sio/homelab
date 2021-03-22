@@ -6,6 +6,7 @@
   apt:
     name:
       - qemu-kvm
+      - qemu-utils  # qemu-img
       - libvirt-clients
       - libvirt-daemon-system
       - python3-libvirt
@@ -47,6 +48,11 @@
     mode: '0600'
     checksum: '{{ virtual_machine_image_checksum }}'
   when: not virtual_machine_file.stat.exists
+
+- name: grow initial image for virtual machine
+  command: >
+    qemu-img resize {{ virtual_machine_image|quote }} {{ virtual_machine_image_resize }}
+  when: not virtual_machine_file.stat.exists and virtual_machine_image_resize is defined
 
 - name: check list of virtual machine definitions
   virt:
