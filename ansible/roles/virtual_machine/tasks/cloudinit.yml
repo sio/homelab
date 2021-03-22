@@ -6,11 +6,20 @@
       - genisoimage
     state: present
 
+- name: create iso content directory
+  file:
+    path: '{{ virtual_machine_cloudinit_iso_content }}'
+    state: directory
+    mode: '0750'
+
 - name: copy cloudinit configuration files
-  copy:
-    src: '{{ virtual_machine_cloudinit_cfg }}/'  # copy contents without top-level directory
-    dest: '{{ virtual_machine_cloudinit_iso_content }}'
+  template:
+    src: '{{ item }}'
+    dest: '{{ virtual_machine_cloudinit_iso_content }}/{{ item|basename|replace(".j2","") }}'
     mode: 'u=rwX,g=rwX,o='
+  loop: '{{ lookup("fileglob", virtual_machine_cloudinit_cfg + "/*", wantlist=True) }}'
+  loop_control:
+    label: '{{ item|basename }}'
   register: cloudinit_config
 
 - name: generate ISO image with CIDATA
