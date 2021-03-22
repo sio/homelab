@@ -29,6 +29,7 @@
                 - name: root
                   plain_text_passwd: rootpasswd
                   lock_passwd: false
+              packages_update: true
               packages:
                 - apache2
             dest: '{{ virtual_machine_cloudinit_cfg }}/user-data'
