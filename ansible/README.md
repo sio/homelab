@@ -69,6 +69,7 @@ Local Git repository may be used for keeping track of changes.
 
 - **canary**
 - **canon_mf3010**
+- **ci_runners_manager**
 - **deb_url**
 - **gitlab_runner**
 - **interactive**
@@ -80,6 +81,7 @@ Local Git repository may be used for keeping track of changes.
 
 ### Tested in Vagrant (Libvirt)
 
+- **docker_compose**: launches docker containers on tests instance
 - **gerbera**: depends on server
 - **kvm_bridge**: modifies sysctl values, configures network interfaces, reboots
 - **morebooks**: depends on server
@@ -87,6 +89,9 @@ Local Git repository may be used for keeping track of changes.
 - **munin_master**: depends on server
 - **munin_node**: uses the test suite of munin_master
 - **munin_smart**: depends on server
+- **nfs_cache**: requires access to /dev/cachefiles
+- **nfs_server**: detecting ansible facts is not fully functional in Docker
+  (no `ansible_default_ipv4`)
 - **samba**: depends on server
 - **server**: uses UFW, firewall can not load kernel modules in Docker
 - **supysonic**: depends on server
