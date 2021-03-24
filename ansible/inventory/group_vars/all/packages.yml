@@ -27,6 +27,7 @@ playground_packages:
   - sysbench
   - tmux
   - bc  # goes with tmux
+  - ncurses-term  # enables TERM=screen.xterm-new in tmux
   - vim
 
 
