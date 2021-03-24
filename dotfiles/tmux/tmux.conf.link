@@ -30,7 +30,7 @@ setw -g pane-base-index 1
 #       - dpkg-reconfigure tzdata (background)
 #    Requires adding $(dircolors) to bashrc:
 #       - ls (colors)
-set-option -g default-terminal "screen.xterm-256color"
+set-option -g default-terminal "screen.xterm-new"
 
 # Enable mouse support: window switching, pane resizing, output scrolling
 #
