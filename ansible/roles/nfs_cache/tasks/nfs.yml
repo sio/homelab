@@ -15,6 +15,7 @@
     backup: yes
   with_dict:
     RUN: 'yes'
+    STARTTIME: 2  # https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=946125
   notify: restart cachefilesd
 
 - name: configure cachefilesd
