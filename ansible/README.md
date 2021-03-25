@@ -81,6 +81,7 @@ Local Git repository may be used for keeping track of changes.
 
 ### Tested in Vagrant (Libvirt)
 
+- **control**: requires access to Linux kernel keyring
 - **docker_compose**: launches docker containers on tests instance
 - **gerbera**: depends on server
 - **kvm_bridge**: modifies sysctl values, configures network interfaces, reboots
