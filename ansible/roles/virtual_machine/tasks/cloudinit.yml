@@ -6,11 +6,14 @@
       - genisoimage
     state: present
 
-- name: create iso content directory
+- name: create iso directories
   file:
-    path: '{{ virtual_machine_cloudinit_iso_content }}'
+    path: '{{ item }}'
     state: directory
-    mode: '0750'
+    mode: '0755'
+  loop:
+    - '{{ virtual_machine_cloudinit_iso_content }}'
+    - '{{ virtual_machine_cloudinit_iso|dirname }}'
 
 - name: copy cloudinit configuration files
   template:
