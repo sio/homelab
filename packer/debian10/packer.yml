@@ -12,7 +12,7 @@ min_packer_version: "1.3.2"  # disk_detect_zeroes
 variables:
   root_password: please never use the default value
   hostname: guest-debian10
-  iso_url: https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-10.8.0-amd64-netinst.iso
+  iso_url: https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-10.9.0-amd64-netinst.iso
   iso_checksum_url: https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/SHA256SUMS
   iso_checksum_type: sha256
 
