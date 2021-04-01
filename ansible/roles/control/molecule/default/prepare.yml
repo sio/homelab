@@ -2,6 +2,8 @@
 
 - hosts: all
   become: yes
+  pre_tasks:
+    - include: ../../../../tasks/unattended-purge.yml
   tasks:
     - name: install packages
       apt:

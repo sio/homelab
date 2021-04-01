@@ -16,6 +16,8 @@
           torrents: /storage/torrents/
           destination: /storage/data/
           extras: --seedratio 2
+  pre_tasks:
+    - include: ../../../../tasks/unattended-purge.yml
   roles:
     - role: deb_url
       deb_url_packages:

@@ -2,6 +2,8 @@
   become: yes
   vars:
     fake_hostname: music.potyarkin.ml
+  pre_tasks:
+    - include: ../../../../tasks/unattended-purge.yml
   tasks:
     - name: download vagrant default key
       delegate_to: localhost
