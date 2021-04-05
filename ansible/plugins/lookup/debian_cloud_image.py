@@ -3,6 +3,34 @@ __metaclass__ = type
 
 
 DOCUMENTATION = '''
+    lookup: debian_cloud_image
+    author: Vitaly Potyarkin <sio.wtf@gmail.com>
+    short_description: Find latest Debian Cloud image URLs
+    description:
+        - This lookup returns a dictionary containing URL to latest Debian Cloud image
+          matching the provided parameters and also URL to the checksum file and the
+          latest date tag for published images
+    options:
+        _terms:
+            description: Debian release codename
+            required: True
+        image:
+            default: generic
+            description: Image class name, e.g. generic/genericcloud/azure/ec2/gce
+        arch:
+            default: controller architecture
+            description: Image architecture, e.g. amd64/arm64
+        filetype:
+            default: qcow2
+            description: Image filetype, e.g. qcow2/tar.xz
+'''
+RETURN = '''
+    image:
+        description: URL to the latest Debian Cloud image matching the provided parameters
+    checksum:
+        description: URL to the checksum file
+    timestamp:
+        description: Date tag for the latest published Debian Cloud images directory
 '''
 
 
