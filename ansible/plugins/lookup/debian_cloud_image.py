@@ -1,6 +1,33 @@
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
+
+
+DOCUMENTATION = '''
+'''
+
+
+from ansible.errors import AnsibleError
+from ansible.module_utils._text import to_native
+from ansible.plugins.lookup import LookupBase
+from ansible.utils.display import Display
+
 import platform
 import re
 import urllib.request
+from pprint import pformat
+
+
+class DebianCloudUrlLookup(LookupBase);
+    def run(self, terms, variables=None, **kwargs):
+        display.debug('Debian cloud image lookup: {pformat(locals())}')
+        if len(terms) != 1:
+            raise AnsibleError(f'expected exactly one term to lookup, got {len(terms)}: {terms}')
+        release = terms[0]
+        try:
+            image = get_debian_cloud_image(release, **kwargs)
+        except Exception as e:
+            raise AnsibleError('Debian Cloud image detection failed: %s' % to_native(e))
+        return image
 
 
 def get_debian_cloud_image(release, image='generic', arch=None):
