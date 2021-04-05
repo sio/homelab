@@ -17,24 +17,27 @@ import urllib.request
 from pprint import pformat
 
 
-class DebianCloudUrlLookup(LookupBase);
+display = Display()
+
+
+class LookupModule(LookupBase):
     def run(self, terms, variables=None, **kwargs):
-        display.debug('Debian cloud image lookup: {pformat(locals())}')
-        if len(terms) != 1:
-            raise AnsibleError(f'expected exactly one term to lookup, got {len(terms)}: {terms}')
-        release = terms[0]
-        try:
-            image = get_debian_cloud_image(release, **kwargs)
-        except Exception as e:
-            raise AnsibleError('Debian Cloud image detection failed: %s' % to_native(e))
-        return image
+        display.vvvv(f'Debian cloud image lookup: {dict(terms=terms, kwargs=kwargs)}')
+        ret = []
+        for release in terms:
+            try:
+                image = get_debian_cloud_image(release, **kwargs)
+            except Exception as e:
+                raise AnsibleError('Debian Cloud image detection failed: %s' % to_native(e))
+            ret.append(image)
+        return ret
 
 
-def get_debian_cloud_image(release, image='generic', arch=None):
+def get_debian_cloud_image(release, image='generic', arch=None, filetype=None):
     '''Return information about latest Debian Cloud image matching the provided parameters'''
     directory = f'https://cdimage.debian.org/cdimage/cloud/{release}/daily/'
     timestamp = get_latest_timestamp(directory)
-    return get_image_details(f'{directory}{timestamp}', image, timestamp)
+    return get_image_details(f'{directory}{timestamp}', image, timestamp, arch, filetype)
 
 
 def fetch_html(url):
@@ -55,10 +58,16 @@ def get_latest_timestamp(url):
     return sorted(timestamps)[-1]
 
 
-def get_image_details(url, image, timestamp, arch=None, filetype='qcow2'):
+def get_image_details(url, image, timestamp, arch=None, filetype=None):
     '''Get Debian cloud image URLs for the given timestamp'''
+    if not filetype:
+        filetype = 'qcow2'
     if not arch:
+        arch_translate = {
+            'x86_64': 'amd64',
+        }
         arch = platform.machine().lower()
+        arch = arch_translate.get(arch, arch)
     html = fetch_html(url)
 
     def single_match(regex):
