@@ -18,6 +18,10 @@ set -g base-index 1
 setw -g pane-base-index 1
 
 
+# Restore consecutive numbering after window deletion
+set -g renumber-windows on
+
+
 # Create new windows with vertical split by default
 #bind-key c new-window \; split-window -h \; select-pane -t1
 
