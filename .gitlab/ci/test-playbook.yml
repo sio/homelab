@@ -33,18 +33,17 @@ test-playbook-control:
         - ansible/roles/upgrade/**/*
 
 
-test-playbook-mediabox:
+test-playbook-mediabox-v:
   extends: .test-ansible-role-kvm
   stage: test-playbook
   variables:
     ANSIBLE_ROLE: playbook-tests
-    MOLECULE_SCENARIO: mediabox
+    MOLECULE_SCENARIO: mediabox-v
   rules:
     - *option-skip-test
     - changes:
-        - ansible/mediabox.yml
-        - ansible/tests/playbook-tests/molecule/mediabox/**/*
-        - ansible/roles/canary/**/*
+        - ansible/mediabox-v.yml
+        - ansible/tests/playbook-tests/molecule/mediabox-v/**/*
         - ansible/roles/deb_url/**/*
         - ansible/roles/gerbera/**/*
         - ansible/roles/interactive/**/*
@@ -52,15 +51,35 @@ test-playbook-mediabox:
         - ansible/roles/munin_fdcount/**/*
         - ansible/roles/munin_master/**/*
         - ansible/roles/munin_node/**/*
+        - ansible/roles/packages/**/*
+        - ansible/roles/sshkey/**/*
+        - ansible/roles/server/**/*
+        - ansible/roles/supysonic/**/*
+        - ansible/roles/torrents_sysctl/**/*
+        - ansible/roles/transmission/**/*
+        - ansible/roles/upgrade/**/*
+
+
+test-playbook-hypervisor-j:
+  extends: .test-ansible-role-kvm
+  stage: test-playbook
+  variables:
+    ANSIBLE_ROLE: playbook-tests
+    MOLECULE_SCENARIO: hypervisor-j
+  rules:
+    - *option-skip-test
+    - changes:
+        - ansible/hypervisor-j.yml
+        - ansible/tests/playbook-tests/molecule/hypervisor-j/**/*
+        - ansible/roles/canary/**/*
+        - ansible/roles/motd/**/*
+        - ansible/roles/munin_node/**/*
         - ansible/roles/munin_smart/**/*
         - ansible/roles/packages/**/*
         - ansible/roles/samba/**/*
         - ansible/roles/sshkey/**/*
         - ansible/roles/server/**/*
         - ansible/roles/smarttest/**/*
-        - ansible/roles/supysonic/**/*
-        - ansible/roles/torrents_sysctl/**/*
-        - ansible/roles/transmission/**/*
         - ansible/roles/upgrade/**/*
         - ansible/roles/wol/**/*
 

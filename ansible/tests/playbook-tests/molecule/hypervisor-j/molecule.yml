@@ -1,0 +1,49 @@
+# Main molecule configuration is located in ansible/roles/tests/molecule.yml
+# Invoke with `molecule --base-config $LOCATION`
+---
+provisioner:
+  name: ansible
+  env:
+    ANSIBLE_ROLES_PATH: ../../../../roles
+  inventory:
+    group_vars:
+      all:
+        ansible_python_interpreter: /usr/bin/python3
+        server_keys_public:
+          - '{{ molecule_ephemeral_directory }}/testkey.pub'
+        sshkey_only:
+          vagrant:
+            - '{{ molecule_ephemeral_directory }}/testkey.pub'
+            - '{{ molecule_ephemeral_directory }}/vagrant-insecure.pub'
+        canary_host: google.com
+
+driver:
+  name: vagrant
+  provider:
+    name: libvirt
+
+platforms:
+  - name: debian10-vm
+    groups:
+      - hypervisor-j
+    box: potyarkin/debian10
+    memory: 1024
+  - name: debian11-vm
+    groups:
+      - hypervisor-j
+    box: potyarkin/debian11
+    memory: 1024
+
+dependency:
+  name: shell
+  command: >
+    /bin/sh -c '
+    test -f "$MOLECULE_EPHEMERAL_DIRECTORY"/testkey
+    || ssh-keygen -q -t ed25519 -a 10 -f "$MOLECULE_EPHEMERAL_DIRECTORY"/testkey -C "" -N ""
+    && ls -l "$MOLECULE_EPHEMERAL_DIRECTORY"/testkey*
+    '
+
+# Testinfra tests fail because the firewall on test instance
+# refuses frequent connection attempts
+verifier:
+  name: ansible
