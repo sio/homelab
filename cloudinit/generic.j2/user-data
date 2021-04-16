@@ -2,7 +2,13 @@
 users:
 {% for user, keys in hostvars[virtual_machine_name].sshkey_only.items() %}
   - name: {{ user }}
-    ssh-authorized-keys:
+{% if user == hostvars[virtual_machine_name].ansible_user
+   and hostvars[virtual_machine_name].ansible_become_method == 'sudo' %}
+    sudo: ALL=(ALL) ALL
+    lock_passwd: false
+    plain_text_passwd: {{ hostvars[virtual_machine_name].ansible_become_pass }}
+{% endif %}
+    ssh_authorized_keys:
 {% for key in keys %}
       - {{ lookup("file", key) }}
 {% endfor %}
