@@ -1,60 +1,19 @@
----
+#
+# VIRTUALIZED MEDIABOX MACHINE
+#
 
-# Media box will run:
-# - Interactive shell sessions for unprivileged user
-# - Monitoring (munin)
-# - File sharing for LAN (samba)
-# - Music server (supysonic)
-# - DLNA server (minidlna? rygel? gerbera?)
-# - Torrents (transmission)
-
-# File system hierarchy
-#   /disks/
-#   /disks/important/
-#   /disks/important/archive/
-#   /disks/important/inbox/
-#   /disks/important/music/
-#   /disks/important/music/files/
-#   /disks/important/music/torrents/
-#   /disks/important/music/library/
-#   /disks/ephemeral/
-#   /disks/ephemeral/temp/
-#   /disks/ephemeral/downloads/
-#   /disks/ephemeral/downloads/files/
-#   /disks/ephemeral/downloads/torrents/
-#   /disks/ephemeral/seeding/
-#   /disks/ephemeral/seeding/files/
-#   /disks/ephemeral/seeding/torrents/
-
-# Valuable data to backup:
-#   Top priority:
-#     /disks/important/archive
-#     /home/torrent
-#   Medium priority:
-#     /disks/important/music
-#   Nice to have:
-#     Munin database
-#     Supysonic database
-
-- hosts: mediabox
+- hosts: mediabox-v
   become: yes
   roles:
     # OS maintenance
     - role: server
     - role: upgrade
     - role: motd
-    - role: canary  # clean shutdown with dumb UPS
-    - role: wol
-    - role: smarttest
-    - role: packages
-      packages_install: '{{ baremetal_packages }}'
     - role: packages
       packages_install:
-        - sysbench  # buster-backports
         - vim
         - tmux
         - sudo
-        - iotop
         - rsync
 
     # Interactive shell
@@ -63,41 +22,14 @@
     # Monitoring
     - role: munin_fdcount
       munin_fdcount_target: transmission-daemon
-    - role: munin_smart
     - role: munin_master
       munin_master_nodes:
-        - name: mediabox
+        - name: mediabox-v
+        - name: hypervisor-j
         - name: laptopmini
+        - name: labaie
         - name: labjay
         - name: labtee
-
-    # LAN file sharing
-    - role: samba
-      samba_shares:
-        - name: Dowloads
-          path: /disks/ephemeral/downloads
-          public: yes
-          read only: yes
-        - name: Seeding
-          path: /disks/ephemeral/seeding
-          public: yes
-          read only: yes
-        - name: Archive
-          path: /disks/important/archive
-          public: yes
-          read only: yes
-        - name: Music
-          path: /disks/important/music
-          public: yes
-          read only: yes
-        - name: Temp
-          path: /disks/ephemeral/temp
-          public: yes
-          read only: no  # writeable!
-        - name: Inbox
-          path: /disks/important/inbox
-          public: yes
-          read only: no  # writeable!
 
     # Music streaming
     - role: supysonic
@@ -157,32 +89,7 @@
     # SSH key maintenance
     - role: sshkey
 
-  pre_tasks:
-    - name: enable backports repo
-      apt_repository:
-        repo: 'deb http://deb.debian.org/debian {{ ansible_distribution_release }}-backports main'
-        state: present
-        mode: '0644'
-      when: ansible_distribution_release == 'buster'
-
   tasks:
-    - name: configure hddtemp monitoring
-      copy:
-        content: |
-          [hddtemp_smartctl]
-          user root
-          env.drives sda sdb sdc
-        dest: /etc/munin/plugin-conf.d/hddtemp_smartctl
-        mode: '0644'
-      notify: restart munin node
-
-    - name: enable hddtemp monitoring
-      file:
-        state: link
-        src: /usr/share/munin/plugins/hddtemp_smartctl
-        dest: /etc/munin/plugins/hddtemp_smartctl
-      notify: restart munin node
-
     - name: enable passwordless sudo for interactive user
       copy:
         dest: /etc/sudoers.d/interactive

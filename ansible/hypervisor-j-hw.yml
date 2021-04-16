@@ -1,12 +1,12 @@
----
+#
+# HARDWARE-SPECIFIC CONFIGURATION FOR HYPERVISOR-J
+#
 
-# Some hardware-specific configuration for mediabox
-
-- hosts: mediabox
-  name: mediabox-hw
+- hosts: hypervisor-j
+  name: hypervisor-j hardware configuration
   become: yes
   vars:
-    mediabox_extra_kernel_modules:
+    extra_kernel_modules:
       - coretemp
       - nct6775
   tasks:
@@ -31,7 +31,7 @@
       modprobe:
         name: '{{ item }}'
         state: present
-      loop: '{{ mediabox_extra_kernel_modules }}'
+      loop: '{{ extra_kernel_modules }}'
 
     - name: load extra kernel modules after reboot
       lineinfile:
@@ -39,7 +39,7 @@
         line: '{{ item }}'
         state: present
         create: yes
-      loop: '{{ mediabox_extra_kernel_modules }}'
+      loop: '{{ extra_kernel_modules }}'
 
     - name: mount hard disk drives
       mount:
