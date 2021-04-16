@@ -108,7 +108,8 @@ Local Git repository may be used for keeping track of changes.
 ### Tested in Vagrant (Libvirt)
 
 - **laptopmini.yml**
-- **mediabox.yml**
+- **hypervisor-j.yml**
+- **mediabox-v.yml**
 - **morebooks.yml** - requires no extra tests since it's just applying a role
   to the target
 - **printer.yml**
@@ -117,4 +118,4 @@ Local Git repository may be used for keeping track of changes.
 
 ## Automated tests not implemented
 
-- **mediabox-hw** - trivial role, hardware specific
+- **hypervisor-j-hw** - trivial role, hardware specific

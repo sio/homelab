@@ -24,7 +24,7 @@ all:
     labjay:
     labtee:
     laptopmini:
-    mediabox:
+    mediabox-v:
       interactive_ssh_key: '{{ secret_interactive_ssh_key }}'
       wol_interface: '{{ secret_wol_interface }}'
       wol_macaddress: '{{ secret_wol_macaddress }}'

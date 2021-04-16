@@ -2,9 +2,8 @@
 ---
 - import_playbook: unreachable.yml
 - import_playbook: upgrade.yml
-- import_playbook: mediabox-hw.yml
-- import_playbook: mediabox.yml
 - import_playbook: hypervisor.yml
+- import_playbook: mediabox-v.yml
 - import_playbook: morebooks.yml
 - import_playbook: lab.yml
 - import_playbook: laptopmini.yml

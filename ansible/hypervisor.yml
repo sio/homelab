@@ -9,7 +9,11 @@
     - role: kvm_bridge
 
 
-- hosts: mediabox
+- import_playbook: hypervisor-j-hw.yml
+- import_playbook: hypervisor-j.yml
+
+
+- hosts: hypervisor-j
   become: yes
   vars:
     virtual_machine_image: '/vm/{{ virtual_machine_name }}.qcow2'
