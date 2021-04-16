@@ -26,6 +26,7 @@ all:
     laptopmini:
     mediabox-v:
       interactive_ssh_key: '{{ secret_interactive_ssh_key }}'
+    hypervisor-j:
       wol_interface: '{{ secret_wol_interface }}'
       wol_macaddress: '{{ secret_wol_macaddress }}'
     morebooks.ml:
