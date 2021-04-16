@@ -1,0 +1,9 @@
+#cloud-config
+users:
+{% for user, keys in hostvars[virtual_machine_name].sshkey_only.items() %}
+  - name: {{ user }}
+    ssh-authorized-keys:
+{% for key in keys %}
+      - {{ lookup("file", key) }}
+{% endfor %}
+{% endfor %}

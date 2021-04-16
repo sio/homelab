@@ -1,0 +1,2 @@
+instance-id: id-{{ ansible_fqdn }}-{{ virtual_machine_name }}
+local-hostname: {{ virtual_machine_name }}
