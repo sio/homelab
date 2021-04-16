@@ -4,6 +4,23 @@
 
 - hosts: mediabox-v
   become: yes
+  tasks:
+    - name: install nfs client
+      package:
+        name: nfs-common
+        state: present
+    - name: mount NAS directories
+      mount:
+        state: mounted
+        fstype: nfs
+        backup: yes
+        path: /disks
+        src: 'hypervisor-j:/disks'
+        opts: rw,sync
+      when: molecule_ephemeral_directory is not defined  # do not attempt mounts in CI
+
+- hosts: mediabox-v
+  become: yes
   roles:
     # OS maintenance
     - role: server

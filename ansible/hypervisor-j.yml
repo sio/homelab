@@ -53,6 +53,13 @@
           path: /disks/important/inbox
           public: yes
           read only: no  # writeable!
+    - role: nfs_server
+      nfs_server_exports:
+        - path: /disks
+          cidr: '{{ nas_allow_writes_cidr|default(ansible_default_ipv4.address + "/32") }}'
+          options: rw,sync
+        - path: /disks/ephemeral
+        - path: /disks/important
 
     # SSH key maintenance
     - role: sshkey
