@@ -7,3 +7,10 @@ users:
       - {{ lookup("file", key) }}
 {% endfor %}
 {% endfor %}
+
+
+power_state:
+  delay: now
+  mode: reboot
+  message: cloud-init initialization complete, rebooting
+  condition: true
