@@ -8,5 +8,7 @@
     server_keys_public:
       - '{{ molecule_ephemeral_directory }}/testkey.pub'
   roles:
+    - role: server
+    - role: munin_node
     - role: munin_master
     - role: supysonic

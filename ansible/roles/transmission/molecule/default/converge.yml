@@ -3,9 +3,11 @@
 - hosts: all
   become: true
   roles:
-    - role: transmission
+    - role: server
       server_keys_public:
         - '{{ molecule_ephemeral_directory }}/testkey.pub'
+    - role: torrents_sysctl
+    - role: transmission
       transmission_instance:
         name: main
         port: 51001

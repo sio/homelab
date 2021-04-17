@@ -16,6 +16,8 @@
     - role: motd
     - role: sshkey
 
+    - role: interactive
+      interactive_user: operator
     - role: control
     - role: gitlab_runner
       gitlab_runner_token: '{{ secret_gitlab_runner_token }}'

@@ -10,4 +10,5 @@
     gerbera_media_dirs:
       - /hello/world/
   roles:
+    - role: server
     - role: gerbera

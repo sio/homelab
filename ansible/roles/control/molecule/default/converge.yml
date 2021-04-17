@@ -3,6 +3,9 @@
 - hosts: all
   become: true
   roles:
+    - role: interactive
+      interactive_user: operator
+
     - role: control
       control_inventory: /test/inventory/inventory.yml  # outside of $HOME to avoid messing up
                                                         # directory permissions while creating

@@ -1,8 +1,4 @@
 ---
-dependencies:
-  - role: interactive
-    interactive_user: '{{ control_username }}'
-
 galaxy_info:
   role_name: control
   author: potyarkin

@@ -24,6 +24,7 @@
         - rsync
 
     # Monitoring
+    - role: munin_node
     - role: munin_smart
 
     # LAN file sharing

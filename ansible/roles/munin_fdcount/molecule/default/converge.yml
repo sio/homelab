@@ -3,7 +3,9 @@
 - hosts: all
   become: true
   roles:
-    - role: munin_fdcount
-      munin_fdcount_target: systemd
+    - role: server
       server_keys_public:
         - '{{ molecule_ephemeral_directory }}/testkey.pub'
+    - role: munin_node
+    - role: munin_fdcount
+      munin_fdcount_target: systemd

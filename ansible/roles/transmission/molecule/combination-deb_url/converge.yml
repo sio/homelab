@@ -27,4 +27,6 @@
           checksum: sha256:35efc0c6f2576ac7cce5fea5fc1ad88e46e197041af0e9b460c4d2c051c22265
         - url: https://github.com/sio/transmission-debian-patched/releases/download/2.94-2.1-buster/transmission-daemon_2.94-2.1_amd64.deb
           checksum: sha256:ad651ef56c279ca84a827fd112544127fbb6b73e1b8a4c7cd902b94132b34ab7
+    - role: server
+    - role: torrents_sysctl
     - role: transmission

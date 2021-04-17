@@ -1,7 +1,4 @@
 ---
-dependencies:
-  - role: server
-
 galaxy_info:
   role_name: morebooks
   author: potyarkin

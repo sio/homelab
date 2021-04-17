@@ -3,9 +3,11 @@
 - hosts: all
   become: true
   roles:
-    - role: munin_master
+    - role: server
       server_keys_public:
         - '{{ molecule_ephemeral_directory }}/testkey.pub'
+    - role: munin_node
+    - role: munin_master
       munin_master_nodes:
         - name: localhost
           address: 127.0.0.1

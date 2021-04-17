@@ -1,8 +1,4 @@
 ---
-dependencies:
-  - role: server
-  - role: munin_node
-
 galaxy_info:
   role_name: munin
   author: potyarkin

@@ -3,6 +3,7 @@
 - hosts: all
   become: true
   roles:
-    - role: morebooks
+    - role: server
       server_keys_public:
         - '{{ molecule_ephemeral_directory }}/testkey.pub'
+    - role: morebooks
