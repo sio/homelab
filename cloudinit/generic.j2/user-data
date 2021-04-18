@@ -14,6 +14,13 @@ users:
 {% endfor %}
 {% endfor %}
 
+{% if hostvars[virtual_machine_name].ansible_become_method == 'su' %}
+  - name: root
+    lock_passwd: false
+    plain_text_passwd: {{ hostvars[virtual_machine_name].server_root_password }}
+{% endfor %}
+
+
 package_update: true
 
 power_state:
