@@ -25,6 +25,7 @@
     - role: virtual_machine
       virtual_machine_name: control
       virtual_machine_memory: 600 # MiB
+      virtual_machine_image_resize: 8G
 
     - role: virtual_machine
       virtual_machine_name: mediabox-v
