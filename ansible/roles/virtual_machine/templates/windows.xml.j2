@@ -43,7 +43,7 @@
     </disk>
     <interface type='bridge'>
       <source bridge='{{ virtual_machine_bridge }}'/>
-      <mac address='02:34:56:{{ (virtual_machine_name|hash("md5"))[:6]|slice(3)|map("join")|join(":") }}'/>
+      <mac address='{{ virtual_machine_macaddress }}'/>
       <model type='virtio'/>
     </interface>
     <input type='mouse' bus='ps2'/>

@@ -14,3 +14,14 @@ virtual_machine_template: templates/domain.xml.j2
 # virtual_machine_cloudinit_cfg: path to configuration dir on Ansible controller
 virtual_machine_cloudinit_iso: '{{ virtual_machine_image|splitext|first }}-cloudinit.iso'
 virtual_machine_cloudinit_iso_content: '{{ virtual_machine_cloudinit_iso }}_content/'
+
+virtual_machine_macaddress: >-
+  02:34:56:{{
+    (
+      (virtual_machine_name+ansible_fqdn)
+      |hash("md5")
+    )[:6]
+    |slice(3)
+    |map("join")
+    |join(":")
+  }}
