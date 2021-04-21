@@ -9,10 +9,6 @@
     - role: kvm_bridge
 
 
-- import_playbook: hypervisor-j-hw.yml
-- import_playbook: hypervisor-j.yml
-
-
 - hosts: hypervisor-j
   become: yes
   vars:

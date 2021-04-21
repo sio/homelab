@@ -1,10 +1,20 @@
-# A single entrypoint for all infrastructure maintenance
+#
+# A SINGLE ENTRYPOINT FOR ALL INFRASTRUCTURE MAINTENANCE
+#
 ---
+
+# General maintenance
 - import_playbook: unreachable.yml
 - import_playbook: upgrade.yml
-- import_playbook: hypervisor.yml
-- import_playbook: mediabox-v.yml
-- import_playbook: morebooks.yml
+
+# Baremetal machines
+- import_playbook: hypervisor-j-hw.yml
+- import_playbook: hypervisor-j.yml
 - import_playbook: lab.yml
 - import_playbook: laptopmini.yml
+
+# Virtual machines
+- import_playbook: virtual-machines.yml
+- import_playbook: mediabox-v.yml
+- import_playbook: morebooks.yml
 - import_playbook: control.yml  # control node comes last
