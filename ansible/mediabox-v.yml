@@ -20,21 +20,31 @@
           - tmux
           - sudo
           - rsync
+          - nfs-common
 
-    # NFS mounts
-    - name: install nfs client
-      package:
-        name: nfs-common
-        state: present
-    - name: mount NAS directories
-      mount:
-        state: mounted
-        fstype: nfs
-        backup: yes
-        path: /disks
-        src: 'hypervisor-j:/disks'
-        opts: rw,sync
-      when: molecule_ephemeral_directory is not defined  # do not attempt mounts in CI
+    # Data directory mounts
+    - when: molecule_ephemeral_directory is not defined  # do not attempt mounts in CI
+      block:
+        - name: mount storage backend
+          mount:
+            state: mounted
+            fstype: nfs
+            backup: yes
+            path: /disks
+            src: 'hypervisor-j:/disks'
+            opts: rw,sync
+        - name: bind mount application data
+          mount:
+            state: mounted
+            opts: bind
+            fstype: none
+            path: '{{ item }}'
+            src: '/disks/important/vmdata/mediabox-v/{{ item[1:] }}'
+          loop:
+            - /etc/letsencrypt
+            - /home/music
+            - /home/torrent
+            - /var/lib/munin
 
     # Interactive shell
     - import_role:
