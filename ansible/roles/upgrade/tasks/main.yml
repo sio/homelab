@@ -13,6 +13,7 @@
     update_cache: yes
     cache_valid_time: 3600
   when: ansible_pkg_mgr == "apt"
+  async: '{{ 20*60 }}'  # allow up to 20 minutes before timeout
 
 # TODO: handle /var/run/reboot-required
 # TODO: handle needrestart/checkrestart
