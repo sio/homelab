@@ -43,7 +43,7 @@
           loop:
             - /etc/letsencrypt
             - /home/music
-            - /home/torrent
+            - /home/torrent/transmission-config
             - /var/lib/munin
 
     # Interactive shell
