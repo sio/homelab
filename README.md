@@ -11,7 +11,7 @@ consistent state across all machines and to combat configuration drift.
 Since this is a personal project and all machines are more or less unique
 (pets), provisioning new instances is not automated. Typically it involves
 installing operating system on bare metal (preseed, autounattend) or in
-virtual machine (packer) and adding new hosts to Ansible inventory to be
+virtual machine (packer, cloudinit) and adding new hosts to Ansible inventory to be
 picked up by the next CD invocation.
 
 [pipelines]: https://gitlab.com/sio/server_common/pipelines?ref=deploy
@@ -22,6 +22,10 @@ picked up by the next CD invocation.
 ### ansible/
 
 Playbooks and roles for automating remote computer maintenance
+
+### cloudinit/
+
+Cloud-init templates for frequently used virtual machines
 
 ### dotfiles/
 
