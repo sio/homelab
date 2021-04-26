@@ -158,6 +158,7 @@ class PCIDevice:
 def module_loaded(module):
     '''Check if kernel module is loaded'''
     lsmod = subprocess.run(['lsmod'], capture_output=True, check=True)
+    module = re.sub(r'[-_]', r'[-_]', module)  # treat dash and underscore as equal chars
     module_regex = re.compile(rf'^\s*{module}\s.*$', re.MULTILINE)
     return bool(module_regex.search(lsmod.stdout.decode()))
 
