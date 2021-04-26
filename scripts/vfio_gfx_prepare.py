@@ -21,6 +21,7 @@ from pathlib import Path
 
 def main():
     '''Script entry point'''
+    # TODO: discover neighbors in IOMMU device groups
     card = PCIDevice(sys.argv[1])
     if not iommu_enabled(card.vendor_name):
         raise ScriptFailure(f'iommu is not enabled for {card.vendor_name} devices')
@@ -34,7 +35,7 @@ def main():
     for module in remove_modules[card.vendor_name]:
         rmmod(module)
     modprobe('vfio-pci')
-    card.unbind_driver()
+    card.unbind_driver()  # TODO: do not unbind if already using vfio-pci
     card.bind_driver('vfio-pci')
 
 
@@ -67,6 +68,11 @@ class PCIDevice:
     def vendor_name(self):
         return self.VENDOR_NAMES.get(self.vendor, 'UNKNOWN')
 
+    @property
+    def driver(self):  # TODO (lspci -nnk)
+        '''Name of the driver in use'''
+        raise NotImplementedError()
+
     def unbind_driver(self):
         '''Unbind PCI device from its driver'''
         driver = Path(f'/sys/bus/pci/devices/{self.pci}/driver')
@@ -76,6 +82,7 @@ class PCIDevice:
 
     def bind_driver(self, driver: str):
         '''Bind PCI device to driver'''
+        # TODO: detect driver in use, do not rebind to the same
         with open(f'/sys/bus/pci/{self.pci}/{driver}/new_id', 'w') as f
             f.write(f'{self.vendor} {self.device}')
 
