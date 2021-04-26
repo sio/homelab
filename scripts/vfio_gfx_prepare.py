@@ -45,7 +45,7 @@ class ScriptFailure(Exception):
 class PCIDevice:
     '''Manage PCI device'''
     VENDOR_NAMES = {
-        '8086': 'intel',
+        '0x8086': 'intel',
     }
 
     def __init__(self, pci_addr):
@@ -74,7 +74,7 @@ class PCIDevice:
         if not driver.exists():
             return None
         if driver.is_symlink():
-            return driver.readlink().name
+            return driver.resolve().name
         raise RuntimeError('driver detection failed')
 
     def unbind_driver(self):
@@ -91,15 +91,15 @@ class PCIDevice:
             return
         if current: # device is bound to another driver
             self.unbind_driver()
-        with open(f'/sys/bus/pci/drivers/{driver}/new_id', 'w') as f
+        with open(f'/sys/bus/pci/drivers/{driver}/new_id', 'w') as f:
             f.write(f'{self.vendor} {self.device}')
 
 
 def module_loaded(module):
     '''Check if kernel module is loaded'''
     lsmod = subprocess.run(['lsmod'], capture_output=True, check=True)
-    module_regex = re.compile(rf'^\s*{module}\s.*$')
-    return bool(module_regex.search(lsmod.stdout))
+    module_regex = re.compile(rf'^\s*{module}\s.*$', re.MULTILINE)
+    return bool(module_regex.search(lsmod.stdout.decode()))
 
 
 def rmmod(module):
@@ -113,7 +113,7 @@ def modprobe(module, *args):
     if args:
         rmmod(module)
     if not module_loaded(module):
-        subprocess.run(['modprobe', module] + args, capture_output=True, check=True)
+        subprocess.run(['modprobe', module] + list(args), capture_output=True, check=True)
 
 
 def iommu_enabled(vendor):
