@@ -141,7 +141,7 @@ class PCIDevice:
         if driver.exists():
             with open(driver / 'unbind', 'w') as f:
                 f.write(self.pci)
-            log.info('Removed driver binding for {self.pci}')
+            log.info(f'Removed driver binding for {self.pci}')
 
     def bind_driver(self, driver: str):
         '''Bind PCI device to driver'''
@@ -152,7 +152,7 @@ class PCIDevice:
             self.unbind_driver()
         with open(f'/sys/bus/pci/drivers/{driver}/new_id', 'w') as f:
             f.write(f'{self.vendor} {self.device}')
-        log.info('Created driver binding for {self.pci} to {driver}')
+        log.info(f'Created driver binding for {self.pci} to {driver}')
 
 
 def module_loaded(module):
