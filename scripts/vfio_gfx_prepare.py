@@ -35,7 +35,6 @@ def main():
     for module in remove_modules[card.vendor_name]:
         rmmod(module)
     modprobe('vfio-pci')
-    card.unbind_driver()  # TODO: do not unbind if already using vfio-pci
     card.bind_driver('vfio-pci')
 
 
@@ -69,9 +68,14 @@ class PCIDevice:
         return self.VENDOR_NAMES.get(self.vendor, 'UNKNOWN')
 
     @property
-    def driver(self):  # TODO (lspci -nnk)
+    def driver(self):
         '''Name of the driver in use'''
-        raise NotImplementedError()
+        driver = Path(f'/sys/bus/pci/devices/{self.pci}/driver')
+        if not driver.exists():
+            return None
+        if driver.is_symlink():
+            return driver.readlink().name
+        raise RuntimeError('driver detection failed')
 
     def unbind_driver(self):
         '''Unbind PCI device from its driver'''
@@ -82,7 +86,11 @@ class PCIDevice:
 
     def bind_driver(self, driver: str):
         '''Bind PCI device to driver'''
-        # TODO: detect driver in use, do not rebind to the same
+        current = self.driver
+        if current == driver:
+            return
+        if current: # device is bound to another driver
+            self.unbind_driver()
         with open(f'/sys/bus/pci/drivers/{driver}/new_id', 'w') as f
             f.write(f'{self.vendor} {self.device}')
 
