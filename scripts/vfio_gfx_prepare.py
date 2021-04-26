@@ -1,0 +1,122 @@
+#!/usr/bin/env python3
+'''
+Prepare system for passing graphics card to virtual machine
+
+This script currently supports only integrated Intel HD Graphics cards
+but is written to be expandable to support other vendors later
+
+Useful links:
+    https://worthdoingbadly.com/gpupassthrough/
+    https://www.doc.ic.ac.uk/%7Ebh1511/blog/20180817-ubuntu-headless-vm/
+'''
+
+
+import glob
+import re
+import subprocess
+import sys
+from argparse import Namespace
+from pathlib import Path
+
+
+def main():
+    '''Script entry point'''
+    card = PCIDevice(sys.argv[1])
+    if not iommu_enabled(card.vendor_name):
+        raise ScriptFailure(f'iommu is not enabled for {card.vendor_name} devices')
+    disable_vt_console()
+    remove_modules = {
+        'intel': [
+            'snd_hda_intel',
+            'i915',
+        ],
+    }
+    for module in remove_modules[card.vendor_name]:
+        rmmod(module)
+    modprobe('vfio-pci')
+    card.unbind_driver()
+    card.bind_driver('vfio-pci')
+
+
+class ScriptFailure(Exception):
+    '''Unrecoverable runtime script failure'''
+
+
+class PCIDevice:
+    '''Manage PCI device'''
+    VENDOR_NAMES = {
+        '8086': 'intel',
+    }
+
+    def __init__(self, pci_addr):
+        self.pci = pci_addr
+        if not Path(f'/sys/bus/pci/devices/{pci_addr}').exists():
+            raise ValueError(f'invalid PCI address: {pci_addr}')
+        for item in ['vendor', 'device']:
+            with open(f'/sys/bus/pci/devices/{pci_addr}/{item}') as f:
+                setattr(self, item, f.read().strip())
+
+    def __repr__(self):
+        return (
+            f'<{self.__class__.__name__} pci={self.pci}, '
+            f'vendor={self.vendor} ({self.vendor_name}), '
+            f'device={self.device}>'
+        )
+
+    @property
+    def vendor_name(self):
+        return self.VENDOR_NAMES.get(self.vendor, 'UNKNOWN')
+
+    def unbind_driver(self):
+        '''Unbind PCI device from its driver'''
+        driver = Path(f'/sys/bus/pci/devices/{self.pci}/driver')
+        if driver.exists():
+            with open(driver / 'unbind', 'w') as f:
+                f.write(self.pci)
+
+    def bind_driver(self, driver: str):
+        '''Bind PCI device to driver'''
+        with open(f'/sys/bus/pci/{self.pci}/{driver}/new_id', 'w') as f
+            f.write(f'{self.vendor} {self.device}')
+
+
+def module_loaded(module):
+    '''Check if kernel module is loaded'''
+    lsmod = subprocess.run(['lsmod'], capture_output=True, check=True)
+    module_regex = re.compile(rf'^\s*{module}\s.*$')
+    return bool(module_regex.search(lsmod.stdout))
+
+
+def rmmod(module):
+    '''Unload kernel module'''
+    if module_loaded(module):
+        subprocess.run(['rmmod', module], capture_output=True, check=True)
+
+
+def modprobe(module, *args):
+    '''Load kernel module'''
+    if args:
+        rmmod(module)
+    if not module_loaded(module):
+        subprocess.run(['modprobe', module] + args, capture_output=True, check=True)
+
+
+def iommu_enabled(vendor):
+    '''Check if iommu is enabled'''
+    with open('/proc/cmdline') as f:
+        cmdline = f.read()
+    iommu = {
+        'intel': re.compile(r'\bintel_iommu\s*=\s*on\b'),
+    }
+    return bool(iommu[vendor].search(cmdline))
+
+
+def disable_vt_console():
+    '''Disable kernel text console'''
+    for vtcon in glob.glob('/sys/class/vtconsole/*/bind'):
+        with open(vtcon, 'w') as vt:
+            vt.write('0')
+
+
+if __name__ == '__main__':
+    main()
