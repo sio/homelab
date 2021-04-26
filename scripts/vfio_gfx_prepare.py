@@ -194,6 +194,9 @@ def iommu_enabled(vendor):
 def disable_vt_console():
     '''Disable kernel text console'''
     for vtcon in glob.glob('/sys/class/vtconsole/*/bind'):
+        with open(vtcon) as vt:
+            if vt.read().strip() == '0':
+                continue
         with open(vtcon, 'w') as vt:
             vt.write('0')
         log.info(f'Virtual console disabled: {vtcon}')
