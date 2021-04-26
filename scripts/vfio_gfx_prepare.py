@@ -12,6 +12,7 @@ Useful links:
 
 
 import glob
+import logging
 import re
 import subprocess
 import sys
@@ -19,11 +20,18 @@ from argparse import ArgumentParser
 from pathlib import Path
 
 
+log = logging.getLogger(__name__.split('.')[0])
+
+
 def main():
     '''Script entry point'''
     # TODO: discover neighbors in IOMMU device groups
     args = parse_args()
+    configure_logging(args.verbose)
+
     card = args.card
+    log.info(f'Processing {card}')
+
     if not iommu_enabled(card.vendor_name):
         raise ScriptFailure(f'iommu is not enabled for {card.vendor_name} devices')
     disable_vt_console()
@@ -51,8 +59,32 @@ def parse_args(*a, **ka):
         help='PCI address of the graphics card, for example: 0000:00:02.0',
         type=PCIDevice,
     )
+    parser.add_argument(
+        '-v',
+        '--verbose',
+        action='count',
+        default=0,
+        help='Increase output verbosity. Repeat multiple times to output even more details',
+    )
     args = parser.parse_args(*a, **ka)
     return args
+
+
+def configure_logging(verbosity=0):
+    levels = {
+        0: logging.WARNING,
+        1: logging.INFO,
+        2: logging.DEBUG,
+        3: logging.NOTSET + 1,
+    }
+    if verbosity > max(levels):
+        verbosity = max(levels)
+    if not log.hasHandlers() and not log.root.hasHandlers():
+        handler = logging.StreamHandler()
+        handler.setLevel(logging.DEBUG)
+        log.addHandler(handler)
+    current = levels[0] if log.level == 0 else log.level
+    log.setLevel(min(current, levels[verbosity]))
 
 
 class ScriptFailure(Exception):
@@ -100,6 +132,7 @@ class PCIDevice:
         if driver.exists():
             with open(driver / 'unbind', 'w') as f:
                 f.write(self.pci)
+            log.info('Removed driver binding for {self.pci}')
 
     def bind_driver(self, driver: str):
         '''Bind PCI device to driver'''
@@ -110,6 +143,7 @@ class PCIDevice:
             self.unbind_driver()
         with open(f'/sys/bus/pci/drivers/{driver}/new_id', 'w') as f:
             f.write(f'{self.vendor} {self.device}')
+        log.info('Created driver binding for {self.pci} to {driver}')
 
 
 def module_loaded(module):
@@ -123,6 +157,7 @@ def rmmod(module):
     '''Unload kernel module'''
     if module_loaded(module):
         subprocess.run(['rmmod', module], capture_output=True, check=True)
+        log.info(f'Unloaded kernel module: {module}')
 
 
 def modprobe(module, *args):
@@ -131,12 +166,14 @@ def modprobe(module, *args):
         rmmod(module)
     if not module_loaded(module):
         subprocess.run(['modprobe', module] + list(args), capture_output=True, check=True)
+        log.info(f'Loaded kernel module: {module}')
 
 
 def iommu_enabled(vendor):
     '''Check if iommu is enabled'''
     with open('/proc/cmdline') as f:
-        cmdline = f.read()
+        cmdline = f.read().strip()
+        log.debug(f'Kernel cmdline: {cmdline}')
     iommu = {
         'intel': re.compile(r'\bintel_iommu\s*=\s*on\b'),
     }
@@ -148,6 +185,7 @@ def disable_vt_console():
     for vtcon in glob.glob('/sys/class/vtconsole/*/bind'):
         with open(vtcon, 'w') as vt:
             vt.write('0')
+        log.info(f'Virtual console disabled: {vtcon}')
 
 
 if __name__ == '__main__':
