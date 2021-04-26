@@ -83,7 +83,7 @@ class PCIDevice:
     def bind_driver(self, driver: str):
         '''Bind PCI device to driver'''
         # TODO: detect driver in use, do not rebind to the same
-        with open(f'/sys/bus/pci/{self.pci}/{driver}/new_id', 'w') as f
+        with open(f'/sys/bus/pci/drivers/{driver}/new_id', 'w') as f
             f.write(f'{self.vendor} {self.device}')
 
 
