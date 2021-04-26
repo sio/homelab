@@ -28,10 +28,16 @@ def main():
     # TODO: discover neighbors in IOMMU device groups
     args = parse_args()
     configure_logging(args.verbose)
+    try:
+        prepare(args.card)
+    except ScriptFailure as exc:
+        log.critical(f'ERROR: {exc.message}')
+        sys.exit(1)
 
-    card = args.card
+
+def prepare(card):
+    '''Prepare graphics card for being passed through to VM'''
     log.info(f'Processing {card}')
-
     if not iommu_enabled(card.vendor_name):
         raise ScriptFailure(f'iommu is not enabled for {card.vendor_name} devices')
     disable_vt_console()
@@ -89,6 +95,9 @@ def configure_logging(verbosity=0):
 
 class ScriptFailure(Exception):
     '''Unrecoverable runtime script failure'''
+    @property
+    def message(self):
+        return self.args[0] if self.args else None
 
 
 class PCIDevice:
@@ -177,6 +186,8 @@ def iommu_enabled(vendor):
     iommu = {
         'intel': re.compile(r'\bintel_iommu\s*=\s*on\b'),
     }
+    if vendor not in iommu:
+        raise ScriptFailure(f'IOMMU status check not implemented for vendor: {vendor}')
     return bool(iommu[vendor].search(cmdline))
 
 
