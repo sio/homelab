@@ -15,14 +15,15 @@ import glob
 import re
 import subprocess
 import sys
-from argparse import Namespace
+from argparse import ArgumentParser
 from pathlib import Path
 
 
 def main():
     '''Script entry point'''
     # TODO: discover neighbors in IOMMU device groups
-    card = PCIDevice(sys.argv[1])
+    args = parse_args()
+    card = args.card
     if not iommu_enabled(card.vendor_name):
         raise ScriptFailure(f'iommu is not enabled for {card.vendor_name} devices')
     disable_vt_console()
@@ -36,6 +37,22 @@ def main():
         rmmod(module)
     modprobe('vfio-pci')
     card.bind_driver('vfio-pci')
+
+
+def parse_args(*a, **ka):
+    '''Parse commandline arguments'''
+    parser = ArgumentParser(
+        description=__doc__.strip().splitlines()[0],
+        epilog='Licensed under the Apache License, version 2.0',
+    )
+    parser.add_argument(
+        'card',
+        metavar='PCI_ADDR',
+        help='PCI address of the graphics card, for example: 0000:00:02.0',
+        type=PCIDevice,
+    )
+    args = parser.parse_args(*a, **ka)
+    return args
 
 
 class ScriptFailure(Exception):
