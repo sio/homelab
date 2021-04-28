@@ -4,6 +4,8 @@ nfs_server_exports: []
 # - path: /srv/nfs/directory
 #   cidr: 192.168.1.0/24
 #   options: rw,sync
+nfs_server_exports_raw: []
+# - /srv/nfs/public 192.168.1.0/24(ro,all_squash,insecure) desktop(rw,sync,all_squash,anonuid=99,anongid=99)
 
 nfs_server_exports_default_cidr: '{{ ansible_default_ipv4.address }}/24'
 nfs_server_exports_default_options: ro,sync
