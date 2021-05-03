@@ -17,8 +17,9 @@
     - role: sshkey
 
     - role: interactive
-      interactive_user: operator
+      interactive_user: op
     - role: control
+      control_username: op
     - role: gitlab_runner
       gitlab_runner_token: '{{ secret_gitlab_runner_token }}'
       gitlab_runner_tags:
@@ -31,7 +32,7 @@
     - name: allow gitlab-runner to sudo as operator
       copy:
         content: |
-          gitlab-runner ALL=(operator) NOPASSWD: LOG_OUTPUT: /usr/local/bin/deploy-infrastructure.sh
+          gitlab-runner ALL=(op) NOPASSWD: LOG_OUTPUT: /usr/local/bin/deploy-infrastructure.sh
         dest: /etc/sudoers.d/gitlab-runner
         validate: visudo -cf %s
         mode: '0440'
@@ -40,7 +41,7 @@
     - name: enable passwordless sudo for operator
       copy:
         content: |
-          operator ALL=(ALL) NOPASSWD:ALL
+          op ALL=(ALL) NOPASSWD:ALL
         dest: /etc/sudoers.d/operator
         validate: visudo -cf %s
         mode: '0440'
