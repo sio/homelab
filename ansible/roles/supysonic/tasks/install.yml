@@ -35,6 +35,13 @@
     supysonic_admin: 'Admin_{{ lookup("password", "/dev/null length=3 chars=ascii_letters") }}'
     supysonic_pass: '{{ lookup("password", "/dev/null length=9") }}'
 
+- name: create supysonic cache directory
+  file:
+    path: '{{ supysonic_cache }}'
+    state: directory
+    owner: '{{ supysonic_user }}'
+    mode: '0755'
+
 - name: create Python virtual environment and update pip
   pip:
     name:
