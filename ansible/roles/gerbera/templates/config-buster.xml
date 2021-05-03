@@ -77,7 +77,7 @@
     <autoscan use-inotify="auto">
       {% for directory in gerbera_media_dirs %}
         <directory location="{{ directory }}" recursive="yes" hidden-files="no"
-                   mode="inotify"/>
+                   mode="timed"/>
         <!-- TODO: inotify does not work with NFS, change to mode=timed or leave it altogether -->
       {% endfor %}
     </autoscan>
