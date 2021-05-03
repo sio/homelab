@@ -27,6 +27,7 @@ all:
     mediabox-v:
       interactive_ssh_key: '{{ secret_interactive_ssh_key }}'
     hypervisor-j:
+      nas_allow_writes_cidr: '{{ secret_nas_allow_writes_cidr }}'
       wol_interface: '{{ secret_wol_interface }}'
       wol_macaddress: '{{ secret_wol_macaddress }}'
     morebooks.ml:

@@ -55,12 +55,14 @@
           public: yes
           read only: no  # writeable!
     - role: nfs_server
-      nfs_server_exports:
-        - path: /disks
-          cidr: '{{ nas_allow_writes_cidr|default(ansible_default_ipv4.address + "/32") }}'
-          options: rw,sync,crossmnt
-        - path: /disks/ephemeral
-        - path: /disks/important
+      nfs_server_exports_raw:
+        - '/disks {{ mediabox_writeable }}'
+        - '/disks/ephemeral {{ mediabox_writeable }}'
+        - '/disks/important {{ mediabox_writeable }}'
+      vars:
+        mediabox_writeable: >-
+          {{ nas_allow_writes_cidr|default(ansible_default_ipv4.address + "/32") }}(rw,sync,crossmnt)
+          {{ ansible_default_ipv4.address }}/24(ro,sync)
 
     # SSH key maintenance
     - role: sshkey
