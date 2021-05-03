@@ -13,15 +13,16 @@
     - role: wol
     - role: smarttest
     - role: packages
-      packages_install: '{{ baremetal_packages }}'
-    - role: packages
-      packages_install:
-        - sysbench  # buster-backports
-        - vim
-        - tmux
-        - sudo
-        - iotop
-        - rsync
+      packages_install: '{{ baremetal_packages + interactive_packages + extra_packages }}'
+      vars:
+        extra_packages:
+          - sysbench  # buster-backports
+          - vim
+          - tmux
+          - sudo
+          - iotop
+          - rsync
+    - role: interactive
 
     # Monitoring
     - role: munin_node
@@ -92,6 +93,15 @@
         src: /usr/share/munin/plugins/hddtemp_smartctl
         dest: /etc/munin/plugins/hddtemp_smartctl
       notify: restart munin node
+
+    - name: enable passwordless sudo for interactive user
+      copy:
+        dest: /etc/sudoers.d/interactive
+        content: |
+          interactive ALL=(ALL) NOPASSWD:ALL
+        validate: visudo -cf %s
+        backup: yes
+        mode: '0400'
 
 
 

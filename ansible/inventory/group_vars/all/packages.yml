@@ -40,3 +40,14 @@ baremetal_packages:
   - lm-sensors
   - powertop
   - smartmontools
+
+
+# Common packages for interactive shell sessions
+interactive_packages:
+  - bc
+  - curl
+  - make
+  - ncurses-term
+  - tmux
+  - tree
+  - vim

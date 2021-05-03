@@ -15,7 +15,8 @@
     - import_role:
         name: packages
       vars:
-        packages_install:
+        packages_install: '{{ custom_packages + interactive_packages }}'
+        custom_packages:
           - vim
           - tmux
           - sudo
