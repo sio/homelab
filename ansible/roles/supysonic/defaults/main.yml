@@ -11,3 +11,6 @@ supysonic_ssl:
   email: sio.wtf@gmail.com
   cert: '/etc/letsencrypt/live/{{ supysonic_url }}/fullchain.pem'
   key: '/etc/letsencrypt/live/{{ supysonic_url }}/privkey.pem'
+
+supysonic_venv: '/var/lib/supysonic/venv'
+supysonic_cache: '/var/cache/supysonic'
