@@ -61,7 +61,7 @@
         - '/disks/important {{ mediabox_writeable }}'
       vars:
         mediabox_writeable: >-
-          {{ nas_allow_writes_cidr|default(ansible_default_ipv4.address + "/32") }}(rw,sync,crossmnt)
+          {{ nas_allow_writes_cidr|default(ansible_default_ipv4.address + "/32") }}(rw,sync,crossmnt,no_root_squash)
           {{ ansible_default_ipv4.address }}/24(ro,sync)
 
     # SSH key maintenance
