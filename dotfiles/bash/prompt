@@ -148,7 +148,7 @@ _prompt_calculate_nested_level() {
     local parent="$(ps -p $PPID)"
     parent="${parent##* }"  # select last field of output table
     parent="${parent##*/}"  # select basename of the executable
-    if [[ "$parent" =~ .*sh \
+    if [[ "$parent" =~ .*sh$ \
        || "$parent" == "make" \
        || "$PPID" == '1' ]]
     then
