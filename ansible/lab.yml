@@ -41,7 +41,7 @@
     - role: munin_smart
     - role: sshkey
     - role: packages
-      packages_install: '{{ playground_packages }}'  # group_vars/all.yml
+      packages_install: '{{ playground_packages + interactive_packages }}'  # group_vars/all.yml
       packages_recommends: no
 
   tasks:

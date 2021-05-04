@@ -18,6 +18,8 @@
 
     - role: interactive
       interactive_user: op
+    - role: packages
+      packages_install: '{{ interactive_packages }}'
     - role: control
       control_username: op
     - role: gitlab_runner
