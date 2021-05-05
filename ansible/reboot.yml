@@ -7,6 +7,15 @@
   serial: 1
   become: yes
   tasks:
+    - name: read hostname of ansible controller
+      setup:
+        filter: ansible_fqdn
+      delegate_to: localhost
+      delegate_facts: yes
+      become: no
+      run_once: yes
+      changed_when: no
+
     - name: check if reboot is required
       stat:
         path: /var/run/reboot-required
