@@ -17,4 +17,7 @@
 [url "git@gitlab.com:"]
     insteadOf = gitlab://
 
+[diff "ansible-vault"]
+	textconv = ansible-vault view
+
 # vim: syntax=gitconfig
