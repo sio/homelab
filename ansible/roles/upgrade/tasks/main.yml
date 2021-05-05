@@ -15,5 +15,15 @@
   when: ansible_pkg_mgr == "apt"
   async: '{{ 20*60 }}'  # allow up to 20 minutes before timeout
 
-# TODO: handle /var/run/reboot-required
+- name: check if reboot is required
+  stat:
+    path: /var/run/reboot-required
+  register: reboot_required_file
+  changed_when: reboot_required_file.stat.exists
+
+- name: save reboot requirement status as ansible fact
+  when: reboot_required_file.stat.exists
+  set_fact:
+    upgrade_requires_reboot: yes
+
 # TODO: handle needrestart/checkrestart

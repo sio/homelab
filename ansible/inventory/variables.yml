@@ -8,6 +8,7 @@ all:
       vars:
         server_force_inventory_hostname: yes
         server_root_password: '{{ secret_server_root_password }}'
+        upgrade_allow_reboot: yes
         wol_macaddress: '{{ secret_wol_macaddress }}'
   hosts:
     ci-runners-manager:
@@ -32,3 +33,4 @@ all:
     morebooks.ml:
       server_remote_user: '{{ secret_server_remote_user }}'
       server_root_password: '{{ secret_server_root_password }}'
+      upgrade_allow_reboot: yes
