@@ -1,0 +1,8 @@
+# Load some variables from inventory
+- hosts: all
+  tasks:
+    - name: read variables from top-level group_vars/
+      include_vars: ../../../../inventory/group_vars/all/packages.yml
+
+# Actual playbook we are testing
+- import_playbook: ../../../../control.yml
