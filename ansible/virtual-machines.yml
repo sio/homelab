@@ -26,3 +26,14 @@
       virtual_machine_memory: 3096 # MiB
       virtual_machine_cpus: 2
       virtual_machine_image_resize: 15G
+
+- name: wait for virtual machines initialization
+  hosts:
+    - control
+    - mediabox-v
+  become: no
+  gather_facts: no
+  tasks:
+    - name: wait for connection
+      wait_for_connection:
+        timeout: '{{ wol_boot_timeout|default(10*60) }}'
