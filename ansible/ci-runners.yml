@@ -1,4 +1,6 @@
----
+#
+# MANAGING NODE FOR AN AUTO SCALING FLEET OF GITLAB RUNNERS
+#
 
 - hosts: ci-runners-manager
   become: yes

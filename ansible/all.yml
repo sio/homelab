@@ -1,7 +1,6 @@
 #
 # A SINGLE ENTRYPOINT FOR ALL INFRASTRUCTURE MAINTENANCE
 #
----
 
 # General maintenance
 - import_playbook: unreachable.yml

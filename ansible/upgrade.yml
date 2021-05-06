@@ -1,4 +1,7 @@
----
+#
+# INSTALL OS UPDATES
+#
+
 - hosts: all:!unreachable
   name: upgrade
   become: yes

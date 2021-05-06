@@ -104,8 +104,6 @@
         mode: '0400'
 
 
-
-
 # File system hierarchy
 #   /disks/
 #   /disks/important/

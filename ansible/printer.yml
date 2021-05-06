@@ -1,6 +1,6 @@
----
-
-# Print server virtual machine
+#
+# PRINT SERVER VIRTUAL MACHINE
+#
 
 - hosts: printer
   become: yes

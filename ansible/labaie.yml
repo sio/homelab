@@ -1,12 +1,13 @@
----
+#
+# HOMELAB MACHINE: LABAIE
+#
 # Host specific extras, see lab.yml for generic setup
-
+#
 
 - name: wake up the machine
   import_playbook: wakeup.yml
   vars:
     limit_hosts: labaie
-
 
 - hosts: labaie
   become: yes

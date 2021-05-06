@@ -1,3 +1,7 @@
+#
+# DETECT UNREACHABLE HOSTS
+#
+
 - hosts: all
   name: unreachable
   gather_facts: no

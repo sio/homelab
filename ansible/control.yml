@@ -1,12 +1,12 @@
----
-
-# On premises infrastructure control node
+#
+# ON PREMISES INFRASTRUCTURE CONTROL NODE
 #
 # Runs Ansible playbooks triggered either automatically by GitLab CI
 # or manually by operator
 #
 # Requires manual entering of passkeys and vault passwords after each reboot or
 # after 30 days of uptime
+#
 
 - hosts: control
   become: yes

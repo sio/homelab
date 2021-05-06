@@ -1,5 +1,6 @@
----
-# Shutdown Linux machines (you probably want to --limit hosts)
+#
+# SHUTDOWN LINUX MACHINES (you probably want to --limit hosts)
+#
 
 - hosts: '{{ limit_hosts|default("all") }}'
   name: shutdown

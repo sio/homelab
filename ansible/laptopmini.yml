@@ -1,8 +1,7 @@
 #
-# Hardware-related configuration for Asus laptop (UL80 aka laptopmini)
+# ASUS LAPTOP (UL80 AKA LAPTOPMINI)
 #
 
----
 - hosts: laptopmini:!unreachable
   name: laptopmini
   become: yes

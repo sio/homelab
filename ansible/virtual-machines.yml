@@ -2,12 +2,10 @@
 # PERSISTENT VIRTUAL MACHINES
 #
 
-
 - hosts: hypervisor
   become: yes
   roles:
     - role: kvm_bridge
-
 
 - hosts: hypervisor-j
   become: yes
