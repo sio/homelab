@@ -19,6 +19,8 @@
         - google-chrome-stable
         - remmina
         - virt-viewer
+        - simple-scan
+        - gscan2pdf
 
         # Desktop environment
         - task-xfce-desktop
