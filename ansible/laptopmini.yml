@@ -54,6 +54,7 @@
         - iotop
 
         # Hardware support
+        - firmware-atheros
         - firmware-linux
         - firmware-linux-free
         - firmware-linux-nonfree
