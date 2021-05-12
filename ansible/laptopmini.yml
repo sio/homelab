@@ -58,8 +58,8 @@
         - firmware-linux
         - firmware-linux-free
         - firmware-linux-nonfree
-        - i965-va-driver  # h264 vaapi <https://wiki.debian.org/HardwareVideoAcceleration>
-        - i965-va-driver-shaders  # non-free
+        # i965-va-driver  # h264 vaapi <https://wiki.debian.org/HardwareVideoAcceleration>
+        - i965-va-driver-shaders  # non-free version with more codecs
         - nvidia-driver
 
         # Laptop optimisation
