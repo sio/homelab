@@ -52,6 +52,7 @@
         - smartmontools
         - sysbench  # buster-backports
         - iotop
+        - iperf3
 
         # Hardware support
         - firmware-atheros

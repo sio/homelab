@@ -22,6 +22,7 @@
           - sudo
           - rsync
           - nfs-common
+          - iperf3
 
     # Data directory mounts
     - when: molecule_ephemeral_directory is not defined  # do not attempt mounts in CI

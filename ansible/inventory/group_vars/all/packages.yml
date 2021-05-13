@@ -20,6 +20,7 @@ playground_packages:
   - build-essential
   # Other tools
   - aria2
+  - iperf3
   - psmisc
   - python3-venv
   - python3-yaml
