@@ -13,6 +13,8 @@ See [bootstrap.sh](./bootstrap.sh) for more information.
 
 ## TODO
 
+- Move all root actions to Ansible playbooks/roles (`SCOPE=system`)
+
 ### Topics that are not bootstrappable at the moment
 
 - *None listed at the moment*
