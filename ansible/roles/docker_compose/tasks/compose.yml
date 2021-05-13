@@ -22,6 +22,8 @@
     dest: '{{ docker_compose_dir }}/docker-compose.yml'
     mode: '0644'
     backup: yes
+  retries: 10
+  delay: 2
   notify: restart compose project
 
 - name: create systemd service for compose project

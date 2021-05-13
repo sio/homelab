@@ -47,6 +47,8 @@
     owner: libvirt-qemu
     mode: '0600'
     checksum: '{{ virtual_machine_image_checksum }}'
+  retries: 10
+  delay: 2
   when: not virtual_machine_file.stat.exists
 
 - name: grow initial image for virtual machine

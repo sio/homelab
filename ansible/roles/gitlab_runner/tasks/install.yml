@@ -82,6 +82,8 @@
     url: '{{ gitlab_runner_repo_list }}'
     dest: /etc/apt/sources.list.d/gitlab-runner.list
     mode: 0755
+  retries: 10
+  delay: 2
   register: apt_repo
 
 - name: update package lists

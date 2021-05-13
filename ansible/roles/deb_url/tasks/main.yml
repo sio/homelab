@@ -23,6 +23,8 @@
     dest: '{{ deb_url_storage }}/{{ item.checksum }}'
     checksum: '{{ item.checksum }}'
     mode: '0600'
+  retries: 10
+  delay: 2
   with_items: '{{ deb_url_packages }}'
   loop_control:
     label: '{{ item.url }}'

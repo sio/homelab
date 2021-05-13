@@ -16,6 +16,8 @@
     dest: '/etc/munin/plugins/smart_raw'
     mode: '0755'
     checksum: '{{ munin_smart_plugin_checksum|default("") }}'
+  retries: 10
+  delay: 2
   notify: restart munin node
 
 - name: configure smart_raw plugin

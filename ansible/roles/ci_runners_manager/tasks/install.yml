@@ -11,6 +11,8 @@
     dest: '{{ ci_runners_manager_pulumi_tarball }}'
     checksum: '{{ ci_runners_manager_pulumi_checksum[ci_runners_manager_pulumi_version] }}'
     mode: '0644'
+  retries: 10
+  delay: 2
   notify: install pulumi
 
 - name: create infrastructure configuration directory
