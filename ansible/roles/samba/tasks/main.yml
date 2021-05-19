@@ -38,12 +38,23 @@
     label: '{{ item.username }}'
   notify: restart samba server
 
-- name: create samba shares
-  file:
+- name: check if samba shared directories exist
+  stat:
     path: '{{ item.path }}'
+  register: samba_shares_stat
+  loop: '{{ samba_shares }}'
+  loop_control:
+    label: '{{ item.path }}'
+
+- name: create missing samba shared directories
+  file:
+    path: '{{ item.item.path }}'
     state: directory
     mode: '0755'
-  with_items: '{{ samba_shares }}'
+  loop: '{{ samba_shares_stat.results }}'
+  when: not item.stat.exists
+  loop_control:
+    label: '{{ item.item.path }}'
 
 - name: configure samba server
   template:
