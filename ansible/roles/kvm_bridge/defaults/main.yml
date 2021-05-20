@@ -7,3 +7,16 @@ kvm_bridge_options:
 kvm_bridge_fallback_iface: inet dhcp
 kvm_bridge_fallback_force: no
 kvm_bridge_config_file: /etc/network/interfaces
+
+
+# TODO: Enable optional support for systemd-networkd
+#       - Split off /etc/network/interfaces tasks from main.yml to interfaces.yml
+#       - Create new tasks in systemd.yml, see:
+#         - https://wiki.debian.org/Bonding
+#         - https://wiki.archlinux.org/title/Systemd-networkd#Bridge_interface
+#       - Conditionally include either interfaces.yml or systemd.yml into main.yml:
+#         `include: {{ kvm_bridge_config_type }}.yml`
+#       - Provide a sensible default value for kvm_bridge_config_type based on Debian version:
+#         - buster: interfaces
+#         - bullseye: systemd
+#         - unknown: interfaces
