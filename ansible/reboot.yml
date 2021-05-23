@@ -27,4 +27,5 @@
       when:
         - hostvars.localhost.ansible_fqdn != ansible_fqdn
         - limit_hosts is defined or
+          play_hosts != groups.all or
           (reboot_required_file.stat.exists and upgrade_allow_reboot|default(False))
