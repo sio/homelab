@@ -26,6 +26,8 @@ server_packages:
   - python3-venv
   - ufw
   - iputils-ping
+  - downtimed
+  - uptimed
 
 # Locale and timezone
 server_locale:
