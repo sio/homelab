@@ -62,7 +62,7 @@ def find_status(ansible_stdout, **kw):
 def _check_status(ansible_stdout, status='changed', skip=None, return_early=True):
     if skip is None:
         skip = {}
-    found = []
+    found = defaultdict(set)  # insertion ordered since Python 3.7
     for task in playbook_parse(ansible_stdout):
         task_name = next(iter(task.keys()))
         host_status = next(iter(task.values()))
@@ -73,7 +73,7 @@ def _check_status(ansible_stdout, status='changed', skip=None, return_early=True
                 continue
             if return_early:
                 return True
-            found.append(task)
+            found[task_name].update(host_status[status])
     if return_early:
         return False
     return found
@@ -83,7 +83,7 @@ class JsonEncoderWithSets(json.JSONEncoder):
     '''Encode Python sets as JSON lists'''
     def default(self, obj):
         if isinstance(obj, set):
-            return list(obj)
+            return list(sorted(obj))
         return json.JSONEncoder.default(self, obj)
 
 
