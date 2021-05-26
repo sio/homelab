@@ -10,3 +10,8 @@
 
 - name: refresh host facts
   setup:
+
+- name: restart systemd-journald
+  service:
+    name: systemd-journald
+    state: restarted

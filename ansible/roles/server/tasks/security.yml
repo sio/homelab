@@ -56,3 +56,12 @@
     state: present
     validate: '/usr/sbin/sshd -T -f %s'
   notify: restart ssh server
+
+- name: enable persistent systemd journal
+  file:
+    path: /var/log/journal
+    state: directory
+    owner: root
+    group: systemd-journal
+    mode: '2755'
+  notify: restart systemd-journald
