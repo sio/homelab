@@ -3,7 +3,12 @@
 [Unit]
 Description=Supysonic daemon
 After=network.target
-RequiresMountsFor={{ supysonic_music_dir | quote }}
+RequiresMountsFor=\
+    "{{ supysonic_music_dir }}" \
+    "{{ supysonic_venv }}" \
+    "{{ supysonic_cache }}" \
+    "/etc/letsencrypt" \
+    "/home/{{ supysonic_user }}"
 
 
 [Service]

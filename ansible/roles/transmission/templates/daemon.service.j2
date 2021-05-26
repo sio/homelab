@@ -3,6 +3,12 @@
 [Unit]
 Description=Transmission BitTorrent Daemon
 After=network.target
+RequiresMountsFor=\
+    {% for watch in transmission_instance.watch -%}
+    "{{ watch.torrents }}" \
+    "{{ watch.destination }}" \
+    {% endfor -%}
+    "{{ transmission_config }}"
 
 
 [Service]
@@ -26,4 +32,3 @@ LimitNOFILE=30960
 
 [Install]
 WantedBy=multi-user.target
-
