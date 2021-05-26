@@ -31,17 +31,18 @@
           mount:
             state: mounted
             fstype: nfs
-            backup: yes
+            opts: rw,sync
             path: /disks
             src: 'hypervisor-j:/disks'
-            opts: rw,sync
-        - name: bind mount application data
+            backup: yes
+        - name: mount application data
           mount:
             state: mounted
-            opts: bind
-            fstype: none
+            fstype: nfs
+            opts: rw,sync
             path: '{{ item }}'
-            src: '/disks/important/vmdata/mediabox-v/{{ item[1:] }}'
+            src: 'hypervisor-j:/disks/important/vmdata/mediabox-v/{{ item[1:] }}'
+            backup: yes
           loop:
             - /etc/letsencrypt
             - /home/music
