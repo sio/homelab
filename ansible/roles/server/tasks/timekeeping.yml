@@ -7,8 +7,17 @@
   timezone:
     name: '{{ server_timezone }}'
 
+# Use chrony instead of ntpd: https://lwn.net/Articles/735211/
+# also it's default ntp daemon in Debian cloud images:
+# https://salsa.debian.org/cloud-team/debian-cloud-images/-/blob/master/config_space/package_config/CLOUD#L11
+
+- name: remove ntpd
+  package:
+    name: ntp
+    state: absent
+
 - name: ensure correct timekeeping
   service:
-    name: ntp  # no problem if clock is managed by host, ntpd will just log errors
+    name: chrony
     state: started
     enabled: yes
