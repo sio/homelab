@@ -60,9 +60,21 @@ _prompt_colorhash() {
     # Usage:
     #   _prompt_colorhash text
 
-    local number=5  # available colors: green, yellow, blue, magenta, cyan
-    local hash=$(echo "$*" | sum -s | cut -d\  -f1)
-    echo -n $(($hash % $number + 2))
+    # Colors have been handpicked from 256 color palette to enable equal
+    # representation of each color in case of downgrading to 8 color palette
+    # (17 entries for each color, only 14 for cyan because there weren't any more)
+    local colors+=(2 10 28 29 34 35 36 40 41 42 43 46 47 48 49 50 190)              # green
+    local colors+=(3 11 58 100 101 142 143 144 184 185 186 187 226 227 228 229 230) # yellow
+    local colors+=(4 12 54 55 56 57 60 61 62 63 67 68 69 74 75 21 27)               # blue
+    local colors+=(5 13 53 90 96 127 133 139 164 170 176 182 201 207 213 219 225)   # magenta
+    local colors+=(6 14 23 30 37 44 66 73 80 109 116 123 159 152   )                # cyan
+
+    # Simple integer hash for input string
+    local hash=$(echo "$*" | sum -r | cut -d\  -f1)
+
+    # Select one of predefined colors according to calculated hash value
+    local select=$(($hash % ${#colors[@]}))
+    echo -n 8:5:${colors[$select]}
 }
 
 
