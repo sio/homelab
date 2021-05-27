@@ -11,6 +11,7 @@
       - libvirt-daemon-system
       - python3-libvirt
       - ksmtuned
+      - netcat-openbsd  # required for remote virt-manager
     state: present
     install_recommends: no
     cache_valid_time: 3600
