@@ -73,7 +73,7 @@ _prompt_colorhash() {
     local hash=$(echo "$*" | sum -r | cut -d\  -f1)
 
     # Select one of predefined colors according to calculated hash value
-    local select=$(($hash % ${#colors[@]}))
+    local select=$((${hash##0} % ${#colors[@]}))
     echo -n 8:5:${colors[$select]}
 }
 
