@@ -63,11 +63,11 @@ _prompt_colorhash() {
     # Colors have been handpicked from 256 color palette to enable equal
     # representation of each color in case of downgrading to 8 color palette
     # (17 entries for each color, only 14 for cyan because there weren't any more)
-    local colors+=(2 10 28 29 34 35 36 112 113 114 115 118 119 120 121 50 190)      # green
-    local colors+=(3 11 58 100 101 142 143 144 184 185 186 187 226 227 228) # yellow
-    local colors+=(4 12 54 55 56 57 60 61 62 63 67 68 69 74 75 21 27)               # blue
-    local colors+=(5 13 53 90 96 127 133 139 170 176 182 207 213 219 225)   # magenta
-    local colors+=(6 14 23 30 37 44 66 73 80 109 116 152)                # cyan
+    local colors+=(2  10  28  29   34   35   36   112  113  114  115  118  119  120  121   50  190)  # green
+    local colors+=(3  11  58  100  101  142  143  144  184  185  186  187  226  227  228)            # yellow
+    local colors+=(4  12  54  55   56   57   60   61   62   63   67   68   69   74   75    21  27)   # blue
+    local colors+=(5  13  53  90   96   127  133  139  170  176  182  207  213  219  225)            # magenta
+    local colors+=(6  14  23  30   37   44   66   73   80   109  116  152)                           # cyan
 
     # Simple integer hash for input string
     local hash=$(echo "$*" | sum -r | cut -d\  -f1)
