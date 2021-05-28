@@ -39,7 +39,7 @@
           mount:
             state: mounted
             fstype: nfs
-            opts: rw,sync
+            opts: rw,sync,soft
             path: '{{ item }}'
             src: 'hypervisor-j:/disks/important/vmdata/mediabox-v/{{ item[1:] }}'
             backup: yes
