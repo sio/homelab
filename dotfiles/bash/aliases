@@ -25,6 +25,10 @@ alias bones="grep -Ev '^\s*#|^\s*$'"
 alias show="tail -v -n+0"
 
 
+# Enable 256 color palette in Tmux
+alias tmux="TERM=screen-256color tmux"
+
+
 # Show file listing when changing current directory
 _cd_with_listing() {
     local CMD="builtin cd"
