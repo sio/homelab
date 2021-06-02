@@ -1,11 +1,13 @@
 # Main molecule configuration is located in ansible/roles/tests/molecule.yml
 # Invoke with `molecule --base-config $LOCATION`
 ---
-driver:
-  name: vagrant
-  provider:
-    name: libvirt
+provisioner:
+  name: ansible
+  log: true
   inventory:
+    group_vars:
+      all:
+        ansible_python_interpreter: /usr/bin/python3
     host_vars:
       debian10-vm:
         deb_url_packages:
@@ -23,6 +25,11 @@ driver:
             checksum: sha256:516a12ee4d7fc1c65fa0cda11f2a9888719631d4abff6acaba0ac36768270d6e
           - url: https://github.com/sio/transmission-debian-patched/releases/download/3.00-1.1-bullseye/transmission-daemon_3.00-1.1_amd64.deb
             checksum: sha256:c36d9495198f8027f629762dc1393a4fbe04df884315d6f0673a593761cf7514
+
+driver:
+  name: vagrant
+  provider:
+    name: libvirt
 
 platforms:
   - name: debian10-vm
