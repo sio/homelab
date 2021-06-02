@@ -22,7 +22,7 @@
     - name: check version of transmission package
       debug:
         var: dpkg.stdout
-      failed_when: '"2.94-2.1" not in dpkg.stdout'
+      failed_when: '".1" not in dpkg.stdout'
 
     - name: wait for services to become available
       wait_for:

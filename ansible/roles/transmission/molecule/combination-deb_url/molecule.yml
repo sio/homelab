@@ -5,12 +5,32 @@ driver:
   name: vagrant
   provider:
     name: libvirt
+  inventory:
+    host_vars:
+      debian10-vm:
+        deb_url_packages:
+          - url: https://github.com/sio/transmission-debian-patched/releases/download/2.94-2.1-buster/transmission-common_2.94-2.1_all.deb
+            checksum: sha256:42117eaac71af8fa53b5b0803df986adcd0d3bdaf0a7f0791465f7b2478ad765
+          - url: https://github.com/sio/transmission-debian-patched/releases/download/2.94-2.1-buster/transmission-cli_2.94-2.1_amd64.deb
+            checksum: sha256:35efc0c6f2576ac7cce5fea5fc1ad88e46e197041af0e9b460c4d2c051c22265
+          - url: https://github.com/sio/transmission-debian-patched/releases/download/2.94-2.1-buster/transmission-daemon_2.94-2.1_amd64.deb
+            checksum: sha256:ad651ef56c279ca84a827fd112544127fbb6b73e1b8a4c7cd902b94132b34ab7
+      debian11-vm:
+        deb_url_packages:
+          - url: https://github.com/sio/transmission-debian-patched/releases/download/3.00-1.1-bullseye/transmission-common_3.00-1.1_all.deb
+            checksum: sha256:69797baf2c5609f249c5dcb359e3caf2729a221f267be5adc4db6f75da1c87d8
+          - url: https://github.com/sio/transmission-debian-patched/releases/download/3.00-1.1-bullseye/transmission-cli_3.00-1.1_amd64.deb
+            checksum: sha256:516a12ee4d7fc1c65fa0cda11f2a9888719631d4abff6acaba0ac36768270d6e
+          - url: https://github.com/sio/transmission-debian-patched/releases/download/3.00-1.1-bullseye/transmission-daemon_3.00-1.1_amd64.deb
+            checksum: sha256:c36d9495198f8027f629762dc1393a4fbe04df884315d6f0673a593761cf7514
 
 platforms:
   - name: debian10-vm
     box: potyarkin/debian10
     memory: 1024
-  # TODO: Build patched packages for Bullseye and add to tested platforms
+  - name: debian11-vm
+    box: potyarkin/debian11
+    memory: 1024
 
 dependency:
   name: shell
