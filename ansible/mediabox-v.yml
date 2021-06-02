@@ -89,9 +89,18 @@
     # Torrenting
     - import_role:
         name: deb_url  # Install patched Transmission (without 1024 open files limit)
-      when: ansible_distribution_release == 'buster'  # TODO: Build patched transmission packages for Bullseye
+      when: ansible_distribution_release in prebuilt_packages
       vars:
-        deb_url_packages:
+        deb_url_packages: '{{ prebuilt_packages[ansible_distribution_release] }}'
+        prebuilt_packages:
+          bullseye:
+          - url: https://github.com/sio/transmission-debian-patched/releases/download/3.00-1.1-bullseye/transmission-common_3.00-1.1_all.deb
+            checksum: sha256:69797baf2c5609f249c5dcb359e3caf2729a221f267be5adc4db6f75da1c87d8
+          - url: https://github.com/sio/transmission-debian-patched/releases/download/3.00-1.1-bullseye/transmission-cli_3.00-1.1_amd64.deb
+            checksum: sha256:516a12ee4d7fc1c65fa0cda11f2a9888719631d4abff6acaba0ac36768270d6e
+          - url: https://github.com/sio/transmission-debian-patched/releases/download/3.00-1.1-bullseye/transmission-daemon_3.00-1.1_amd64.deb
+            checksum: sha256:c36d9495198f8027f629762dc1393a4fbe04df884315d6f0673a593761cf7514
+          buster:
           - url: https://github.com/sio/transmission-debian-patched/releases/download/2.94-2.1-buster/transmission-common_2.94-2.1_all.deb
             checksum: sha256:42117eaac71af8fa53b5b0803df986adcd0d3bdaf0a7f0791465f7b2478ad765
           - url: https://github.com/sio/transmission-debian-patched/releases/download/2.94-2.1-buster/transmission-cli_2.94-2.1_amd64.deb
