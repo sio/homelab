@@ -1,5 +1,5 @@
-" Makefile requires Tab indentation
-au Filetype make setlocal noexpandtab
+" Makefile and Go require Tab indentation
+au Filetype make,go setlocal noexpandtab
 
 " Wrap lines automatically for Markdown files
 au FileType markdown setlocal textwidth=78 wrap
