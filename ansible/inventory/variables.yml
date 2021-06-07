@@ -19,8 +19,8 @@ all:
       control_sshkeys: '{{ secret_control_sshkeys }}'
       gitlab_runner_token: '{{ secret_gitlab_runner_token }}'
       server_force_inventory_hostname: yes
-   #labaie:
-   #  wol_interface: '{{ secret_wol_interface }}'
+    labaie:
+      wol_interface: '{{ secret_wol_interface }}'
     labjay:
     labtee:
     laptopmini:
