@@ -3,6 +3,7 @@
 #
 
 - hosts: morebooks.ml
+  name: morebooks
   become: yes
   roles:
     - server

@@ -9,6 +9,7 @@
 #
 
 - hosts: control
+  name: control
   become: yes
   roles:
     - role: server

@@ -3,7 +3,7 @@
 #
 
 - hosts: hypervisor-j
-  name: hypervisor-j hardware configuration
+  name: hypervisor-j hardware
   become: yes
   vars:
     extra_kernel_modules:

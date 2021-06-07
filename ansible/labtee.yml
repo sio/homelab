@@ -10,6 +10,7 @@
     limit_hosts: labtee:!offline
 
 - hosts: labtee:!offline
+  name: labtee
   become: yes
   roles:
     - role: packages

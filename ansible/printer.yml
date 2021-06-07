@@ -3,6 +3,7 @@
 #
 
 - hosts: printer
+  name: printer
   become: yes
   roles:
     - role: server

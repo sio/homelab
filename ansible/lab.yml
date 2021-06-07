@@ -17,6 +17,7 @@
 
 
 - hosts: lab:!offline
+  name: lab
   become: yes
   vars:
     server_remote_user: op

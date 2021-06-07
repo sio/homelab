@@ -3,6 +3,7 @@
 #
 
 - hosts: mediabox-v
+  name: mediabox-v
   become: yes
   tasks:
     # OS maintenance

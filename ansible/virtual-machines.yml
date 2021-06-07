@@ -3,11 +3,13 @@
 #
 
 - hosts: hypervisor
+  name: hypervisor
   become: yes
   roles:
     - role: kvm_bridge
 
 - hosts: hypervisor-j
+  name: hypervisor-j vms
   become: yes
   vars:
     debian_cloud: '{{ lookup("debian_cloud_image", "buster", arch="amd64") }}'
@@ -27,7 +29,7 @@
       virtual_machine_cpus: 2
       virtual_machine_image_resize: 15G
 
-- name: wait for virtual machines initialization
+- name: wait for virtual machines
   hosts:
     - control
     - mediabox-v

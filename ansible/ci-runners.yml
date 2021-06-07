@@ -3,6 +3,7 @@
 #
 
 - hosts: ci-runners-manager
+  name: ci-runners-manager
   become: yes
   roles:
     - role: server

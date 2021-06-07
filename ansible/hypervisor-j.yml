@@ -3,6 +3,7 @@
 #
 
 - hosts: hypervisor-j
+  name: hypervisor-j
   become: yes
   roles:
     # OS maintenance

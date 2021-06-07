@@ -10,6 +10,7 @@
     limit_hosts: labjay:!offline
 
 - hosts: labjay:!offline
+  name: labjay
   become: yes
   roles:
     - role: packages

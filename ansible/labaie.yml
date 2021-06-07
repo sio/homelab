@@ -10,6 +10,7 @@
     limit_hosts: labaie:!offline
 
 - hosts: labaie:!offline
+  name: labaie
   become: yes
   roles:
     - role: packages
