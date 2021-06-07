@@ -7,9 +7,9 @@
 - name: wake up the machine
   import_playbook: wakeup.yml
   vars:
-    limit_hosts: labaie
+    limit_hosts: labaie:!offline
 
-- hosts: labaie
+- hosts: labaie:!offline
   become: yes
   roles:
     - role: packages

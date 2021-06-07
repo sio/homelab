@@ -7,9 +7,9 @@
 - name: wake up the machine
   import_playbook: wakeup.yml
   vars:
-    limit_hosts: labtee
+    limit_hosts: labtee:!offline
 
-- hosts: labtee
+- hosts: labtee:!offline
   become: yes
   roles:
     - role: packages

@@ -13,10 +13,10 @@
 - name: wake up all lab machines
   import_playbook: wakeup.yml
   vars:
-    limit_hosts: lab
+    limit_hosts: lab:!offline
 
 
-- hosts: lab
+- hosts: lab:!offline
   become: yes
   vars:
     server_remote_user: op
@@ -66,4 +66,4 @@
 - name: shutdown machines that were offline
   import_playbook: shutdown.yml
   vars:
-    limit_hosts: lab
+    limit_hosts: lab:!offline
