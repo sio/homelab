@@ -38,7 +38,7 @@ Typical initialization:
     [roles/interactive](ansible/roles/interactive/)
   - For playground machines:
     ```sh
-    apt update; apt -y install git vim make  # git and some optional tools
+    apt update; apt -y install git vim make tmux bc ncurses-term  # git and some tools
 
     git clone --recursive "https://gitlab.com/sio/server_common.git" ~/.common
 
