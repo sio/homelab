@@ -3,9 +3,8 @@
 #
 
 - hosts: '{{ limit_hosts|default("all") }}'
-  name: reboot
-  serial: 1
-  become: yes
+  name: reboot_prep
+  gather_facts: no
   tasks:
     - name: read hostname of ansible controller
       setup:
@@ -16,6 +15,11 @@
       run_once: yes
       changed_when: no
 
+- hosts: '{{ limit_hosts|default("all") }}'
+  name: reboot
+  serial: 1
+  become: yes
+  tasks:
     - name: check if reboot is required
       stat:
         path: /var/run/reboot-required
