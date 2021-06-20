@@ -2,20 +2,35 @@
 # INITIATE REBOOT REMOTELY (you probably want to --limit hosts)
 #
 
-- hosts: '{{ limit_hosts|default("all") }}'
+- import_playbook: unreachable.yml
+
+- hosts: '{{ limit_hosts|default("all:!unreachable") }}'
   name: reboot_prep
   gather_facts: no
+  become: no
   tasks:
     - name: read hostname of ansible controller
       setup:
         filter: ansible_fqdn
       delegate_to: localhost
       delegate_facts: yes
-      become: no
       run_once: yes
       changed_when: no
 
-- hosts: '{{ limit_hosts|default("all") }}'
+    - name: check if running against all hosts in inventory
+      set_fact:
+        # play_hosts is affected by serial:1, so we need to check it in a non-serial play
+        inventory_is_limited: >-
+          {{
+          limit_hosts is defined or
+          play_hosts != (groups.all | difference(groups.unreachable))
+          }}
+      delegate_to: localhost
+      delegate_facts: yes
+      run_once: yes
+      changed_when: no
+
+- hosts: '{{ limit_hosts|default("all:!unreachable") }}'
   name: reboot
   serial: 1
   become: yes
@@ -30,6 +45,5 @@
       reboot:
       when:
         - hostvars.localhost.ansible_fqdn != ansible_fqdn
-        - limit_hosts is defined or
-          play_hosts != groups.all or
+        - hostvars.localhost.inventory_is_limited or
           (reboot_required_file.stat.exists and upgrade_allow_reboot|default(False))
