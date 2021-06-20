@@ -60,8 +60,8 @@
 
 
 - import_playbook: labaie.yml
-- import_playbook: labjay.yml
 - import_playbook: labtee.yml
+- import_playbook: labxeo.yml
 
 
 - name: shutdown machines that were offline

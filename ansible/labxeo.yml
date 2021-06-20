@@ -1,5 +1,5 @@
 #
-# HOMELAB MACHINE: LABJAY
+# HOMELAB MACHINE: LABXEO
 #
 # Host specific extras, see lab.yml for generic setup
 #
@@ -7,10 +7,10 @@
 - name: wake up the machine
   import_playbook: wakeup.yml
   vars:
-    limit_hosts: labjay:!offline
+    limit_hosts: labxeo:!offline
 
-- hosts: labjay:!offline
-  name: labjay
+- hosts: labxeo:!offline
+  name: labxeo
   become: yes
   roles:
     - role: packages

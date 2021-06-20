@@ -9,6 +9,7 @@ all:
         server_force_inventory_hostname: yes
         server_root_password: '{{ secret_server_root_password }}'
         upgrade_allow_reboot: yes
+        wol_interface: '{{ secret_wol_interface }}'
         wol_macaddress: '{{ secret_wol_macaddress }}'
   hosts:
     ci-runners-manager:
@@ -20,9 +21,8 @@ all:
       gitlab_runner_token: '{{ secret_gitlab_runner_token }}'
       server_force_inventory_hostname: yes
     labaie:
-      wol_interface: '{{ secret_wol_interface }}'
-    labjay:
     labtee:
+    labxeo:
     laptopmini:
     mediabox-v:
       interactive_ssh_key: '{{ secret_interactive_ssh_key }}'
