@@ -53,6 +53,7 @@
         - sysbench  # buster-backports
         - iotop
         - iperf3
+        - rsync
 
         # Hardware support
         - firmware-atheros
