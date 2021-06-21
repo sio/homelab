@@ -47,6 +47,7 @@
 
         # System administration
         - ansible
+        - sshpass  # required to deploy new bare metal hosts with Ansible
         - nmap
         - psmisc
         - smartmontools

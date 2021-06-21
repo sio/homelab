@@ -16,6 +16,7 @@ control_packages:
   - make
   - openssh-client
   - python3-venv
+  - sshpass  # required to SSH into target hosts with password auth
 control_pip_requirements:
   - ansible
 control_ansible_vault_keyname: 'ansible-vault:{{ control_inventory }}'
