@@ -19,6 +19,7 @@
         - google-chrome-stable
         - remmina
         - virt-viewer
+        - virt-manager
         - simple-scan
         - gscan2pdf
 
@@ -55,6 +56,8 @@
         - iotop
         - iperf3
         - rsync
+        - nfs-common
+        - cu  # tty console client
 
         # Hardware support
         - firmware-atheros
