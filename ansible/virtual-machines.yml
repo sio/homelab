@@ -29,10 +29,16 @@
       virtual_machine_cpus: 2
       virtual_machine_image_resize: 15G
 
+    - role: virtual_machine
+      virtual_machine_name: seedbox-proxy
+      virtual_machine_memory: 600 # MiB
+      virtual_machine_image_resize: 8G
+
 - name: wait for virtual machines
   hosts:
     - control
     - mediabox-v
+    - seedbox-proxy
   become: no
   gather_facts: no
   tasks:
