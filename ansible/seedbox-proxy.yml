@@ -1,0 +1,31 @@
+#
+# LAN MACHINE NEEDED TO JOIN SEEDBOX INTO HOME NETWORK
+#
+
+- name: seedbox-proxy
+  hosts: seedbox-proxy
+  become: yes
+  tasks:
+    # OS maintenance
+    - import_role:
+        name: server
+    - import_role:
+        name: upgrade
+    - import_role:
+        name: motd
+    - import_role:
+        name: packages
+
+    # VPN client
+    - import_role:
+        name: wireguard  # TODO: test auto restart on connection hiccups
+      vars:
+        wireguard_is_server: no
+        wireguard_enable_ip_forward: yes  # TODO: disable this?
+        wireguard_peers: []  # TODO: add wireguard server info
+
+    # TODO: add TCP proxy for NFS server (systemd-socket-proxyd)?
+
+    # SSH key maintenance
+    - import_role:
+        name: sshkey

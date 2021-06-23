@@ -25,18 +25,31 @@
           - nfs-common
           - iperf3
 
+    # VPN server
+    - import_role:
+        name: wireguard
+      vars:
+        wireguard_is_server: yes
+        wireguard_enable_ip_forward: no
+        wireguard_peers: []  # TODO: add wireguard client info
+
     # Storage setup
     - import_role:
         name: nfs_cache
     - when: molecule_ephemeral_directory is not defined
-      name: mount storage backend
-      mount:  # TODO: replace with systemd unit (dependency on wireguard network)
-        state: mounted
-        fstype: nfs
-        opts: ro,sync,fsc
-        path: /storage  # TODO: change path
-        src: '{{ seedbox_storage_nfs_path }}'
-        backup: yes
+      block:
+        - name: wait for storage backend
+          wait_for:
+            host: '{{ seedbox_storage_nfs_path.split(":")[0] }}'
+            port: 2049  # NFSv4
+        - name: mount storage backend  # TODO: test reboot, test network hiccups
+          mount:  # TODO: replace with systemd unit (dependency on wireguard network, remount on failure)
+            state: mounted
+            fstype: nfs
+            opts: ro,sync,fsc
+            path: /storage  # TODO: change path
+            src: '{{ seedbox_storage_nfs_path }}'
+            backup: yes
 
     # Torrent client
     # import_role:
