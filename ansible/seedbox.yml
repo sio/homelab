@@ -1,0 +1,74 @@
+#
+# LONGTERM SEEDBOX USING REMOTE STORAGE WITH LOCAL CACHE
+#
+
+- name: seedbox
+  hosts: seedbox
+  become: yes
+  vars:
+    seedbox_peering_port: 51000
+    seedbox_rpc_port: 9000
+    seedbox_rpc_allow_cidr: 127.0.0.1/24  # TODO: use wireguard subnet
+    seedbox_storage_nfs_path: nfs-server:/path/to/seedbox/dir  # TODO: change path
+  tasks:
+    # OS maintenance
+    - import_role:
+        name: server
+    - import_role:
+        name: upgrade
+    - import_role:
+        name: motd
+    - import_role:
+        name: packages
+      vars:
+        packages_install:
+          - nfs-common
+          - iperf3
+
+    # Storage setup
+    - import_role:
+        name: nfs_cache
+    - when: molecule_ephemeral_directory is not defined
+      name: mount storage backend
+      mount:  # TODO: replace with systemd unit (dependency on wireguard network)
+        state: mounted
+        fstype: nfs
+        opts: ro,sync,fsc
+        path: /storage  # TODO: change path
+        src: '{{ seedbox_storage_nfs_path }}'
+        backup: yes
+
+    # Torrent client
+    # import_role:
+    #   name: deb_url  # TODO: add patched transmission packages, move URL definitions from mediabox-v.yml to inventory
+    - import_role:
+        name: torrents_sysctl
+    - import_role:
+        name: transmission
+      vars:
+        firewall_auto_config: false  # do not use LAN presets
+        transmission_instance:
+          name: seedbox
+          port: '{{ seedbox_peering_port }}'
+          port_rpc: '{{ seedbox_rpc_port }}'
+          watch:
+            - name: incoming
+              torrents: /storage/torrent-files  # TODO: change path
+              destination: /storage/torrent-data  # TODO: change path
+    - name: open port for peering
+      ufw:
+        port: '{{ seedbox_peering_port }}'
+        rule: allow
+        proto: any
+      notify: reload firewall
+    - name: open port for RPC
+      ufw:
+        port: '{{ seedbox_rpc_port }}'
+        src: '{{ seedbox_rpc_allow_cidr }}'
+        rule: allow
+        proto: tcp
+      notify: reload firewall
+
+    # SSH key maintenance
+    - import_role:
+        name: sshkey
