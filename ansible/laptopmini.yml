@@ -45,6 +45,7 @@
         - vim-gtk3  # GUI build has more stuff enabled at compile time
         - curl
         - tree
+        - asciinema
 
         # System administration
         - ansible
