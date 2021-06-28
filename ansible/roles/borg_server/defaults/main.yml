@@ -1,0 +1,10 @@
+# Configuration
+borg_server_repo_directory: /backups  # directory where all repos will be created
+
+# Internal
+borg_server_packages:
+  - borgbackup
+borg_server_free_space: 2G
+borg_server_free_space_file: '{{ borg_server_repo_directory }}/free-space-placeholder'
+borg_server_user_account: backups
+borg_server_user_group: '{{ borg_server_user_account }}'

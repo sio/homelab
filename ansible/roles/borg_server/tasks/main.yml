@@ -1,0 +1,34 @@
+---
+
+- include: assert.yml
+
+- name: create backups group
+  group:
+    name: '{{ borg_server_user_group }}'
+    state: present
+
+- name: create backups user
+  user:
+    name: '{{ borg_server_user_account }}'
+    state: present
+    groups: '{{ borg_server_user_group }}'
+    append: yes
+
+- name: create backups directory
+  file:
+    path: '{{ borg_server_repo_directory }}'
+    state: directory
+    owner: '{{ borg_server_user_account }}'
+    group: '{{ borg_server_user_group }}'
+    mode: '0700'
+
+- name: create free space placeholder
+  command:
+    cmd: fallocate -l {{ borg_server_free_space|quote }} {{ borg_server_free_space_file|quote }}
+    creates: '{{ borg_server_free_space_file }}'
+
+- name: install borg server packages
+  apt:
+    name: '{{ borg_server_packages }}'
+    state: present
+    cache_valid_time: 3600
