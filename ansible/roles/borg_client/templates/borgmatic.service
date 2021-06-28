@@ -28,7 +28,7 @@ Restart=no
 LogRateLimitIntervalSec=0
 
 LockPersonality=true
-MemoryDenyWriteExecute=yes  # may interfere with healthchecks
+MemoryDenyWriteExecute=yes
 NoNewPrivileges=yes
 PrivateDevices=yes
 PrivateTmp=yes
