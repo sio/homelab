@@ -12,7 +12,7 @@
       sshkey_only:
         vagrant:
         - '{{ molecule_ephemeral_directory }}/testkey.pub'
-        - '{{ molecule_ephemeral_directory }}/.vagrant/machines/{{ ansible_hostname }}/libvirt/public_key'
+        - '{{ molecule_ephemeral_directory }}/vagrant-insecure.pub'
         backups:
         - '{{ molecule_ephemeral_directory }}/testkey.pub'
 
