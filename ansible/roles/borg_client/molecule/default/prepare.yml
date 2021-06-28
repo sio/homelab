@@ -1,5 +1,0 @@
-- hosts: localhost
-  become: no
-  gather_facts: no
-  tasks:
-    - include: ../../../../tasks/vagrant-insecure.yml
