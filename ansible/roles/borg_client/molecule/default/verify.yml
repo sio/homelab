@@ -33,4 +33,4 @@
         var: ssh
 
     - name: trigger backup
-      command: systemctl start borgmatic.service
+      command: systemctl start --wait borgmatic.service
