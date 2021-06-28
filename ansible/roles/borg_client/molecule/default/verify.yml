@@ -18,6 +18,8 @@
   tasks:
     - name: ping backup server
       command: ping -c1 -w1 {{ server }}
+      register: ping
+      failed_when: ping.rc != 0
 
     - name: wait for ssh port to be open on server
       wait_for:
@@ -26,8 +28,14 @@
         timeout: 30
 
     - name: test ssh connection to backup server
-      command: ssh backups@{{ server }} echo ok
+      command: >-
+        ssh
+        -q
+        -o BatchMode=yes
+        -o ConnectTimeout=5
+        backups@{{ server }} echo ok
       register: ssh
+      failed_when: ssh.rc != 0
 
     - debug:
         var: ssh
