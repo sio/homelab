@@ -1,0 +1,19 @@
+---
+- hosts: all
+  tasks:
+    - name: hello world
+      command: echo hello
+      register: hello
+      failed_when: "'hello' not in hello.stdout"
+      changed_when: "hello is not succeeded"
+
+    - name: get file stats for free space placeholder
+      stat:
+        path: /backups/free-space-placeholder
+      register: freespace
+
+    - name: check free space file
+      assert:
+        that:
+          - freespace.stat.exists
+          - freespace.stat.size == 10 * 2**20

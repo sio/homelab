@@ -40,6 +40,16 @@
 #
 
 
+test-role-borg_server:
+  extends: .test-ansible-role
+  variables:
+    ANSIBLE_ROLE: ../roles/borg_server
+  rules:
+    - *option-skip-test
+    - changes:
+        - ansible/roles/borg_server/**/*
+
+
 test-role-canary:
   extends: .test-ansible-role
   variables:
