@@ -1,5 +1,20 @@
 ---
 
+- hosts: server
+  become: true
+  roles:
+    - role: server
+      server_keys_public:
+        - '{{ molecule_ephemeral_directory }}/testkey.pub'
+    - role: borg_server
+      borg_server_free_space: 10M
+    - role: sshkey
+      sshkey_only:
+        unprivileged:
+        - '{{ molecule_ephemeral_directory }}/testkey.pub'
+        backups:
+        - '{{ molecule_ephemeral_directory }}/testkey.pub'
+
 - hosts: client
   become: true
   roles:
@@ -16,18 +31,3 @@
         src: '{{ molecule_ephemeral_directory }}/testkey'
         dest: /root/.ssh/id_rsa
         mode: '0600'
-
-- hosts: server
-  become: true
-  roles:
-    - role: server
-      server_keys_public:
-        - '{{ molecule_ephemeral_directory }}/testkey.pub'
-    - role: borg_server
-      borg_server_free_space: 10M
-    - role: sshkey
-      sshkey_only:
-        unprivileged:
-        - '{{ molecule_ephemeral_directory }}/testkey.pub'
-        backups:
-        - '{{ molecule_ephemeral_directory }}/testkey.pub'
