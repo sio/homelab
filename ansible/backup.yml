@@ -1,0 +1,8 @@
+#
+# BACKUP MANAGEMENT VIRTUAL MACHINES
+#
+
+# TODO: add backup_client to virtual_machines.yml
+# TODO: define backup_client configuration
+# TODO: define backup_server configuration
+# TODO: add backup_client and backup_server to all.yml
