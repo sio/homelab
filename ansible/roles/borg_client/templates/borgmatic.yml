@@ -1,0 +1,4 @@
+---
+# {{ ansible_managed }}
+
+{{ borg_client_config_tree|to_nice_yaml(indent=2) }}

@@ -1,0 +1,8 @@
+---
+
+- name: reload borgmatic schedule
+  systemd:
+    name: borgmatic.timer
+    state: started
+    enabled: yes
+    daemon_reload: yes

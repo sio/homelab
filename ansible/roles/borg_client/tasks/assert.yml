@@ -1,0 +1,11 @@
+---
+
+- name: check assertions
+  assert:
+    that:
+      - ansible_os_family == "Debian"
+      - ansible_pkg_mgr == "apt"
+      - ansible_distribution_release != "buster"  # borgmatic is hopelessly outdated in Debian 10
+      - borg_client_passphrase|length > 5
+      - borg_client_backup_from|length > 0
+      - borg_client_backup_to|length > 0

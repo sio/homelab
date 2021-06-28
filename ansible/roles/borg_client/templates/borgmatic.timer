@@ -1,0 +1,15 @@
+# {{ ansible_managed }}
+
+
+[Unit]
+Description=Run borgmatic backup
+
+
+[Timer]
+OnCalendar={{ borg_client_backup_schedule }}
+RandomizedDelaySec=30min
+Persistent=true
+
+
+[Install]
+WantedBy=timers.target

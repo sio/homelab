@@ -1,0 +1,69 @@
+---
+
+- include: assert.yml
+
+- name: install borgmatic packages
+  apt:
+    name: '{{ borg_client_packages }}'
+    state: present
+    cache_valid_time: 3600
+
+- name: create backups group
+  group:
+    name: '{{ borg_client_user_group }}'
+    state: present
+
+- name: create backups user
+  user:
+    name: '{{ borg_client_user_account }}'
+    state: present
+    groups: '{{ borg_client_user_group }}'
+    append: yes
+
+- name: create borgmatic configuration directory
+  file:
+    path: '{{ borg_client_config|dirname }}'
+    state: directory
+
+- name: create borgmatic configuration
+  template:
+    src: templates/borgmatic.yml
+    dest: '{{ borg_client_config }}'
+    owner: '{{ borg_client_user_account }}'
+    mode: '0600'
+    backup: yes
+    validate: /usr/bin/validate-borgmatic-config -c %s
+
+- name: create systemd unit for borgmatic
+  template:
+    src: '{{ item }}'
+    dest: /etc/systemd/system/{{ item|basename }}
+    mode: '0600'
+    backup: yes
+  loop:
+    - templates/borgmatic.service
+    - templates/borgmatic.timer
+  notify: reload borgmatic schedule
+
+- name: get path to backup user's home directory
+  getent:
+    database: passwd
+    key: '{{ borg_client_user_account }}'
+
+- name: create ~/.ssh directory for backups user account
+  file:
+    path: '{{ getent_passwd[borg_client_user_account][4] }}/.ssh/'
+    state: directory
+    owner: '{{ borg_client_user_account }}'
+    mode: '0700'
+
+- name: keep connection with remote borg repos alive
+  # https://torsion.org/borgmatic/docs/how-to/deal-with-very-large-backups/#broken-pipe-with-remote-repository
+  blockinfile:
+    dest: '{{ getent_passwd[borg_client_user_account][4] }}/.ssh/config'
+    block: |-
+      Host *
+          ServerAliveInterval 120
+    create: yes
+    owner: '{{ borg_client_user_account }}'
+    mode: '0600'

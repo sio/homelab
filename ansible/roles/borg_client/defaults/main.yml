@@ -1,0 +1,29 @@
+# Configuration - required
+borg_client_backup_from: []  # list of directories to backup
+borg_client_backup_to: []  # list of repos to backup to
+borg_client_passphrase: ''
+
+# Configuration - optional
+borg_client_backup_schedule: '*-*-* 02:00:00'  # man systemd.time
+borg_client_backup_retention:
+  keep_within: 3H
+  keep_daily: 7
+  keep_weekly: 4
+  keep_monthly: 12
+borg_client_user_account: root  # should be able to read everything
+borg_client_user_group: '{{ borg_client_user_account }}'
+
+# Internal - unlikely to require overriding
+borg_client_encryption: repokey
+borg_client_config: /etc/borgmatic/config.yaml
+borg_client_packages:
+  - borgmatic
+borg_client_config_tree:
+  location:
+    source_directories: '{{ borg_client_backup_from }}'
+    repositories: '{{ borg_client_backup_to }}'
+  retention: '{{ borg_client_backup_retention }}'
+  consistency:
+    checks:
+      - repository
+      - archives
