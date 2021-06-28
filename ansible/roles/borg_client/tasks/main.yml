@@ -24,6 +24,7 @@
   file:
     path: '{{ borg_client_config|dirname }}'
     state: directory
+    mode: '0755'
 
 - name: create borgmatic configuration
   template:
