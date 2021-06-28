@@ -1,0 +1,9 @@
+- name: download vagrant default key
+  delegate_to: localhost
+  become: no
+  get_url:
+    url: https://raw.githubusercontent.com/hashicorp/vagrant/master/keys/vagrant.pub
+    dest:  '{{ molecule_ephemeral_directory }}/vagrant-insecure.pub'
+  retries: 10
+  delay: 2
+  run_once: yes
