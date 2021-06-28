@@ -11,12 +11,11 @@ ConditionACPower=true
 [Service]
 Type=oneshot
 Environment=BORG_PASSPHRASE={{ borg_client_passphrase }}
-Environment=BORGMATIC=/usr/bin/borgmatic
-Environment=BORGMATIC_CONFIG={{ borg_client_config }}
-ExecStartPre=${BORGMATIC} --config ${BORGMATIC_CONFIG} init --encryption {{ borg_client_encryption }}
+ExecStartPre=\
+    /usr/bin/borgmatic --config {{ borg_client_config }} init --encryption {{ borg_client_encryption }}
 ExecStart=\
     systemd-inhibit --who=borgmatic --why="Prevent interrupting scheduled backup" \
-    ${BORGMATIC} --config ${BORGMATIC_CONFIG} --verbosity 0 --syslog-verbosity 1
+    /usr/bin/borgmatic --config {{ borg_client_config }} --verbosity 0 --syslog-verbosity 1
 
 Nice=19
 CPUSchedulingPolicy=batch
