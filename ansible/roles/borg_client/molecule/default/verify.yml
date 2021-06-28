@@ -30,7 +30,6 @@
     - name: test ssh connection to backup server
       command: >-
         ssh
-        -q
         -o BatchMode=yes
         -o ConnectTimeout=5
         backups@{{ server }} echo ok
