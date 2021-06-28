@@ -1,0 +1,33 @@
+---
+
+- hosts: client
+  become: true
+  roles:
+    - role: borg_client
+      borg_client_backup_from:
+        - /home
+        - /root
+      borg_client_backup_to:
+        - 'backups@{{ansible_hostname|replace("-client", "-server")}}:/backups/{{ansible_hostname}}'
+      borg_client_passphrase: samplepassphrasefortests
+  tasks:
+    - name: copy private key for CI tests
+      copy:
+        src: '{{ molecule_ephemeral_directory }}/testkey'
+        dest: /root/.ssh/id_rsa
+        mode: '0600'
+
+- hosts: server
+  become: true
+  roles:
+    - role: server
+      server_keys_public:
+        - '{{ molecule_ephemeral_directory }}/testkey.pub'
+    - role: borg_server
+      borg_server_free_space: 10M
+    - role: sshkey
+      sshkey_only:
+        unprivileged:
+        - '{{ molecule_ephemeral_directory }}/testkey.pub'
+        backups:
+        - '{{ molecule_ephemeral_directory }}/testkey.pub'

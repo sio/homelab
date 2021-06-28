@@ -32,6 +32,17 @@
 #
 
 
+test-role-borg_client:
+  extends: .test-ansible-role-kvm
+  variables:
+    ANSIBLE_ROLE: ../roles/borg_client
+  rules:
+    - *option-skip-test
+    - changes:
+        - ansible/roles/borg_client/**/*
+        - ansible/roles/borg_server/**/*
+
+
 test-role-control:
   extends: .test-ansible-role-kvm
   variables:
