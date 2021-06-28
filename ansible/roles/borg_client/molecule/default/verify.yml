@@ -10,3 +10,27 @@
 
     - name: ping
       ping:
+
+- hosts: client
+  vars:
+    server: '{{ ansible_hostname|replace("-client", "-server") }}'
+  become: yes
+  tasks:
+    - name: ping backup server
+      command: ping -c1 -w1 {{ server }}
+
+    - name: wait for ssh port to be open on server
+      wait_for:
+        host: '{{ server }}'
+        port: 22
+        timeout: 30
+
+    - name: test ssh connection to backup server
+      command: ssh backups@{{ server }} echo ok
+      register: ssh
+
+    - debug:
+        var: ssh
+
+    - name: trigger backup
+      command: systemctl start borgmatic.service
