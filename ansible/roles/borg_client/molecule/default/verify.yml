@@ -40,5 +40,10 @@
     - debug:
         var: ssh
 
-    - name: trigger backup
-      command: systemctl start --wait borgmatic.service
+    - block:
+        - name: trigger backup
+          command: systemctl start --wait borgmatic.service
+      rescue:
+        - name: fetch service logs
+          command: journalctl -u borgmatic.service
+          failed_when: yes  # do not actually rescue anything, just show more debug information
