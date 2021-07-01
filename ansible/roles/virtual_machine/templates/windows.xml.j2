@@ -43,7 +43,7 @@
   <devices>
     <emulator>{{ virtual_machine_emulator }}</emulator>
     <disk type='file' device='disk'>
-      <driver name='qemu' type='qcow2'/> <!-- TODO: check cache=none? -->
+      <driver name='qemu' type='qcow2'/>
       <source file='{{ virtual_machine_image }}'/>
       <target dev='vda' bus='virtio'/>
     </disk>
@@ -60,6 +60,5 @@
       <clipboard copypaste='no'/>
       <filetransfer enable='no'/>
     </graphics>
-    <!-- TODO: add explicit memballoon device? check if it's created by default -->
   </devices>
 </domain>
