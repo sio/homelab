@@ -20,6 +20,9 @@ all:
       control_sshkeys: '{{ secret_control_sshkeys }}'
       gitlab_runner_token: '{{ secret_gitlab_runner_token }}'
       server_force_inventory_hostname: yes
+    printer:
+      server_force_inventory_hostname: yes
+      server_remote_user: '{{ secret_server_remote_user }}'
     labaie:
     labtee:
     labxeo:

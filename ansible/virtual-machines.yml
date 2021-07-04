@@ -29,10 +29,21 @@
       virtual_machine_cpus: 2
       virtual_machine_image_resize: 15G
 
+    - role: virtual_machine
+      virtual_machine_name: printer
+      virtual_machine_memory: 600 # MiB
+      virtual_machine_image_resize: 8G
+
+    - role: virtual_usb
+      virtual_usb_domain: printer
+      virtual_usb_vendor: '0x04a9'  # Canon
+      virtual_usb_device: '0x2759'  # MF3010
+
 - name: wait for virtual machines
   hosts:
     - control
     - mediabox-v
+    - printer
   become: no
   gather_facts: no
   tasks:
