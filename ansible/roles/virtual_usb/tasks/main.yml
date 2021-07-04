@@ -17,6 +17,7 @@
     dest: '{{ virtual_usb_definition }}'
     backup: yes
     mode: '0600'
+  notify: add USB device to virtual machine
 
 - name: create udev rule for the device
   template:

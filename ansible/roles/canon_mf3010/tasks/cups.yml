@@ -15,6 +15,7 @@
       - libglade2-0
       - libjpeg62-turbo
       - libjbig0
+      - usbutils  # lsusb
 
 - name: start printing service
   service:

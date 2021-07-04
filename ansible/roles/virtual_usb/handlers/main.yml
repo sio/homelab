@@ -2,3 +2,11 @@
 
 - name: reload udev rules
   command: udevadm control --reload
+
+- name: add USB device to virtual machine
+  command:
+    /usr/bin/virsh attach-device
+      {{ virtual_usb_domain }}
+      --file {{ virtual_usb_definition }}
+      --persistent
+  failed_when: no
