@@ -1,0 +1,17 @@
+---
+
+- name: find full printer URL
+  shell: 'lpinfo -v|grep {{ cups_printer_url|quote }}'
+  register: cups_printer_lpinfo
+  changed_when: no
+  failed_when: cups_printer_lpinfo.stdout_lines|length != 1
+
+- name: add printer to CUPS
+  vars:
+    cups_printer_fullurl: '{{ cups_printer_lpinfo.stdout.split(" ", 1)[1] }}'
+  command:
+    lpadmin
+      -p {{ cups_printer_name|quote }}
+      -E
+      -v {{ cups_printer_fullurl|quote }}
+      -P {{ cups_printer_ppd|quote }}

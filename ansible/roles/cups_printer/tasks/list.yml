@@ -1,0 +1,6 @@
+---
+
+- name: list connected printers
+  command: lpstat -p
+  register: cups_printer_lpstat
+  changed_when: no

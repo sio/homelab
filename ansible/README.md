@@ -60,6 +60,7 @@ Local Git repository may be used for keeping track of changes.
 
 ### Automated tests not implemented
 
+- **cups_printer**: simple role that interacts with hardware, can not be tested in Docker/VM
 - **grub**
 - **initrd**
 - **upgrade**

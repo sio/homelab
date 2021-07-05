@@ -1,0 +1,9 @@
+---
+
+- name: check assertions
+  assert:
+    that:
+      - ansible_os_family == "Debian"
+      - ansible_pkg_mgr == "apt"
+      - cups_printer_url|length > 0
+      - cups_printer_ppd|length > 0

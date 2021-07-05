@@ -1,0 +1,3 @@
+cups_printer_name: Default Printer
+cups_printer_url: ''  # CUPS URL for the printer, partial match is enough
+cups_printer_ppd: ''  # PPD file path on the target machine
