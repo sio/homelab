@@ -4,3 +4,4 @@
   command: lpstat -v
   register: cups_printer_lpstat
   changed_when: no
+  failed_when: no  # empty printer list results in rc=1
