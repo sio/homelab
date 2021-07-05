@@ -11,3 +11,7 @@
     - role: motd
     - role: packages
     - role: canon_mf3010
+    - role: cups_printer
+      cups_printer_name: Canon MF3010
+      cups_printer_url: usb://Canon/MF3010
+      cups_printer_ppd: /usr/share/ppd/CNRCUPSMF3010ZK.ppd
