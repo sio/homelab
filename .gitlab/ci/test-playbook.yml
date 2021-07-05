@@ -121,6 +121,7 @@ test-playbook-printer:
         - ansible/printer.yml
         - ansible/tests/playbook-tests/molecule/printer/**/*
         - ansible/roles/canon_mf3010/**/*
+        - ansible/roles/cups_printer/**/*
         - ansible/roles/motd/**/*
         - ansible/roles/packages/**/*
         - ansible/roles/server/**/*
