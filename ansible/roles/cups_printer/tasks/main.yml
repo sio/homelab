@@ -9,10 +9,10 @@
     - molecule_ephemeral_directory is not defined  # do not do anything during CI runs
   block:
     - include: add.yml
-
     - include: list.yml  # refresh cups_printer_lpstat
 
-    - name: confirm that printer was added
-      debug:
-        var: cups_printer_lpstat
-      failed_when: cups_printer_name not in cups_printer_lpstat.stdout
+- name: confirm that printer was added
+  debug:
+    var: cups_printer_lpstat
+  failed_when: cups_printer_name not in cups_printer_lpstat.stdout
+  when: cups_printer_lpstat is not skipped
