@@ -2,12 +2,11 @@
 ACTION=="add" \
 , ATTRS{idVendor}=="{{ virtual_usb_vendor[2:] }}" \
 , ATTRS{idProduct}=="{{ virtual_usb_device[2:] }}" \
-, RUN+="/usr/bin/virsh attach-device {{ virtual_usb_domain }} --file {{ virtual_usb_definition }}"
+, RUN+="/usr/bin/virsh attach-device {{ virtual_usb_domain }} --file {{ virtual_usb_definition }} --live"
 
-# Make changes permanent
-ACTION=="add" \
-, ATTRS{idVendor}=="{{ virtual_usb_vendor[2:] }}" \
-, ATTRS{idProduct}=="{{ virtual_usb_device[2:] }}" \
-, RUN+="/usr/bin/virsh attach-device {{ virtual_usb_domain }} --file {{ virtual_usb_definition }} --persistent"
-
-# TODO: add remove handler?
+# Remove device
+ACTION=="remove" \
+, SUBSYSTEM="usb" \
+, ENV{ID_VENDOR_ID}=="{{ virtual_usb_vendor[2:] }}" \
+, ENV{ID_MODEL_ID}=="{{ virtual_usb_device[2:] }}" \
+, RUN+="/usr/bin/virsh detach-device {{ virtual_usb_domain }} --file {{ virtual_usb_definition }} --live"

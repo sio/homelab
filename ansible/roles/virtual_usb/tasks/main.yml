@@ -25,6 +25,8 @@
     dest: '{{ virtual_usb_udev_rule }}'
     backup: yes
     mode: '0600'
-  notify: reload udev rules
+  notify:
+    - add USB device to virtual machine
+    - reload udev rules
 
 - meta: flush_handlers  # noqa unnamed-task
