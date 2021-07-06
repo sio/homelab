@@ -1,0 +1,5 @@
+saned_allow_clients:
+  - '{{ ansible_default_ipv4.address }}/24'
+
+saned_remove_ippusb: yes  # ipp-usb conflicts with saned and must be either removed or disabled
+                          # https://wiki.debian.org/SaneOverNetwork#Sharing_on_Debian_11_.28bullseye.29_and_later

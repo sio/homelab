@@ -1,0 +1,50 @@
+---
+
+- include: assert.yml
+
+- name: install saned packages
+  package:
+    name: sane-utils
+    state: present
+
+- name: remove ipp-usb
+  package:
+    name: ipp-usb
+    state: absent
+  when: saned_remove_ippusb
+
+- name: configure scanner sharing
+  copy:
+    content: |
+      {{ saned_allow_clients|join('\n') }}
+    dest: /etc/sane.d/saned.conf
+    mode: '0644'
+    backup: yes
+  notify: restart saned
+
+- name: enable saned socket
+  systemd:
+    name: saned.socket
+    state: started
+    enabled: yes
+    daemon_reload: yes
+
+- name: allow access to saned over network
+  ufw:
+    port: '6566'
+    rule: allow
+    proto: any
+  when: firewall_auto_config|default(True)
+
+- name: fetch connected scanners
+  command: scanimage -L
+  register: scanimage
+  failed_when: no
+  changed_when: no
+
+- name: show connected scanners
+  debug:
+    var: scanimage
+  changed_when:
+    scanimage.stdout_lines|length == 0 or
+    scanimage.rc != 0

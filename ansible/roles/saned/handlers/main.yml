@@ -1,0 +1,7 @@
+---
+
+- name: restart saned
+  systemd:
+    name: saned.service
+    state: restarted
+    daemon_reload: yes

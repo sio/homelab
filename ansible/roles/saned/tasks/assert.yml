@@ -1,0 +1,7 @@
+---
+
+- name: check assertions
+  assert:
+    that:
+      - ansible_os_family == "Debian"
+      - ansible_pkg_mgr == "apt"
