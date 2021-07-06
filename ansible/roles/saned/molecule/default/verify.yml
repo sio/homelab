@@ -6,11 +6,3 @@
       register: hello
       failed_when: "'hello' not in hello.stdout"
       changed_when: "hello is not succeeded"
-
-    - name: wait for connection (outside)
-      delegate_to: localhost
-      become: no
-      wait_for:
-        host: '{{ ansible_host }}'
-        port: '6566'
-        timeout: 30
