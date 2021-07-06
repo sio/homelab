@@ -130,6 +130,16 @@ test-role-packages:
         - ansible/roles/packages/**/*
 
 
+test-role-saned:
+  extends: .test-ansible-role
+  variables:
+    ANSIBLE_ROLE: ../roles/saned
+  rules:
+    - *option-skip-test
+    - changes:
+        - ansible/roles/saned/**/*
+
+
 test-role-smarttest:
   extends: .test-ansible-role
   variables:

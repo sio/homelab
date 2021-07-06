@@ -76,6 +76,7 @@ Local Git repository may be used for keeping track of changes.
 - **interactive**
 - **motd**
 - **packages**
+- **saned**
 - **smarttest**
 - **sshkey**
 - **wol**
