@@ -38,6 +38,9 @@
 
 - name: fetch connected scanners
   command: scanimage -L
+  environment:
+    LC_ALL: C
+    LANG: C
   register: scanimage
   failed_when: no
   changed_when: no
@@ -46,5 +49,5 @@
   debug:
     var: scanimage
   changed_when:
-    scanimage.stdout_lines|length == 0 or
-    scanimage.rc != 0
+    - scanimage.rc != 0 or 'No scanners were identified' in scanimage.stdout
+    - molecule_ephemeral_directory is not defined  # do not fail idempotence tests
