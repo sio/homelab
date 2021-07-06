@@ -4,4 +4,6 @@
   become: true
   roles:
     - role: saned
+      saned_allow_clients:
+        - 0.0.0.0/0
       firewall_auto_config: no
