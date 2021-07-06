@@ -124,6 +124,7 @@ test-playbook-printer:
         - ansible/roles/cups_printer/**/*
         - ansible/roles/motd/**/*
         - ansible/roles/packages/**/*
+        - ansible/roles/saned/**/*
         - ansible/roles/server/**/*
         - ansible/roles/upgrade/**/*
 
