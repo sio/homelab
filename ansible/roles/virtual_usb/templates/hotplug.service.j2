@@ -13,8 +13,10 @@ WantedBy=sys-subsystem-usb-{{ virtual_usb_systemd_device_suffix }}.device
 
 
 [Service]
-Type=oneshot
+Type=simple
 RemainAfterExit=yes
+Restart=on-failure
+RestartSec=30
 ExecStart=\
     /usr/bin/virsh attach-device \
     --live \
