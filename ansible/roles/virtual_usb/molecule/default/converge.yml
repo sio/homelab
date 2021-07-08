@@ -3,6 +3,10 @@
 - hosts: all
   become: true
   roles:
+    - role: packages
+      packages_recommends: no
+      packages_install:
+        - libvirt-daemon-system
     - role: virtual_usb
       virtual_usb_vendor: '0x0627'  # Qemu
       virtual_usb_device: '0x0001'  # tablet <see sample_device.xml>
