@@ -2,6 +2,8 @@
 
 # Hotplug USB passthrough for Libvirt guests
 
+- include: assert.yml
+
 - name: create required directories
   file:
     state: directory

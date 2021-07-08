@@ -1,0 +1,11 @@
+---
+
+- name: check assertions
+  assert:
+    that:
+      - ansible_os_family == "Debian"
+      - ansible_pkg_mgr == "apt"
+      - virtual_usb_device.startswith('0x')
+      - virtual_usb_vendor.startswith('0x')
+      - virtual_usb_device|length == 6
+      - virtual_usb_vendor|length == 6
