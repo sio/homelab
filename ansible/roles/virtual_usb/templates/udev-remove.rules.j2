@@ -1,0 +1,6 @@
+#
+# Notify systemd about all USB device removals
+#
+# {{ ansible_managed }}
+#
+ACTION=="remove", SUBSYSTEM=="usb", TAG+="systemd"

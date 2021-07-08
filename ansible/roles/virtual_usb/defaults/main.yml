@@ -6,5 +6,8 @@ virtual_usb_domain: 'printer'
 
 # Internal
 virtual_usb_templates_dir: /etc/libvirt_usb_definitions
-virtual_usb_definition: '{{ virtual_usb_templates_dir }}/{{ virtual_usb_vendor }}_{{ virtual_usb_device}}.xml'
-virtual_usb_udev_rule: '/etc/udev/rules.d/libvirt_usb_{{ virtual_usb_vendor}}_{{ virtual_usb_device }}.rules'
+virtual_usb_definition: '{{ virtual_usb_templates_dir }}/{{ virtual_usb_systemd_device_suffix }}.xml'
+virtual_usb_udev_rule: '/etc/udev/rules.d/90_libvirt_usb_{{ virtual_usb_systemd_device_suffix }}.rules'
+virtual_usb_udev_removal_rule: '/etc/udev/rules.d/90_libvirt_usb_removal.rules'
+virtual_usb_systemd_device_suffix: '{{ virtual_usb_vendor[2:] }}_{{ virtual_usb_device[2:] }}'
+virtual_usb_systemd_service: 'libvirt-hotplug-{{ virtual_usb_domain }}-{{ virtual_usb_systemd_device_suffix }}.service'

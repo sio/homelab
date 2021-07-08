@@ -1,0 +1,10 @@
+#
+# Manage this USB device with systemd via sane alias
+#
+# {{ ansible_managed }}
+#
+SUBSYSTEM=="usb" \
+, ENV{ID_VENDOR_ID}=="{{ virtual_usb_vendor[2:] }}" \
+, ENV{ID_MODEL_ID}=="{{ virtual_usb_device[2:] }}" \
+, ENV{SYSTEMD_ALIAS}="/sys/subsystem/usb/$env{ID_VENDOR_ID}_$env{ID_MODEL_ID}" \
+, TAG+="systemd"

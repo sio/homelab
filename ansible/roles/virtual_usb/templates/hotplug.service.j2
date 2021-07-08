@@ -1,0 +1,27 @@
+# {{ ansible_managed }}
+
+[Unit]
+Description=USB hotplug (libvirt domain: {{ virtual_usb_domain }}, device: {{ virtual_usb_systemd_device_suffix }})
+BindsTo=sys-subsystem-usb-{{ virtual_usb_systemd_device_suffix }}.device
+After=sys-subsystem-usb-{{ virtual_usb_systemd_device_suffix }}.device
+After=libvirt-guests.service
+Requires=libvirt-guests.service
+
+
+[Install]
+WantedBy=sys-subsystem-usb-{{ virtual_usb_systemd_device_suffix }}.device
+
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=\
+    /usr/bin/virsh attach-device \
+    --live \
+    --domain {{ virtual_usb_domain }} \
+    --file {{ virtual_usb_definition }}
+ExecStop=\
+    /usr/bin/virsh detach-device \
+    --live \
+    --domain {{ virtual_usb_domain }} \
+    --file {{ virtual_usb_definition }}

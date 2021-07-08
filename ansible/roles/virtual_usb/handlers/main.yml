@@ -1,12 +1,17 @@
 ---
 
-- name: reload udev rules
+- listen: reload udev rules
+  name: reload new udev rules
   command: udevadm control --reload
 
-- name: add USB device to virtual machine
+- listen: reload udev rules
+  name: trigger new udev rules for specified device
   command:
-    /usr/bin/virsh attach-device
-      {{ virtual_usb_domain }}
-      --file {{ virtual_usb_definition }}
-      --persistent
-  failed_when: no
+    udevadm trigger
+    --subsystem-match=usb
+    --attr-match=idVendor={{ virtual_usb_vendor[2:] }}
+    --attr-match=idProduct={{ virtual_usb_device[2:] }}
+
+- name: reload systemd units
+  systemd:
+    daemon_reload: yes

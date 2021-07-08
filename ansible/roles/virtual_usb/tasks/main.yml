@@ -17,16 +17,35 @@
     dest: '{{ virtual_usb_definition }}'
     backup: yes
     mode: '0600'
-  notify: add USB device to virtual machine
 
 - name: create udev rule for the device
   template:
-    src: templates/udev.rules.j2
+    src: templates/udev-manage.rules.j2
     dest: '{{ virtual_usb_udev_rule }}'
     backup: yes
     mode: '0600'
-  notify:
-    - add USB device to virtual machine
-    - reload udev rules
+  notify: reload udev rules
+
+- name: create udev rule to track device removals
+  template:
+    src: templates/udev-remove.rules.j2
+    dest: '{{ virtual_usb_udev_removal_rule }}'
+    backup: yes
+    mode: '0600'
+  notify: reload udev rules
+
+- name: create systemd service for hotplug
+  template:
+    src: templates/hotplug.service.j2
+    dest: /etc/systemd/system/{{ virtual_usb_systemd_service }}
+    mode: '0600'
+    backup: yes
+  notify: reload systemd units
+
+- name: enable systemd service for hotplug
+  systemd:
+    name: '{{ virtual_usb_systemd_service }}'
+    enabled: yes
+    daemon_reload: yes
 
 - meta: flush_handlers  # noqa unnamed-task
