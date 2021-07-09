@@ -13,6 +13,12 @@
     state: absent
   when: saned_remove_ippusb
 
+- name: allow saned to access printers and scanners
+  user:
+    name: saned
+    groups: lp,scanner
+    append: yes
+
 - name: configure scanner sharing
   copy:
     content: |
