@@ -25,3 +25,8 @@ virtual_machine_macaddress: >-
     |map("join")
     |join(":")
   }}
+
+# USB controller for guest machine
+# Modify only if running old guest OS without XHCI support
+# https://www.kraxel.org/blog/2018/08/qemu-usb-tips/
+virtual_machine_usb_controller: qemu-xhci

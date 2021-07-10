@@ -39,6 +39,7 @@
       <mac address='{{ virtual_machine_macaddress }}'/>
       <model type='virtio'/>
     </interface>
+    <controller type='usb' model='{{ virtual_machine_usb_controller }}'/>
     <input type='mouse' bus='ps2'/>
     <input type='keyboard' bus='ps2'/>
     <graphics type='spice' autoport='yes'>
