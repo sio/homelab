@@ -42,6 +42,9 @@
     proto: any
   when: firewall_auto_config|default(True)
 
+- include: conntrack.yml
+  when: firewall_auto_config|default(True)
+
 - name: fetch connected scanners
   command: scanimage -L
   environment:

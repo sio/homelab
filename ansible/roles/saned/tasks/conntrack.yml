@@ -1,0 +1,25 @@
+---
+
+- name: load conntrack kernel modules immediately
+  modprobe:
+    name: '{{ item }}'
+    state: present
+  loop:
+    - nf_conntrack
+    - nf_conntrack_sane
+
+- name: load conntrack kernel modules after reboot
+  copy:
+    content: |
+      nf_conntrack
+      nf_conntrack_sane
+    dest: /etc/modules-load.d/conntrack_sane.conf
+    mode: '0600'
+    backup: yes
+
+- name: enable conntrack helpers
+  sysctl:
+    name: net.netfilter.nf_conntrack_helper
+    value: '1'
+    state: present
+    reload: yes
