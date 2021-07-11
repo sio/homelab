@@ -12,6 +12,7 @@
     name:
       - cups
       - ghostscript
+      - libcupsimage2  # cups filters fail without it on Debian Bullseye
       - libglade2-0
       - libjpeg62-turbo
       - libjbig0
