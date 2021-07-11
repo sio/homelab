@@ -12,7 +12,7 @@
   name: hypervisor-j vms
   become: yes
   vars:
-    debian_cloud: '{{ lookup("debian_cloud_image", "buster", arch="amd64") }}'
+    debian_cloud: '{{ lookup("debian_cloud_image", "bullseye", arch="amd64") }}'
     virtual_machine_image: '/vm/{{ virtual_machine_name }}.qcow2'
     virtual_machine_image_url: '{{ debian_cloud.image }}'
     virtual_machine_image_checksum: 'sha512:{{ debian_cloud.checksum }}'
