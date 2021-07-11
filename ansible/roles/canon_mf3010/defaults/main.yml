@@ -6,7 +6,7 @@ canon_drivers_local: canon_ufrii_drv.tar.gz
 canon_allow_cidr: '{{ ansible_default_ipv4.address }}/24'
 canon_drivers_strict_ssl: no
 canon_drivers_dir: /var/cache/canon-mf3010-drivers
-canon_drivers_archive: '{{ canon_drivers_dir }}/drivers.tar.gz '
+canon_drivers_archive: '{{ canon_drivers_dir }}/drivers.tar.gz'
 canon_arch:
   x86_64: amd64
   x86: i386
