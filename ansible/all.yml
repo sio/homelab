@@ -16,4 +16,5 @@
 - import_playbook: virtual-machines.yml
 - import_playbook: mediabox-v.yml
 - import_playbook: morebooks.yml
+- import_playbook: printer.yml
 - import_playbook: control.yml  # control node comes last
