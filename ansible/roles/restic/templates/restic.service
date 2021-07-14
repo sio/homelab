@@ -1,0 +1,50 @@
+# {{ ansible_managed }}
+
+
+[Unit]
+Description=restic backup
+Wants=network-online.target
+After=network-online.target
+ConditionACPower=true
+
+
+[Service]
+Type=oneshot
+User={{ restic_user_account }}
+Environment=RESTIC_REPOSITORY={{ restic_backup_to }}
+Environment=RESTIC_PASSWORD={{ restic_passphrase }}
+Environment=AWS_ACCESS_KEY_ID={{ restic_s3_key_id }}
+Environment=AWS_SECRET_ACCESS_KEY={{ restic_s3_access_key }}
+ExecStart=\
+    systemd-inhibit --who=restic --why="Prevent interrupting scheduled backup" \
+    {{ restic_backup_script }}
+
+Nice=19
+CPUSchedulingPolicy=batch
+IOSchedulingClass=best-effort
+IOSchedulingPriority=7
+IOWeight=100
+
+Restart=no
+LogRateLimitIntervalSec=0
+
+LockPersonality=true
+MemoryDenyWriteExecute=yes
+NoNewPrivileges=yes
+PrivateDevices=yes
+PrivateTmp=yes
+ProtectClock=yes
+ProtectControlGroups=yes
+ProtectHostname=yes
+ProtectKernelLogs=yes
+ProtectKernelModules=yes
+ProtectKernelTunables=yes
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6 AF_NETLINK
+RestrictNamespaces=yes
+RestrictRealtime=yes
+RestrictSUIDSGID=yes
+SystemCallArchitectures=native
+SystemCallFilter=@system-service
+SystemCallErrorNumber=EPERM
+ProtectSystem=strict
+CapabilityBoundingSet=CAP_DAC_READ_SEARCH CAP_NET_RAW

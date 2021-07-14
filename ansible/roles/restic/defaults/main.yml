@@ -1,0 +1,26 @@
+# Configuration - required
+restic_backup_from: []   # list of directories to backup
+restic_backup_to: ''     # s3-compatible object storage bucket URL
+restic_s3_key_id: ''     # storage credentials
+restic_s3_access_key: '' # storage credentials
+restic_passphrase: ''
+restic_backup_tags:
+  - automated
+  - '{{ restic_systemd_service }}'
+
+# Configuration - optional
+restic_backup_schedule: '*-*-* 03:00:00'  # man systemd.time
+restic_backup_retention:
+  keep_within: 3H
+  keep_daily: 7
+  keep_weekly: 4
+  keep_monthly: 12
+restic_user_account: root  # should be able to read everything
+restic_user_group: '{{ restic_user_account }}'
+
+# Internal - unlikely to require overriding
+restic_systemd_service: restic.service
+restic_systemd_timer: '{{ restic_systemd_service|replace(".service", ".timer") }}'
+restic_config_dir: /etc/restic
+restic_backup_script: '{{ restic_config_dir}}/backup.sh'
+restic_backup_list: '{{ restic_config_dir }}/sources.list'

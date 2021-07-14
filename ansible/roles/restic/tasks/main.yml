@@ -1,0 +1,59 @@
+---
+
+- include: assert.yml
+
+- name: install restic package
+  package:
+    name: restic
+    state: present
+
+- name: create backups group
+  group:
+    name: '{{ restic_user_group }}'
+    state: present
+  when: restic_user_group != 'root'
+
+- name: create backups user
+  user:
+    name: '{{ restic_user_account }}'
+    state: present
+    groups: '{{ restic_user_group }}'
+    append: yes
+  when: restic_user_account != 'root'
+
+- name: create restic configuration directory
+  file:
+    path: '{{ restic_config_dir }}'
+    state: directory
+    mode: '0755'
+
+- name: create backup script
+  template:
+    src: templates/backup.sh
+    dest: '{{ restic_backup_script }}'
+    owner: '{{ restic_user_account }}'
+    mode: '0700'
+    backup: yes
+
+- name: create systemd service for restic
+  template:
+    src: templates/restic.service
+    dest: /etc/systemd/system/{{ restic_systemd_service }}
+    mode: '0600'
+    backup: yes
+  notify: reload systemd
+
+- name: create systemd timer for restic
+  template:
+    src: templates/restic.timer
+    dest: /etc/systemd/system/{{ restic_systemd_timer }}
+    mode: '0600'
+    backup: yes
+  notify: reload systemd
+
+- name: enable restic schedule
+  systemd:
+    name: '{{ restic_systemd_timer }}'
+    state: started
+    enabled: yes
+    daemon_reload: yes

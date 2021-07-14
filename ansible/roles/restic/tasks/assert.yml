@@ -1,0 +1,10 @@
+---
+
+- name: check assertions
+  assert:
+    that:
+      - ansible_os_family == "Debian"
+      - ansible_pkg_mgr == "apt"
+      - restic_passphrase|length > 5
+      - restic_backup_from|length > 0
+      - restic_backup_to|length > 0
