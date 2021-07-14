@@ -12,6 +12,7 @@
   group:
     name: '{{ borg_client_user_group }}'
     state: present
+  when: borg_client_user_group != 'root'
 
 - name: create backups user
   user:
@@ -19,6 +20,7 @@
     state: present
     groups: '{{ borg_client_user_group }}'
     append: yes
+  when: borg_client_user_account != 'root'
 
 - name: create borgmatic configuration directory
   file:
