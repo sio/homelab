@@ -10,6 +10,7 @@ ConditionACPower=true
 
 [Service]
 Type=oneshot
+User={{ borg_client_user_account }}
 Environment=BORG_PASSPHRASE={{ borg_client_passphrase }}
 ExecStartPre=\
     /usr/bin/borgmatic --config {{ borg_client_config }} init --encryption {{ borg_client_encryption }}
