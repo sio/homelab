@@ -20,9 +20,8 @@
     append: yes
 
 - name: configure scanner sharing
-  copy:
-    content: |
-      {{ saned_allow_clients|join('\n') }}
+  template:
+    src: templates/saned.conf
     dest: /etc/sane.d/saned.conf
     mode: '0644'
     backup: yes
