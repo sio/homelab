@@ -1,9 +1,7 @@
 ---
 
-- name: restart saned
+- name: stop saned
   systemd:
-    name: saned.socket
-    state: restarted
+    name: saned.service
+    state: stopped  # will be restarted on socket activity
     daemon_reload: yes
-  retries: 3
-  delay: 2

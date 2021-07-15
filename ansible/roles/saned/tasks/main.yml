@@ -25,7 +25,7 @@
     dest: /etc/sane.d/saned.conf
     mode: '0644'
     backup: yes
-  notify: restart saned
+  notify: stop saned
 
 - name: enable saned socket
   systemd:
