@@ -5,3 +5,5 @@
     name: saned.socket
     state: restarted
     daemon_reload: yes
+  retries: 3
+  delay: 2
