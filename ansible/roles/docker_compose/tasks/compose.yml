@@ -8,7 +8,7 @@
 
 - name: copy compose file from ansible host
   when: docker_compose_file
-  copy:
+  template:
     src: '{{ docker_compose_file }}'
     dest: '{{ docker_compose_dir }}/docker-compose.yml'
     mode: '0644'
