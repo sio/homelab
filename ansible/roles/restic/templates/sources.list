@@ -1,0 +1,5 @@
+# {{ ansible_managed }}
+#
+# List of directories to backup with Restic
+
+{{ restic_backup_from|join('\n') }}

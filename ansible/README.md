@@ -95,6 +95,7 @@ Local Git repository may be used for keeping track of changes.
 - **nfs_cache**: requires access to /dev/cachefiles
 - **nfs_server**: detecting ansible facts is not fully functional in Docker
   (no `ansible_default_ipv4`)
+- **restic**: complex test infra (docker containers are deployed during test)
 - **samba**: depends on server
 - **server**: uses UFW, firewall can not load kernel modules in Docker
 - **supysonic**: depends on server

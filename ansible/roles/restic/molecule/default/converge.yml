@@ -1,0 +1,20 @@
+---
+
+- hosts: server
+  become: true
+  roles:
+    - role: docker_compose
+      docker_compose_file: '{{ playbook_dir }}/compose.yml.j2'
+      docker_compose_project: minio
+
+- hosts: client
+  become: true
+  roles:
+    - role: restic
+      restic_backup_from:
+        - /home
+        - /root
+      restic_backup_to: '{{ backup_repository }}'
+      restic_passphrase: '{{ backup_passphrase }}'
+      restic_s3_key_id: '{{ storage_auth_key }}'
+      restic_s3_access_key: '{{ storage_auth_pass }}'

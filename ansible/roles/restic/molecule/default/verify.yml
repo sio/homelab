@@ -1,0 +1,45 @@
+---
+- hosts: all
+  name: verify
+  tasks:
+    - name: hello world
+      command: echo hello
+      register: hello
+      failed_when: "'hello' not in hello.stdout"
+      changed_when: "hello is not succeeded"
+
+    - name: ping
+      ping:
+
+- hosts: client
+  become: yes
+  environment:
+    RESTIC_REPOSITORY: '{{ backup_repository }}'
+    RESTIC_PASSWORD: '{{ backup_passphrase }}'
+    AWS_ACCESS_KEY_ID: '{{ storage_auth_key }}'
+    AWS_SECRET_ACCESS_KEY: '{{ storage_auth_pass }}'
+  tasks:
+    - name: check that storage is available
+      uri:
+        url: '{{ storage_backend }}'
+        status_code: 403  # we do not provide auth details here
+
+    - block:
+        - name: trigger backup
+          command: systemctl start --wait restic.service
+      rescue:
+        - name: fetch service logs
+          command: journalctl -u restic.service
+          failed_when: yes  # do not actually rescue anything, just show more debug information
+
+    - name: verify that backup was created
+      command: restic snapshots --json
+      register: restic_list
+      failed_when: restic_list.stdout|from_json|length < 1 or restic_list.rc != 0
+
+    - name: show existing snapshots
+      debug:
+        msg: '{{ restic_list.stdout|from_json|to_nice_yaml }}'
+
+    - name: verify data integrity in the backup
+      command: restic check --read-data

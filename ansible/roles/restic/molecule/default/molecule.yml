@@ -1,0 +1,37 @@
+# Main molecule configuration is located in ansible/roles/tests/molecule.yml
+# Invoke with `molecule --base-config $LOCATION`
+---
+driver:
+  name: vagrant
+  provider:
+    name: libvirt
+
+platforms:
+  - name: minio
+    groups:
+      - server
+    box: potyarkin/debian11
+  - name: debian10-client
+    groups:
+      - client
+    box: potyarkin/debian10
+  - name: debian11-client
+    groups:
+      - client
+    box: potyarkin/debian11
+
+provisioner:
+  name: ansible
+  log: true
+  inventory:
+    group_vars:
+      all:
+        ansible_python_interpreter: /usr/bin/python3
+        backup_passphrase: unsafepassphrase
+        backup_repository: 's3:{{ storage_backend }}/{{ inventory_hostname }}'
+        storage_backend: http://minio:9000
+        storage_auth_key: unsaferoot
+        storage_auth_pass: unsafepassword
+
+verifier:
+  name: ansible

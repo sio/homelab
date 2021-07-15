@@ -35,6 +35,14 @@
     mode: '0700'
     backup: yes
 
+- name: configure directories to backup
+  template:
+    src: templates/sources.list
+    dest: '{{ restic_backup_list }}'
+    owner: '{{ restic_user_account }}'
+    mode: '0600'
+    backup: yes
+
 - name: create systemd service for restic
   template:
     src: templates/restic.service

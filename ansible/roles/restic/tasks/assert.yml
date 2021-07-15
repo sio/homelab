@@ -8,3 +8,4 @@
       - restic_passphrase|length > 5
       - restic_backup_from|length > 0
       - restic_backup_to|length > 0
+      - restic_backup_to is string
