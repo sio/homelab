@@ -1,0 +1,19 @@
+---
+
+- hosts: minio-mc
+  gather_facts: no
+  tasks:
+    - name: wait for minio server to come online
+      raw:
+        sleep 3
+    - name: connect to minio server
+      raw:
+        mc alias set storage http://minio:9000 {{ storage_auth_key }} {{ storage_auth_pass }}
+
+- hosts: client
+  gather_facts: no
+  tasks:
+    - name: create storage bucket for backups
+      delegate_to: minio-mc
+      raw:
+        mc mb storage/{{ inventory_hostname }}

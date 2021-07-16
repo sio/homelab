@@ -1,24 +1,57 @@
 # Main molecule configuration is located in ansible/roles/tests/molecule.yml
 # Invoke with `molecule --base-config $LOCATION`
 ---
-driver:
-  name: vagrant
-  provider:
-    name: libvirt
 
 platforms:
   - name: minio
     groups:
       - server
-    box: potyarkin/debian11
+    image: minio/minio
+    networks:
+      - name: molecule_network
+    pre_build_image: true
+    env:
+      # Jinja2 variable substitution does not work at this stage
+      MINIO_ROOT_USER: unsaferoot
+      MINIO_ROOT_PASSWORD: unsafepassword
+    command: server /data --console-address ":9001"
+
+  - name: minio-mc
+    image: minio-mc-custom-entrypoint  # built from Dockerfile.j2
+    networks:
+      - name: molecule_network
+
   - name: debian10-client
     groups:
       - client
-    box: potyarkin/debian10
+    image: potyarkin/molecule:debian-10-systemd
+    networks:
+      - name: molecule_network
+    pre_build_image: true
+    command: /sbin/init
+    privileged: yes
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /lib/modules:/lib/modules:ro
+    tmpfs:
+      - /run
+      - /tmp
+
   - name: debian11-client
     groups:
       - client
-    box: potyarkin/debian11
+    image: potyarkin/molecule:debian-11-systemd
+    networks:
+      - name: molecule_network
+    pre_build_image: true
+    command: /sbin/init
+    privileged: yes
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /lib/modules:/lib/modules:ro
+    tmpfs:
+      - /run
+      - /tmp
 
 provisioner:
   name: ansible

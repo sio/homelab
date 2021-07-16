@@ -1,5 +1,5 @@
 ---
-- hosts: all
+- hosts: client
   name: verify
   tasks:
     - name: hello world

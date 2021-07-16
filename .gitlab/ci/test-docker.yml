@@ -130,6 +130,16 @@ test-role-packages:
         - ansible/roles/packages/**/*
 
 
+test-role-restic:
+  extends: .test-ansible-role
+  variables:
+    ANSIBLE_ROLE: ../roles/restic
+  rules:
+    - *option-skip-test
+    - changes:
+        - ansible/roles/restic/**/*
+
+
 test-role-saned:
   extends: .test-ansible-role
   variables:

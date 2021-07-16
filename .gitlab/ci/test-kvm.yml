@@ -164,17 +164,6 @@ test-role-nfs_server:
         - ansible/tasks/unattended-purge.yml
 
 
-test-role-restic:
-  extends: .test-ansible-role-kvm
-  variables:
-    ANSIBLE_ROLE: ../roles/restic
-  rules:
-    - *option-skip-test
-    - changes:
-        - ansible/roles/restic/**/*
-        - ansible/roles/docker_compose/**/*
-
-
 test-role-server:
   extends: .test-ansible-role-kvm
   variables:

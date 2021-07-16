@@ -1,12 +1,5 @@
 ---
 
-- hosts: server
-  become: true
-  roles:
-    - role: docker_compose
-      docker_compose_file: '{{ playbook_dir }}/compose.yml.j2'
-      docker_compose_project: minio
-
 - hosts: client
   become: true
   roles:
