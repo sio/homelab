@@ -2,6 +2,8 @@
 
 - hosts: all
   become: true
+  pre_tasks:
+    - include: ../../../../tasks/unattended-purge.yml
   roles:
     - role: packages
       packages_recommends: no
