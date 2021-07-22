@@ -71,3 +71,16 @@ remote-build: export CI_REPOSITORY_URL=https://gitlab.com/sio/server_common.git
 remote-build: export PACKER_TARGET=$(notdir $(realpath $(dir $(firstword $(MAKEFILE_LIST)))))
 remote-build: | $(VENV)/cirrus-run
 	$(VENV)/cirrus-run $(INCLUDE_DIR)/cirrus.yml.j2
+
+
+.PHONY: boot
+boot:  # launch generated virtual machine for debugging
+	/usr/bin/qemu-system-x86_64 \
+	  -drive file=output/$(VM_HOSTNAME)-image.qcow2,if=virtio,cache=writeback,discard=unmap,format=qcow2,detect-zeroes=unmap \
+	  -m 4096M \
+	  -smp cpus=3,sockets=3 \
+	  -machine type=pc,accel=kvm \
+	  -cpu qemu64 \
+	  -device virtio-net,netdev=user.0 \
+	  -vnc 127.0.0.1:99 \
+	  -netdev user,id=user.0,hostfwd=tcp::4040-:5985,hostfwd=tcp::4041-:3389
