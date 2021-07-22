@@ -74,7 +74,7 @@ provisioners:
         /et "00:11"
         /rl HIGHEST
       - schtasks /run /tn "WinRM Hardening"
-      - timeout 15
+      - ping -n 15 127.0.0.1  # sleep 15s
 
   - type: shell-local
     inline:
