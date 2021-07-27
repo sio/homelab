@@ -1,0 +1,11 @@
+upgrade_eol_dates:  # https://wiki.debian.org/DebianReleases#Production_Releases
+  jessie:   2018-06-17
+  stretch:  2020-07-06
+  buster:   2022-08-14  # approx.
+  bullseye: 2024-08-14  # approx.
+
+upgrade_eol_warning_days: 100
+upgrade_eol_error_days: -100
+
+upgrade_eol_date: '{{ upgrade_eol_dates[ansible_distribution_release|lower] }}'
+upgrade_eol_date_format: '%Y-%m-%d'

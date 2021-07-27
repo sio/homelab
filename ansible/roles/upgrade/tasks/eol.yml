@@ -1,0 +1,15 @@
+---
+
+- name: notify about upcoming end-of-life date
+  vars:
+    upgrade_eol_remaining_days: >-
+      {{ (upgrade_eol_date|to_datetime(upgrade_eol_date_format) - now()).days }}
+    upgrade_eol_preposition: >-
+      {{ 'until' if upgrade_eol_remaining_days|int > 0 else 'since' }}
+  changed_when: upgrade_eol_remaining_days|int <= upgrade_eol_warning_days
+  failed_when:  upgrade_eol_remaining_days|int <= upgrade_eol_error_days
+  debug:
+    msg: >-
+      Days {{ upgrade_eol_preposition }}
+      {{ ansible_distribution_release|title }} end of life:
+      {{ upgrade_eol_remaining_days|int|abs }} ({{ upgrade_eol_date }})

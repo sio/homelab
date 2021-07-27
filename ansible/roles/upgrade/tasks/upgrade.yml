@@ -41,3 +41,5 @@
     - name: save reboot requirement status as ansible fact
       set_fact:
         upgrade_requires_reboot: '{{ reboot_required_file.stat.exists }}'
+
+- include: eol.yml
