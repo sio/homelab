@@ -4,7 +4,6 @@
   become: true
   vars_files:
     - ../../../../inventory/group_vars/all/ansible.yml
-    - ../../../../inventory/group_vars/all/vm.yml
   pre_tasks:
     - include: ../../../../tasks/unattended-purge.yml
   roles:

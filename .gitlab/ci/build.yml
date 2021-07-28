@@ -76,8 +76,6 @@ packer-debian10:
   rules:
     - *option-skip-build
     - *trigger-docker-build
-    - if: '$CI_COMMIT_REF_NAME == "master"'
-      when: always  # any pipeline on master must include this job for URLs to remain valid
     - changes:
         - packer/debian10/**/*
 
