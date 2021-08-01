@@ -3,26 +3,12 @@
 #
 
 .check-pipeline-status:
+  image: python:slim
   variables:
-    # Override these to modify job behavior
     CHECK_BRANCH: $CI_COMMIT_BRANCH
-    CHECK_PIPELINE: $PREV_CI_PIPELINE
-    CHECK_MARKER: '"status":"success"'
-
-    # Internal variables
-    API_CI_PIPELINE_URL: https://gitlab.com/api/v4/projects/$CI_PROJECT_ID/pipelines?ref=$CHECK_BRANCH&per_page=1
-    CURR_CI_PIPELINE: $API_CI_PIPELINE_URL&page=1
-    PREV_CI_PIPELINE: $API_CI_PIPELINE_URL&page=2
-    EXPAND_VARS: >- # order matters!
-      API_CI_PIPELINE_URL
-      CURR_CI_PIPELINE
-      PREV_CI_PIPELINE
-      CHECK_PIPELINE
-
+    CHECK_PIPELINE: 2  # 1: current, 2: previous
   before_script:
-    - echo $SHELL
-    - for var in $EXPAND_VARS; do eval export $var=\"${!var}\"; env|grep -E "^$var"; done
-    - curl "$CHECK_PIPELINE" | tee /dev/stderr | grep "$CHECK_MARKER"
+    - python3 .gitlab/ci/check_pipeline.py
   script:
     - exit 0
 
