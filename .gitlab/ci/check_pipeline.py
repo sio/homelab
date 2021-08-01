@@ -9,6 +9,7 @@ Wait for the previous pipeline to finish if it's still running
 import json
 import os
 import urllib.request
+from time import sleep
 
 
 def check_environment():
