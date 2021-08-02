@@ -39,7 +39,7 @@ set-option -g default-terminal "screen.xterm-new"
 # Enable mouse support: window switching, pane resizing, output scrolling
 #
 # https://stackoverflow.com/a/40902312/3275560
-run-shell "tmux setenv -g TMUX_VERSION $(tmux -V | cut -c 6-)"
+run-shell "tmux setenv -g TMUX_VERSION $(tmux -V | cut -c 6- | tr -d '[:alpha:]')"
 if-shell -b '[ "$(echo "$TMUX_VERSION < 2.1" | bc)" = 1 ]' \
   "set -g mouse-select-pane on; set -g mode-mouse on; \
    set -g mouse-resize-pane on; set -g mouse-select-window on"
