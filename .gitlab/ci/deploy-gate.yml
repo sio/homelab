@@ -6,7 +6,6 @@
   image: python:slim
   variables:
     CHECK_BRANCH: $CI_COMMIT_BRANCH
-    CHECK_PIPELINE: 2  # 1: current, 2: previous
   before_script:
     - python3 .gitlab/ci/check_pipeline.py
   script:
