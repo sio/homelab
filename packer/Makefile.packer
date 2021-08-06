@@ -84,3 +84,19 @@ boot:  # launch generated virtual machine for debugging
 	  -device virtio-net,netdev=user.0 \
 	  -vnc 127.0.0.1:99 \
 	  -netdev user,id=user.0,hostfwd=tcp::4040-:5985,hostfwd=tcp::4041-:3389
+
+
+# Download Packer from Hashicorp if it's not present at provided file path
+ifneq (,$(findstring /,$(PACKER)))
+PACKER_VERSION?=1.6.6
+PACKER_DOWNLOAD_URL=https://releases.hashicorp.com/packer/$(PACKER_VERSION)/packer_$(PACKER_VERSION)_linux_amd64.zip
+PACKER_ZIP:=$(shell mktemp -u)
+$(PACKER): $(PACKER_ZIP)
+	mkdir -p $(dir $(PACKER))
+	cd $(dir $(PACKER)) && unzip $(PACKER_ZIP)
+.INTERMEDIATE: $(PACKER_ZIP)
+$(PACKER_ZIP):
+	mkdir -p $(dir $@)
+	curl -L -o "$@" "$(PACKER_DOWNLOAD_URL)"
+$(PACKER_CONFIG): $(PACKER)
+endif
