@@ -34,7 +34,7 @@ PACKER_FLAGS+=-var iso="$$VM_ISO"
 ifdef VM_ISO_SHA256
 PACKER_FLAGS+=-var iso_sha256="$(VM_ISO_SHA256)"
 else
-PACKER_FLAGS+=-var iso_checksum_type=none
+PACKER_FLAGS+=-var iso_sha256=none
 endif
 
 

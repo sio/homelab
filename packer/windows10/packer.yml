@@ -10,8 +10,7 @@ variables:
   password: please_never_use_the_default_value
   hostname: GuestWindows10
   iso: ''
-  iso_sha256: ''
-  iso_checksum_type: sha256  # none to skip checksums
+  iso_sha256: 'none'  # none to skip checksums
   vnc_bind_address: 127.0.0.1
   drivers: drivers  # location of virtio drivers
 
@@ -24,7 +23,6 @@ builders:
 
     iso_url: '{{ user `iso` }}'
     iso_checksum: '{{ user `iso_sha256` }}'
-    iso_checksum_type: '{{ user `iso_checksum_type` }}'
 
     accelerator: kvm
     memory: 2750  # increasing memory has little effect on build time
