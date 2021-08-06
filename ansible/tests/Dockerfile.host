@@ -1,6 +1,6 @@
 # Docker image that will be the host for Molecule test runs
 # Docker Hub: potyarkin/molecule:host
-FROM debian:10-slim
+FROM debian:bullseye-slim
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
         coreutils \

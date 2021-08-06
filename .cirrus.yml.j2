@@ -46,7 +46,7 @@ task:
   pip_cache:  # ~20 sec speedup
     folder: $HOME/cache
     fingerprint_script:
-      - echo "Python packages cache"
+      - echo "Python packages cache: molecule-venv-v4"
       - echo "$CACHE_KEY"
 
   # Clone correct repo instead of dummy GitHub placeholder
