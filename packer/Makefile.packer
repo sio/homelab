@@ -91,11 +91,12 @@ ifneq (,$(findstring /,$(PACKER)))
 PACKER_VERSION?=1.6.6
 PACKER_DOWNLOAD_URL=https://releases.hashicorp.com/packer/$(PACKER_VERSION)/packer_$(PACKER_VERSION)_linux_amd64.zip
 PACKER_ZIP:=$(shell mktemp -u)
-$(PACKER):
-	mkdir -p $(dir $(PACKER_ZIP))
-	curl -L -o "$(PACKER_ZIP)" "$(PACKER_DOWNLOAD_URL)"
+$(PACKER): $(PACKER_ZIP)
 	mkdir -p $(dir $(PACKER))
 	cd $(dir $(PACKER)) && unzip $(PACKER_ZIP)
-	$(RM) $(PACKER_ZIP)
+.INTERMEDIATE: $(PACKER_ZIP)
+$(PACKER_ZIP):
+	mkdir -p $(dir $@)
+	curl -L -o "$@" "$(PACKER_DOWNLOAD_URL)"
 $(PACKER_CONFIG): $(PACKER)
 endif
