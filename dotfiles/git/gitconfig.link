@@ -5,7 +5,7 @@
     path = .gitconfig.d/user.cfg  # put user.name and user.email there
 
 [alias]
-    graph = log --oneline --decorate --graph
+    graph = log --oneline --decorate --graph --all
 
 [pull]
     ff = only  # never create merge commits automatically
