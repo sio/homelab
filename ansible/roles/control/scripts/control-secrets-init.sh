@@ -29,7 +29,7 @@ while true
 do
     VAULT_PASS=$(systemd-ask-password --timeout=0 "Enter Ansible Vault password:")
     echo -n "$VAULT_PASS" > "$FIFO" &
-    ansible-vault decrypt "$INVENTORY" --vault-password-file="$FIFO" --output=/dev/null \
+    ansible-vault decrypt "$INVENTORY" --vault-password-file="$FIFO" --output=- >/dev/null \
     || {
         echo Incorrect password, retrying...
         continue
