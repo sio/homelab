@@ -1,7 +1,7 @@
 # Specify at least one source for drivers archive
 canon_drivers_web: '{{ canon_drivers_known_good[ansible_distribution_release] }}'
 canon_drivers_known_good:
-  buster: https://gdlp01.c-wss.com/gds/8/0100007658/16/linux-UFRII-drv-v510-uken-06.tar.gz
+  buster: https://gdlp01.c-wss.com/gds/8/0100007658/22/linux-UFRII-drv-v530-uken-10.tar.gz
   bullseye: https://gdlp01.c-wss.com/gds/8/0100007658/22/linux-UFRII-drv-v530-uken-10.tar.gz
 canon_drivers_local: canon_ufrii_drv.tar.gz
 
