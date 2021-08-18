@@ -12,8 +12,9 @@ ansible_become_flags: '{{ "-" if ansible_become_method|default(None) == "su" els
 ansible_distribution_release: >- # https://github.com/ansible/ansible/issues/19874
   {{
   {
-    'stable': 'buster',
-    'testing': 'bullseye',
+    'oldstable': 'buster',
+    'stable': 'bullseye',
+    'testing': 'bookworm',
   }[ansible_debian_release] | default(ansible_debian_release)
   }}
 ansible_debian_release: >-  # non-idempotent, might easily change testing<>bullseye

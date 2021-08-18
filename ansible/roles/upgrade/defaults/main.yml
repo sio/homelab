@@ -3,6 +3,8 @@ upgrade_eol_dates:  # https://wiki.debian.org/DebianReleases#Production_Releases
   stretch:  2020-07-06
   buster:   2022-08-14  # approx.
   bullseye: 2024-08-14  # approx.
+  bookworm: 2026-08-14  # approx.
+  trixie:   2028-08-14  # approx.
 
 upgrade_eol_warning_days: 100
 upgrade_eol_error_days: -100
