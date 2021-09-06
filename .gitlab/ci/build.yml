@@ -72,24 +72,37 @@ packer-debian10:
   #  https://gitlab.com/sio/server_common/-/jobs/artifacts/master/raw/artifacts/guest-image.sha256sum?job=packer-debian10
   extends: .packer-build
   variables:
-    PACKER_TARGET: debian10
+    PACKER_TARGET: debian
+    PACKER_ACTION: debian10
   rules:
     - *option-skip-build
     - *trigger-docker-build
     - changes:
-        - packer/debian10/**/*
+        - packer/debian/**/*
+
+
+packer-debian11:
+  extends: .packer-build
+  variables:
+    PACKER_TARGET: debian
+    PACKER_ACTION: debian11
+  rules:
+    - *option-skip-build
+    - *trigger-docker-build
+    - changes:
+        - packer/debian/**/*
 
 
 packer-debian-testing:
   extends: .packer-build
   variables:
+    PACKER_TARGET: debian
     PACKER_ACTION: debian-testing
-    PACKER_TARGET: debian10  # use the same recipe as for stable
   rules:
     - *option-skip-build
     - *trigger-docker-build
     - changes:
-        - packer/debian10/**/*
+        - packer/debian/**/*
 
 
 #

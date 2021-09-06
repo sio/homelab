@@ -246,7 +246,6 @@ test-role-virtual_machine:
     - changes:
         - ansible/roles/kvm_bridge/**/*
         - ansible/roles/virtual_machine/**/*
-        - packer/debian10/**/*
 
 
 test-role-virtual_machine_cloudinit:
