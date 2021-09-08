@@ -5,6 +5,7 @@ export EDITOR="$VISUAL"
 # Force Qt5 to mimic GTK theme
 #export QT_STYLE_OVERRIDE=gtk # this breaks smplayer
 export QT_QPA_PLATFORMTHEME=gtk2
+# Consider QT_QPA_PLATFORMTHEME=gnome ## https://old.reddit.com/r/debian/comments/pj5lst
 
 # Treat CRLF as valid line endings: https://community.perforce.com/s/article/2973
 if [[ "$OSTYPE" == cygwin ]]
