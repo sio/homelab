@@ -18,6 +18,8 @@ ExecStart={{ docker_compose_exe|quote }} up -d
 ExecStop={{ docker_compose_exe|quote }} down
 ExecReload={{ docker_compose_exe|quote }} pull
 ExecReload={{ docker_compose_exe|quote }} up -d
+User={{ docker_compose_user }}
+Group=nogroup
 
 
 [Install]

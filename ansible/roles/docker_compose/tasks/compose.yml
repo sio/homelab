@@ -32,6 +32,7 @@
     dest: '{{ docker_compose_dir }}/.env'
     mode: '0600'
     backup: yes
+    owner: '{{ docker_compose_user }}'
   notify: restart compose project
 
 - name: create systemd service for compose project
