@@ -5,22 +5,31 @@
 - hosts: pxe
   name: pxe
   become: yes
-  roles:
-    - role: server
-    - role: upgrade
-    - role: motd
-    - role: packages
-    - role: docker_compose
-      docker_compose_project: pxe-server
-      docker_compose_url: https://github.com/sio/netboot-server/raw/master/docker/docker-compose.yml
-      docker_compose_env:
-        IPXE_SERVER_IP: '{{ ansible_default_ipv4.address }}'
-        IPXE_SCRIPT_URL: 'http://pxe/main.ipxe'
-    - role: docker_compose
-      docker_compose_project: ipxe-scripts
-      docker_compose_url: https://github.com/sio/netboot-server/raw/master/ipxe/docker-compose.yml
-
   tasks:
+    - import_role:
+        name: server
+    - import_role:
+        name: upgrade
+    - import_role:
+        name: motd
+    - import_role:
+        name: packages
+
+    - import_role:
+        name: docker_compose
+      vars:
+        docker_compose_project: pxe-server
+        docker_compose_url: https://github.com/sio/netboot-server/raw/master/docker/docker-compose.yml
+        docker_compose_env:
+          IPXE_SERVER_IP: '{{ ansible_default_ipv4.address }}'
+          IPXE_SCRIPT_URL: 'http://pxe/main.ipxe'
+
+    - import_role:
+        name: docker_compose
+      vars:
+        docker_compose_project: ipxe-scripts
+        docker_compose_url: https://github.com/sio/netboot-server/raw/master/ipxe/docker-compose.yml
+
     - name: provide ipxe entrypoint
       get_url:
         url: https://github.com/sio/netboot-server/raw/master/ipxe/main.ipxe
