@@ -1,2 +1,11 @@
 ---
 - import_playbook: ../laptopmini/prepare.yml  # Vagrant public key
+
+- hosts: tftp-client
+  become: yes
+  tasks:
+    - name: install tftp client
+      apt:
+        name: tftp-hpa
+        state: present
+        cache_valid_time: 3600

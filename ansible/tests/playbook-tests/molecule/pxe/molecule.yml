@@ -31,6 +31,9 @@ platforms:
       - pxe
     box: potyarkin/debian11
     memory: 1024
+  - name: tftp-client
+    box: potyarkin/debian11
+    memory: 600
 
 dependency:
   name: shell
