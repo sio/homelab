@@ -4,4 +4,9 @@
 - include: packages.yml
 - include: user.yml
 - include: compose.yml
+
 - meta: flush_handlers  # noqa unnamed-task
+- name: noop task to keep from starting the next role yet
+  debug:
+    var: docker_compose_service
+    verbosity: 1
