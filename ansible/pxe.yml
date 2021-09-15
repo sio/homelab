@@ -1,0 +1,42 @@
+#
+# PXE BOOT SERVER VIRTUAL MACHINE
+#
+
+- hosts: pxe
+  name: pxe
+  become: yes
+  roles:
+    - role: server
+    - role: upgrade
+    - role: motd
+    - role: packages
+    - role: docker_compose
+      docker_compose_project: pxe-server
+      docker_compose_url: https://github.com/sio/netboot-server/raw/master/docker/docker-compose.yml
+      docker_compose_env:
+        IPXE_SERVER_IP: '{{ ansible_default_ipv4.address }}'
+        IPXE_SCRIPT_URL: 'http://pxe/main.ipxe'
+    - role: docker_compose
+      docker_compose_project: ipxe-scripts
+      docker_compose_url: https://github.com/sio/netboot-server/raw/master/ipxe/docker-compose.yml
+
+  tasks:
+    - name: provide ipxe entrypoint
+      get_url:
+        url: https://github.com/sio/netboot-server/raw/master/ipxe/main.ipxe
+        dest: /stacks/ipxe-scripts/main.ipxe
+        mode: '0644'
+        backup: yes
+      retries: 10
+      delay: 2
+
+    - name: open PXE firewall ports
+      ufw:
+        port: '{{ item }}'
+        rule: allow
+        proto: udp
+      loop:
+        - '67'
+        - '68'
+        - '69'
+        - '4011'

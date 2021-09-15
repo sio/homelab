@@ -1,0 +1,30 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+    - name: hello world
+      command: echo hello
+      register: hello
+      failed_when: "'hello' not in hello.stdout"
+      changed_when: "hello is not succeeded"
+
+- hosts: all
+  become: no
+  delegate_to: localhost
+  tasks:
+    - name: wait for HTTP server
+      wait_for:
+        host: '{{ ansible_host }}'
+        port: 80
+        timeout: 30
+
+    - name: fetch iPXE entrypoint
+      uri:
+        url: http://{{ ansible_host }}/main.ipxe
+        return_content: yes
+      register: entrypoint
+      failed_when: >-
+        '#!ipxe' not in entrypoint.content or
+        entrypoint.status != 200
+
+    # TODO: fetch ipxe.pxe via TFTP to confirm that server is running

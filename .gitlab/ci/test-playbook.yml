@@ -129,6 +129,24 @@ test-playbook-printer:
         - ansible/roles/upgrade/**/*
 
 
+test-playbook-pxe:
+  extends: .test-ansible-role-kvm
+  stage: test-playbook
+  variables:
+    ANSIBLE_ROLE: playbook-tests
+    MOLECULE_SCENARIO: pxe
+  rules:
+    - *option-skip-test
+    - changes:
+        - ansible/pxe.yml
+        - ansible/tests/playbook-tests/molecule/pxe/**/*
+        - ansible/roles/docker_compose/**/*
+        - ansible/roles/motd/**/*
+        - ansible/roles/packages/**/*
+        - ansible/roles/server/**/*
+        - ansible/roles/upgrade/**/*
+
+
 test-playbook-laptopmini:
   extends: .test-ansible-role-kvm
   stage: test-playbook
