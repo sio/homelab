@@ -5,6 +5,7 @@ docker_compose_file: null  # path to compose file on control host
 docker_compose_url: null   # URL to download compose file from
 docker_compose_dir: '/stacks/{{ docker_compose_project }}'
 docker_compose_pull: yes  # update images each time systemd unit starts
+docker_compose_env: {}    # dict with env key:value pairs
 
 # These values are OK to be left as is
 docker_compose_exe: /usr/bin/docker-compose

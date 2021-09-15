@@ -26,6 +26,14 @@
   delay: 2
   notify: restart compose project
 
+- name: provide compose environment variables
+  template:
+    src: 'templates/compose.env'
+    dest: '{{ docker_compose_dir }}/.env'
+    mode: '0600'
+    backup: yes
+  notify: restart compose project
+
 - name: create systemd service for compose project
   template:
     src: templates/docker_compose.service
