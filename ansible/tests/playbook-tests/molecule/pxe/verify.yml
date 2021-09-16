@@ -1,6 +1,7 @@
 ---
 - hosts: all
   become: yes
+  gather_facts: no
   tasks:
     - name: hello world
       command: echo hello
@@ -10,6 +11,7 @@
 
 - hosts: pxe
   become: no
+  gather_facts: no
   delegate_to: localhost
   tasks:
     - name: wait for HTTP server
