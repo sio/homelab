@@ -31,7 +31,7 @@
         entrypoint.status != 200
 
     - name: fetch bootp via TFTP
-      command: tftp {{ ansible_host }} -c get ipxe.pxe
+      command: tftp {{ ansible_host }} -v -c get ipxe.pxe {{ ansible_host }}.tftp
       delegate_to: tftp-client
       register: tftp
       failed_when: >-
