@@ -30,17 +30,25 @@
         '#!ipxe' not in entrypoint.content or
         entrypoint.status != 200
 
-    - name: fetch bootp via TFTP
-      command: tftp {{ ansible_host }} -v -c get ipxe.pxe {{ ansible_host }}.tftp
-      delegate_to: tftp-client
-      register: tftp
-      failed_when: >-
-        tftp.rc != 0 or
-        'error' in tftp.stdout|lower or
-        'error' in tftp.stderr|lower or
-        'usage' in tftp.stdout|lower or
-        'usage' in tftp.stderr|lower
+    - block:
+        - name: fetch bootp via TFTP
+          command: tftp {{ ansible_host }} -v -c get ipxe.pxe {{ ansible_host }}.tftp
+          delegate_to: tftp-client
+          register: tftp
+          failed_when: >-
+            tftp.rc != 0 or
+            'error' in tftp.stdout|lower or
+            'error' in tftp.stderr|lower or
+            'usage' in tftp.stdout|lower or
+            'usage' in tftp.stderr|lower
+      always:
+        - name: show tftp output
+          debug:
+            var: tftp
 
-    - name: show tftp output
-      debug:
-        var: tftp
+    - name: check that fetched file is not empty
+      stat:
+        path: /home/vagrant/{{ ansible_host }}.tftp
+      delegate_to: tftp-client
+      register: stat
+      failed_when: stat.stat.size < 100000
