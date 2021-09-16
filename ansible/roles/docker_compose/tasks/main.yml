@@ -5,8 +5,10 @@
 - include: user.yml
 - include: compose.yml
 
-- meta: flush_handlers  # noqa unnamed-task
-- name: noop task to keep from starting the next role yet
+- name: show role variables
   debug:
-    var: docker_compose_service
+    var: role_variables
     verbosity: 1
+  vars:
+    role_variables: '{{ vars|dict2items|selectattr("key","match","docker_compose")|items2dict }}'
+- meta: flush_handlers  # noqa unnamed-task
