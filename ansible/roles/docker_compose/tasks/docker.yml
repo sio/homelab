@@ -1,0 +1,27 @@
+---
+
+- name: send all docker logs to journald
+  template:
+    src: templates/docker.json
+    dest: /etc/docker/daemon.json
+    mode: '0644'
+    backup: yes
+  notify: restart docker daemon
+
+- name: create docker cleanup configuration
+  template:
+    src: 'templates/{{ item }}'
+    dest: '/etc/systemd/system/{{ item }}'
+    mode: '0644'
+    backup: yes
+  notify: restart docker cleanup timer
+  loop:
+    - docker-cleanup.service
+    - docker-cleanup.timer
+
+- name: enable docker cleanup schedule
+  systemd:
+    name: docker-cleanup.timer
+    state: started
+    enabled: yes
+    daemon_reload: yes

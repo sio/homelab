@@ -1,5 +1,17 @@
 ---
 
+- name: restart docker daemon
+  systemd:
+    name: docker
+    state: restarted
+    daemon_reload: yes
+
+- name: restart docker cleanup timer
+  systemd:
+    name: docker-cleanup.timer
+    state: restarted
+    daemon_reload: yes
+
 - name: restart compose project
   systemd:
     name: '{{ docker_compose_service }}'

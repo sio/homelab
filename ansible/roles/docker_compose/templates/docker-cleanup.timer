@@ -1,0 +1,10 @@
+# {{ ansible_managed }}
+
+[Unit]
+Description=Docker cleanup timer
+
+[Timer]
+OnUnitInactiveSec=25h
+
+[Install]
+WantedBy=timers.target
