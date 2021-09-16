@@ -15,7 +15,7 @@
     - import_role:
         name: packages
 
-    - import_role:
+    - include_role:
         name: docker_compose
       vars:
         docker_compose_project: pxe-server
@@ -24,7 +24,7 @@
           IPXE_SERVER_IP: '{{ ansible_default_ipv4.address }}'
           IPXE_SCRIPT_URL: 'http://pxe/main.ipxe'
 
-    - import_role:
+    - include_role:
         name: docker_compose
       vars:
         docker_compose_project: ipxe-scripts
