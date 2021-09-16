@@ -12,18 +12,19 @@
 - hosts: pxe
   become: no
   gather_facts: no
-  delegate_to: localhost
   tasks:
     - name: wait for HTTP server
       wait_for:
         host: '{{ ansible_host }}'
         port: 80
         timeout: 30
+      delegate_to: localhost
 
     - name: fetch iPXE entrypoint
       uri:
         url: http://{{ ansible_host }}/main.ipxe
         return_content: yes
+      delegate_to: localhost
       register: entrypoint
       failed_when: >-
         '#!ipxe' not in entrypoint.content or
