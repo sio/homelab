@@ -14,6 +14,9 @@
         name: motd
     - import_role:
         name: packages
+      vars:
+        packages_install:
+          - curl
 
     - include_role:
         name: docker_compose
@@ -52,6 +55,7 @@
       args:
         creates: '{{ dest }}'
         executable: /bin/bash
+        warn: no
 
     - name: open PXE firewall ports
       ufw:
