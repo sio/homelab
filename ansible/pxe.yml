@@ -39,6 +39,20 @@
       retries: 10
       delay: 2
 
+    - name: download memtest86+
+      vars:
+        version: 5.31b
+        url: https://www.memtest.org/download/{{ version }}/memtest86+-{{ version }}.bin.gz
+        dest: /stacks/ipxe-scripts/memtest86+
+      shell: |-
+        # unarchive refuses to consider gz files as archives
+        # <https://github.com/ansible/ansible-modules-core/issues/3241>
+        set -euo pipefail
+        curl -sSL -o - {{ url|quote }} | gunzip > {{ dest|quote }}
+      args:
+        creates: '{{ dest }}'
+        executable: /bin/bash
+
     - name: open PXE firewall ports
       ufw:
         port: '{{ item }}'
