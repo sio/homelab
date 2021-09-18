@@ -58,6 +58,12 @@
         state: present
         validate: visudo -cf %s
 
+- hosts: lab:!offline
+  name: lab-kvm-bridge
+  become: yes
+  roles:
+    - role: kvm_bridge
+
 
 - import_playbook: labaie.yml
 - import_playbook: labtee.yml
