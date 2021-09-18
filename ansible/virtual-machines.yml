@@ -2,7 +2,7 @@
 # PERSISTENT VIRTUAL MACHINES
 #
 
-- hosts: hypervisor
+- hosts: hypervisor:!unreachable
   name: hypervisor
   become: yes
   roles:
