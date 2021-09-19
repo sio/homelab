@@ -23,6 +23,8 @@ all:
     printer:
       server_force_inventory_hostname: yes
       server_remote_user: '{{ secret_server_remote_user }}'
+    pxe:
+      server_force_inventory_hostname: yes
     labaie:
     labtee:
     labxeo:

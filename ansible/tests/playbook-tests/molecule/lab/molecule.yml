@@ -18,6 +18,15 @@ provisioner:
             - '{{ molecule_ephemeral_directory }}/keys/lab.pub'
           vagrant:
             - '{{ molecule_ephemeral_directory }}/vagrant-insecure.pub'
+        # IP address should not change in between test runs
+        kvm_bridge_fallback_iface: inet static
+        kvm_bridge_fallback_force: yes
+        kvm_bridge_options:
+          address: '{{ ansible_default_ipv4.address }}'
+          gateway:  '{{ ansible_default_ipv4.gateway }}'
+          bridge_stp: 'off'
+          bridge_maxwait: 0
+          bridge_fd: 0
 
 
 driver:
