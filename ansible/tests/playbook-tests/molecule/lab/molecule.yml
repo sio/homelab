@@ -18,6 +18,15 @@ provisioner:
             - '{{ molecule_ephemeral_directory }}/keys/lab.pub'
           vagrant:
             - '{{ molecule_ephemeral_directory }}/vagrant-insecure.pub'
+        wol_interface: >-
+          {{
+          ansible_interfaces
+          | reject("match","bridge")
+          | reject("match","docker")
+          | reject("match","lo")
+          | sort
+          | first
+          }}
         # IP address should not change in between test runs
         kvm_bridge_fallback_iface: inet static
         kvm_bridge_fallback_force: yes
