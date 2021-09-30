@@ -17,3 +17,7 @@
         dest: '/etc/systemd/system/{{ item }}'
         mode: '0644'
       notify: reload systemd
+  handlers:
+    - name: reload systemd
+      systemd:
+        daemon_reload: yes

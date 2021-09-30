@@ -7,8 +7,15 @@
     mode: '0755'
     backup: yes
 
+- name: create override directories for systemd units
+  loop: '{{ systemctl_wait_services|list }}'
+  file:
+    state: directory
+    path: '/etc/systemd/system/{{ item }}.d'
+    mode: '0755'
+
 - name: add custom ExecStartPre commands
-  loop: '{{ systemctl_wait_services }}'
+  loop: '{{ systemctl_wait_services|list }}'
   template:
     src: templates/override.service
     dest: '/etc/systemd/system/{{ item }}.d/wait-for-{{ systemctl_wait_status }}.conf'
