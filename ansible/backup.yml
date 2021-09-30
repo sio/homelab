@@ -6,4 +6,4 @@
 # TODO: define backup_client configuration
 # TODO: define backup_server configuration
 # TODO: add backup_client and backup_server to all.yml
-# TODO: add After=borgmatic.service to /etc/systemd/system/restic.service.d/wait.conf
+# TODO: do not run borg and restic sumultaneously, see roles/systemctl_wait/molecule/default/converge.yml
