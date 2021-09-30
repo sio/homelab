@@ -1,0 +1,40 @@
+#!/bin/bash
+#
+# Wait for specified systemd services to reach desired state
+#
+set -euo pipefail
+IFS=$'\n\t'
+
+
+usage() {
+    echo "Usage: $0 TARGET_STATE SERVICE [SERVICE]"
+    echo "    Wait for specified systemd services to reach target state"
+}
+[[ "$#" -lt 2 ]] && { usage; exit 1; }
+
+
+TARGET_STATE="$1"
+shift
+SERVICES=("$@")
+
+
+check() {
+    # Check if all services reached the target state
+    if [[ -z $(systemctl is-active ${SERVICES[@]} | grep -vE "^${TARGET_STATE}$") ]]
+    then
+        return 0
+    else
+        return 1
+    fi
+}
+
+
+check || {
+    [[ ${#SERVICES[@]} -gt 1 ]] && s="s" || s=""  # plural
+    echo "Waiting for service$s to become $TARGET_STATE: ${SERVICES[@]}"
+    until check
+    do
+        sleep 1
+    done
+    echo "Service$s $TARGET_STATE: ${SERVICES[@]}"
+}

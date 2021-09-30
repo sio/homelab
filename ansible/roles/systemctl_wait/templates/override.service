@@ -1,0 +1,6 @@
+# {{ ansible_managed }}
+#
+# Wait for related services to become {{ systemctl_wait_status }}
+
+[Service]
+ExecStartPre={{ systemctl_wait_script|quote }} {{ systemctl_wait_status }} {{ systemctl_wait_services[item]|join(" ") }}

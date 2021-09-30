@@ -1,0 +1,9 @@
+systemctl_wait_status: inactive
+systemctl_wait_script: /usr/local/bin/systemctl-wait
+
+systemctl_wait_services: {} # dictionary of <string>: <list of strings>
+  # foo.service:            # this service will wait for
+  #   - bar.service         # these services to reach {{ systemctl_wait_status }}
+  #   - baz.service
+  # bar.service
+  #   - another.service

@@ -1,0 +1,17 @@
+---
+
+- name: copy systemctl-wait script
+  copy:
+    src: templates/systemctl-wait
+    dest: '{{ systemctl_wait_script }}'
+    mode: '0755'
+    backup: yes
+
+- name: add custom ExecStartPre commands
+  loop: '{{ systemctl_wait_services }}'
+  template:
+    src: templates/override.service
+    dest: '/etc/systemd/system/{{ item }}.d/wait-for-{{ systemctl_wait_status }}.conf'
+    mode: '0644'
+    backup: yes
+  notify: reload systemd
