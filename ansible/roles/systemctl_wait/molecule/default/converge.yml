@@ -4,11 +4,9 @@
   become: true
   roles:
     - role: systemctl_wait
-      systemctl_wait_services:
+      systemctl_wait_services:  # circular dependencies will lead to deadlock
         backup-one.service:
           - backup-two.service
-        backup-two.service:
-          - backup-one.service
-      systemctl_wait_after:  # break dependency cycle
+      systemctl_wait_after:  # avoid dependency cycle
         backup-two.service:
           - backup-one.service

@@ -1,7 +1,6 @@
 ---
 - hosts: all
   gather_facts: no
-  become: yes
   vars:
     timeformat: '%Y-%m-%d %H:%M:%S.%f'
   tasks:
