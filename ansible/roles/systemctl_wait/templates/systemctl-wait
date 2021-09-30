@@ -36,5 +36,5 @@ check || {
     do
         sleep 1
     done
-    echo "Service$s $TARGET_STATE: ${SERVICES[@]}"
+    echo "Wait completed for $TARGET_STATE: ${SERVICES[@]}"
 }
