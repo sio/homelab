@@ -1,0 +1,6 @@
+# {{ ansible_managed }}
+#
+# Break circular dependencies with systemctl-wait
+
+[Unit]
+After={{ systemctl_wait_after[item]|join(" ") }}

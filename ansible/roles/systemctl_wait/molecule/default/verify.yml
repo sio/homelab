@@ -1,8 +1,47 @@
 ---
 - hosts: all
+  gather_facts: no
+  become: yes
+  vars:
+    timeformat: '%Y-%m-%d %H:%M:%S.%f'
   tasks:
     - name: hello world
       command: echo hello
       register: hello
       failed_when: "'hello' not in hello.stdout"
       changed_when: "hello is not succeeded"
+
+    - name: start both services simultaneously
+      shell: |
+        timeout 60 systemctl start backup-one backup-two
+      register: systemctl
+      failed_when: >
+        systemctl.rc != 0 or
+        (systemctl.end|to_datetime(timeformat)
+        -systemctl.start|to_datetime(timeformat)).total_seconds() < 20+20
+
+    - name: start one, then two
+      shell: |
+        set -euo pipefail
+        timeout 60 systemctl start --no-block backup-one
+        timeout 60 systemctl start backup-two
+      args:
+        executable: /bin/bash
+      register: systemctl
+      failed_when: >
+        systemctl.rc != 0 or
+        (systemctl.end|to_datetime(timeformat)
+        -systemctl.start|to_datetime(timeformat)).total_seconds() < 20+20
+
+    - name: start two, then one
+      shell: |
+        set -euo pipefail
+        timeout 60 systemctl start --no-block backup-two
+        timeout 60 systemctl start backup-one
+      args:
+        executable: /bin/bash
+      register: systemctl
+      failed_when: >
+        systemctl.rc != 0 or
+        (systemctl.end|to_datetime(timeformat)
+        -systemctl.start|to_datetime(timeformat)).total_seconds() < 20+20
