@@ -1,0 +1,13 @@
+---
+
+- hosts: all
+  become: true
+  pre_tasks:
+    - include: ../../../../tasks/unattended-purge.yml
+  roles:
+    - role: systemctl_wait
+      systemctl_wait_services:
+        backup-one.service:
+          - backup-two.service
+        backup-two.service:
+          - backup-one.service

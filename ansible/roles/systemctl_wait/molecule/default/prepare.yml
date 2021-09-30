@@ -1,0 +1,19 @@
+---
+
+- hosts: all
+  become: yes
+  tasks:
+    - name: create dummy services
+      loop:
+        - backup-one.service
+        - backup-two.service
+      copy:
+        content: |
+          [Service]
+          Type=oneshot
+          ExecStartPre=/bin/echo 'ExecStartPre from {{ item }}'
+          ExecStart=/bin/sleep 20
+          ExecStartPost=/bin/echo 'ExecStartPost from {{ item }}'
+        dest: '/etc/systemd/system/{{ item }}'
+        mode: '0644'
+      notify: reload systemd
