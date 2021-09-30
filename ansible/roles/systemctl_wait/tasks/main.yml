@@ -18,7 +18,7 @@
   loop: '{{ systemctl_wait_services|list }}'
   template:
     src: templates/override.service
-    dest: '/etc/systemd/system/{{ item }}.d/wait-for-{{ systemctl_wait_status }}.conf'
+    dest: '/etc/systemd/system/{{ item }}.d/wait-for-{{ systemctl_wait_status_urlsafe }}.conf'
     mode: '0644'
     backup: yes
   notify: reload systemd
