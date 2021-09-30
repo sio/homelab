@@ -99,6 +99,7 @@ Local Git repository may be used for keeping track of changes.
 - **samba**: depends on server
 - **server**: uses UFW, firewall can not load kernel modules in Docker
 - **supysonic**: depends on server
+- **systemctl_wait**: docker tests were flaky because of cgroups+systemd
 - **torrents_sysctl**: modifies kernel parameters via sysctl, impossible in Docker
 - **transmission**: depends on server, torrents_sysctl
 - **virtual_machine**: requires nested virtualization

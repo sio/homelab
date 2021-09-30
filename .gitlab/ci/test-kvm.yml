@@ -200,6 +200,16 @@ test-role-supysonic-munin:
         - ansible/roles/supysonic/**/*
 
 
+test-role-systemctl_wait:
+  extends: .test-ansible-role-kvm
+  variables:
+    ANSIBLE_ROLE: ../roles/systemctl_wait
+  rules:
+    - *option-skip-test
+    - changes:
+        - ansible/roles/systemctl_wait/**/*
+
+
 test-role-torrents_sysctl:
   extends: .test-ansible-role-kvm
   variables:
