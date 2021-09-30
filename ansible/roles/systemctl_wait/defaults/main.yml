@@ -7,6 +7,13 @@ systemctl_wait_services: {} # dictionary of <string>: <list of strings>
   # bar.service
   #   - another.service
 
+systemctl_wait_after: {}    # same dictionary structure as {{ systemctl_wait_services }}
+                            # Used to resolve circular dependencies:
+                            # - serviceA waits for serviceB
+                            # - serviceB waits for serviceA
+                            # Add systemctl_wait_after: {"serviceB": ["serviceA"]}
+                            # to break the cycle
+
 systemctl_wait_script: /usr/local/bin/systemctl-wait
 
 systemctl_wait_status_urlsafe: '{{ systemctl_wait_status|regex_replace("\W", "-") }}'

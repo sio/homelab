@@ -8,7 +8,7 @@
     backup: yes
 
 - name: create override directories for systemd units
-  loop: '{{ systemctl_wait_services|list }}'
+  loop: '{{ (systemctl_wait_services|list + systemctl_wait_after|list)|unique }}'
   file:
     state: directory
     path: '/etc/systemd/system/{{ item }}.d'
@@ -19,6 +19,15 @@
   template:
     src: templates/override.service
     dest: '/etc/systemd/system/{{ item }}.d/wait-for-{{ systemctl_wait_status_urlsafe }}.conf'
+    mode: '0644'
+    backup: yes
+  notify: reload systemd
+
+- name: add custom After statements
+  loop: '{{ systemctl_wait_after|list }}'
+  template:
+    src: templates/after.service
+    dest: '/etc/systemd/system/{{ item }}.d/after.conf'
     mode: '0644'
     backup: yes
   notify: reload systemd

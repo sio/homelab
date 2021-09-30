@@ -11,3 +11,6 @@
           - backup-two.service
         backup-two.service:
           - backup-one.service
+      systemctl_wait_after:  # break dependency cycle
+        backup-two.service:
+          - backup-one.service
