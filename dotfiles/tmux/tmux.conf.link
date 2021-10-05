@@ -22,6 +22,10 @@ setw -g pane-base-index 1
 set -g renumber-windows on
 
 
+# Increase scrollback size
+set -g history-limit 100000
+
+
 # Create new windows with vertical split by default
 #bind-key c new-window \; split-window -h \; select-pane -t1
 
