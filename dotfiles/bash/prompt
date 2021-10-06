@@ -74,6 +74,38 @@ _prompt_colorhash() {
     # Select one of predefined colors according to calculated hash value
     local select=$((${hash/#0/10} % ${#colors[@]}))
     echo -n 8:5:${colors[$select]}
+
+    # Debug information
+    [[ -n "$_PROMPT_DEBUG" ]] && {
+        echo "Number of colors in palette: ${#colors[@]}"
+    } 1>&2 || true
+}
+
+
+_prompt_verify_distribution() {
+    #
+    # Verify equal distribution of prompt colors by _prompt_colorhash
+    #
+    local loops
+    loops=$1
+    [[ -z "$loops" ]] && loops=100
+
+    # Generate colors for random inputs
+    local randomtext=$(dd if=/dev/urandom bs=$(($loops*10)) count=1 status=none | tr -cd '[:alnum:]._-')
+    {
+        echo "NUM COUNT COLOR"
+        local i
+        for ((i=0;i<$loops;i++))
+        do
+            local len=$((20 + $RANDOM % 20))
+            _prompt_colorhash ${randomtext:$i:$len}
+            echo  # newline
+            printf "$i/$loops\r" 1>&2  # progress report
+        done | sort | uniq -c | sort -h | nl
+    } | column -t
+
+    # Show number of colors in palette
+    _PROMPT_DEBUG=1 _prompt_colorhash 1>/dev/null
 }
 
 
