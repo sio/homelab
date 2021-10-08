@@ -4,7 +4,7 @@
   <memory unit='MiB'>{{ virtual_machine_memory }}</memory>
   <vcpu placement='static'>{{ virtual_machine_cpus }}</vcpu>
   <os>
-    <type>hvm</type>
+    <type machine='q35'>hvm</type>
     <boot dev='hd'/>
   </os>
   <features>
