@@ -18,6 +18,6 @@
         bridge_fd: 0
     - role: virtual_machine
       virtual_machine_image: '/guest.qcow2'
-      virtual_machine_image_url: 'https://cdimage.debian.org/cdimage/cloud/buster/daily/latest/debian-10-genericcloud-amd64-daily.qcow2'
+      virtual_machine_image_url: 'https://cdimage.debian.org/cdimage/cloud/buster/daily/latest/debian-10-generic-amd64-daily.qcow2'
       virtual_machine_image_checksum: 'sha512:https://cdimage.debian.org/cdimage/cloud/buster/daily/latest/SHA512SUMS'
       virtual_machine_cloudinit_cfg: '{{ molecule_ephemeral_directory }}/cloudinit/{{ inventory_hostname }}'

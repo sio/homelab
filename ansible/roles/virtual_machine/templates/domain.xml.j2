@@ -30,7 +30,7 @@
     <disk type='file' device='cdrom'>
       <driver name='qemu' type='raw'/>
       <source file='{{ virtual_machine_cloudinit_iso }}'/>
-      <target dev='hdc' bus='sata'/>
+      <target dev='sdc' bus='sata'/>
       <readonly/>
     </disk>
 {% endif %}
