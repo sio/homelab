@@ -43,7 +43,7 @@
   <devices>
     <emulator>{{ virtual_machine_emulator }}</emulator>
     <disk type='file' device='disk'>
-      <driver name='qemu' type='qcow2'/>
+      <driver name='qemu' type='qcow2' discard='unmap'/>
       <source file='{{ virtual_machine_image }}'/>
       <target dev='vda' bus='virtio'/>
     </disk>

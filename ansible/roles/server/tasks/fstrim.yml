@@ -1,0 +1,8 @@
+---
+
+- name: enable weekly fstrim
+  systemd:
+    name: fstrim.timer
+    state: started
+    enabled: yes
+  when: server_fstrim_timer_enabled|default(True)

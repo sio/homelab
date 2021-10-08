@@ -24,4 +24,7 @@
 # Protect the system
 - include: security.yml
 
+# SSD/QCOW2 maintenance
+- include: fstrim.yml
+
 - meta: flush_handlers  # noqa unnamed-task
