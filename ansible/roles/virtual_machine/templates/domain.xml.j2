@@ -22,6 +22,7 @@
   <devices>
     <emulator>{{ virtual_machine_emulator }}</emulator>
     <disk type='file' device='disk'>
+      <!--Guest kernel must be Linux 5.0+ to support discard with virtio bus-->
       <driver name='qemu' type='qcow2' discard='unmap'/>
       <source file='{{ virtual_machine_image }}'/>
       <target dev='vda' bus='virtio'/>
