@@ -33,12 +33,13 @@
   script:
     # Build VM image in Cirrus CI
     - cirrus-run | tee build.log
-    # Download artifacts from Cirrus CI
+    # Show artifact URLs
     - export CIRRUS_ARTIFACTS_BUILD=$(grep -m 1 -Eo 'build/[0-9]+' build.log|cut -c 7-)
     - python packer/cirrus_artifacts.py | tee artifacts.list
-    - mkdir artifacts && cd artifacts
-    - xargs -n 1 wget -q < ../artifacts.list
-    - sha256sum -c *.sha256sum
+    # Download artifacts from Cirrus CI
+    #- mkdir artifacts && cd artifacts
+    #- xargs -n 1 wget -q < ../artifacts.list
+    #- sha256sum -c *.sha256sum
   artifacts:
     paths:
       - artifacts
