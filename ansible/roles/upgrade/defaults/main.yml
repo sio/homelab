@@ -11,3 +11,8 @@ upgrade_eol_error_days: -100
 
 upgrade_eol_date: '{{ upgrade_eol_dates[ansible_distribution_release|lower] }}'
 upgrade_eol_date_format: '%Y-%m-%d'
+
+upgrade_ignore_support_status:  # list of source packages
+  - binutils  # always reported https://lists.debian.org/debian-security/2019/12/msg00007.html
+
+upgrade_ignore_support_status_all: no  # ignore all packages

@@ -2,11 +2,13 @@
 
 - when: ansible_pkg_mgr == "apt"
   block:
-    - name: install aptitude and needrestart
+    - name: install package management tools
       apt:
         name:
           - aptitude
           - needrestart
+          - debian-security-support
+          - gawk  # required by YAML converter script
         state: present
         update_cache: yes
         cache_valid_time: 3600

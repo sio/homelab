@@ -1,0 +1,35 @@
+---
+
+- name: install converter script for check-support-status
+  copy:
+    src: templates/support_info_to_yaml.awk
+    dest: /usr/local/bin/support_info_to_yaml
+    mode: '0755'
+    backup: yes
+
+- name: check support status for installed packages
+  shell: |
+    set -euo pipefail
+    check-support-status | /usr/local/bin/support_info_to_yaml
+  args:
+    executable: /bin/bash
+  register: support_status
+  changed_when: no
+  failed_when: no
+
+- name: report support status for installed packages
+  vars:
+    support_alerts: >
+      {{ support_status.stdout | from_yaml | rejectattr("source", "in", upgrade_ignore_support_status) | list }}
+  debug:
+    msg: >
+      {% if support_status.rc == 0 and support_alerts|length > 0 %}
+      {{ support_alerts|to_nice_yaml }}
+      {% elif support_status.rc != 0 %}
+      An error occured when checking support status (exit code {{ support_status.rc }})
+      {{ support_status|to_nice_yaml }}
+      {% endif %}
+  changed_when: not upgrade_ignore_support_status_all
+  when:
+    support_status.rc != 0 or
+    support_alerts|length != 0
