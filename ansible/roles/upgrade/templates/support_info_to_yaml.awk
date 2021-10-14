@@ -1,10 +1,12 @@
 #!/usr/bin/gawk -f
 #
+# {{ ansible_managed }}
+#
 # Convert output of /usr/bin/check-support-status (from debian-security-support)
 # to machine readable YAML
 #
 # Upstream script is pretty linear and the output format seems very stable,
-# so AWK fits perfectly for parsing job
+# so AWK is a perfect fit for the parsing job
 #
 
 /^\*\s+Source:/ {
