@@ -39,6 +39,8 @@
         dest: /stacks/ipxe-scripts/main.ipxe
         mode: '0644'
         backup: yes
+      register: get_url
+      until: get_url is not failed
       retries: 10
       delay: 2
 

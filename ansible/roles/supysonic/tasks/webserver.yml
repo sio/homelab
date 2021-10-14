@@ -5,6 +5,8 @@
     url: https://github.com/spl0k/supysonic/raw/master/cgi-bin/supysonic.wsgi
     dest: '{{ supysonic_venv }}/supysonic.wsgi'
     mode: '0644'
+  register: get_url
+  until: get_url is not failed
   retries: 10
   delay: 2
   notify: reload web server

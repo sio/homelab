@@ -23,6 +23,8 @@
     dest: '{{ deb_url_storage }}/{{ item.checksum }}'
     checksum: '{{ item.checksum }}'
     mode: '0600'
+  register: get_url
+  until: get_url is not failed
   retries: 10
   delay: 2
   with_items: '{{ deb_url_packages }}'

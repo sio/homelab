@@ -4,6 +4,8 @@
   get_url:
     url: https://raw.githubusercontent.com/hashicorp/vagrant/master/keys/vagrant.pub
     dest:  '{{ molecule_ephemeral_directory }}/vagrant-insecure.pub'
+  register: get_url
+  until: get_url is not failed
   retries: 10
   delay: 2
   run_once: yes

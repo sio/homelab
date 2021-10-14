@@ -17,6 +17,7 @@
     dest: '{{ canon_drivers_archive }}'
     validate_certs: '{{ canon_drivers_strict_ssl }}'
     mode: '0600'
+  until: canon_download is not failed
   retries: 10
   delay: 2
   when: not canon_drivers.stat.exists

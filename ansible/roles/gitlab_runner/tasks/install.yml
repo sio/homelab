@@ -82,6 +82,7 @@
     url: '{{ gitlab_runner_repo_list }}'
     dest: /etc/apt/sources.list.d/gitlab-runner.list
     mode: 0755
+  until: apt_repo is not failed
   retries: 10
   delay: 2
   register: apt_repo

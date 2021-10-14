@@ -22,6 +22,8 @@
     dest: '{{ docker_compose_dir }}/docker-compose.yml'
     mode: '0644'
     backup: yes
+  register: get_url
+  until: get_url is not failed
   retries: 10
   delay: 2
   notify: restart compose project

@@ -48,6 +48,8 @@
     owner: libvirt-qemu
     mode: '0600'
     checksum: '{{ virtual_machine_image_checksum }}'
+  register: get_url
+  until: get_url is not failed
   retries: 10
   delay: 2
   when: not virtual_machine_file.stat.exists

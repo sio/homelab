@@ -7,6 +7,8 @@
     url: https://github.com/sio/munin_plugin_fdcount/raw/master/fdcount.py
     dest: '/etc/munin/plugins/fdcount_{{ munin_fdcount_target }}'
     mode: '0755'
+  register: get_url
+  until: get_url is not failed
   retries: 10
   delay: 2
   notify: restart munin node
