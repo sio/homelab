@@ -29,6 +29,9 @@ all:
     labtee:
     labxeo:
     laptopmini:
+      upgrade_ignore_support_status:
+        - binutils  # always reported, not fixable
+        - qtwebkit-opensource-src  # used by freecad
     mediabox-v:
       interactive_ssh_key: '{{ secret_interactive_ssh_key }}'
     hypervisor-j:
