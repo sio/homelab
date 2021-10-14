@@ -13,6 +13,8 @@ task:
     memory: "{{ CIRRUS_RAM }}"
     {% endif %}
 
+  timeout_in: 80m
+
   env:
     PIP_CACHE_DIR: $HOME/cache/pip
     VENVDIR: $HOME/venv
