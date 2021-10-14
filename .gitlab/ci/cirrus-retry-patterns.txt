@@ -1,0 +1,2 @@
+Failed to start the VM: See log file
+Please try again in 30 seconds

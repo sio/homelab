@@ -11,10 +11,12 @@
   # Tests that require full virtualization are delegated to Cirrus CI
   stage: test-kvm
   image: potyarkin/cirrus-run
-  timeout: 2 hours  # Cirrus CI is flaky sometimes and restarts hanged runners
+  timeout: 3 hours  # Cirrus CI is flaky sometimes and restarts hanged runners
   script:
     - export REQUIREMENTS_CHECKSUM=$(sha256sum ansible/tests/requirements.txt|cut -c -64)
-    - cirrus-run
+    - cirrus-run | tee cirrus.log
+    # Detect retryable errors (flaky runs)
+    - ! grep -qf .gitlab/ci/cirrus-retry-patterns.txt cirrus.log || cirrus-run
   variables:
     CIRRUS_GITHUB_REPO: sio/.cirrus-ci-jobs
     CIRRUS_SHOW_BUILD_LOG: always

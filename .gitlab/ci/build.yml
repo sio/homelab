@@ -33,6 +33,8 @@
   script:
     # Build VM image in Cirrus CI
     - cirrus-run | tee build.log
+    # Detect retryable errors (flaky runs)
+    - ! grep -qf .gitlab/ci/cirrus-retry-patterns.txt build.log || cirrus-run | tee build.log
     # Show artifact URLs
     - export CIRRUS_ARTIFACTS_BUILD=$(grep -m 1 -Eo 'build/[0-9]+' build.log|cut -c 7-)
     - python packer/cirrus_artifacts.py | tee artifacts.list
