@@ -10,6 +10,7 @@
 - name: check support status for installed packages
   shell: |
     set -euo pipefail
+    export LANG=C
     check-support-status | /usr/local/bin/support_info_to_yaml
   args:
     executable: /bin/bash
