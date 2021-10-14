@@ -15,6 +15,9 @@ provisioner:
           vagrant:
             - '{{ molecule_ephemeral_directory }}/testkey.pub'
             - '{{ molecule_ephemeral_directory }}/vagrant-insecure.pub'
+        upgrade_ignore_support_status:  # excerpt from inventory/variables.yml
+          - binutils
+          - qtwebkit-opensource-src
 
 driver:
   name: vagrant
