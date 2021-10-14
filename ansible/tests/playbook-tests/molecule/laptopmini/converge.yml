@@ -2,5 +2,8 @@
 - hosts: all
   tasks:
     - name: read variables from top-level group_vars/
-      include_vars: ../../../../inventory/group_vars/all/ansible.yml
+      include_vars: ../../../../inventory/{{ item }}
+      loop:
+        - group_vars/all/ansible.yml
+        - variables.yml
 - import_playbook: ../../../../laptopmini.yml
