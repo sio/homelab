@@ -37,11 +37,6 @@ task:
     {% if DEBUG is defined %}
     DEBUG: "{{ DEBUG }}"
     {% endif %}
-    #   DEBUG: 1
-    #   VIRSH_DEBUG: 1
-    #   LIBVIRT_DEBUG: 2
-    #   LIBGUESTFS_DEBUG: 1
-    #   LIBGUESTFS_TRACE: 1
 
   # CI cache
   # TODO: explore possibility of caching libvirtd image pool
