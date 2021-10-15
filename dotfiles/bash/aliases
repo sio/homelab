@@ -296,3 +296,7 @@ ssh-wait() {
         sleep 1
     done
 }
+
+
+# Limit key lifetime in ssh-agent to 12 hours by default
+alias ssh-add='ssh-add -t $((12*60*60))'
