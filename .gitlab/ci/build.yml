@@ -32,7 +32,8 @@
     VM_PASSWORD: hello
   script:
     # Build VM image in Cirrus CI
-    - cirrus-run | tee build.log ; true
+    - >
+      { cirrus-run || sleep 5 ; } | tee build.log
     # Detect retryable errors (flaky runs)
     - >
       !  grep -qf .gitlab/ci/cirrus-retry-patterns.txt build.log

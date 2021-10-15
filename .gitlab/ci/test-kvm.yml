@@ -14,7 +14,8 @@
   timeout: 3 hours  # Cirrus CI is flaky sometimes and restarts hanged runners
   script:
     - export REQUIREMENTS_CHECKSUM=$(sha256sum ansible/tests/requirements.txt|cut -c -64)
-    - cirrus-run | tee cirrus.log ; true
+    - >
+      { cirrus-run || sleep 5 ; } | tee cirrus.log
     # Detect retryable errors (flaky runs)
     - >
       !  grep -qf .gitlab/ci/cirrus-retry-patterns.txt cirrus.log
