@@ -52,11 +52,13 @@
         groups: sudo,kvm,libvirt,libvirt-qemu,docker
         append: yes
     - name: enable passwordless sudo
-      lineinfile:
-        path: /etc/sudoers
-        line: op ALL=(ALL) NOPASSWD:ALL
-        state: present
+      copy:
+        dest: /etc/sudoers.d/operator
+        content: |
+          op ALL=(ALL) NOPASSWD:ALL
         validate: visudo -cf %s
+        mode: '0440'
+        backup: yes
 
 - hosts: lab:!offline
   name: lab-kvm-bridge
