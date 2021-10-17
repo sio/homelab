@@ -93,6 +93,7 @@
     backup: yes
   with_dict:
     bridge_ports: '{{ ansible_default_ipv4.interface }}'
+    bridge_hw: '{{ ansible_default_ipv4.macaddress }}'
     pre-up: 'ip addr flush {{ ansible_default_ipv4.interface }}'
   when: (ansible_default_ipv4.interface != kvm_bridge_interface) and not kvm_bridge_created.found
   notify: restart bridge interface
