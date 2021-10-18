@@ -9,7 +9,7 @@ playground_packages:
   - libvirt-clients
   - libvirt-daemon-system
   - packer
-  - qemu-kvm
+  - qemu-system-x86
   - qemu-utils
   - vagrant
   - vagrant-libvirt
