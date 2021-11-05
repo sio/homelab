@@ -1,0 +1,59 @@
+#
+# HOMELAB MACHINE: LABXEO
+#
+# Hardware configuration for keeping fans quiet
+#
+
+- hosts: labxeo:!offline
+  name: labxeo-fan
+  become: yes
+  gather_facts: no
+  vars:
+    extra_kernel_modules:
+      - coretemp
+      - nct6775
+  tasks:
+    - name: install fancontrol
+      package:
+        name:
+          - fancontrol
+          - lm-sensors
+        state: present
+
+    - name: enable extra kernel modules
+      modprobe:
+        name: '{{ item }}'
+        state: present
+      loop: '{{ extra_kernel_modules }}'
+
+    - name: load extra kernel modules after reboot
+      lineinfile:
+        path: /etc/modules-load.d/sensors.conf
+        line: '{{ item }}'
+        state: present
+        create: yes
+      loop: '{{ extra_kernel_modules }}'
+
+    - name: configure fancontrol
+      copy:
+        content: |
+          # Managed by Ansible, do not edit
+          INTERVAL=10
+          DEVPATH=hwmon1=devices/platform/nct6775.656
+          DEVNAME=hwmon1=nct6775
+          FCTEMPS=hwmon1/pwm1=hwmon1/temp2_input
+          FCFANS= hwmon1/pwm1=hwmon1/fan1_input
+          MINTEMP=hwmon1/pwm1=30
+          MAXTEMP=hwmon1/pwm1=80
+          MINSTART=hwmon1/pwm1=150
+          MINSTOP=hwmon1/pwm1=90
+          MAXPWM=hwmon1/pwm1=225
+          MINPWM=hwmon1/pwm1=90
+        dest: /etc/fancontrol
+        mode: '0440'
+
+    - name: enable fancontrol
+      service:
+        name: fancontrol
+        enabled: yes
+        state: started

@@ -15,3 +15,7 @@
   roles:
     - role: packages
       packages_install: '{{ baremetal_packages }}'
+
+- name: keep the fans quiet
+  import_playbook: labxeo-fan.yml
+  when: molecule_ephemeral_directory is not defined
