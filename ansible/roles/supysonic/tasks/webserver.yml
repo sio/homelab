@@ -1,14 +1,14 @@
 ---
 
 - name: copy WSGI script
-  get_url:
-    url: https://github.com/spl0k/supysonic/raw/master/cgi-bin/supysonic.wsgi
+  copy:
+    content: |
+      # https://supysonic.readthedocs.io/en/latest/setup/deploying/apache.html
+      from supysonic.web import create_application
+      application = create_application()
     dest: '{{ supysonic_venv }}/supysonic.wsgi'
     mode: '0644'
-  register: get_url
-  until: get_url is not failed
-  retries: 10
-  delay: 2
+    backup: yes
   notify: reload web server
 
 - name: configure web server
