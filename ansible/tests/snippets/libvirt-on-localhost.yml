@@ -1,0 +1,30 @@
+#
+# Create some virtual machines on localhost
+#
+
+- hosts: localhost
+  name: hypervisor
+  become: yes
+  roles:
+    - role: kvm_bridge
+
+- hosts: localhost
+  name: hypervisor vms
+  become: yes
+  vars:
+    debian_cloud: '{{ lookup("debian_cloud_image", "bullseye", arch="amd64") }}'
+    virtual_machine_image: '/vm/{{ virtual_machine_name }}.qcow2'
+    virtual_machine_image_url: '{{ debian_cloud.image }}'
+    virtual_machine_image_checksum: 'sha512:{{ debian_cloud.checksum }}'
+    virtual_machine_cloudinit_cfg: '{{ playbook_dir }}/../cloudinit/generic.j2'
+  roles:
+    - role: virtual_machine
+      virtual_machine_name: control
+      virtual_machine_memory: 600 # MiB
+      virtual_machine_image_resize: 8G
+
+    - role: virtual_machine
+      virtual_machine_name: mediabox-v
+      virtual_machine_memory: 600 # MiB
+      virtual_machine_cpus: 2
+      virtual_machine_image_resize: 15G

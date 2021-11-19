@@ -1,0 +1,19 @@
+all:
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+  hosts:
+    localhost:
+      ansible_connection: local
+      ansible_python_interpreter: /usr/bin/python3
+  children:
+    vms:
+      hosts:
+        control:
+        mediabox-v:
+      vars:
+        ansible_user: user
+        ansible_become_method: sudo
+        ansible_become_pass: vmpasswd123
+        sshkey_only:
+          user:
+            - ~/.ssh/id_rsa.pub
