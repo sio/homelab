@@ -15,18 +15,24 @@
   script:
     - export REQUIREMENTS_CHECKSUM=$(sha256sum ansible/tests/requirements.txt|cut -c -64)
     # GitLab CI collapsible log sections
-    - echo -e "\e[0Ksection_start:`date +%s`:first_run[collapsed=true]\r\e[0KFirst Cirrus CI invocation"
+    - echo -e "\e[0Ksection_start:`date +%s`:first_run[collapsed=false]\r\e[0KFirst Cirrus CI invocation"
     # Delegate job to Cirrus CI
     - >
-      { cirrus-run || sleep 5 ; } | tee cirrus.log
+      { cirrus-run || touch cirrus.error ; } | tee cirrus.log
     # End of collapsible section
     - echo -e "\e[0Ksection_end:`date +%s`:first_run\r\e[0K"
     # GitLab CI collapsible log sections
-    - echo -e "\e[0Ksection_start:`date +%s`:retry_run[collapsed=true]\r\e[0KRetry flaky Cirrus CI run"
+    - echo -e "\e[0Ksection_start:`date +%s`:retry_run[collapsed=false]\r\e[0KRetry flaky Cirrus CI run"
     # Detect retryable errors (flaky runs)
-    - >
-      !  grep -qf .gitlab/ci/cirrus-retry-patterns.txt cirrus.log
-      || cirrus-run
+    - |
+      set -euo pipefail
+      if
+        grep -qf .gitlab/ci/cirrus-retry-patterns.txt cirrus.log
+      then
+        cirrus-run | tee cirrus.log
+      else
+        ! test -f cirrus.error
+      fi
     # End of collapsible section
     - echo -e "\e[0Ksection_end:`date +%s`:retry_run\r\e[0K"
   variables:
