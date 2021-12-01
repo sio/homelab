@@ -3,3 +3,4 @@ Fog::Errors::TimeoutError
 Please try again in 30 seconds
 Unable to fetch some archives, maybe run apt-get update
 Internal Server Error(s) while executing query
+Timed out!
