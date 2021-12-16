@@ -83,8 +83,8 @@
             More information: https://superuser.com/questions/715368
             -->
             <Metadata wcm:action="add">
-              <Key>/IMAGE/NAME</Key>
-              <Value>Windows 10 Pro</Value>
+              <Key>/IMAGE/INDEX</Key>
+              <Value>1</Value>
             </Metadata>
           </InstallFrom>
           <InstallTo>
