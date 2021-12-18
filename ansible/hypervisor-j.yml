@@ -33,7 +33,7 @@
     # LAN file sharing
     - role: samba
       samba_shares:
-        - name: Dowloads
+        - name: Downloads
           path: /disks/ephemeral/downloads
           public: yes
           read only: yes
