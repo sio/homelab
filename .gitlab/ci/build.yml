@@ -30,39 +30,6 @@
     CIRRUS_CONFIG: packer/cirrus.yml.j2
     VM_HOSTNAME: guest
     VM_PASSWORD: hello
-  script:
-    # GitLab CI collapsible log sections
-    - echo -e "\e[0Ksection_start:`date +%s`:first_run[collapsed=false]\r\e[0KFirst Cirrus CI invocation"
-    # Build VM image in Cirrus CI
-    - >
-      { cirrus-run || touch cirrus.error ; } | tee cirrus.log
-    # End of collapsible section
-    - echo -e "\e[0Ksection_end:`date +%s`:first_run\r\e[0K"
-    # GitLab CI collapsible log sections
-    - echo -e "\e[0Ksection_start:`date +%s`:retry_run[collapsed=false]\r\e[0KRetry flaky Cirrus CI run"
-    # Detect retryable errors (flaky runs)
-    - |
-      set -euo pipefail
-      if
-        grep -qf .gitlab/ci/cirrus-retry-patterns.txt cirrus.log
-      then
-        cirrus-run | tee cirrus.log
-      else
-        ! test -f cirrus.error
-      fi
-    # End of collapsible section
-    - echo -e "\e[0Ksection_end:`date +%s`:retry_run\r\e[0K"
-    # Show artifact URLs
-    - export CIRRUS_ARTIFACTS_BUILD=$(grep -m 1 -Eo 'build/[0-9]+' cirrus.log|cut -c 7-)
-    - python packer/cirrus_artifacts.py | tee artifacts.list
-    # Download artifacts from Cirrus CI
-    #- mkdir artifacts && cd artifacts
-    #- xargs -n 1 wget -q < ../artifacts.list
-    #- sha256sum -c *.sha256sum
-  artifacts:
-    paths:
-      - artifacts
-    expire_in: 12 hours  # latest branch artifacts are never expired since GitLab 13.4
   dependencies: []  # do not download any artifacts from previous stages
 
 

@@ -15,29 +15,15 @@
   script:
     - export REQUIREMENTS_CHECKSUM=$(sha256sum ansible/tests/requirements.txt|cut -c -64)
     # GitLab CI collapsible log sections
-    - echo -e "\e[0Ksection_start:`date +%s`:first_run[collapsed=false]\r\e[0KFirst Cirrus CI invocation"
+    - echo -e "\e[0Ksection_start:`date +%s`:first_run[collapsed=false]\r\e[0KCirrus CI invocation"
     # Delegate job to Cirrus CI
-    - >
-      { cirrus-run || touch cirrus.error ; } | tee cirrus.log
+    - cirrus-run
     # End of collapsible section
     - echo -e "\e[0Ksection_end:`date +%s`:first_run\r\e[0K"
-    # GitLab CI collapsible log sections
-    - echo -e "\e[0Ksection_start:`date +%s`:retry_run[collapsed=false]\r\e[0KRetry flaky Cirrus CI run"
-    # Detect retryable errors (flaky runs)
-    - |
-      set -euo pipefail
-      if
-        grep -qf .gitlab/ci/cirrus-retry-patterns.txt cirrus.log
-      then
-        cirrus-run | tee cirrus.log
-      else
-        ! test -f cirrus.error
-      fi
-    # End of collapsible section
-    - echo -e "\e[0Ksection_end:`date +%s`:retry_run\r\e[0K"
   variables:
     CIRRUS_GITHUB_REPO: sio/.cirrus-ci-jobs
     CIRRUS_SHOW_BUILD_LOG: always
+    CIRRUS_FLAKY_MARKERS_FILE: .gitlab/ci/cirrus-retry-patterns.txt
     # CIRRUS_API_TOKEN: Masked value. Defined in GitLab web interface
   dependencies: []  # do not download any artifacts from previous stages
 
