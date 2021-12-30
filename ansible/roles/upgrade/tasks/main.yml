@@ -6,3 +6,6 @@
   when: upgrade_requires_reboot is not defined  # noop if invoked multiple times
 
 - include: support.yml
+
+- include: dpkg.yml
+  when: ansible_pkg_mgr == 'apt'

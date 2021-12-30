@@ -1,0 +1,27 @@
+- name: check dpkg package states
+  shell: |-
+    set -euo pipefail
+    dpkg-query -W -f '${db:Status-Eflag} ${db:Status-Status} ${binary:Package}\n' \
+    | grep -vE '^ok (installed|config-files)'
+  environment:
+    LC_ALL: C
+    LANG: C
+  args:
+    executable: /bin/bash
+  register: dpkg_query
+  failed_when: false
+  changed_when: false
+
+- name: report dpkg packages in odd states
+  debug:
+    msg: |-
+      Packages in odd states:
+      {{ dpkg_query.stdout|indent(2) }}
+      {% if dpkg_query.stderr|length > 0 %}
+      Error output:
+      {{ dpkg_query.stderr|indent(2) }}
+      {% endif %}
+      More information:
+        https://utcc.utoronto.ca/~cks/space/blog/linux/DpkgFindOddPackageStates
+  when: dpkg_query.stdout|length > 0 or dpkg_query.stderr|length > 0
+  changed_when: true
