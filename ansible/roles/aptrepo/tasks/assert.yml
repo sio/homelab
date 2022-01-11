@@ -4,4 +4,5 @@
       - ansible_pkg_mgr == 'apt'
       - aptrepo_source_file is defined
       - aptrepo_source_file.endswith('.sources')
+      - aptrepo_source_file.startswith('/etc/apt/sources.list.d/')
       - aptrepo_url is defined or 'URIs' in aptrepo_params
