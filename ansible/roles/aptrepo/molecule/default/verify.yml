@@ -17,11 +17,7 @@
         msg: '{{ sources.stdout }}'
 
     - name: search for packages from new repos
-      shell: |-
-        set -euo pipefail
-        apt-cache show {{ item|quote }} | head -n25
-      args:
-        executable: /bin/bash
+      command: apt-cache show {{ item|quote }}
       loop:
         - google-chrome-stable
         - gitlab-runner
@@ -30,7 +26,13 @@
 
     - name: show search results
       debug:
-        msg: '{{ apt_search|to_nice_yaml }}'
+        msg: |-
+          {% for result in apt_search.results %}
+          {{ result.item }} (rc={{ result.rc }}):
+          {{ result.stdout_lines[:25]|join('\n')|indent(2) }}
+          stderr:
+          {{ result.stderr_lines|join('\n')|indent(2) }}
+          {% endfor %}
 
     - name: ping
       ping:
