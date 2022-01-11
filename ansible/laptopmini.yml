@@ -9,6 +9,15 @@
     - role: server
     - role: upgrade
     - role: smarttest
+
+    - role: aptrepo
+      aptrepo_url: http://dl.google.com/linux/chrome/deb/
+      aptrepo_params:
+        Suites: stable
+      aptrepo_source_file: /etc/apt/sources.list.d/google-chrome.sources
+      aptrepo_key_url: https://dl.google.com/linux/linux_signing_key.pub
+      aptrepo_key_file: /usr/share/keyrings/google-archive-keyring.gpg
+
     - role: packages
       packages_install:
         # Desktop apps
@@ -122,22 +131,6 @@
         state: present
         mode: '0644'
       when: ansible_distribution_release == 'buster'
-
-    - name: install gnupg  # required by apt_key
-      package:
-        name: gnupg
-        state: present
-
-    - name: allow google repository key
-      apt_key:
-        url: https://dl.google.com/linux/linux_signing_key.pub
-        state: present
-
-    - name: enable google repo for chrome
-      apt_repository:
-        repo: 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main'
-        state: present
-        mode: '0644'
 
   tasks:
     - name: enable passwordless sudo for user

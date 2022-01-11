@@ -72,25 +72,16 @@
     name: '{{ gitlab_runner_packages_pre }}'
     state: present
 
-- name: install gitlab-runner repo key
-  apt_key:
-    url: '{{ gitlab_runner_repo_key }}'
-    state: present
-
-- name: configure gitlab-runner repository
-  get_url:
-    url: '{{ gitlab_runner_repo_list }}'
-    dest: /etc/apt/sources.list.d/gitlab-runner.list
-    mode: 0755
-  until: apt_repo is not failed
-  retries: 10
-  delay: 2
-  register: apt_repo
-
-- name: update package lists
-  apt:
-    update_cache: yes
-  when: apt_repo is changed  # noqa 503
+- name: add gitlab-runner repository
+  import_role:
+    name: aptrepo
+  vars:
+    aptrepo_params:
+      URIs: '{{ gitlab_runner_repo_url }}'
+      Suites: '{{ gitlab_runner_repo_release }}'
+    aptrepo_key_url: '{{ gitlab_runner_repo_key }}'
+    aptrepo_source_file: /etc/apt/sources.list.d/gitlab-runner.sources
+    aptrepo_key_file: /usr/share/keyrings/gitlab-archive-keyring.gpg
 
 - name: install gitlab runner
   package:

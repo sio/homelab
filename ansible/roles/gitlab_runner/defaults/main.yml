@@ -18,12 +18,6 @@ gitlab_runner_packages_pre:
   - apt-transport-https
   - ca-certificates
   - debian-archive-keyring
-  - gnupg
+gitlab_runner_repo_url: https://packages.gitlab.com/runner/gitlab-runner/debian/
 gitlab_runner_repo_key: https://packages.gitlab.com/runner/gitlab-runner/gpgkey
 gitlab_runner_repo_release: '{{ ansible_distribution_release }}'
-gitlab_runner_repo_list: "\
-  https://packages.gitlab.com/install/repositories/runner/gitlab-runner/config_file.list\
-  ?os={{ ansible_os_family|lower }}\
-  &dist={{ gitlab_runner_repo_release|lower }}\
-  &source=script\
-  "
