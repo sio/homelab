@@ -40,6 +40,16 @@
 #
 
 
+test-role-aptrepo:
+  extends: .test-ansible-role
+  variables:
+    ANSIBLE_ROLE: ../roles/aptrepo
+  rules:
+    - *option-skip-test
+    - changes:
+        - ansible/roles/aptrepo/**/*
+
+
 test-role-borg_server:
   extends: .test-ansible-role
   variables:

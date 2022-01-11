@@ -68,6 +68,7 @@ Local Git repository may be used for keeping track of changes.
 
 ### Tested in Docker
 
+- **aptrepo**
 - **canary**
 - **canon_mf3010**
 - **ci_runners_manager**

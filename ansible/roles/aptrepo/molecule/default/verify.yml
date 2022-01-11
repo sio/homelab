@@ -1,0 +1,18 @@
+---
+- hosts: all
+  name: verify
+  tasks:
+    - name: hello world
+      command: echo hello
+      register: hello
+      failed_when: "'hello' not in hello.stdout"
+      changed_when: "hello is not succeeded"
+
+    - name: search for packages from new repos
+      command: apt search {{ item }}
+      loop:
+        - google-chrome
+        - gitlab-runner
+
+    - name: ping
+      ping:
