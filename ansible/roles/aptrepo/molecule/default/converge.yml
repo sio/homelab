@@ -23,4 +23,4 @@
       aptrepo_url: http://deb.debian.org/debian
       aptrepo_source_file: /etc/apt/sources.list.d/nonfree.sources
       aptrepo_params:
-        Components: main contrib non-free
+        Components: contrib non-free
