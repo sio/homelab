@@ -13,6 +13,8 @@
 
     - role: aptrepo
       aptrepo_url: http://dl.google.com/linux/chrome/deb/
+      aptrepo_params:
+        Suites: stable
       aptrepo_source_file: /etc/apt/sources.list.d/google-chrome.sources
       aptrepo_key_url: https://dl.google.com/linux/linux_signing_key.pub
       aptrepo_key_file: /usr/share/keyrings/google-archive-keyring.gpg
