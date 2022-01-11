@@ -1,0 +1,6 @@
+- import_tasks: assert.yml
+
+- import_tasks: key.yml
+  when: aptrepo_key_file is defined
+
+- import_tasks: sources.yml

@@ -1,0 +1,21 @@
+- name: ensure that dependency tools are available
+  apt:
+    name:
+      - curl
+      - gnupg
+    state: present
+
+- name: create keyring directory
+  file:
+    state: directory
+    path: '{{ aptrepo_key_file|dirname }}'
+    mode: '0755'
+
+- name: fetch repository key
+  shell: |-
+    set -euo pipefail
+    curl -sSL -o - {{ aptrepo_key_url|quote }} | gpg --dearmor > {{ aptrepo_key_file }}
+  args:
+    creates: '{{ aptrepo_key_file }}'
+    executable: /bin/bash
+    warn: no

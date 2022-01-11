@@ -1,0 +1,12 @@
+- name: render sources file for apt
+  template:
+    src: templates/deb822.sources
+    dest: '{{ aptrepo_source_file }}'
+    mode: '0644'
+    backup: yes
+  register: sources
+
+- name: update apt package lists
+  when: sources is changed  # noqa 503 # Make new repo immediately usable
+  apt:
+    update_cache: yes

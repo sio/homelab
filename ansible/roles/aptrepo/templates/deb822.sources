@@ -1,0 +1,8 @@
+# {{ ansible_managed }}
+{% set params = aptrepo_defaults.copy() %}
+{% set _dummy = params.update(aptrepo_params) %}
+{% for key, value in params.items() %}
+{% if value != aptrepo_omit %}
+{{ key }}: {{ value }}
+{% endif %}
+{% endfor %}

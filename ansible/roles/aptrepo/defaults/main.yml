@@ -1,0 +1,15 @@
+# aptrepo_url: url of the repository
+# aptrepo_source_file: location of sources file in deb822 format
+# aptrepo_key_url: url of the repository key
+# aptrepo_key_file: location of repository key on target machine
+
+aptrepo_params: {} # deb822 format
+aptrepo_defaults:
+  URIs: '{{ aptrepo_url|default(aptrepo_omit) }}'
+  Types: deb
+  Components: main
+  Suites: '{{ ansible_distribution_release|lower }}'
+  Signed-By: '{{ aptrepo_key_file|default(aptrepo_omit) }}'
+
+# Internal
+aptrepo_omit: '__this_key_will_be_omitted__'
