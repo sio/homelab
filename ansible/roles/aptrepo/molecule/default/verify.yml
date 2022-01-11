@@ -13,6 +13,11 @@
       loop:
         - google-chrome
         - gitlab-runner
+      register: apt_search
+
+    - name: show search results
+      debug:
+        msg: '{{ apt_search|to_nice_yaml }}'
 
     - name: ping
       ping:
