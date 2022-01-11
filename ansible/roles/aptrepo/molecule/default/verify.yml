@@ -8,6 +8,14 @@
       failed_when: "'hello' not in hello.stdout"
       changed_when: "hello is not succeeded"
 
+    - name: read apt source files
+      shell: tail -v -n+0 /etc/apt/sources.list.d/*
+      register: sources
+
+    - name: show apt source files
+      debug:
+        msg: '{{ sources.stdout }}'
+
     - name: search for packages from new repos
       command: apt-cache show {{ item|quote }}
       loop:
