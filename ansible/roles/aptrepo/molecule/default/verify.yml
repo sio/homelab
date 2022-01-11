@@ -9,9 +9,9 @@
       changed_when: "hello is not succeeded"
 
     - name: search for packages from new repos
-      command: apt search {{ item }}
+      command: apt-cache show {{ item|quote }}
       loop:
-        - google-chrome
+        - google-chrome-stable
         - gitlab-runner
         - bsdgames-nonfree
       register: apt_search
