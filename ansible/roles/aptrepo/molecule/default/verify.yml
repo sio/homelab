@@ -17,7 +17,11 @@
         msg: '{{ sources.stdout }}'
 
     - name: search for packages from new repos
-      command: apt-cache show {{ item|quote }}
+      shell: |-
+        set -euo pipefail
+        apt-cache show {{ item|quote }} | head -n25
+      args:
+        executable: /bin/bash
       loop:
         - google-chrome-stable
         - gitlab-runner
