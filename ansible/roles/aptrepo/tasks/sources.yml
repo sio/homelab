@@ -1,3 +1,9 @@
+- name: create sources directory
+  file:
+    state: directory
+    path: '{{ aptrepo_source_file|dirname }}'
+    mode: '0755'
+
 - name: render sources file for apt
   template:
     src: templates/deb822.sources

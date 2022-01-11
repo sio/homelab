@@ -7,10 +7,12 @@
       aptrepo_params:
         URIs: https://packages.gitlab.com/runner/gitlab-runner/debian/
         Suite: buster
+      aptrepo_source_file: /etc/apt/sources.list.d/gitlab-runner.sources
       aptrepo_key_url: https://packages.gitlab.com/runner/gitlab-runner/gpgkey
       aptrepo_key_file: /usr/share/keyrings/gitlab-archive-keyring.gpg
 
     - role: aptrepo
       aptrepo_url: http://dl.google.com/linux/chrome/deb/
+      aptrepo_source_file: /etc/apt/sources.list.d/google-chrome.sources
       aptrepo_key_url: https://dl.google.com/linux/linux_signing_key.pub
       aptrepo_key_file: /usr/share/keyrings/google-archive-keyring.gpg
