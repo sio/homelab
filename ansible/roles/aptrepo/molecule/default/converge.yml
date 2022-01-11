@@ -6,7 +6,7 @@
     - role: aptrepo
       aptrepo_params:
         URIs: https://packages.gitlab.com/runner/gitlab-runner/debian/
-        Suite: buster
+        Suites: buster
       aptrepo_source_file: /etc/apt/sources.list.d/gitlab-runner.sources
       aptrepo_key_url: https://packages.gitlab.com/runner/gitlab-runner/gpgkey
       aptrepo_key_file: /usr/share/keyrings/gitlab-archive-keyring.gpg

@@ -6,6 +6,7 @@
 aptrepo_params: {} # deb822 format
 aptrepo_defaults:
   URIs: '{{ aptrepo_url|default(aptrepo_omit) }}'
+  Enabled: yes
   Types: deb
   Components: main
   Suites: '{{ ansible_distribution_release|lower }}'
@@ -13,3 +14,26 @@ aptrepo_defaults:
 
 # Internal
 aptrepo_omit: '__this_key_will_be_omitted__'
+aptrepo_deb822_allowed_keys:  # https://manpages.debian.org/stable/apt/sources.list.5.en.html
+  # General
+  - Enabled
+  - Types
+  - URIs
+  - Suites
+  - Components
+  # Options
+  - Architectures
+  - Languages
+  - Targets
+  - PDiffs
+  - By-Hash
+  - Allow-Insecure
+  - Trusted
+  - Signed-By
+  - Check-Valid-Until
+  - Valid-Until-Min
+  - Check-Date
+  - Date-Max-Future
+  - InRelease-Path
+  # Extras
+  - X-Repolib-Name

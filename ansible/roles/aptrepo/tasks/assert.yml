@@ -6,3 +6,10 @@
       - aptrepo_source_file.endswith('.sources')
       - aptrepo_source_file.startswith('/etc/apt/sources.list.d/')
       - aptrepo_url is defined or 'URIs' in aptrepo_params
+
+- name: validate Deb822 parameter names
+  vars:
+    unknown_params: '{{ aptrepo_params|difference(aptrepo_deb822_allowed_keys)|list }}'
+  assert:
+    that:
+      - unknown_params == []
