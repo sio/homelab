@@ -6,7 +6,7 @@
 aptrepo_params: {} # deb822 format
 aptrepo_defaults:
   URIs: '{{ aptrepo_url|default(aptrepo_omit) }}'
-  Enabled: yes
+  Enabled: 'yes'
   Types: deb
   Components: main
   Suites: '{{ ansible_distribution_release|lower }}'
