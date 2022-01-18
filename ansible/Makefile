@@ -102,6 +102,7 @@ shutdown: .require-hosts
 
 
 # Customization for all.yml
+all: export ANSIBLE_STRATEGY=free
 all: export ANSIBLE_DISPLAY_OK_HOSTS=no
 all: export ANSIBLE_DISPLAY_SKIPPED_HOSTS=no
 all: keys
