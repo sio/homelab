@@ -13,10 +13,12 @@
 
     - name: web server should become inaccessible due to firewall restrictions
       wait_for:
+        host: '{{ ansible_host }}'
         port: 80
         timeout: 5
       register: apache
       ignore_errors: yes
+      delegate_to: localhost
 
     - name: check web server status
       assert:
