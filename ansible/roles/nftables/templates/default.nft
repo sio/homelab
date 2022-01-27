@@ -1,0 +1,35 @@
+#!/usr/sbin/nft -f
+flush ruleset
+
+
+table inet filter {
+    chain global {
+        ct state invalid drop
+        ct state {established, related} accept
+        iif lo accept
+        iif != lo ip daddr 127.0.0.1/8 drop
+        iif != lo ip6 daddr ::1/128 drop
+        ip protocol icmp accept
+        ip6 nexthdr icmpv6 accept
+    }
+
+    chain output {
+        type filter hook output priority 100; policy accept;
+    }
+
+    chain input {
+        type filter hook input priority 0; policy drop;
+        jump global
+
+        {% if nftables_open_tcp_ports|length > 0 %}
+        tcp dport { {{ nftables_open_tcp_ports|join(',') }} } accept
+        {% endif %}
+        {% if nftables_open_udp_ports|length > 0 %}
+        udp dport { {{ nftables_open_udp_ports|join(',') }} } accept
+        {% endif %}
+    }
+
+    chain forward {
+        type filter hook forward priority 0; policy drop;
+    }
+}

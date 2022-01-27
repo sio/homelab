@@ -1,0 +1,38 @@
+---
+
+- name: create required directories
+  file:
+    path: '{{ item }}'
+    state: directory
+    mode: '0755'
+  loop: '{{ required_dirs }}'
+  vars:
+    required_dirs: '{{ (config_dirs + templated_dirs)|unique }}'
+    config_dirs:
+      - '{{ nftables_service_override|dirname }}'
+      - '{{ nftables_config_dir }}'
+    templated_dirs: >
+      {{
+      [nftables_config_dir + "/"]
+      | product(nftables_templates)
+      | map("join")
+      | map("dirname")
+      | list
+      }}
+
+- name: configure systemd service
+  template:
+    src: templates/override.service
+    dest: '{{ nftables_service_override }}'
+    mode: '0644'
+    backup: yes
+  notify: restart nftables
+
+- name: create firewall configuration files
+  template:
+    src: '{{ nftables_template_dir }}/{{ item }}'
+    dest: '{{ nftables_config_dir }}/{{ item }}'
+    mode: '0600'
+    backup: yes
+  loop: '{{ nftables_templates }}'
+  notify: restart nftables

@@ -1,0 +1,13 @@
+---
+
+- name: install nftables
+  package:
+    name: nftables
+    state: present
+
+- name: remove other firewall services
+  package:
+    name:
+      - ufw
+      - firewalld
+    state: absent

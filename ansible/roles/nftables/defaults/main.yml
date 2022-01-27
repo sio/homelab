@@ -1,0 +1,17 @@
+# Role parameters
+nftables_config_dir: /etc/firewall
+nftables_template_dir: templates
+nftables_templates: # Paths relative to nftables_template_dir.
+  - default.nft     # First item must be /usr/sbin/nft entrypoint,
+                    # all items are rendered into {{ nftables_config_dir }}/{{ item }}
+
+# Calculated values
+nftables_config_template: '{{ nftables_templates|first }}'
+nftables_config: '{{ nftables_config_dir }}/{{ nftables_config_template }}'
+
+# Role constants
+nftables_service_override: /etc/systemd/system/nftables.service.d/custom_path.conf
+
+# Template variables
+nftables_open_tcp_ports: []
+nftables_open_udp_ports: []

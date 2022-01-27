@@ -1,0 +1,7 @@
+# {{ ansible_managed }}
+#
+# Use custom configuration file for nftables.service
+
+[Service]
+ExecStart=/usr/sbin/nft -f {{ nftables_config|quote }}
+ExecReload=/usr/sbin/nft -f {{ nftables_config|quote }}
