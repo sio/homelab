@@ -10,6 +10,12 @@
     update_password: always
   when: server_root_password is defined
 
+- name: install ufw
+  when: firewall_auto_config|default(True)
+  package:
+    name: ufw
+    state: present
+
 - name: allow SSH access (rate-limited)
   ufw:
     port: ssh
@@ -34,6 +40,7 @@
   notify: reload firewall
 
 - name: enable firewall (ufw)
+  when: firewall_auto_config|default(True)
   service:
     name: ufw
     state: started

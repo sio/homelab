@@ -5,6 +5,7 @@
     state: restarted
 
 - name: reload firewall
+  when: firewall_auto_config|default(True)
   ufw:
     state: reloaded
 
