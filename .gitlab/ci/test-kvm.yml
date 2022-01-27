@@ -91,6 +91,16 @@ test-role-morebooks:
         - ansible/roles/server/**/*
 
 
+test-role-nftables:
+  extends: .test-ansible-role-kvm
+  variables:
+    ANSIBLE_ROLE: ../roles/nftables
+  rules:
+    - *option-skip-test
+    - changes:
+        - ansible/roles/nftables/**/*
+
+
 test-role-samba:
   extends: .test-ansible-role-kvm
   variables:

@@ -94,6 +94,7 @@ Local Git repository may be used for keeping track of changes.
 - **munin_master**: depends on server
 - **munin_node**: uses the test suite of munin_master
 - **munin_smart**: depends on server
+- **nftables**: firewall configuration is not testable in Docker
 - **nfs_cache**: requires access to /dev/cachefiles
 - **nfs_server**: detecting ansible facts is not fully functional in Docker
   (no `ansible_default_ipv4`)

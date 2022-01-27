@@ -1,0 +1,8 @@
+---
+
+- hosts: all
+  become: true
+  roles:
+    - role: nftables
+      nftables_open_tcp_ports:
+        - ssh

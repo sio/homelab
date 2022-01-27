@@ -1,0 +1,19 @@
+- hosts: all
+  become: yes
+  gather_facts: no
+  tasks:
+    - name: install apache web server
+      package:
+        name: apache2
+        state: present
+
+    - name: start apache web server
+      systemd:
+        name: apache2.service
+        state: started
+        daemon_reload: yes
+
+    - name: wait for port 80
+      wait_for:
+        port: 80
+        timeout: 30
