@@ -6,3 +6,4 @@
     - role: nftables
       nftables_open_tcp_ports:
         - ssh
+      nftables_open_udp_ports: '{{ nftables_open_tcp_ports }}'

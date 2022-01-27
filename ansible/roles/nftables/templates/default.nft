@@ -21,10 +21,10 @@ table inet filter {
         type filter hook input priority 0; policy drop;
         jump global
 
-        {% if nftables_open_tcp_ports|length > 0 %}
+        {% if nftables_open_tcp_ports|length > 0 -%}
         tcp dport { {{ nftables_open_tcp_ports|join(',') }} } accept
-        {% endif %}
-        {% if nftables_open_udp_ports|length > 0 %}
+        {% endif -%}
+        {% if nftables_open_udp_ports|length > 0 -%}
         udp dport { {{ nftables_open_udp_ports|join(',') }} } accept
         {% endif %}
     }
