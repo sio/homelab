@@ -64,7 +64,7 @@
 
 - name: configure VPN interface
   template:
-    src: 'templates/{{ wireguard_role }}.conf'
+    src: 'templates/wireguard.conf'
     dest: '{{ wireguard_config_interface }}'
     mode: '0600'
     backup: yes
@@ -93,7 +93,7 @@
     port: '{{ wireguard_port }}'
     proto: udp
     rule: allow
-  when: wireguard_is_server and firewall_auto_config|default(True)
+  when: not wireguard_port is none and firewall_auto_config|default(True)
 
 - name: enable IP forwarding
   sysctl:
