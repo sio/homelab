@@ -168,3 +168,23 @@ test-playbook-laptopmini:
         - ansible/roles/smarttest/**/*
         - ansible/roles/sshkey/**/*
         - ansible/roles/upgrade/**/*
+
+
+test-playbook-vpn-family:
+  extends: .test-ansible-role-kvm
+  stage: test-playbook
+  variables:
+    ANSIBLE_ROLE: playbook-tests
+    MOLECULE_SCENARIO: vpn-family
+  rules:
+    - *option-skip-test
+    - changes:
+        - ansible/vpn-family.yml
+        - ansible/tests/playbook-tests/molecule/vpn-family/**/*
+        - ansible/roles/motd/**/*
+        - ansible/roles/nftables/**/*
+        - ansible/roles/packages/**/*
+        - ansible/roles/server/**/*
+        - ansible/roles/sshkey/**/*
+        - ansible/roles/upgrade/**/*
+        - ansible/roles/wireguard/**/*

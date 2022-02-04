@@ -121,6 +121,7 @@ Local Git repository may be used for keeping track of changes.
 - **printer.yml**
 - **upgrade.yml** - requires no extra tests since it's just applying a role to
   the target
+- **vpn-family.yml**
 
 ## Automated tests not implemented
 
