@@ -1,0 +1,21 @@
+#
+# BRING FAMILY NETWORKS TOGETHER USING VPN
+#
+
+- name: vpn-edge
+  hosts: vpn-edge
+  become: yes
+  gather_facts: no
+  roles:
+    - role: server
+    - role: upgrade
+    - role: motd
+    - role: packages
+    - role: sshkey
+  tasks:
+    - include_role:
+        name: wireguard
+      loop: '{{ wireguard }}'
+      vars: '{{ wireguard[item] }}'
+    - import_role:
+        name: nftables

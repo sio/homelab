@@ -5,6 +5,9 @@ all:
       vars:
         server_force_inventory_hostname: yes
         upgrade_allow_reboot: yes
+    vpn-edge:
+      vars:
+        server_force_inventory_hostname: yes
   hosts:
     ci-runners-manager:
       server_force_inventory_hostname: yes
