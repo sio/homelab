@@ -25,7 +25,12 @@
     path: '{{ item }}'
     state: directory
     mode: '0755'
-  loop:
+  loop: '{{ dirs|unique }}'
+  vars:
+    dirs:
+    - '{{ wireguard_config_interface|dirname }}'
+    - '{{ wireguard_config_private_key|dirname }}'
+    - '{{ wireguard_config_public_key|dirname }}'
     - '{{ wireguard_config_dir }}'
     - /etc/systemd/system/wg-quick@.service.d
 
