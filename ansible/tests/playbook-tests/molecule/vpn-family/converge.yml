@@ -1,5 +1,6 @@
 # Load some variables from inventory
 - hosts: all
+  gather_facts: no
   tasks:
     - name: read variables from top-level group_vars/
       include_vars: ../../../../inventory/group_vars/all/ansible.yml

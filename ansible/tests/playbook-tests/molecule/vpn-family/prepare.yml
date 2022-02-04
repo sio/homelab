@@ -1,2 +1,55 @@
 ---
 - import_playbook: ../laptopmini/prepare.yml  # Vagrant public key
+
+- hosts: vpn-edge-inner
+  gather_facts: no
+  become: yes
+  tasks:
+    - name: create directories for wireguard keys
+      file:
+        state: directory
+        mode: '0700'
+        path: /etc/wireguard/wg_trusted
+    - name: write unsafe private key for wg_trusted
+      copy:
+        content: '{{ unsafe_keys.inner.private }}'
+        dest: /etc/wireguard/wg_trusted/private_key
+        mode: '0600'
+    - name: write unsafe public key for wg_trusted
+      copy:
+        content: '{{ unsafe_keys.inner.public }}'
+        dest: /etc/wireguard/wg_trusted/public_key
+        mode: '0600'
+
+- hosts: vpn-edge-outer
+  gather_facts: no
+  become: yes
+  tasks:
+    - name: create directories for wireguard keys
+      file:
+        state: directory
+        mode: '0700'
+        path: /etc/wireguard/{{ item }}
+      loop:
+        - wg_trusted
+        - wg_untrusted
+    - name: write unsafe private key for wg_untrusted
+      copy:
+        content: '{{ unsafe_keys.outer.private }}'
+        dest: /etc/wireguard/wg_untrusted/private_key
+        mode: 0600
+    - name: write unsafe public key for wg_untrusted
+      copy:
+        content: '{{ unsafe_keys.outer.public }}'
+        dest: /etc/wireguard/wg_untrusted/public_key
+        mode: 0600
+    - name: write unsafe private key for wg_trusted
+      copy:
+        content: '{{ unsafe_keys.outer.private }}'
+        dest: /etc/wireguard/wg_trusted/private_key
+        mode: 0600
+    - name: write unsafe public key for wg_trusted
+      copy:
+        content: '{{ unsafe_keys.outer.public }}'
+        dest: /etc/wireguard/wg_trusted/public_key
+        mode: 0600
