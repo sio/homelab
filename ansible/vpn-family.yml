@@ -15,7 +15,13 @@
   tasks:
     - include_role:
         name: wireguard
-      loop: '{{ wireguard }}'
-      vars: '{{ wireguard[item] }}'
+      loop: '{{ wireguard_iface|list }}'
+      loop_control:
+        loop_var: ifname
+      vars:
+        wireguard_interface: '{{ ifname }}'
+        wireguard_address: '{{ wireguard_iface[ifname].wireguard_address }}'
+        wireguard_port: '{{ wireguard_iface[ifname].wireguard_port }}'
+        wireguard_peers: '{{ wireguard_iface[ifname].wireguard_peers }}'
     - import_role:
         name: nftables

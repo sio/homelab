@@ -21,28 +21,28 @@ all:
 
   hosts:
     vpn-edge-outer:
-      wireguard:
+      wireguard_iface:
         wg_trusted:
           public_key: '{{ secret_wg_pubkey_iface_trusted }}'
           wireguard_address: 10.133.7.1/24
           wireguard_port: '{{ wireguard_default_port }}'
           wireguard_peers:
-            - public_key: '{{ hostvars["vpn-edge-inner"].wireguard.wg_trusted.public_key }}'
+            - public_key: '{{ hostvars["vpn-edge-inner"].wireguard_iface.wg_trusted.public_key }}'
               allowed_ips: 10.133.7.2/32,192.168.0.0/16
         wg_untrusted:
           public_key: '{{ secret_wg_pubkey_iface_untrusted }}'
           wireguard_address: 10.133.10.1/24
           wireguard_port: '{{ wireguard_default_port + 1 }}'
           wireguard_peers: []
-      nftables_open_udp_ports: '{{ wireguard.values()|map(attribute="wireguard_port")|list }}'
+      nftables_open_udp_ports: '{{ wireguard_iface.values()|map(attribute="wireguard_port")|list }}'
 
     vpn-edge-inner:
-      wireguard:
+      wireguard_iface:
         wg_trusted:
           public_key: '{{ secret_wg_pubkey_iface_trusted }}'
           wireguard_address: 10.133.7.2/32
           wireguard_port: '{{ wireguard_default_port }}'
           wireguard_peers:
-            - public_key: '{{ hostvars["vpn-edge-outer"].wireguard.wg_trusted.public_key }}'
+            - public_key: '{{ hostvars["vpn-edge-outer"].wireguard_iface.wg_trusted.public_key }}'
               endpoint: '{{ hostvars["vpn-edge-outer"].ansible_host }}'
               allowed_ips: 0.0.0.0/0

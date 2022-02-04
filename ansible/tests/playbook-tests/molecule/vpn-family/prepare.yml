@@ -1,0 +1,2 @@
+---
+- import_playbook: ../laptopmini/prepare.yml  # Vagrant public key
