@@ -57,7 +57,7 @@ provisioner:
             wireguard_port: '{{ wireguard_default_port + 1 }}'
             wireguard_peers:
               - public_key: '{{ unsafe_keys.inner.public }}'
-                allowed_ips: 10.133.10.2/32,192.168.0.0/16
+                allowed_ips: 10.133.10.2/32
         nftables_open_udp_ports: '{{ wireguard_iface.values()|map(attribute="wireguard_port")|list }}'
 
       vpn-edge-inner:
@@ -65,10 +65,18 @@ provisioner:
           wg_trusted:
             public_key: '{{ unsafe_keys.inner.public }}'
             wireguard_address: 10.133.7.2/32
-            wireguard_port: '{{ wireguard_default_port }}'
+            wireguard_port: null
             wireguard_peers:
               - public_key: '{{ unsafe_keys.outer.public }}'
                 endpoint: '{{ hostvars["vpn-edge-outer"].ansible_host }}:{{ wireguard_default_port }}'
+                allowed_ips: 0.0.0.0/0
+          wg_untrusted:
+            public_key: '{{ unsafe_keys.inner.public }}'
+            wireguard_address: 10.133.10.2/32
+            wireguard_port: null
+            wireguard_peers:
+              - public_key: '{{ unsafe_keys.outer.public }}'
+                endpoint: '{{ hostvars["vpn-edge-outer"].ansible_host }}:{{ wireguard_default_port+1 }}'
                 allowed_ips: 0.0.0.0/0
 ### End of excerpts from ansible/inventory/vpn-family.yml
 
