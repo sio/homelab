@@ -12,3 +12,4 @@ wireguard_config_dir: /etc/wireguard
 wireguard_config_interface: '{{ wireguard_config_dir }}/{{ wireguard_interface }}.conf'  # expected by wg-quick
 wireguard_config_private_key: '{{ wireguard_config_dir }}/{{ wireguard_interface }}/private_key'
 wireguard_config_public_key: '{{ wireguard_config_dir }}/{{ wireguard_interface }}/public_key'
+wireguard_restart_interfaces: []
