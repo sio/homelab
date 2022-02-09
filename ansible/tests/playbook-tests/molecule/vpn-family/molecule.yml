@@ -39,7 +39,7 @@ provisioner:
         nftables_interfaces_untrusted:
           - wg_untrusted
         nftables_interfaces_wan:
-          - '{{ ansible_default_ipv4.interface }}'
+          - '{{ wireguard_lan_interface.content|b64decode|trim }}'
 
     host_vars:
       vpn-edge-outer:
