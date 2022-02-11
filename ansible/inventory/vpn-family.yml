@@ -7,6 +7,7 @@ all:
       vars:
         firewall_auto_config: no  # do not use UFW firewall
         wireguard_enable_ip_forward: yes
+        wireguard_default_port: 51828
         nftables_open_tcp_ports:
           - ssh
         nftables_template_dir: '{{ playbook_dir }}/../nftables/vpn_edge'
@@ -16,8 +17,6 @@ all:
           - wg_trusted
         nftables_interfaces_untrusted:
           - wg_untrusted
-        nftables_interfaces_wan:
-          - '{{ ansible_default_ipv4.interface }}'
 
   hosts:
     vpn-edge-outer:
@@ -35,14 +34,21 @@ all:
           wireguard_port: '{{ wireguard_default_port + 1 }}'
           wireguard_peers: []
       nftables_open_udp_ports: '{{ wireguard_iface.values()|map(attribute="wireguard_port")|list }}'
+      nftables_interfaces_wan:
+        - '{{ wireguard_lan_interface.content|b64decode|trim }}'
 
     vpn-edge-inner:
       wireguard_iface:
         wg_trusted:
           public_key: '{{ secret_wg_pubkey_iface_trusted }}'
           wireguard_address: 10.133.7.2/32
-          wireguard_port: '{{ wireguard_default_port }}'
+          wireguard_port: null
           wireguard_peers:
             - public_key: '{{ hostvars["vpn-edge-outer"].wireguard_iface.wg_trusted.public_key }}'
-              endpoint: '{{ hostvars["vpn-edge-outer"].ansible_host }}'
+              endpoint: '{{ hostvars["vpn-edge-outer"].ansible_host }}:{{ wireguard_default_port }}'
               allowed_ips: 0.0.0.0/0
+      nftables_interfaces_wan:
+        - hostile
+      nftables_interfaces_trusted:
+        - wg_trusted
+        - '{{ wireguard_lan_interface.content|b64decode|trim }}'
