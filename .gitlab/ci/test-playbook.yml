@@ -179,6 +179,7 @@ test-playbook-vpn-family:
   rules:
     - *option-skip-test
     - changes:
+        - nftables/vpn_edge/**/*
         - ansible/vpn-family.yml
         - ansible/tests/playbook-tests/molecule/vpn-family/**/*
         - ansible/roles/motd/**/*
