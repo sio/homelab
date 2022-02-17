@@ -38,6 +38,7 @@ table inet router {
 
     chain ratelimit {
         ct state new tcp dport ssh limit rate over 5/minute add @BANNED { ip saddr } counter drop
+        ct state new ip protocol tcp limit rate over 50/minute add @BANNED { ip saddr timeout 1h } counter drop
     }
 
     chain output {
