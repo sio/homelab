@@ -24,12 +24,31 @@ table inet router {
         ip6 nexthdr icmpv6 accept
     }
 
+    set BANNED {
+        typeof ip saddr
+        size 65536
+        flags dynamic, timeout
+        timeout 5m
+    }
+
+    chain banned {
+        ip saddr @BANNED counter drop
+        ip daddr @BANNED counter drop
+    }
+
+    chain ratelimit {
+        ct state new tcp dport ssh limit rate over 5/minute add @BANNED { ip saddr } counter drop
+    }
+
     chain output {
         type filter hook output priority 100; policy accept;
+        jump banned
     }
 
     chain input {
         type filter hook input priority 0; policy drop;
+        jump banned
+        jump ratelimit
         jump global
         iifname $UNTRUSTED drop
 
@@ -43,6 +62,7 @@ table inet router {
 
     chain forward {
         type filter hook forward priority 0; policy drop;
+        jump banned
         iifname $TRUSTED accept
         oifname $TRUSTED ct state {established, related} accept
     }
