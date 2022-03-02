@@ -21,6 +21,8 @@ task:
     # VENVDIR must be absolute path for 'cd && make' approach to work
     # VENVDIR should not be cached! Cirrus CI drops some binaries randomly
 
+    CGROUP_WORKAROUND: /sys/fs/cgroup/machine/qemu-cgroup_workaround.libvirt-qemu
+
     # Pass values from cirrus-run environment
     CLONE_URL: "{{ CI_REPOSITORY_URL }}"
     CLONE_SHA: "{{ CI_COMMIT_SHA }}"
@@ -61,6 +63,16 @@ task:
   libvirtd_background_script:
     - sleep 2 && /usr/sbin/libvirtd
 
+  # Workaround for cgroups v2
+  # I have no idea why or how this works (see commit message for a longer rant)
+  cgroups_workaround_script:
+    - mkdir -p "$CGROUP_WORKAROUND"
+    - ls -lF "$CGROUP_WORKAROUND"
+    - bash -c 'echo $$ > /tmp/cgroups_workaround.pid; sleep infinity' &
+    - sleep 1
+    - cat /tmp/cgroups_workaround.pid >> $CGROUP_WORKAROUND/cgroup.procs
+    - cat $CGROUP_WORKAROUND/cgroup.procs
+
   # Execute automated tests
   test_script:
     - cd ansible/tests
@@ -70,6 +82,9 @@ task:
   always:
     cache_debug_script:
       - find "$HOME/cache" -type f || echo "Exit code: $?"
+    cgroups_debug_script:
+      - fgrep cgroup /proc/mounts || echo "Exit code: $?"
+      - find /sys/fs/cgroup -exec ls -ldF {} \; || echo "Exit code: $?"
     kvm_debug_script:
       - free -h
       - pstree -alT
