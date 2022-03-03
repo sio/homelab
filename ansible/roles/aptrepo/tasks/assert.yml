@@ -6,6 +6,7 @@
       - aptrepo_source_file.endswith('.sources')
       - aptrepo_source_file.startswith('/etc/apt/sources.list.d/')
       - aptrepo_url is defined or 'URIs' in aptrepo_params
+      - (aptrepo_key_url.startswith('https://') if aptrepo_key_url is defined else True)
 
 - name: validate Deb822 parameter names
   vars:

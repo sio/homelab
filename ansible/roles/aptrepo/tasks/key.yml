@@ -12,10 +12,21 @@
     mode: '0755'
 
 - name: fetch repository key
+  get_url:
+    url: '{{ aptrepo_key_url }}'
+    dest: '{{ aptrepo_key_raw }}'
+    mode: '0644'
+    backup: yes
+  register: get_url
+  until: get_url is not failed
+  retries: 10
+  delay: 2
+
+- name: dearmor repository key
+  when: get_url is changed  # noqa 503 # ideally this should've been one task with get_url
   shell: |-
     set -euo pipefail
-    curl -sSL -o - {{ aptrepo_key_url|quote }} | gpg --dearmor > {{ aptrepo_key_file }}
+    cat {{ aptrepo_key_raw|quote }} | gpg --dearmor > {{ aptrepo_key_file|quote }}
   args:
-    creates: '{{ aptrepo_key_file }}'
     executable: /bin/bash
     warn: no

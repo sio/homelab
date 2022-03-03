@@ -13,6 +13,7 @@ aptrepo_defaults:
   Signed-By: '{{ aptrepo_key_file|default(aptrepo_omit) }}'
 
 # Internal
+aptrepo_key_raw: '{{ aptrepo_key_file + ".raw" }}'
 aptrepo_omit: '__this_key_will_be_omitted__'
 aptrepo_deb822_allowed_keys:  # https://manpages.debian.org/stable/apt/sources.list.5.en.html
   # General
