@@ -108,6 +108,7 @@ test-role-gitlab_runner:
     - *option-skip-test
     - changes:
         - ansible/roles/gitlab_runner/**/*
+        - ansible/roles/aptrepo/**/*
 
 
 test-role-interactive:

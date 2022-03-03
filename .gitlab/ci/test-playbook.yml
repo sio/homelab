@@ -24,6 +24,7 @@ test-playbook-control:
     - changes:
         - ansible/control.yml
         - ansible/tests/playbook-tests/molecule/control/**/*
+        - ansible/roles/aptrepo/**/*
         - ansible/roles/control/**/*
         - ansible/roles/gitlab_runner/**/*
         - ansible/roles/interactive/**/*
