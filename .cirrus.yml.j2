@@ -65,7 +65,7 @@ task:
 
   # Workaround for cgroups v2
   # I have no idea why or how this works (see commit message for a longer rant)
-  cgroups_workaround_script:
+  cgroups_workaround_background_script:
     - mkdir -p "$CGROUP_WORKAROUND"
     - ls -lF "$CGROUP_WORKAROUND"
     - bash -c 'echo $$ > /tmp/cgroups_workaround.pid; sleep infinity' &
