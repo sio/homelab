@@ -16,3 +16,6 @@ upgrade_ignore_support_status:  # list of source packages
   - binutils  # always reported https://lists.debian.org/debian-security/2019/12/msg00007.html
 
 upgrade_ignore_support_status_all: no  # ignore all packages
+
+upgrade_repocleaner_url: https://github.com/sio/aptrepo-cleanup/raw/master/repocleaner.py
+upgrade_repocleaner_script: /usr/local/bin/repocleaner

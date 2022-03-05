@@ -1,0 +1,45 @@
+---
+
+- name: create repocleaner directory
+  file:
+    path: '{{ upgrade_repocleaner_script|dirname }}'
+    state: directory
+    mode: '0755'
+
+- name: fetch repocleaner script
+  get_url:
+    url: '{{ upgrade_repocleaner_url }}'
+    dest: '{{ upgrade_repocleaner_script }}'
+    mode: '0755'
+  register: get_url
+  until: get_url is not failed
+  retries: 10
+  delay: 2
+
+- block:
+    - name: update apt package cache and disable misbehaving repos
+      command: '{{ upgrade_repocleaner_script }}'
+      register: repocleaner
+      changed_when: repocleaner.rc == 200
+      failed_when: repocleaner.rc not in [0, 200]
+  rescue:
+    - name: show repocleaner output
+      failed_when: yes
+      debug:
+        msg: |
+          error:
+            {{ upgrade_repocleaner_script }} exited with code {{ repocleaner.rc }}
+          stdout:
+          {{ repocleaner.stdout|indent(2) }}
+          stderr:
+          {{ repocleaner.stderr|indent(2) }}
+
+- name: show repos which caused problems and have been disabled
+  when: repocleaner.rc == 200
+  changed_when: yes
+  debug:
+    msg: |
+      Error messages were received during repository cache update:
+      {{ repocleaner.stderr|indent(2) }}
+      These repos have caused problems during update and have been disabled:
+      {{ repocleaner.stdout|from_json|to_nice_yaml|indent(2) }}

@@ -2,6 +2,8 @@
 
 - when: ansible_pkg_mgr == "apt"
   block:
+    - import_tasks: repocleaner.yml
+
     - name: install package management tools
       apt:
         name:
