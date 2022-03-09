@@ -57,8 +57,11 @@ table inet router {
         ip daddr @BANNED counter drop
     }
 
-    chain ratelimit {
+    chain ratelimit_ssh {
         ct state new tcp dport ssh limit rate over 5/minute add @BANNED { ip saddr } counter drop
+    }
+
+    chain ratelimit_tcp {
         ct state new ip protocol tcp limit rate over 50/minute add @BANNED { ip saddr timeout 1h } counter drop
     }
 
@@ -74,7 +77,7 @@ table inet router {
     chain input {
         type filter hook input priority 0; policy drop;
         jump banned
-        jump ratelimit
+        jump ratelimit_ssh
         jump global
 
         iifname $UNTRUSTED drop
@@ -86,6 +89,8 @@ table inet router {
         {% if nftables_open_udp_ports|length > 0 -%}
         udp dport { {{ nftables_open_udp_ports|join(',') }} } accept
         {% endif %}
+
+        jump ratelimit_tcp
     }
 
     chain forward {
