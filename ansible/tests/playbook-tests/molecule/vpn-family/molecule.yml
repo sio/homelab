@@ -70,14 +70,6 @@ provisioner:
               - public_key: '{{ unsafe_keys.outer.public }}'
                 endpoint: '{{ hostvars["vpn-edge-outer"].ansible_host }}:{{ wireguard_default_port }}'
                 allowed_ips: 0.0.0.0/0
-          wg_untrusted:
-            public_key: '{{ unsafe_keys.inner.public }}'
-            wireguard_address: 10.133.10.2/32
-            wireguard_port: null
-            wireguard_peers:
-              - public_key: '{{ unsafe_keys.outer.public }}'
-                endpoint: '{{ hostvars["vpn-edge-outer"].ansible_host }}:{{ wireguard_default_port+1 }}'
-                allowed_ips: 10.133.10.1/24
 ### End of excerpts from ansible/inventory/vpn-family.yml
 
 
