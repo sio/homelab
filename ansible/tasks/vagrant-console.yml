@@ -7,5 +7,5 @@
 - name: set insecure password for vagrant user
   user:
     name: vagrant
-    password: '{{ "vagrant"|password_hash("sha512", ansible_fqdn|to_uuid) }}'
+    password: '{{ "vagrant"|password_hash("sha512", ansible_fqdn|to_uuid|replace("-","")|truncate(16, end="")) }}'
     update_password: always
