@@ -1,0 +1,11 @@
+- name: enable getty at serial console
+  systemd:
+    name: serial-getty@ttyS0
+    state: started
+    enabled: yes
+
+- name: set insecure password for vagrant user
+  user:
+    name: vagrant
+    password: '{{ "vagrant"|password_hash("sha512", ansible_fqdn|to_uuid) }}'
+    update_password: always

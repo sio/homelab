@@ -1,6 +1,12 @@
 ---
 - import_playbook: ../laptopmini/prepare.yml  # Vagrant public key
 
+- hosts: all
+  become: yes
+  gather_facts: no
+  tasks:
+    - import_tasks: ../../../../tasks/vagrant-console.yml
+
 - hosts: vpn-edge-inner
   gather_facts: no
   become: yes
