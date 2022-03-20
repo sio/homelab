@@ -50,7 +50,7 @@ provisioner:
             wireguard_port: '{{ wireguard_default_port }}'
             wireguard_peers:
               - public_key: '{{ unsafe_keys.inner.public }}'
-                allowed_ips: 10.133.7.2/32,192.168.0.0/16
+                allowed_ips: 10.133.7.2/32
           wg_untrusted:
             public_key: '{{ unsafe_keys.outer.public }}'
             wireguard_address: 10.133.10.1/24
