@@ -28,6 +28,7 @@
   get_url:
     url: '{{ cloudflare_tunnel_daemon_url }}'
     dest: '{{ cloudflare_tunnel_daemon }}'
+    mode: '0755'
   register: get_url
   until: get_url is not failed
   retries: 10
