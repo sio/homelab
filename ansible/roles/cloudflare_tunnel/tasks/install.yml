@@ -37,24 +37,4 @@
   loop_control:
     loop_var: credentials
     label: '{{ credentials.TunnelID|truncate(21) }}'
-  block:
-    - name: create tunnel directory
-      file:
-        state: directory
-        path: '{{ cloudflare_tunnel_dir }}/{{ credentials.TunnelID }}'
-
-    - name: save tunnel credentials
-      template:
-        src: templates/credentials.json
-        dest: '{{ cloudflare_tunnel_dir }}/{{ credentials.TunnelID }}/credentials.json'
-        mode: 0400
-        owner: '{{ cloudflare_tunnel_daemon_user }}'
-      notify: restart cloudflare tunnels
-
-    - name: save tunnel configuration
-      template:
-        src: templates/config.yml
-        dest: '{{ cloudflare_tunnel_dir }}/{{ credentials.TunnelID }}/config.yml'
-        mode: 0400
-        owner: '{{ cloudflare_tunnel_daemon_user }}'
-      notify: restart cloudflare tunnels
+  include_tasks: tunnel.yml
