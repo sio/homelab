@@ -1,0 +1,11 @@
+---
+
+- hosts: all
+  become: true
+  roles:
+    - role: cloudflare_tunnel
+      cloudflare_tunnel_credentials:
+        - URL: https://localhost:8443
+          TunnelID: 123e4567-e89b-12d3-a456-426614174000
+          TunnelSecret: Aaaaa/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=
+          AccountTag: 0123456789abcde0123456789abcde01
