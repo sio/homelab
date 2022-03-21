@@ -1,5 +1,10 @@
 ---
 
+- name: download root CA certificates
+  package:
+    name: ca-certificates
+    state: present
+
 - name: create cloudflared user group
   group:
     name: '{{ cloudflare_tunnel_daemon_user }}'
