@@ -10,3 +10,4 @@
     state: restarted
     enabled: yes
     daemon_reload: yes
+  when: molecule_ephemeral_directory is not defined  # Argo tunnel will not work with fake auth info
