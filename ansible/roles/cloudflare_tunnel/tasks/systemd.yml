@@ -1,0 +1,8 @@
+---
+
+- name: configure systemd service
+  template:
+    src: templates/cloudflare-tunnel@.service
+    dest: /etc/systemd/system/cloudflare-tunnel@.service
+    mode: '0644'
+  notify: restart cloudflare tunnels

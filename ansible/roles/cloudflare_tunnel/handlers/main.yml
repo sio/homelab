@@ -1,0 +1,12 @@
+---
+
+- name: restart cloudflare tunnels
+  loop: cloudflare_tunnel_credentials
+  loop_control:
+    loop_var: credentials
+    label: '{{ credentials.TunnelID|truncate(21) }}'
+  systemd:
+    name: 'cloudflare-tunnel@{{ credentials.TunnelID }}.service'
+    state: restarted
+    enabled: yes
+    daemon_reload: yes

@@ -1,0 +1,26 @@
+#
+# ROLE PARAMETERS
+#
+
+cloudflare_tunnel_credentials: []
+# List of dictionaries, sample below:
+#   - URL: https://localhost:8443
+#     TunnelID: 123e4567-e89b-12d3-a456-426614174000
+#     TunnelSecret: Aaaaa/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=
+#     AccountTag: 0123456789abcde0123456789abcde01
+
+cloudflare_tunnel_daemon_autoupdate: yes
+
+
+#
+# INTERNAL VARIABLES
+#
+cloudflare_tunnel_dir: /etc/cloudflare-tunnel/
+cloudflare_tunnel_daemon: /usr/local/bin/cloudflared
+cloudflare_tunnel_daemon_user: cloudflared
+cloudflare_tunnel_daemon_url: "\
+  https://github.com/cloudflare/cloudflared/releases/download/\
+  {{ cloudflare_tunnel_daemon_version }}\
+  /cloudflared-linux-amd64\
+  "
+cloudflare_tunnel_daemon_version: 2022.3.2  # will not be enforced if autoupdate is enabled

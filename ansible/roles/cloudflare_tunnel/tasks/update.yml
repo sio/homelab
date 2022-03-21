@@ -1,0 +1,8 @@
+---
+
+- name: update cloudflare daemon
+  command: "{{ cloudflare_tunnel_daemon|quote }} update"
+  register: cloudflared_update
+  changed_when: cloudflared_update.rc == 11
+  failed_when: cloudflared_update.rc not in [0, 11]
+  notify: restart cloudflare tunnels

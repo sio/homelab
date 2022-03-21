@@ -1,0 +1,43 @@
+# {{ ansible_managed }}
+
+[Unit]
+Description=Cloudflare Tunnel (%i)
+After=network.target
+
+
+[Install]
+WantedBy=multi-user.target
+
+
+[Service]
+Type=notify
+User={{ cloudflare_tunnel_daemon_user }}
+ExecStart=\
+    {{ cloudflare_tunnel_daemon|quote }} \
+    --no-autoupdate \
+    --config {{ cloudflare_tunnel_dir|quote }}/%i/config.yml \
+    tunnel run
+Restart=on-failure
+RestartSec=5s
+TimeoutStartSec=0
+
+LockPersonality=true
+MemoryDenyWriteExecute=yes
+NoNewPrivileges=yes
+PrivateDevices=yes
+PrivateTmp=yes
+ProtectClock=yes
+ProtectControlGroups=yes
+ProtectHostname=yes
+ProtectKernelLogs=yes
+ProtectKernelModules=yes
+ProtectKernelTunables=yes
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6 AF_NETLINK
+RestrictNamespaces=yes
+RestrictRealtime=yes
+RestrictSUIDSGID=yes
+SystemCallArchitectures=native
+SystemCallFilter=@system-service
+SystemCallErrorNumber=EPERM
+ProtectSystem=strict
+CapabilityBoundingSet=CAP_NET_RAW

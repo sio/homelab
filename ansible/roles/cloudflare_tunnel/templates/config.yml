@@ -1,0 +1,8 @@
+# {{ ansible_managed }}
+#
+# Cloudflare tunnel configuration
+#   https://developers.cloudflare.com/cloudflare-one/connections/connect-apps/install-and-setup/tunnel-useful-terms/#configuration-file
+
+url: {{ credentials.URL }}
+tunnel: {{ credentials.TunnelID }}
+credentials-file: {{ cloudflare_tunnel_dir }}/{{ credentials.TunnelID }}/credentials.json

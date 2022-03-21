@@ -1,0 +1,51 @@
+---
+
+- name: create cloudflared user group
+  group:
+    name: '{{ cloudflare_tunnel_daemon_user }}'
+    state: present
+
+- name: create cloudflared user account
+  user:
+    name: '{{ cloudflare_tunnel_daemon_user }}'
+    state: present
+    groups: ''
+    shell: /usr/sbin/nologin
+    create_home: no
+
+- name: create cloudflare daemon directory
+  file:
+    path: '{{ cloudflare_tunnel_daemon|dirname }}'
+    state: directory
+    mode: '0755'
+
+- name: download cloudflared binary
+  get_url:
+    url: '{{ cloudflare_tunnel_daemon_url }}'
+    dest: '{{ cloudflare_tunnel_daemon }}'
+  register: get_url
+  until: get_url is not failed
+  retries: 10
+  delay: 2
+
+- name: save tunnel credentials
+  loop: cloudflare_tunnel_credentials
+  loop_control:
+    loop_var: credentials
+    label: '{{ credentials.TunnelID|truncate(21) }}'
+  template:
+    src: templates/credentials.json
+    dest: '{{ cloudflare_tunnel_dir }}/{{ credentials.TunnelID }}/credentials.json'
+    mode: 0400
+    owner: '{{ cloudflare_tunnel_daemon_user }}'
+
+- name: save tunnel configuration
+  loop: cloudflare_tunnel_credentials
+  loop_control:
+    loop_var: credentials
+    label: '{{ credentials.TunnelID|truncate(21) }}'
+  template:
+    src: templates/config.yml
+    dest: '{{ cloudflare_tunnel_dir }}/{{ credentials.TunnelID }}/config.yml'
+    mode: 0400
+    owner: '{{ cloudflare_tunnel_daemon_user }}'

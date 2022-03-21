@@ -1,0 +1,6 @@
+- import_tasks: assert.yml
+- import_tasks: install.yml
+- import_tasks: systemd.yml
+
+- import_tasks: update.yml
+  when: cloudflare_tunnel_daemon_autoupdate
