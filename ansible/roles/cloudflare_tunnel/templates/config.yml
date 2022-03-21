@@ -1,3 +1,5 @@
+# yamllint disable-file
+#
 # {{ ansible_managed }}
 #
 # Cloudflare tunnel configuration
