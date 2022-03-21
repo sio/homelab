@@ -15,7 +15,7 @@ cloudflare_tunnel_daemon_autoupdate: yes
 #
 # INTERNAL VARIABLES
 #
-cloudflare_tunnel_dir: /etc/cloudflare-tunnel/
+cloudflare_tunnel_dir: /etc/cloudflare-tunnel
 cloudflare_tunnel_daemon: /usr/local/bin/cloudflared
 cloudflare_tunnel_daemon_user: cloudflared
 cloudflare_tunnel_daemon_url: "\
