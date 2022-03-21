@@ -4,6 +4,8 @@
   file:
     state: directory
     path: '{{ cloudflare_tunnel_dir }}/{{ credentials.TunnelID }}'
+    mode: '0700'
+    owner: '{{ cloudflare_tunnel_daemon_user }}'
 
 - name: save tunnel credentials
   template:
