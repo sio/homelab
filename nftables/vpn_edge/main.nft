@@ -11,6 +11,9 @@ define UNTRUSTED = {
 define WAN = {
     "{{ nftables_interfaces_wan|join('", "') }}"
 }
+define INTERNET = {
+    "{{ nftables_interfaces_internet|d(nftables_interfaces_wan)|join('", "') }}"
+}
 
 
 define BOGONS4 = { # https://en.wikipedia.org/wiki/Reserved_IP_addresses
@@ -81,7 +84,7 @@ table inet router {
         jump global
 
         iifname $UNTRUSTED drop
-        iifname $WAN jump bogons
+        iifname $INTERNET jump bogons
 
         {% if nftables_open_tcp_ports|length > 0 -%}
         tcp dport { {{ nftables_open_tcp_ports|join(',') }} } accept
@@ -97,7 +100,7 @@ table inet router {
         type filter hook forward priority 0; policy drop;
         jump banned
         iifname $TRUSTED accept
-        iifname $WAN jump bogons
+        iifname $INTERNET jump bogons
         oifname $TRUSTED ct state {established, related} accept
     }
 

@@ -40,6 +40,8 @@ provisioner:
           - wg_untrusted
         nftables_interfaces_wan:
           - '{{ wireguard_lan_interface.content|b64decode|trim }}'
+        nftables_interfaces_internet:
+          - internet
 
     host_vars:
       vpn-edge-outer:
