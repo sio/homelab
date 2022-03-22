@@ -17,6 +17,7 @@
     dest: '{{ aptrepo_key_raw }}'
     mode: '0644'
     backup: yes
+    force: yes  # check for updated contents at old URL
   register: get_url
   until: get_url is not failed
   retries: 10
