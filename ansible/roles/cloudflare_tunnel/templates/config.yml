@@ -5,6 +5,13 @@
 # Cloudflare tunnel configuration
 #   https://developers.cloudflare.com/cloudflare-one/connections/connect-apps/install-and-setup/tunnel-useful-terms/#configuration-file
 
-url: {{ credentials.URL }}
 tunnel: {{ credentials.TunnelID }}
 credentials-file: {{ cloudflare_tunnel_dir }}/{{ credentials.TunnelID }}/credentials.json
+
+{% if 'URL' in credentials %}
+url: {{ credentials.URL }}
+{% endif %}
+
+{% if 'Extras' in credentials %}
+{{ credentials.Extras|to_nice_yaml }}
+{% endif %}
