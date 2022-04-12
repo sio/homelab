@@ -6,13 +6,13 @@
     state: present
     install_recommends: '{{ packages_recommends }}'
     cache_valid_time: 36000  # 10 hours
-  when: packages_install and ansible_pkg_mgr == 'apt'
+  when: packages_install|length > 0 and ansible_pkg_mgr == 'apt'
 
 - name: remove requested packages
   package:
     name: '{{ packages_remove }}'
     state: absent
-  when: packages_remove|bool
+  when: packages_remove|length > 0
 
 - name: execute apt chores (autoremove, autoclean)
   apt:
