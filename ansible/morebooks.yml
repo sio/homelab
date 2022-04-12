@@ -2,12 +2,21 @@
 # HOME LIBRARY CATALOG
 #
 
-- hosts: morebooks.ml
+- hosts: morebooks
   name: morebooks
   become: yes
+  pre_tasks:
+    - name: generate self-signed SSL certificates
+      import_tasks: roles/morebooks/tasks/selfsigned.yml
+    - name: provide local name resolution for target domain
+      lineinfile:
+        line: 127.0.0.100 morebooks.ml
+        path: /etc/hosts
+        mode: '0644'
   roles:
     - server
     - upgrade
     - motd
     - morebooks
     - sshkey
+    - cloudflare_tunnel

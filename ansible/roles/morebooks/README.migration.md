@@ -11,6 +11,20 @@
   unmetered
 
 
+# Migration to a VM hosted at home
+
+Because of 2022 Russia-Ukraine conflict and subsequent ban of Russian banks by
+VISA/MasterCard I was unable to continue renting VPS from Hetzner. I decided
+to migrate morebooks.ml to a VM hosted at home and expose it via Cloudflare
+Argo Tunnel.
+
+Migration steps:
+
+- Swith DNS nameservers for morebooks.ml to Cloudflare
+- Setup local VM for morebooks.ml
+- Expose VM via Cloudflare tunnel
+
+
 # DONE: Migrate to Hetzner Cloud VPS (July 2020)
 
 Scaleway has discontinued their baremetal ARM instances (support ended on July

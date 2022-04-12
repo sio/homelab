@@ -21,5 +21,5 @@ all:
       upgrade_ignore_support_status:
         - binutils  # always reported, not fixable
         - qtwebkit-opensource-src  # used by freecad
-    morebooks.ml:
+    morebooks:
       upgrade_allow_reboot: yes

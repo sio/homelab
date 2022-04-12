@@ -30,6 +30,12 @@
       virtual_machine_image_resize: 15G
 
     - role: virtual_machine
+      virtual_machine_name: morebooks
+      virtual_machine_memory: 1024
+      virtual_machine_cpus: 2
+      virtual_machine_image_resize: 15G
+
+    - role: virtual_machine
       virtual_machine_name: printer
       virtual_machine_memory: 600 # MiB
       virtual_machine_image_resize: 8G
@@ -42,6 +48,7 @@
 - name: wait for virtual machines
   hosts:
     - control
+    - morebooks
     - mediabox-v
     - printer
   become: no
