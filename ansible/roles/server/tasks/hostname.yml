@@ -17,7 +17,7 @@
   lineinfile:
     path: /etc/hosts
     mode: '0644'
-    regexp: '^127\.0\.1\.1'
+    regexp: '^127\.0\.1\.1\s'
     line: '127.0.1.1 {{ localhost_hostname }}'
     backup: yes
   notify: refresh host facts
@@ -26,7 +26,7 @@
   lineinfile:
     path: /etc/hosts
     mode: '0644'
-    regexp: '^127\.0\.0\.1'
+    regexp: '^127\.0\.0\.1\s'
     line: '127.0.0.1 localhost'
     backup: yes
   notify: refresh host facts
