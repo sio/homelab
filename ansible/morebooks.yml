@@ -17,6 +17,7 @@
     - server
     - upgrade
     - motd
-    - morebooks
+    - role: morebooks
+      hlc_build_deps: []  # not required on amd64
     - sshkey
     - cloudflare_tunnel

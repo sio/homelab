@@ -23,7 +23,7 @@
   apt:
     name: '{{ hlc_build_deps }}'
     state: build-dep
-  when: ansible_pkg_mgr == 'apt'
+  when: hlc_build_deps|length > 0 and ansible_pkg_mgr == 'apt'
   # This module returns 'changed' even when no build-deps were installed
   # Check explicitly for the following line in stdout:
   #   0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded
