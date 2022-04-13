@@ -3,4 +3,4 @@
   pre_tasks:
     - include: ../../../../tasks/unattended-purge.yml
   tasks:
-    - import_tasks: tasks/selfsigned.yml
+    - import_tasks: ../../tasks/selfsigned.yml
