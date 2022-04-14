@@ -11,7 +11,7 @@
   unmetered
 
 
-# Migration to a VM hosted at home
+# DONE: Migration to a VM hosted at home (April 2022)
 
 Because of 2022 Russia-Ukraine conflict and subsequent ban of Russian banks by
 VISA/MasterCard I was unable to continue renting VPS from Hetzner. I decided
