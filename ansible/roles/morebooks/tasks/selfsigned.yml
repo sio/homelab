@@ -15,11 +15,12 @@
 - name: create certificate directories
   file:
     state: directory
-    path: '{{ item }}'
-    mode: '0755'
+    path: '{{ item.path }}'
+    mode: '{{ item.mode|default("0755") }}'
   with_items:
-    - /etc/letsencrypt/live/morebooks.ml
-    - /etc/ssl/private
+    - path: /etc/letsencrypt/live/morebooks.ml
+    - path: /etc/ssl/private
+      mode: '0710'
 
 # https://www.jeffgeerling.com/blog/2017/generating-self-signed-openssl-certs-ansible-24s-crypto-modules
 - name: create SSL private key
