@@ -28,3 +28,10 @@ power_state:
   mode: reboot
   message: cloud-init initialization complete, rebooting
   condition: true
+
+write_files:
+  - path: /etc/cloud/cloud-init.disabled
+    permissions: '0644'
+    owner: root:root
+    content: |
+      cloud-init is automatically disabled after the first successful invocation
