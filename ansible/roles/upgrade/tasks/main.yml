@@ -1,11 +1,11 @@
 ---
 
-- include: assert.yml
+- import_tasks: assert.yml
 
-- include: upgrade.yml
+- import_tasks: upgrade.yml
   when: upgrade_requires_reboot is not defined  # noop if invoked multiple times
 
-- include: support.yml
+- import_tasks: support.yml
 
-- include: dpkg.yml
+- import_tasks: dpkg.yml
   when: ansible_pkg_mgr == 'apt'

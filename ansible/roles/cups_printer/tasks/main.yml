@@ -1,15 +1,15 @@
 ---
 
-- include: assert.yml
+- import_tasks: assert.yml
 
-- include: list.yml
+- import_tasks: list.yml
 
 - when:
     - cups_printer_name not in cups_printer_lpstat.stdout
     - molecule_ephemeral_directory is not defined  # do not do anything during CI runs
   block:
-    - include: add.yml
-    - include: list.yml  # refresh cups_printer_lpstat
+    - import_tasks: add.yml
+    - import_tasks: list.yml  # refresh cups_printer_lpstat
 
 - name: confirm that printer was added
   debug:

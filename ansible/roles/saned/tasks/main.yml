@@ -1,6 +1,6 @@
 ---
 
-- include: assert.yml
+- import_tasks: assert.yml
 
 - name: install saned packages
   package:
@@ -41,7 +41,7 @@
     proto: any
   when: firewall_auto_config|default(True)
 
-- include: conntrack.yml
+- import_tasks: conntrack.yml
   when: firewall_auto_config|default(True)
 
 - name: fetch connected scanners

@@ -1,8 +1,8 @@
 ---
 
-- include: assert.yml
-- include: users.yml
-- include: install.yml
+- import_tasks: assert.yml
+- import_tasks: users.yml
+- import_tasks: install.yml
 
 - name: read hostname of ansible controller
   setup:
@@ -13,7 +13,7 @@
   run_once: yes
   changed_when: no
 
-- include: update.yml
+- import_tasks: update.yml
   when:
     (lookup("env", "CI")|lower) not in ["true", "1", "yes"]
     and

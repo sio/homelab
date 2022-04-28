@@ -1,5 +1,5 @@
 ---
 
-- include: assert.yml
-- include: packages.yml
-- include: nfs.yml
+- import_tasks: assert.yml
+- import_tasks: packages.yml
+- import_tasks: nfs.yml

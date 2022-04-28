@@ -1,10 +1,10 @@
 ---
 
-- include: assert.yml
+- import_tasks: assert.yml
 
-- include: drivers.yml
+- import_tasks: drivers.yml
 
-- include: cups.yml
+- import_tasks: cups.yml
 
-- include: firewall.yml
+- import_tasks: firewall.yml
   when: firewall_auto_config|default(True)

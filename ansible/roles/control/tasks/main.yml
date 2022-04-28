@@ -1,6 +1,6 @@
 ---
 
-- include: assert.yml
-- include: packages.yml
-- include: init.yml
-- include: systemd.yml
+- import_tasks: assert.yml
+- import_tasks: packages.yml
+- import_tasks: init.yml
+- import_tasks: systemd.yml

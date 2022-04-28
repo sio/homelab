@@ -1,5 +1,5 @@
 ---
-- include: assert.yml
+- import_tasks: assert.yml
 
 - name: put modules in initramfs
   lineinfile:

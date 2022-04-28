@@ -15,7 +15,7 @@ kvm_bridge_config_file: /etc/network/interfaces
 #         - https://wiki.debian.org/Bonding
 #         - https://wiki.archlinux.org/title/Systemd-networkd#Bridge_interface
 #       - Conditionally include either interfaces.yml or systemd.yml into main.yml:
-#         `include: {{ kvm_bridge_config_type }}.yml`
+#         `import_tasks: {{ kvm_bridge_config_type }}.yml`
 #       - Provide a sensible default value for kvm_bridge_config_type based on Debian version:
 #         - buster: interfaces
 #         - bullseye: systemd

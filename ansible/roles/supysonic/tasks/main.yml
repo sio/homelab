@@ -1,9 +1,9 @@
 # Set up a server for Supysonic
 ---
 
-- include: assert.yml
-- include: install.yml
-- include: supysonic.yml
-- include: watcher.yml
-- include: ssl.yml
-- include: webserver.yml
+- import_tasks: assert.yml
+- import_tasks: install.yml
+- import_tasks: supysonic.yml
+- import_tasks: watcher.yml
+- import_tasks: ssl.yml
+- import_tasks: webserver.yml

@@ -1,10 +1,10 @@
 ---
 
-- include: assert.yml
-- include: packages.yml
-- include: user.yml
-- include: docker.yml
-- include: compose.yml
+- import_tasks: assert.yml
+- import_tasks: packages.yml
+- import_tasks: user.yml
+- import_tasks: docker.yml
+- import_tasks: compose.yml
 
 - name: show role variables
   debug:

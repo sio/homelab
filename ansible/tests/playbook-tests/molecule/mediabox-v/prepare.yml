@@ -3,8 +3,8 @@
   vars:
     fake_hostname: music.potyarkin.ml
   pre_tasks:
-    - include: ../../../../tasks/unattended-purge.yml
-    - include: ../../../../tasks/vagrant-insecure.yml
+    - import_tasks: ../../../../tasks/unattended-purge.yml
+    - import_tasks: ../../../../tasks/vagrant-insecure.yml
   tasks:
     - name: update package lists
       apt:

@@ -3,20 +3,20 @@
 #
 ---
 
-- include: assert.yml
+- import_tasks: assert.yml
 
 # Install and configure daemon
-- include: install.yml
+- import_tasks: install.yml
 
 # Install watchdir scripts
-- include: watchdir.yml
+- import_tasks: watchdir.yml
   when: transmission_instance.watch|length > 0
 
 # Launch daemon and scripts on OS startup
-- include: startup.yml
+- import_tasks: startup.yml
 
 # Change security settings
-- include: firewall.yml
+- import_tasks: firewall.yml
 
 - name: flush ansible handlers
   meta: flush_handlers

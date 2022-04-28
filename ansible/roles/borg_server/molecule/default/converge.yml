@@ -3,7 +3,7 @@
 - hosts: all
   become: true
   pre_tasks:
-    - include: ../../../../tasks/unattended-purge.yml
+    - import_tasks: ../../../../tasks/unattended-purge.yml
   roles:
     - role: borg_server
       borg_server_free_space: 10M

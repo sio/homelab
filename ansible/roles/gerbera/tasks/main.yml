@@ -1,6 +1,6 @@
 ---
 
-- include: assert.yml
+- import_tasks: assert.yml
 
 - name: update package lists
   apt:

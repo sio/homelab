@@ -1,6 +1,6 @@
 ---
 
-- include: assert.yml
+- import_tasks: assert.yml
 
 - name: install fdcount plugin
   get_url:

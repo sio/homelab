@@ -6,24 +6,24 @@
 #
 ---
 
-- include: assert.yml
+- import_tasks: assert.yml
 
 # System wide configuration
-- include: os.yml
+- import_tasks: os.yml
 
 # Enable HTTPS
-- include: ssl.yml
+- import_tasks: ssl.yml
 
 # File layout for HomeLibraryCatalog
-- include: layout.yml
+- import_tasks: layout.yml
 
 # Restore application data from the latest backup if doing a clean install
-- include: restore.yml
+- import_tasks: restore.yml
   when: hlc_restore_dir is defined
 
 # Force app update from latest git if necessary
-- include: deploy.yml
+- import_tasks: deploy.yml
   when: hlc_deploy|default(False)
 
 # Idempotent deployment
-- include: hlc.yml
+- import_tasks: hlc.yml
