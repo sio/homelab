@@ -9,7 +9,7 @@
 - import_tasks: install.yml
 
 # Install watchdir scripts
-- import_tasks: watchdir.yml
+- include_tasks: watchdir.yml
   when: transmission_instance.watch|length > 0
 
 # Launch daemon and scripts on OS startup

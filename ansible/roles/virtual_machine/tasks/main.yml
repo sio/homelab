@@ -16,7 +16,7 @@
     install_recommends: no
     cache_valid_time: 3600
 
-- import_tasks: cloudinit.yml
+- include_tasks: cloudinit.yml
   when: virtual_machine_cloudinit_cfg is defined
 
 - name: start virtualization services

@@ -13,7 +13,7 @@
   run_once: yes
   changed_when: no
 
-- import_tasks: update.yml
+- include_tasks: update.yml
   when:
     (lookup("env", "CI")|lower) not in ["true", "1", "yes"]
     and

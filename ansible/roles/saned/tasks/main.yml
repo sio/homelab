@@ -41,7 +41,7 @@
     proto: any
   when: firewall_auto_config|default(True)
 
-- import_tasks: conntrack.yml
+- include_tasks: conntrack.yml
   when: firewall_auto_config|default(True)
 
 - name: fetch connected scanners
