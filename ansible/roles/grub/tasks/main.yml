@@ -23,7 +23,7 @@
   changed_when: false
   lineinfile:
     name: '{{ grub_defaults }}'
-    regexp: (^s*{{ grub_kernel_line }}.*[\"\'].*[\"\']\s*$)
+    regexp: (^\s*{{ grub_kernel_line }}.*[\"\'].*[\"\']\s*$)
     line: '\1'
   register: grub_has_kernel_params
 
@@ -48,7 +48,7 @@
 - name: remove duplicated kernel parameters definition
   replace:
     path: '{{ grub_defaults }}'
-    regexp: (^s*{{ grub_kernel_line }}.*[\"\'].*[\"\']\s*$)
+    regexp: (^\s*{{ grub_kernel_line }}.*[\"\'].*[\"\']\s*$)
     backup: yes
   when: grub_kernel_params_definitions|count > 1
 
@@ -69,7 +69,7 @@
     name: '{{ grub_defaults }}'
     backrefs: yes
     backup: yes
-    regexp: ^s*({{ grub_kernel_line }}(?!.*\b{{  item }}\b).*)([\"\']\s*)$
+    regexp: ^\s*({{ grub_kernel_line }}(?!.*\b{{  item }}\b).*)([\"\']\s*)$
     line: '\1 {{ item }}\2'
   with_items: '{{ grub_kernel_params }}'
   notify: update grub
