@@ -9,6 +9,12 @@
     extra_kernel_modules:
       - coretemp
       - nct6775
+  roles:
+    - role: grub
+      grub_kernel_params:
+        - console=tty0
+        - console=ttyS0,115200
+        - noquiet
   tasks:
     - name: enable non-free repos
       apt_repository:
@@ -53,3 +59,15 @@
           path: /disks/important
         - src: LABEL=DATA_EPHEMERAL
           path: /disks/ephemeral
+
+    - name: configure GRUB output over serial console
+      vars:
+        grub_variables:
+          GRUB_TERMINAL: serial console
+          GRUB_SERIAL_COMMAND: serial --unit=0 --speed=115200
+      loop: '{{ grub_variables|dict2items }}'
+      lineinfile:
+        path: /etc/default/grub
+        regexp: '^\s*{{ item.key }}\s*='
+        line: '{{ item.key  }}="{{ item.value }}"'
+      notify: update grub
