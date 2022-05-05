@@ -6,7 +6,10 @@
       {{ (upgrade_eol_date|to_datetime(upgrade_eol_date_format) - now()).days }}
     upgrade_eol_preposition: >-
       {{ 'until' if upgrade_eol_remaining_days|int > 0 else 'since' }}
-  changed_when: upgrade_eol_remaining_days|int <= upgrade_eol_warning_days
+  changed_when: >-
+    upgrade_eol_remaining_days|int <= upgrade_eol_warning_days
+    and
+    molecule_ephemeral_directory is not defined
   failed_when:  upgrade_eol_remaining_days|int <= upgrade_eol_error_days
   debug:
     msg: >-
