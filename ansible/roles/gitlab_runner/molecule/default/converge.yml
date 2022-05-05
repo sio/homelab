@@ -1,14 +1,5 @@
 ---
 
-- hosts: debian11-docker
-  gather_facts: no
-  become: no
-  tasks:
-    - name: use correct distribution release name (detection impossible in slim docker container)
-      set_fact:
-        ansible_distribution_release: buster  # GitLab does not build for Bulleye yet
-        # TODO: check https://packages.gitlab.com/app/runner/gitlab-runner/search?q=&filter=all&dist=debian%2Fbullseye
-
 - hosts: all
   become: true
   pre_tasks:
