@@ -22,5 +22,5 @@ restic_user_group: '{{ restic_user_account }}'
 restic_systemd_service: restic.service
 restic_systemd_timer: '{{ restic_systemd_service|replace(".service", ".timer") }}'
 restic_config_dir: /etc/restic
-restic_backup_script: '{{ restic_config_dir}}/backup.sh'
+restic_backup_script: '{{ restic_config_dir }}/backup.sh'
 restic_backup_list: '{{ restic_config_dir }}/sources.list'

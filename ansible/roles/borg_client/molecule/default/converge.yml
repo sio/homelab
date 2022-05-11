@@ -25,7 +25,7 @@
         - /home
         - /root
       borg_client_backup_to:
-        - 'backups@{{ansible_hostname|replace("-client", "-server")}}:/backups/{{ansible_hostname}}'
+        - 'backups@{{ ansible_hostname|replace("-client", "-server") }}:/backups/{{ ansible_hostname }}'
       borg_client_passphrase: samplepassphrasefortests
   tasks:
     - name: copy private key for CI tests
