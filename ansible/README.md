@@ -69,6 +69,7 @@ Local Git repository may be used for keeping track of changes.
 ### Tested in Docker
 
 - **aptrepo**
+- **borg_server**
 - **canary**
 - **canon_mf3010**
 - **ci_runners_manager**
@@ -86,6 +87,8 @@ Local Git repository may be used for keeping track of changes.
 
 ### Tested in Vagrant (Libvirt)
 
+- **borg_client**: modifies SSH config, makes heavy use of systemd timers.
+  (*TODO: migrate borg_client tests into Docker?*)
 - **control**: requires access to Linux kernel keyring
 - **docker_compose**: launches docker containers on tests instance
 - **gerbera**: depends on server
