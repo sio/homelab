@@ -16,9 +16,13 @@
 [url "git@github.com:"]
     insteadOf = github://
     insteadOf = gh://
+    pushInsteadOf = "https://github.com/"
+    pushInsteadOf = "http://github.com/"
 
 [url "git@gitlab.com:"]
     insteadOf = gitlab://
+    pushInsteadOf = "https://gitlab.com/"
+    pushInsteadOf = "http://gitlab.com/"
 
 [diff "ansible-vault"]
     textconv = ansible-vault view
