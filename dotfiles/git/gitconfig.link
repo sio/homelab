@@ -10,6 +10,9 @@
 [pull]
     ff = only  # never create merge commits automatically
 
+[commit]
+    verbose = true  # show diff in commit message editor
+
 [url "git@github.com:"]
     insteadOf = github://
     insteadOf = gh://
