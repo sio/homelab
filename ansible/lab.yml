@@ -44,8 +44,37 @@
     - role: packages
       packages_install: '{{ playground_packages + interactive_packages }}'  # group_vars/all.yml
       packages_recommends: no
+    - role: initrd
+      modules:
+        - usbserial
+        - pl2303
+    - role: grub
+      grub_kernel_params:
+        - console=tty0
+        - console=ttyUSB0,115200
+        - noquiet
 
   tasks:
+    - name: configure GRUB output over serial console
+      vars:
+        grub_variables:
+          GRUB_TERMINAL: serial_usb1 console
+          GRUB_SERIAL_COMMAND: terminfo vt100-color; serial --port=usb1 --speed=115200
+          GRUB_PRELOAD_MODULES: >-
+            nativedisk
+            ehci
+            ohci
+            uhci
+            usb
+            usbserial_pl2303
+            usbserial_ftdi
+            usbserial_debug
+      loop: '{{ grub_variables|dict2items }}'
+      lineinfile:
+        path: /etc/default/grub
+        regexp: '^\s*{{ item.key }}\s*='
+        line: '{{ item.key  }}="{{ item.value }}"'
+      notify: update grub
     - name: modify user permissions
       user:
         name: op
