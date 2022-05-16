@@ -18,3 +18,6 @@ grub_kernel_line: GRUB_CMDLINE_LINUX_DEFAULT
 #    - hello
 #    - world
 #    - zswap.enabled=1
+
+# Other variables in /etc/default/grub are rendered based on this dictionary:
+grub_variables: {}

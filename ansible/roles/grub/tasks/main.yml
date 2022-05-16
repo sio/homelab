@@ -78,3 +78,14 @@
   # If the same parameter is passed to the kernel twice, the last value is
   # used.  That means we don't have to clean up old values in this task, just
   # save the new ones!
+
+- name: configure other environment variables for grub-mkconfig
+  loop: '{{ grub_variables|dict2items }}'
+  loop_control:
+    label: '{{ item.key }}'
+  lineinfile:
+    path: '{{ grub_defaults }}'
+    regexp: '^\s*{{ item.key }}\s*='
+    line: '{{ item.key }}="{{ item.value }}"'
+    backup: yes
+  notify: update grub
