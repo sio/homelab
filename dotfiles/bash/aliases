@@ -53,6 +53,12 @@ alias cd=_cd_with_listing
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
+pushd() {
+    builtin pushd "$@" && ls
+}
+popd() {
+    builtin popd "$@" && ls
+}
 
 
 # Pretty diff like `git diff`
