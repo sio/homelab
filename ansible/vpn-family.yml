@@ -10,6 +10,8 @@
     - role: upgrade
     - role: motd
     - role: packages
+      packages_install:
+        - nftables  # install ahead of the corresponding role
     - role: sshkey
   tasks:
     - include_role:

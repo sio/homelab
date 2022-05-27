@@ -8,3 +8,6 @@
       register: hello
       failed_when: "'hello' not in hello.stdout"
       changed_when: "hello is not succeeded"
+    - name: ping outside
+      command: ping -c 1 -w 1 8.8.8.8
+      changed_when: no
