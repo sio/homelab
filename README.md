@@ -86,3 +86,9 @@ This project is intended for personal use, and I doubt it would attract any
 contributors. If you have anything to add or suggest, please contact me.
 I can't guarantee I'll accept your proposal, but I promise to behave
 responsibly and treat all contributors with respect.
+
+If you want to discuss the technology I use, to ask a question or even just to
+chat - do not hesitate to open an [issue] in this repo. I always enjoy a
+friendly conversation and there is never enough techy folks around me.
+
+[issue]: https://gitlab.com/sio/server_common/-/issues
