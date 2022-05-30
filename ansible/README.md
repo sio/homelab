@@ -56,7 +56,7 @@ encrypted with Ansible Vault.
 Local Git repository may be used for keeping track of changes.
 
 
-## Test status by role
+## Test setup by role
 
 ### Automated tests not implemented
 
@@ -113,7 +113,7 @@ Local Git repository may be used for keeping track of changes.
 - **wireguard**: modifies network interfaces
 
 
-## Test status by playbook
+## Test setup by playbook
 
 ### Tested in Vagrant (Libvirt)
 
