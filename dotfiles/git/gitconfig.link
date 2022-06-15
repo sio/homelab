@@ -6,7 +6,7 @@
 
 [alias]
     graph = log --oneline --decorate --graph --all
-    micro = commit --allow-empty
+    micro = commit --allow-empty --edit --message '***'
 
 [pull]
     ff = only  # never create merge commits automatically
