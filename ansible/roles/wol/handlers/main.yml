@@ -4,4 +4,4 @@
     name: 'wol@{{ wol_interface }}'
     state: restarted
     daemon_reload: yes
-  when: not lookup("env", "CI")
+  when: molecule_ephemeral_directory is not defined

@@ -15,7 +15,7 @@
 
 - include_tasks: update.yml
   when:
-    (lookup("env", "CI")|lower) not in ["true", "1", "yes"]
+    molecule_ephemeral_directory is not defined
     and
     ansible_connection not in ["docker", "local"]
     and
