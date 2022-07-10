@@ -17,6 +17,7 @@ provisioner:
         infra_dir: '{{ molecule_ephemeral_directory }}'
         secret_gitlab_runner_token: ''
         server_keys_public: '{{ sshkey_only.vagrant[0] }}'
+        sshkey_allow_extra: yes
         sshkey_only:
           vagrant:
             - '{{ molecule_ephemeral_directory }}/vagrant-insecure.pub'

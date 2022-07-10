@@ -11,6 +11,7 @@ provisioner:
         ansible_python_interpreter: /usr/bin/python3
         server_keys_public:
           - '{{ molecule_ephemeral_directory }}/testkey.pub'
+        sshkey_allow_extra: yes
         sshkey_only:
           vagrant:
             - '{{ molecule_ephemeral_directory }}/testkey.pub'
