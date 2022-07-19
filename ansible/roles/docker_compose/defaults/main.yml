@@ -10,7 +10,7 @@ docker_compose_env: {}    # dict with env key:value pairs
 # These values are OK to be left as is
 docker_compose_exe: /usr/bin/docker-compose
 docker_compose_service: 'docker-compose-{{ docker_compose_project }}.service'
-docker_compose_user: docker-compose
+docker_compose_user: compose
 docker_compose_packages:
   - docker.io
   - docker-compose
