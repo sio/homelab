@@ -1,9 +1,16 @@
 ---
 
+- name: create docker-compose user group
+  group:
+    name: '{{ docker_compose_user }}'
+    state: present
+
 - name: create docker-compose user account
   user:
     name: '{{ docker_compose_user }}'
     state: present
     shell: /usr/sbin/nologin
-    groups: docker
+    groups:
+      - docker
+      - '{{ docker_compose_user }}'
     append: yes
