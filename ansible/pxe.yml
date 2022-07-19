@@ -36,7 +36,7 @@
     - name: provide ipxe entrypoint
       get_url:
         url: https://github.com/sio/netboot-server/raw/master/ipxe/main.ipxe
-        dest: /stacks/ipxe-scripts/main.ipxe
+        dest: /docker/ipxe-scripts/main.ipxe
         mode: '0644'
         backup: yes
       register: get_url
