@@ -5,7 +5,15 @@ ansible_python_interpreter: /usr/bin/python3
 
 
 # Proper su invocation on modern Debian systems
-ansible_become_flags: '{{ "-" if ansible_become_method|default(None) == "su" else "" }}'
+ansible_become_flags: >-
+  {{
+    ansible_become_flags_by_method[ansible_become_method|default('n/a')]
+    |default(ansible_become_flags_by_method['n/a'])
+  }}
+ansible_become_flags_by_method:
+  su:   '-'
+  sudo: '-S'
+  n/a:  ''
 
 
 # Correctly detect Debian testing
