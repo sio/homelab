@@ -5,18 +5,13 @@ all:
       vars:
         server_force_inventory_hostname: yes
         upgrade_allow_reboot: yes
+    virtual_machines:
+      vars:
+        server_force_inventory_hostname: yes
     vpn-edge:
       vars:
         server_force_inventory_hostname: yes
   hosts:
-    ci-runners-manager:
-      server_force_inventory_hostname: yes
-    control:
-      server_force_inventory_hostname: yes
-    printer:
-      server_force_inventory_hostname: yes
-    pxe:
-      server_force_inventory_hostname: yes
     laptopmini:
       upgrade_ignore_support_status:
         - binutils  # always reported, not fixable
