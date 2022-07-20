@@ -34,6 +34,25 @@ test-playbook-control:
         - ansible/roles/upgrade/**/*
 
 
+test-playbook-docker:
+  extends: .test-ansible-role-kvm
+  stage: test-playbook
+  variables:
+    ANSIBLE_ROLE: playbook-tests
+    MOLECULE_SCENARIO: docker
+  rules:
+    - *option-skip-test
+    - changes:
+        - ansible/docker.yml
+        - ansible/tests/playbook-tests/molecule/docker/**/*
+        - ansible/roles/docker_compose/**/*
+        - ansible/roles/motd/**/*
+        - ansible/roles/packages/**/*
+        - ansible/roles/server/**/*
+        - ansible/roles/sshkey/**/*
+        - ansible/roles/upgrade/**/*
+
+
 test-playbook-mediabox-v:
   extends: .test-ansible-role-kvm
   stage: test-playbook
