@@ -24,6 +24,12 @@
       virtual_machine_image_resize: 8G
 
     - role: virtual_machine
+      virtual_machine_name: docker
+      virtual_machine_memory: 3000 # MiB
+      virtual_machine_cpus: 2
+      virtual_machine_image_resize: 30G
+
+    - role: virtual_machine
       virtual_machine_name: mediabox-v
       virtual_machine_memory: 3096 # MiB
       virtual_machine_cpus: 2
@@ -48,8 +54,9 @@
 - name: wait for virtual machines
   hosts:
     - control
-    - morebooks
+    - docker
     - mediabox-v
+    - morebooks
     - printer
   become: no
   gather_facts: no
