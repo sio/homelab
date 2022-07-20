@@ -27,6 +27,15 @@
     container_storage_key: /storage.key
     container_gitssh_script: /usr/local/bin/gitssh
   tasks:
+    - name: create directories
+      file:
+        state: directory
+        path: '{{ item|dirname }}'
+      loop:
+        - '{{ microblog_storage }}'
+        - '{{ microblog_storage_key }}'
+        - '{{ microblog_gitssh_script }}'
+
     - name: copy ssh key for storage
       copy:
         src: '{{ microblog_key }}'
