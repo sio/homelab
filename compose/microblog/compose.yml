@@ -7,7 +7,7 @@ services:
     volumes:
       - type: bind
         source: {{ microblog_storage }}
-        target: {{ container_storage }}
+        target: /storage
       - type: bind
         source: {{ microblog_storage_key }}
-        target: {{ container_storage_key }}
+        target: /storage.key

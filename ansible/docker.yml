@@ -18,26 +18,19 @@
   become: yes
   vars:
     microblog_uid: 2918
-    # GitHub
-    microblog_storage_url:
-      clone: https://github.com/sio/microblog
-      push:  git@github.com:sio/microblog.git
-    # VM paths
+    microblog_storage_url: https://github.com/sio/microblog
     microblog_storage: /docker/microblog/storage
     microblog_storage_key: /docker/microblog/storage.key
-    # Container paths
-    container_storage: /storage
-    container_storage_key: /storage.key
   tasks:
-    - name: create directories
+    - name: create microblog directories
       file:
         state: directory
-        path: '{{ item|dirname }}'
+        path: '{{ item }}'
       loop:
         - '{{ microblog_storage }}'
-        - '{{ microblog_storage_key }}'
+        - '{{ microblog_storage_key|dirname }}'
 
-    - name: copy ssh key for storage
+    - name: copy ssh key for microblog storage
       copy:
         src: '{{ microblog_key }}'
         dest: '{{ microblog_storage_key }}'
@@ -45,27 +38,12 @@
         owner: '{{ microblog_uid }}'
         group: '{{ microblog_uid }}'
 
-    - name: initialize microblog storage
-      git:
-        repo: '{{ microblog_storage_url.clone }}'
-        dest: '{{ microblog_storage }}'
-        accept_newhostkey: yes
-        update: no
-        remote: origin
-      register: clone
-
-    - name: set push url for microblog storage
-      when: clone is changed  # noqa no-handler
-      command:
-        cmd: git remote set-url --push origin "{{ microblog_storage_url.push }}"
-        chdir: '{{ microblog_storage }}'
-
     - name: set directory permissions for microblog storage
       file:
         path: '{{ microblog_storage }}'
         state: directory
         owner: '{{ microblog_uid }}'
-        mode: u=rwX,g=,o=
+        mode: u=rwX,g=rX,o=rX
         recurse: yes
 
     - name: deploy microblog server
@@ -76,9 +54,9 @@
         docker_compose_file: '{{ playbook_dir }}/../compose/microblog/compose.yml'
         docker_compose_env:
           # Telegram bot config
-          MICROBLOG_STORAGE: '{{ container_storage }}'
           MICROBLOG_USERS: '{{ microblog_users }}'
           MICROBLOG_TOKEN: '{{ microblog_token }}'
+          MICROBLOG_REPO_URL: '{{ microblog_storage_url }}'
           # Privilege deescalation
           USER: '{{ microblog_uid }}:{{ microblog_uid }}'
       when: molecule_ephemeral_directory is not defined
