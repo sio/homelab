@@ -14,6 +14,7 @@
 
 # Virtual machines
 - import_playbook: virtual-machines.yml
+- import_playbook: docker.yml
 - import_playbook: mediabox-v.yml
 - import_playbook: morebooks.yml
 - import_playbook: printer.yml
