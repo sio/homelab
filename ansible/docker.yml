@@ -96,3 +96,4 @@
           # Git configuration for pushing
           GIT_SSH: '{{ container_gitssh_script }}'
           GIT_SSH_ARGS: '-i {{ container_storage_key }}'
+      when: molecule_ephemeral_directory is not defined

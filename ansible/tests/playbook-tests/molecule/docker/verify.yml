@@ -8,10 +8,3 @@
       register: hello
       failed_when: "'hello' not in hello.stdout"
       changed_when: "hello is not succeeded"
-
-- hosts: docker
-  become: no
-  gather_facts: no
-  tasks:
-    - name: show docker containers
-      command: docker ps --all
