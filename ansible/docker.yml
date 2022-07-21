@@ -17,7 +17,7 @@
   hosts: docker
   become: yes
   vars:
-    microblog_uid: 2918
+    microblog_uid: '2918'
     microblog_storage_url: https://github.com/sio/microblog
     microblog_storage: /docker/microblog/storage
     microblog_storage_key: /docker/microblog/storage.key
