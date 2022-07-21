@@ -25,11 +25,9 @@
     # VM paths
     microblog_storage: /docker/microblog/storage
     microblog_storage_key: /docker/microblog/storage.key
-    microblog_gitssh_script: /docker/microblog/gitssh
     # Container paths
     container_storage: /storage
     container_storage_key: /storage.key
-    container_gitssh_script: /usr/local/bin/gitssh
   tasks:
     - name: create directories
       file:
@@ -38,7 +36,6 @@
       loop:
         - '{{ microblog_storage }}'
         - '{{ microblog_storage_key }}'
-        - '{{ microblog_gitssh_script }}'
 
     - name: copy ssh key for storage
       copy:
@@ -47,15 +44,6 @@
         mode: '0600'
         owner: '{{ microblog_uid }}'
         group: '{{ microblog_uid }}'
-
-    - name: create GIT_SSH script for container
-      copy:
-        dest: '{{ microblog_gitssh_script }}'
-        content: |
-          #!/bin/sh
-          ssh $GIT_SSH_ARGS "$@"
-        owner: '{{ microblog_uid }}'
-        mode: '0555'
 
     - name: initialize microblog storage
       git:
@@ -93,7 +81,4 @@
           MICROBLOG_TOKEN: '{{ microblog_token }}'
           # Privilege deescalation
           USER: '{{ microblog_uid }}:{{ microblog_uid }}'
-          # Git configuration for pushing
-          GIT_SSH: '{{ container_gitssh_script }}'
-          GIT_SSH_ARGS: '-i {{ container_storage_key }}'
       when: molecule_ephemeral_directory is not defined
