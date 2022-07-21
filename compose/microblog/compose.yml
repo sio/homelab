@@ -3,7 +3,7 @@ version: '3.7'
 services:
   telegrambot:
     image: ghcr.io/sio/microblog-server
-    user: ${USER}
+    user: ${CONTAINER_USER}
     volumes:
       - type: bind
         source: {{ microblog_storage }}
