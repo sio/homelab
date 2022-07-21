@@ -18,6 +18,10 @@
   become: yes
   vars:
     microblog_uid: 2918
+    # GitHub
+    microblog_storage_url:
+      clone: https://github.com/sio/microblog
+      push:  git@github.com:sio/microblog.git
     # VM paths
     microblog_storage: /docker/microblog/storage
     microblog_storage_key: /docker/microblog/storage.key
@@ -55,11 +59,18 @@
 
     - name: initialize microblog storage
       git:
-        repo: git@github.com:sio/microblog.git
+        repo: '{{ microblog_storage_url.clone }}'
         dest: '{{ microblog_storage }}'
-        update: no
-        key_file: '{{ microblog_storage_key }}'
         accept_newhostkey: yes
+        update: no
+        remote: origin
+      register: clone
+
+    - name: set push url for microblog storage
+      when: clone is changed  # noqa no-handler
+      command:
+        cmd: git remote set-url --push origin "{{ microblog_storage_url.push }}"
+        chdir: '{{ microblog_storage }}'
 
     - name: set directory permissions for microblog storage
       file:
