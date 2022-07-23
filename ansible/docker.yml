@@ -59,4 +59,3 @@
           MICROBLOG_REPO_URL: '{{ microblog_storage_url }}'
           # Privilege deescalation
           CONTAINER_USER: '{{ microblog_uid }}:{{ microblog_uid }}'
-      when: molecule_ephemeral_directory is not defined
