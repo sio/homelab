@@ -4,6 +4,10 @@ services:
   telegrambot:
     image: ghcr.io/sio/microblog-server
     user: ${CONTAINER_USER}
+    environment:
+      MICROBLOG_USERS: "${MICROBLOG_USERS}"
+      MICROBLOG_TOKEN: "${MICROBLOG_TOKEN}"
+      MICROBLOG_REPO_URL: "${MICROBLOG_REPO_URL}"
     volumes:
       - type: bind
         source: {{ microblog_storage }}
