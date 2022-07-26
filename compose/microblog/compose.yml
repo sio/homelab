@@ -3,6 +3,7 @@ version: '3.7'
 services:
   telegrambot:
     image: ghcr.io/sio/microblog-server
+    restart: unless-stopped
     user: ${CONTAINER_USER}
     environment:
       MICROBLOG_USERS: "${MICROBLOG_USERS}"
