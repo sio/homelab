@@ -37,6 +37,22 @@
     owner: '{{ docker_compose_user }}'
   notify: restart compose project
 
+- name: create override directory for systemd unit
+  when: docker_compose_dependencies|length > 0
+  file:
+    path: '/etc/systemd/system/{{ docker_compose_service }}.d/'
+    state: directory
+    mode: '0755'
+
+- name: setup dependencies on other systemd units
+  when: docker_compose_dependencies|length > 0
+  template:
+    src: 'templates/dependencies.conf'
+    dest: '/etc/systemd/system/{{ docker_compose_service }}.d/dependencies.conf'
+    mode: '0644'
+    backup: yes
+  notify: restart compose project
+
 - name: create systemd service for compose project
   template:
     src: templates/docker_compose.service
