@@ -8,10 +8,6 @@
     state: present
   loop: '{{ sshkey_only|list }}'
 
-- name: gather facts on existing user accounts
-  getent:
-    database: passwd
-
 - name: set ssh keys for authorized accounts
   authorized_key:
     user: '{{ item.key }}'
@@ -20,10 +16,21 @@
     exclusive: '{{ not sshkey_allow_extra }}'
   loop: '{{ sshkey_only|dict2items }}'
 
-- name: remove ssh keys from all accounts except authorized
+- name: forbid other users from logging in via ssh
+  when: sshkey_only|length > 0
+  copy:
+    content: |
+      # Managed by Ansible
+      AllowUsers {{ sshkey_only|sort|join( ' ' ) }}
+    dest: /etc/ssh/sshd_config.d/00-users.conf
+    mode: '0400'
+    backup: yes
+    validate: '/usr/sbin/sshd -T -f %s'
+  notify: restart ssh server
+
+- name: remove outdated limitations
+  when: sshkey_only|length == 0
   file:
+    path: /etc/ssh/sshd_config.d/00-users.conf
     state: absent
-    path: '{{ getent_passwd[item][4] + "/.ssh/authorized_keys" }}'
-    # index 4 in getent passwd database is home directory
-  loop: '{{ getent_passwd.keys()|list }}'
-  when: not sshkey_allow_extra and item not in sshkey_only
+  notify: restart ssh server
