@@ -1,7 +1,7 @@
-molecule==3.6.1
-molecule-docker==1.1.0
+molecule==4.0.1
+molecule-docker==2.0.0
 molecule-vagrant==1.0.0
-python-vagrant==0.5.15
+python-vagrant==1.0.0
 
 ansible
 ansible-lint!=4.3.0,!=5.0.3
