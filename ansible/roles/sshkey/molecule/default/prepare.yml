@@ -11,9 +11,19 @@
         - bob
         - charlie
 
+    - name: generate public keys for test insances
+      vars:
+        private: '{{ molecule_ephemeral_directory }}/.vagrant/machines/{{ inventory_hostname }}/libvirt/private_key'
+        public: '{{ private|dirname }}/public_key'
+      shell: >-
+        ssh-keygen -y -f {{ private|quote }} > {{ public|quote }}
+      delegate_to: localhost
+      become: no
+
     - name: create ssh keys on control machine
       openssh_keypair:
         path: '{{ molecule_ephemeral_directory }}/{{ item }}'
+        mode: '0600'
       loop:
         - alice-one
         - alice-two
@@ -21,6 +31,7 @@
         - charlie
       delegate_to: localhost
       become: no
+      run_once: yes
 
     - name: configure ssh keys for initial state
       authorized_key:

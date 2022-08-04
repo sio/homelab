@@ -191,6 +191,17 @@ test-role-server:
         - ansible/tasks/unattended-purge.yml
 
 
+test-role-sshkey:
+  extends: .test-ansible-role-kvm
+  variables:
+    ANSIBLE_ROLE: ../roles/sshkey
+  rules:
+    - *option-skip-test
+    - changes:
+        - ansible/roles/server/**/*
+        - ansible/roles/sshkey/**/*
+
+
 test-role-supysonic:
   extends: .test-ansible-role-kvm
   variables:

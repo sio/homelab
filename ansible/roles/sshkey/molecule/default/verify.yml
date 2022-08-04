@@ -1,11 +1,18 @@
 ---
 - hosts: all
+  become: yes
   tasks:
     - name: hello world
       command: echo hello
       register: hello
       failed_when: "'hello' not in hello.stdout"
       changed_when: "hello is not succeeded"
+
+    - name: remove firewall limits for ssh
+      ufw:
+        port: ssh
+        rule: allow
+        proto: tcp
 
     - name: check that required keys are present
       authorized_key:
@@ -23,16 +30,42 @@
         - user: bob
           key: '{{ molecule_ephemeral_directory }}/bob.pub'
 
-    - name: check that no other keys are present
-      authorized_key:
-        user: '{{ item.user }}'
-        key: '{{ lookup("file", item.key) }}'
-        state: present
-      check_mode: yes
-      register: task
-      failed_when: task is not changed
+    - name: check that allowed keys are working
+      delegate_to: localhost
+      become: no
+      command: >-
+        ssh -v -n -T
+        -o BatchMode=yes
+        -o StrictHostKeyChecking=no
+        -o UserKnownHostsFile=/dev/null
+        -i {{ item.key|quote }}
+        {{ item.user }}@{{ ansible_host }}
+        /bin/true
+      register: ssh
+      failed_when: ssh.rc != 0
+      loop:
+        - user: alice
+          key: '{{ molecule_ephemeral_directory }}/alice-one'
+        - user: alice
+          key: '{{ molecule_ephemeral_directory }}/alice-two'
+        - user: bob
+          key: '{{ molecule_ephemeral_directory }}/bob'
+
+    - name: check that all other keys are not working
+      delegate_to: localhost
+      become: no
+      command: >-
+        ssh -v -n -T
+        -o BatchMode=yes
+        -o StrictHostKeyChecking=no
+        -o UserKnownHostsFile=/dev/null
+        -i {{ item.key|quote }}
+        {{ item.user }}@{{ ansible_host }}
+        /bin/true
+      register: ssh
+      failed_when: ssh.rc == 0
       loop:
         - user: bob
-          key: '{{ molecule_ephemeral_directory }}/alice-one.pub'
+          key: '{{ molecule_ephemeral_directory }}/alice-one'
         - user: charlie
-          key: '{{ molecule_ephemeral_directory }}/charlie.pub'
+          key: '{{ molecule_ephemeral_directory }}/charlie'

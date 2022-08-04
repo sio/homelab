@@ -3,4 +3,4 @@
   assert:
     that:
       - sshkey_only is defined
-      - 'root' not in sshkey_only
+      - ('root' not in sshkey_only)

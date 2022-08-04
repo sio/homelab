@@ -181,16 +181,6 @@ test-role-smarttest:
         - ansible/roles/smarttest/**/*
 
 
-test-role-sshkey:
-  extends: .test-ansible-role
-  variables:
-    ANSIBLE_ROLE: ../roles/sshkey
-  rules:
-    - *option-skip-test
-    - changes:
-        - ansible/roles/sshkey/**/*
-
-
 test-role-wol:
   extends: .test-ansible-role
   variables:

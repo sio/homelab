@@ -2,11 +2,17 @@
 
 - hosts: all
   become: true
+  vars:
+    server_remote_user: vagrant
+    server_keys_public: '{{ sshkey_only.vagrant }}'
+    sshkey_only:
+      alice:
+        - '{{ molecule_ephemeral_directory + "/alice-one.pub" }}'
+        - '{{ molecule_ephemeral_directory + "/alice-two.pub" }}'
+      bob:
+        - '{{ molecule_ephemeral_directory + "/bob.pub" }}'
+      vagrant:
+        - '{{ molecule_ephemeral_directory }}/.vagrant/machines/{{ inventory_hostname }}/libvirt/public_key'
   roles:
+    - role: server
     - role: sshkey
-      sshkey_only:
-        alice:
-          - '{{ molecule_ephemeral_directory + "/alice-one.pub" }}'
-          - '{{ molecule_ephemeral_directory + "/alice-two.pub" }}'
-        bob:
-          - '{{ molecule_ephemeral_directory + "/bob.pub" }}'

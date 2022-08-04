@@ -82,7 +82,6 @@ Local Git repository may be used for keeping track of changes.
 - **restic**
 - **saned**
 - **smarttest**
-- **sshkey**
 - **wol**
 
 ### Tested in Vagrant (Libvirt)
@@ -104,6 +103,7 @@ Local Git repository may be used for keeping track of changes.
   (no `ansible_default_ipv4`)
 - **samba**: depends on server
 - **server**: uses UFW, firewall can not load kernel modules in Docker
+- **sshkey**: depends on server
 - **supysonic**: depends on server
 - **systemctl_wait**: docker tests were flaky because of cgroups+systemd
 - **torrents_sysctl**: modifies kernel parameters via sysctl, impossible in Docker
