@@ -9,6 +9,6 @@
   apt:
     name: openssh-server
     default_release: '{{ ansible_distribution_release }}-backports'
-    state: latest
+    state: latest  # noqa package-latest (upgrading already installed package is neccessary here)
     update_cache: '{{ apt_repo is changed }}'
   notify: restart ssh server
