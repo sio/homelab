@@ -46,21 +46,15 @@
     state: started
     enabled: yes
 
-- name: disable root login via ssh
-  lineinfile:
-    dest: /etc/ssh/sshd_config
-    regexp: '^\w*PermitRootLogin'
-    line: 'PermitRootLogin no'
-    state: present
-    validate: '/usr/sbin/sshd -T -f %s'
-  notify: restart ssh server
-
-- name: disable password auth via ssh
-  lineinfile:
-    dest: /etc/ssh/sshd_config
-    regexp: '^\w*PasswordAuthentication'
-    line: 'PasswordAuthentication no'
-    state: present
+- name: disable root login and password auth in sshd
+  copy:
+    content: |
+      # Managed by Ansible
+      PermitRootLogin no
+      PasswordAuthentication no
+    dest: /etc/ssh/sshd_config.d/00-login.conf
+    mode: '0400'
+    backup: yes
     validate: '/usr/sbin/sshd -T -f %s'
   notify: restart ssh server
 

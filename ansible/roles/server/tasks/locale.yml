@@ -36,6 +36,10 @@
     - '{{ server_locale.name }}'
 
 - name: ignore client locale when connecting via ssh
+  # Multiple AcceptEnv directives are combined instead of first value having
+  # the priority like with the rest of sshd_config.
+  # Because of this we can not unset AcceptEnv via /etc/ssh/sshd_config/*.conf
+  # and we must resort to editing main sshd_config file
   lineinfile:
     dest: /etc/ssh/sshd_config
     regexp: '^(\w*AcceptEnv LANG LC.*)$'

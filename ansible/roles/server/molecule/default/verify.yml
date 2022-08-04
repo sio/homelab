@@ -10,3 +10,20 @@
 
     - name: ping
       ping:
+
+    - name: attempt password login
+      register: ssh
+      delegate_to: localhost
+      become: no
+      command: # https://serverfault.com/questions/938149/
+        cmd:
+          ssh -v -n
+          -o Batchmode=yes
+          -o StrictHostKeyChecking=no
+          -o UserKnownHostsFile=/dev/null
+          DOES_NOT_EXIST@{{ ansible_host }}
+      environment:
+        LC_ALL: C
+        LANG: C
+      failed_when: >-
+        'password' in ssh.stdout or 'password' in ssh.stderr
