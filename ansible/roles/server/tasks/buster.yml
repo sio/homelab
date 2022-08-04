@@ -1,0 +1,14 @@
+- name: enable backports repo
+  apt_repository:
+    repo: 'deb http://deb.debian.org/debian {{ ansible_distribution_release }}-backports main'
+    state: present
+    mode: '0644'
+  register: apt_repo
+
+- name: install sshd from backports
+  apt:
+    name: openssh-server
+    default_release: '{{ ansible_distribution_release }}-backports'
+    state: latest
+    update_cache: '{{ apt_repo is changed }}'
+  notify: restart ssh server

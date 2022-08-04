@@ -46,6 +46,27 @@
     state: started
     enabled: yes
 
+- name: install openssh-server from backports
+  include_tasks: buster.yml
+  when: ansible_distribution_release == 'buster'
+
+- name: enable configuration snippets in sshd
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: >-
+      ^\w*Include\w*/etc/ssh/sshd_config.d/\*.conf\w*$
+    line: Include /etc/ssh/sshd_config.d/*.conf
+    insertbefore: BOF
+    state: present
+    validate: '/usr/sbin/sshd -T -f %s'
+  notify: restart ssh server
+
+- name: create sshd configuration snippets directory
+  file:
+    path: /etc/ssh/sshd_config.d
+    state: directory
+    mode: '0755'
+
 - name: disable root login and password auth in sshd
   copy:
     content: |
