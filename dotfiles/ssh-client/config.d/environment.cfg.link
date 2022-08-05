@@ -1,0 +1,15 @@
+# DISREGARD LOCAL ENVIRONMENT VALUES WHEN CONNECTING WITH SSH
+#
+#   LANG and LC_* are sent and accepted by default in Debian,
+#   but such behavior is not ideal when the remote side does not support
+#   whatever fancy locale you have on your local computer.
+#   My usecase: en_GB.UTF-8 on localhost, en_US.UTF-8 on servers
+#
+#   TERM is always sent, this is required by protocol specification.
+#   As with locales, not all TERM values are universally supported,
+#   some may require generating or installing extra terminfo files.
+#   My usecase: screen.xterm-new looks nice in tmux, but is not supported
+#   without a separate Debian package (ncurses-term)
+Host *
+    SetEnv TERM=xterm
+    SendEnv -LANG -LC_*
