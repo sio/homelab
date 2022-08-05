@@ -2,7 +2,7 @@
     quotepath = false  # proper display of UTF-8 filepaths
 
 [include]
-    path = .gitconfig.d/user.cfg  # put user.name and user.email there
+    path = .gitconfig.d/user.conf  # put user.name and user.email there
 
 [alias]
     graph = log --oneline --decorate --graph --all

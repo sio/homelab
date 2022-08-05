@@ -41,7 +41,7 @@ Sample layout:
 ~/infra/
        /Makefile.secrets
        /inventory.yml
-       /ssh_client.cfg
+       /ssh_client.conf
        /keys/
             /machineA
             /machineA.pub
