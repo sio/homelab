@@ -47,3 +47,5 @@
         upgrade_requires_reboot: '{{ reboot_required_file.stat.exists }}'
 
 - import_tasks: eol.yml
+- import_tasks: support.yml
+- import_tasks: dpkg.yml
