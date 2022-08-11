@@ -22,13 +22,12 @@ task:
     - git reset --hard "$CLONE_SHA"
   dependencies_script:
     - make -C "packer/.test-environment" /.ready-for-packer
+  console_log_background_script:
+    - tail -v -n+0 -F console.log
   packer_script:
     - cd "packer/$PACKER_TARGET"
     - make "{{ PACKER_ACTION|default('build') }}"
     - make checksum
-  always:
-    console_log_script:
-      - cat console.log || true
   image_artifacts:
     path: "**/*.qcow2"
   checksum_artifacts:
