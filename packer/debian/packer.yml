@@ -29,7 +29,8 @@ builders:
     memory: 1024
     cpus: 1
     headless: yes
-    #qemuargs:
+    qemuargs:
+      - ['-serial', 'mon:telnet:127.0.0.1:2121,server,nowait,logfile=console.log,logappend=on']
     #  - ['-display', 'gtk']  # use instead of headless for debugging
 
     http_directory: .

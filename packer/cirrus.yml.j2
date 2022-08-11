@@ -26,6 +26,9 @@ task:
     - cd "packer/$PACKER_TARGET"
     - make "{{ PACKER_ACTION|default('build') }}"
     - make checksum
+  always:
+    console_log_script:
+      - cat console.log || true
   image_artifacts:
     path: "**/*.qcow2"
   checksum_artifacts:
