@@ -14,7 +14,7 @@ unbind-key C-b
 
 
 # Show richer menu on Prefix+s
-bind-key s choose-tree
+bind-key s choose-tree -Z
 
 
 # Start windows and panes numbering at 1, not 0
