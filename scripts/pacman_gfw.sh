@@ -10,6 +10,9 @@ set -euo pipefail
 # Verbose execution
 set -v
 
+# Exit early if Msys2 is not detected
+[[ $(uname -s) =~ MSYS* ]] || exit 1
+
 # Exit early if pacman is installed
 pacman --version && exit
 
