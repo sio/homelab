@@ -18,8 +18,8 @@ bind-key s choose-tree -Z
 
 
 # Truncate long window titles
-set-option -gw window-status-format "#{window_index}:#{=-10:window_name}"
-set-option -gw window-status-current-format "#{E:window-status-format}"
+set-option -gw window-status-format "#{window_index}:#{=-10:window_name}#{window_flags}"
+set-option -gw window-status-current-format "#{window_index}:#{=-10:window_name}#{window_flags}"
 
 
 # Start windows and panes numbering at 1, not 0
