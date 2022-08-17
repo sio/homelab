@@ -17,6 +17,11 @@ unbind-key C-b
 bind-key s choose-tree -Z
 
 
+# Truncate long window titles
+set-option -gw window-status-format "#{window_index}:#{=-10:window_name}"
+set-option -gw window-status-current-format "#{E:window-status-format}"
+
+
 # Start windows and panes numbering at 1, not 0
 set -g base-index 1
 setw -g pane-base-index 1
