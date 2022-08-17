@@ -54,3 +54,8 @@ done
 
 # Upgrade to current version of pacman
 pacman -S --overwrite '*' pacman pacman-mirrors msys2-keyring
+
+
+# Personalization
+dos2unix ~/.tmux.conf
+pacman -S tmux bc tree
