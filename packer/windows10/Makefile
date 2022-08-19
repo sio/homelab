@@ -125,23 +125,3 @@ $(LOCAL_ISO):
 build: $(LOCAL_ISO)
 build: export VM_ISO:=$(LOCAL_ISO)
 endif
-
-
-# Split large disk image when building in Cirrus CI to stay below max artifact size
-ifdef CIRRUS_CI
-checksum: split
-endif
-.PHONY: split
-split:
-	find \
-		-type f \
-		-name '*.qcow2' \
-	| while read filename; do \
-		split \
-			-b 950M \
-			--additional-suffix=.qcow2 \
-			"$$filename" \
-			"$$(dirname $$filename)/$$(basename $$filename .qcow2)_"; \
-		$(RM) -v "$$filename"; \
-	done
-	$(MAKE) checksum CIRRUS_CI=
