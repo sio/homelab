@@ -29,7 +29,7 @@ task:
     - make "{{ PACKER_ACTION|default('build') }}"
     - make checksum
   image_cleanup_script:
-    - find -type f -iname '*.qcow2' -size '+0.9G' -print -delete
+    - find -type f -iname '*.qcow2' -size '+900M' -print -delete
   image_artifacts:
     path: "**/*.qcow2"
   checksum_artifacts:
