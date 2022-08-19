@@ -52,5 +52,7 @@ builders:
       - passwd/root-password-again={{ user `root_password` }}<spacebar>
       - language=en country=US keymap=en<spacebar>
       - hostname={{ user `hostname` }} domain=packer<spacebar>
+      - console=tty0 console=ttyS0,115200 finish-install/keep-consoles
+      - DEBIAN_FRONTEND=text
       - <enter><wait>
     shutdown_command: shutdown -P now
