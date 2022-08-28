@@ -306,3 +306,20 @@ ssh-wait() {
 
 # Limit key lifetime in ssh-agent to 12 hours by default
 alias ssh-add='ssh-add -t $((12*60*60))'
+
+# Record terminal output to log file
+record() {
+    local output
+    output="$1.script"
+    local timing
+    timing="$1.time"
+    [[ -z "$1" ]] && {
+        echo "Destination file not specified" >&2
+        return 1
+    }
+    [[ -f "$output" ]] && {
+        echo "Destination file exists: $output" >&2
+        return 1
+    }
+    script --timing="$timing" --append --flush "$output"
+}
