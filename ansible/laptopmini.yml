@@ -44,6 +44,7 @@
         - aspell-ru
         - hunspell-ru
         - myspell-ru
+        - gnome-games    # Used for icons mostly
 
         # Interactive shell
         - git
