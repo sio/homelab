@@ -35,6 +35,7 @@
         # Desktop environment
         - task-xfce-desktop
         - fonts-cantarell
+        - fonts-noto-core
         - numix-gtk-theme
         - xclip
         # xfwm4-themes   # Removed from Buster repos
