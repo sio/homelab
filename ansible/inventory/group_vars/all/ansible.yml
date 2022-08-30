@@ -18,13 +18,11 @@ ansible_become_flags_by_method:
 
 # Correctly detect Debian testing
 ansible_distribution_release: >- # https://github.com/ansible/ansible/issues/19874
-  {{
-  {
-    'oldstable': 'buster',
-    'stable': 'bullseye',
-    'testing': 'bookworm',
-  }[ansible_debian_release] | default(ansible_debian_release)
-  }}
+  {{ ansible_debian_codenames[ansible_debian_release] | default(ansible_debian_release) }}
+ansible_debian_codenames:
+  oldstable: buster
+  stable: bullseye
+  testing: bookworm
 ansible_debian_release: >-  # non-idempotent, might easily change testing<>bullseye
   {{
   ansible_facts.distribution_major_version.split("/")[0]
