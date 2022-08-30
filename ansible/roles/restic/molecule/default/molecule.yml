@@ -40,7 +40,7 @@ platforms:
   - name: debian11-client
     groups:
       - client
-    image: potyarkin/molecule:debian-11-systemd
+    image: potyarkin/molecule:debian11-systemd
     networks:
       - name: molecule_network
     pre_build_image: true

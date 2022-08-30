@@ -1,5 +1,5 @@
 # Clean environment for applying Ansible roles - with systemd inside
-# Docker Hub: potyarkin/molecule:debian-11-systemd
+# Docker Hub: potyarkin/molecule:debian11-systemd
 FROM debian:bullseye-slim
 RUN \
     apt-get update && \

@@ -149,27 +149,27 @@ molecule-guest-debian-10-systemd:
         - ansible/tests/Dockerfile.debian-10-systemd
 
 
-molecule-guest-debian-11:
+molecule-guest-debian11:
   extends: .docker-build
   variables:
-    DOCKERFILE: ansible/tests/Dockerfile.debian-11
-    CI_REGISTRY_IMAGE: potyarkin/molecule:debian-11
+    DOCKERFILE: ansible/tests/Dockerfile.debian11
+    CI_REGISTRY_IMAGE: potyarkin/molecule:debian11
   rules:
     - *option-skip-build
     - *trigger-docker-build
     - <<: *push-to-master
       changes:
-        - ansible/tests/Dockerfile.debian-11
+        - ansible/tests/Dockerfile.debian11
 
 
-molecule-guest-debian-11-systemd:
+molecule-guest-debian11-systemd:
   extends: .docker-build
   variables:
-    DOCKERFILE: ansible/tests/Dockerfile.debian-11-systemd
-    CI_REGISTRY_IMAGE: potyarkin/molecule:debian-11-systemd
+    DOCKERFILE: ansible/tests/Dockerfile.debian11-systemd
+    CI_REGISTRY_IMAGE: potyarkin/molecule:debian11-systemd
   rules:
     - *option-skip-build
     - *trigger-docker-build
     - <<: *push-to-master
       changes:
-        - ansible/tests/Dockerfile.debian-11-systemd
+        - ansible/tests/Dockerfile.debian11-systemd

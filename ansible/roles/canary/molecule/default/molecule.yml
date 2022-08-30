@@ -14,7 +14,7 @@ platforms:
       - /run
       - /tmp
   - name: debian11-docker
-    image: potyarkin/molecule:debian-11-systemd
+    image: potyarkin/molecule:debian11-systemd
     pre_build_image: true
     command: /sbin/init
     privileged: yes
