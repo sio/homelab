@@ -109,7 +109,7 @@ check:
 
 .PHONY: check-debian-release
 check-debian-release:
-	@for RELEASE in debian10 debian11; \
+	@for RELEASE in debian12 debian11; \
 	do \
 		ERRORS=$$(find .. -name molecule.yml \
 			! -path '*/.*/*' \

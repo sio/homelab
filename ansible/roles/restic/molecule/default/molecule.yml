@@ -21,10 +21,10 @@ platforms:
     networks:
       - name: molecule_network
 
-  - name: debian10-client
+  - name: debian12-client
     groups:
       - client
-    image: potyarkin/molecule:debian-10-systemd
+    image: potyarkin/molecule:debian12-systemd
     networks:
       - name: molecule_network
     pre_build_image: true

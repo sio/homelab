@@ -7,8 +7,8 @@ driver:
     name: libvirt
 
 platforms:
-  - name: debian10-vm
-    box: potyarkin/debian10
+  - name: debian12-vm
+    box: potyarkin/debian12
     memory: 1024
   - name: debian11-vm
     box: potyarkin/debian11

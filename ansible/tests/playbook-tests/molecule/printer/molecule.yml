@@ -21,10 +21,10 @@ driver:
     name: libvirt
 
 platforms:
-  - name: debian10-vm
+  - name: debian12-vm
     groups:
       - printer
-    box: potyarkin/debian10
+    box: potyarkin/debian12
     memory: 1024
   - name: debian11-vm
     groups:

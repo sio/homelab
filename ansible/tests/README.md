@@ -44,8 +44,8 @@ Exit code: 0 (after /bin/sleep terminates)
 
 ```yaml
 platforms:
-  - name: debian10-docker
-    image: potyarkin/molecule:debian-10-systemd
+  - name: debian12-docker
+    image: potyarkin/molecule:debian12-systemd
     pre_build_image: true
     command: /sbin/init
     capabilities:

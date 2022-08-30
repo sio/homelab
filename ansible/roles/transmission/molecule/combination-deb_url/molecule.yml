@@ -9,7 +9,7 @@ provisioner:
       all:
         ansible_python_interpreter: /usr/bin/python3
     host_vars:
-      debian10-vm:
+      debian12-vm:
         deb_url_packages:
           - url: https://github.com/sio/transmission-debian-patched/releases/download/2.94-2.1-buster/transmission-common_2.94-2.1_all.deb
             checksum: sha256:42117eaac71af8fa53b5b0803df986adcd0d3bdaf0a7f0791465f7b2478ad765
@@ -32,8 +32,8 @@ driver:
     name: libvirt
 
 platforms:
-  - name: debian10-vm
-    box: potyarkin/debian10
+  - name: debian12-vm
+    box: potyarkin/debian12
     memory: 1024
   - name: debian11-vm
     box: potyarkin/debian11
