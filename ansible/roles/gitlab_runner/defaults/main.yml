@@ -20,4 +20,9 @@ gitlab_runner_packages_pre:
   - debian-archive-keyring
 gitlab_runner_repo_url: https://packages.gitlab.com/runner/gitlab-runner/debian/
 gitlab_runner_repo_key: https://packages.gitlab.com/runner/gitlab-runner/gpgkey
-gitlab_runner_repo_release: '{{ ansible_distribution_release }}'
+gitlab_runner_repo_release: >-
+  {{
+  ansible_distribution_release
+  if ansible_distribution_version not in ['testing', 'sid']
+  else 'bullseye'
+  }}
