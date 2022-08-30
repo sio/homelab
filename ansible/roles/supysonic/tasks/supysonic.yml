@@ -34,9 +34,7 @@
     '{{ supysonic_venv|quote }}/bin/supysonic-cli
     folder add Library {{ supysonic_music_dir|quote }}'
   changed_when: supysonic_init.changed
-  when: supysonic_init.changed
-  tags:
-    - skip_ansible_lint  # [503: run when changed]
+  when: supysonic_init.changed  # noqa no-handler
 
 - name: show administrator credentials (for new database)
   debug:
@@ -44,7 +42,5 @@
       New database: "{{ supysonic_db }}"
       Administrator: "{{ supysonic_admin }}"
       Password: "{{ supysonic_pass }}"
-  when: supysonic_init.changed
+  when: supysonic_init.changed  # noqa no-handler
   changed_when: yes
-  tags:
-    - skip_ansible_lint  # [503: run when changed]

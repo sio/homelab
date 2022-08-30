@@ -57,10 +57,8 @@
   service:
     name: '{{ transmission_daemon_name }}'
     state: stopped
-  when: transmission_config_check.changed
+  when: transmission_config_check.changed  # noqa no-handler
   failed_when: false
-  tags:
-    - skip_ansible_lint
 
 - name: copy transmission settings
   template:
@@ -75,6 +73,4 @@
 - name: show settings changes (if any)
   debug:
     var: transmission_settings_diff
-  when: transmission_settings_diff.changed
-  tags:
-    - skip_ansible_lint
+  when: transmission_settings_diff.changed  # noqa no-handler
