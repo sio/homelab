@@ -17,6 +17,16 @@ platforms:
       - client
     box: potyarkin/debian11
     memory: 1024
+  - name: debian12-server
+    groups:
+      - server
+    box: potyarkin/debian12
+    memory: 1024
+  - name: debian12-client
+    groups:
+      - client
+    box: potyarkin/debian12
+    memory: 1024
 
 dependency:
   name: shell
