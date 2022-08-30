@@ -9,6 +9,7 @@ provisioner:
       all:
         ansible_python_interpreter: /usr/bin/python3
     host_vars:
+      # TODO: will next Transmission release happen before Bookworm freeze?
       debian11-vm:
         deb_url_packages:
           - url: https://github.com/sio/transmission-debian-patched/releases/download/3.00-1.1-bullseye/transmission-common_3.00-1.1_all.deb
