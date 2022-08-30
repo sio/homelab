@@ -3,6 +3,7 @@ canon_drivers_web: '{{ canon_drivers_known_good[ansible_distribution_release] }}
 canon_drivers_known_good:
   buster: https://f003.backblazeb2.com/file/public-b1009b/drivers/canon_mf3010/linux-UFRII-drv-v540-uken-08.tar.gz
   bullseye: https://f003.backblazeb2.com/file/public-b1009b/drivers/canon_mf3010/linux-UFRII-drv-v540-uken-08.tar.gz
+  bookworm: https://f003.backblazeb2.com/file/public-b1009b/drivers/canon_mf3010/linux-UFRII-drv-v540-uken-08.tar.gz
 canon_drivers_local: canon_ufrii_drv.tar.gz
 
 # There should be no need to override these
