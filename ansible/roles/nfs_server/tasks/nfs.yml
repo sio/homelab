@@ -32,15 +32,39 @@
     RPCMOUNTDOPTS: '--manage-gids -N 2 -N 3'
   notify: restart nfs server
 
+- name: create /etc/nfs.conf.d
+  file:
+    path: /etc/nfs.conf.d
+    state: directory
+    mode: '0755'
+
+- name: override some values in /etc/nfs.conf
+  copy:
+    content: |
+      [nfsd]
+      vers2=n
+      vers3=n
+    dest: /etc/nfs.conf.d/custom.conf
+    mode: '0444'
+    backup: yes
+
 - name: disable rpcbind
+  vars:
+    units:
+      default:  # bookworm and newer
+        - rpcbind.service
+        - rpcbind.socket
+        - rpc-statd-notify.service
+        - rpc-statd.service
+      bullseye:
+        - rpcbind.service
+        - rpcbind.socket
   systemd:
     name: '{{ item }}'
     state: stopped
     masked: yes
     enabled: no
-  loop:
-    - rpcbind.service
-    - rpcbind.socket
+  loop: '{{ units[ansible_distribution_release]|d(units.default) }}'
 
 - name: allow nfs4 in firewall
   ufw:
