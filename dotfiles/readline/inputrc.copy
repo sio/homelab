@@ -1,0 +1,2 @@
+# Common configuration for different machines
+$include ~/.inputrc.d/base.conf

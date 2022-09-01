@@ -8,9 +8,11 @@
 ansible
 app.venv
 bash
+gdb
 git
 git-opensource
 ipython
+readline
 ssh-client
 tmux
 top

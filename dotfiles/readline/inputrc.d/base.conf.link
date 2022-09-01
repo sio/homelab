@@ -1,0 +1,15 @@
+# History search with arrows
+"\e[A": history-search-backward
+"\e[B": history-search-forward
+
+# Completion
+set completion-ignore-case on
+TAB:menu-complete
+"\e[Z": menu-complete-backward
+
+# Completion menu
+set menu-complete-display-prefix on
+set colored-completion-prefix on
+set colored-stats on
+set show-all-if-ambiguous on
+set show-all-if-unmodified on
