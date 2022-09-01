@@ -12,6 +12,7 @@ gdb
 git
 git-opensource
 ipython
+quilt
 readline
 ssh-client
 tmux
