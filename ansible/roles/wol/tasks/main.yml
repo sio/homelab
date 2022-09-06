@@ -10,7 +10,8 @@
 
       [Service]
       ExecStart=/sbin/ethtool -s %i wol g
-      Type=oneshot
+      ExecStop=/sbin/ethtool -s %i wol g
+      RemainAfterExit=yes
 
       [Install]
       WantedBy=multi-user.target
