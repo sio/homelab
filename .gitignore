@@ -11,3 +11,5 @@ packer_cache
 /sysbench
 
 /ansible/Makefile.secrets
+
+/scripts/artifacts/*.log
