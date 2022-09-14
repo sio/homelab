@@ -2,6 +2,7 @@ import os
 import sys
 import json
 from datetime import datetime, timezone
+from collections import defaultdict
 
 import requests
 from cirrus_run import CirrusAPI as GraphqlAPI
@@ -49,7 +50,7 @@ def main():
     repo = sys.argv[1]
     page = None
     cursor = ''
-    total_size = 0
+    size = defaultdict(int)
     now = datetime.now(tz=timezone.utc)
 
     while page is None or page['project']['pipelines']['pageInfo']['hasNextPage']:
@@ -63,7 +64,7 @@ def main():
             timestamp = datetime.fromisoformat(pipeline['finishedAt'].replace('Z', '+00:00'))
             pipeline_id = pipeline['id'].split('/')[-1]
             for artifact in pipeline['jobArtifacts']:
-                total_size += artifact['size']
+                size[artifact['name']] += artifact['size']
                 if artifact['size'] >= 10 * 2**20:
                     stderr('Large artifact: %s' % artifact['downloadPath'])
             if (now - timestamp).days > 365 and 'delete' in locals():
@@ -74,6 +75,9 @@ def main():
                 else:
                     stderr(f'HTTP {http.status_code} while deleting {pipeline["id"]}: {rest_url}')
         print(json.dumps(page, indent=2, ensure_ascii=False, sort_keys=True))
+    for filename, filesize in size.items():
+        stderr(f'{filename:>19}: {filesize / 2**20:.1f}MB ({filesize} bytes)')
+    total_size = sum(size.values())
     stderr(f'TOTAL ARTIFACT SIZE: {total_size / 2**20:.1f}MB ({total_size} bytes)')
 
 if __name__ == '__main__':
