@@ -66,7 +66,7 @@ def main():
                 total_size += artifact['size']
                 if artifact['size'] >= 10 * 2**20:
                     stderr('Large artifact: %s' % artifact['downloadPath'])
-            if (now - timestamp).days > 365:
+            if (now - timestamp).days > 365 and 'delete' in locals():
                 rest_url = f'https://gitlab.com/api/v4/projects/{project_id}/pipelines/{pipeline_id}'
                 http = delete(rest_url)
                 if 200 < http.status_code < 299:
