@@ -69,7 +69,7 @@ def main():
             if (now - timestamp).days > 365 and 'delete' in locals():
                 rest_url = f'https://gitlab.com/api/v4/projects/{project_id}/pipelines/{pipeline_id}'
                 http = delete(rest_url)
-                if 200 < http.status_code < 299:
+                if 200 <= http.status_code < 300:
                     stderr(f'Deleted pipeline {pipeline["id"]}')
                 else:
                     stderr(f'HTTP {http.status_code} while deleting {pipeline["id"]}: {rest_url}')
