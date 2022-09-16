@@ -29,7 +29,7 @@ apt update
 apt install -y --no-install-recommends $packages
 
 groups=$(grep 'groups: ' "$ROOT/ansible/lab.yml" | awk '{ print $2 }')
-if [[ "$1" != "root" && -n "$1" ]]
+if [[ "$USER" != "root" ]]
 then
-    usermod -aG "$groups" "$1"
+    usermod -aG "$groups" "$USER"
 fi
