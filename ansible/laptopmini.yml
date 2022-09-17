@@ -18,6 +18,14 @@
       aptrepo_key_url: https://dl.google.com/linux/linux_signing_key.pub
       aptrepo_key_file: /usr/share/keyrings/google-archive-keyring.gpg
 
+    - role: aptrepo
+      aptrepo_url: http://deb.anydesk.com/
+      aptrepo_params:
+        Suites: all
+      aptrepo_source_file: /etc/apt/sources.list.d/anydesk.sources
+      aptrepo_key_url: https://keys.anydesk.com/repos/DEB-GPG-KEY
+      aptrepo_key_file: /usr/share/keyrings/anydesk-keyring.gpg
+
     - role: packages
       packages_install:
         # Desktop apps
@@ -31,6 +39,7 @@
         - virt-manager
         - simple-scan
         - gscan2pdf
+        - anydesk
 
         # Desktop environment
         - task-xfce-desktop
