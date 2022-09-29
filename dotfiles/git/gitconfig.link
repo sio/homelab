@@ -1,9 +1,6 @@
 [core]
     quotepath = false  # proper display of UTF-8 filepaths
 
-[include]
-    path = .gitconfig.d/user.conf  # put user.name and user.email there
-
 [user]
     useConfigOnly
 

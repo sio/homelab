@@ -10,7 +10,6 @@ app.venv
 bash
 gdb
 git
-git-opensource
 ipython
 quilt
 readline

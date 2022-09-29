@@ -307,6 +307,34 @@ ssh-wait() {
 # Limit key lifetime in ssh-agent to 12 hours by default
 alias ssh-add='ssh-add -t $((12*60*60))'
 
+
+# Set git-identity in mailmap/git-shortlog format:
+#   $ git-identity "Vitaly Potyarkin <sio.wtf@gmail.com>"
+#
+# https://szymonkrajewski.pl/avoid-using-global-git-identity
+git-identity() {
+    local fullid
+    fullid="$@"
+
+    local name
+    name="${fullid% <*}"
+
+    local email
+    email="${fullid##* <}"
+    email="${email%%>*}"
+
+    if [[ -z "$name" || -z "$email" || $fullid != *'<'*'>'* ]]
+    then
+        echo "Invalid identity string: $fullid" >&2
+        return 1
+    fi
+
+    set -x
+    git config --local user.name "$name"
+    git config --local user.email "$email"
+    { set +x; } 2>/dev/null
+}
+
 # Record terminal output to log file
 record() {
     local output
