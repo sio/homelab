@@ -351,3 +351,8 @@ record() {
     }
     script --timing="$timing" --append --flush "$output"
 }
+
+# Show command when using watchexec
+run() {
+    watchexec --shell="$SHELL" -- "echo -e '\n$ $@'; $@"
+}
