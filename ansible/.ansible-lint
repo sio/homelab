@@ -1,0 +1,7 @@
+skip_list:
+  - name[casing]
+  - name[missing]
+  - fqcn
+  - fqcn-builtins
+  - var-spacing
+  - yaml

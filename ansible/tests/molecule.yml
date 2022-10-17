@@ -19,8 +19,4 @@ verifier:
 lint: |
   set -e
   yamllint .
-  ansible-lint \
-    --exclude molecule \
-    -x yaml \
-    -x fqcn-builtins \
-    -x var-spacing
+  ansible-lint --exclude molecule
