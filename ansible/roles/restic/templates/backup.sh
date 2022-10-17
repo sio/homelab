@@ -24,7 +24,7 @@ $RESTIC forget \
     --tag {{ restic_backup_tags|join(',') }} \
 {% endif %}
 {% for key, value in restic_backup_retention.items() %}
-    --{{ key|replace("_", "-") }} {{ value }} \
+    --{{ key|replace("_", "-") }} {{ value|lower }} \
 {% endfor %}
 
 $RESTIC prune
