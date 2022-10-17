@@ -80,7 +80,7 @@
 
 - name: schedule interface to be restarted
   changed_when: no
-  when: config is changed  # noqa 503 # workaround for multiple role invocations
+  when: config is changed  # noqa no-handler # workaround for multiple role invocations
   set_fact:
     wireguard_restart_interfaces: '{{ wireguard_restart_interfaces + [wireguard_interface] }}'
 

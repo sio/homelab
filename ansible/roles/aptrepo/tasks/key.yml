@@ -24,7 +24,7 @@
   delay: 2
 
 - name: dearmor repository key
-  when: get_url is changed  # noqa 503 # ideally this should've been one task with get_url
+  when: get_url is changed  # noqa no-handler # ideally this should've been one task with get_url
   shell: |-
     set -euo pipefail
     cat {{ aptrepo_key_raw|quote }} | gpg --dearmor > {{ aptrepo_key_file|quote }}

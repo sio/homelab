@@ -13,6 +13,6 @@
   register: sources
 
 - name: update apt package lists
-  when: sources is changed  # noqa 503 # Make new repo immediately usable
+  when: sources is changed  # noqa no-handler # Make new repo immediately usable
   apt:
     update_cache: yes
