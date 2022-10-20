@@ -8,7 +8,6 @@
         - [Borg backup server](ansible/roles/borg_server/README.md)
         - [Graceful shutdown on power outage even with dumb UPS](ansible/roles/canary/README.md)
         - [Publish Canon MF-3010 printer on LAN](ansible/roles/canon_mf3010/README.md)
-        - [Management node for auto scaling fleet of CI workers](ansible/roles/ci_runners_manager/README.md)
         - [Custom control node for my infrastructure](ansible/roles/control/README.md)
         - [Add printer to CUPS daemon](ansible/roles/cups_printer/README.md)
         - [Install deb packages from remote URLs](ansible/roles/deb_url/README.md)

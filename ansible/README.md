@@ -72,7 +72,6 @@ Local Git repository may be used for keeping track of changes.
 - **borg_server**
 - **canary**
 - **canon_mf3010**
-- **ci_runners_manager**
 - **cloudflare_tunnel**
 - **deb_url**
 - **gitlab_runner**
