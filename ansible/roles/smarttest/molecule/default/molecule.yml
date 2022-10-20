@@ -7,9 +7,6 @@ platforms:
     pre_build_image: true
     command: /sbin/init
     privileged: yes
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
-      - /lib/modules:/lib/modules:ro
     tmpfs:
       - /run
       - /tmp
@@ -18,9 +15,6 @@ platforms:
     pre_build_image: true
     command: /sbin/init
     privileged: yes
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
-      - /lib/modules:/lib/modules:ro
     tmpfs:
       - /run
       - /tmp

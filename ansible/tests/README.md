@@ -50,9 +50,6 @@ platforms:
     command: /sbin/init
     capabilities:
       - SYS_ADMIN
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
-      - /lib/modules:/lib/modules:ro
     tmpfs:
       - /run
       - /tmp
