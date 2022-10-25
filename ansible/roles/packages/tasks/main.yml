@@ -14,8 +14,12 @@
     state: absent
   when: packages_remove|length > 0
 
-- name: execute apt chores (autoremove, autoclean)
+- name: execute apt chores (autoremove)
   apt:
     autoremove: '{{ packages_autoremove }}'
-    autoclean: '{{ packages_autoclean }}'
+  when: ansible_pkg_mgr == 'apt'
+
+- name: execute apt chores (clean local package cache)
+  apt:
+    clean: '{{ packages_autoclean }}'
   when: ansible_pkg_mgr == 'apt'
