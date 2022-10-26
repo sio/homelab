@@ -1,0 +1,1 @@
+# GitLab runners scaling manager

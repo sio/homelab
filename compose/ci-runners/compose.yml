@@ -1,0 +1,21 @@
+version: '3.7'
+
+services:
+  fleet-manager:
+    image: ghcr.io/sio/gitlab-runners-fleet
+    restart: unless-stopped
+    user: ${CONTAINER_USER}
+    environment:
+      PULUMI_CONFIG_PASSPHRASE: "${PULUMI_CONFIG_PASSPHRASE}"
+      GITLAB_RUNNER_TOKEN: "${GITLAB_RUNNER_TOKEN}"
+      GITLAB_API_TOKEN: "${GITLAB_API_TOKEN}"
+      YC_TOKEN: "${YC_TOKEN}"
+      YC_CLOUD_ID: "${YC_CLOUD_ID}"
+      YC_FOLDER_ID: "${YC_FOLDER_ID}"
+    volumes:
+      - type: bind
+        source: {{ ci_runners_config_dir }}
+        target: /config
+      - type: bind
+        source: {{ ci_runners_state_dir }}
+        target: /state

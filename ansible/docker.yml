@@ -60,3 +60,47 @@
           # Privilege deescalation
           CONTAINER_USER: '{{ microblog_uid }}:{{ microblog_uid }}'
       when: molecule_ephemeral_directory is not defined
+
+
+- name: ci_runners
+  hosts: docker
+  become: yes
+  vars:
+    ci_runners_uid: '28571'
+    ci_runners_config_dir: /docker/ci_runners/config
+    ci_runners_state_dir: /docker/ci_runners/state
+  tasks:
+    - name: create ci_runners directories
+      file:
+        state: directory
+        path: '{{ item }}'
+        owner: '{{ ci_runners_uid }}'
+        mode: '0700'
+      loop:
+        - '{{ ci_runners_config_dir }}'
+        - '{{ ci_runners_state_dir }}'
+
+    - name: create initial fleet-manager configuration
+      copy:
+        content: |-
+          [main]
+          log_level = "info"
+        dest: '{{ ci_runners_config_dir }}/config.toml'
+        owner: '{{ ci_runners_uid }}'
+        mode: '0600'
+
+    - name: deploy fleet-manager
+      when: molecule_ephemeral_directory is not defined
+      import_role:
+        name: docker_compose
+      vars:
+        docker_compose_project: ci_runners
+        docker_compose_file: '{{ playbook_dir }}/../compose/ci-runners/compose.yml'
+        docker_compose_env:
+          PULUMI_CONFIG_PASSPHRASE: '{{ ci_runners_state_passphrase }}'
+          GITLAB_RUNNER_TOKEN: '{{ ci_runners_gitlab_runner_token }}'
+          GITLAB_API_TOKEN: '{{ ci_runners_gitlab_api_token }}'
+          YC_TOKEN: '{{ ci_runners_yandex_token }}'
+          YC_CLOUD_ID: '{{ ci_runners_yandex_cloud_id }}'
+          YC_FOLDER_ID: '{{ ci_runners_yandex_folder_id }}'
+          CONTAINER_USER: '{{ ci_runners_uid }}:{{ ci_runners_uid }}'
