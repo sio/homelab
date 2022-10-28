@@ -86,7 +86,7 @@
           [main]
           log_level = "info"
           [YandexCloud]
-          public_key = "sshkey.pub"
+          public_key = "/config/sshkey.pub"
         dest: '{{ ci_runners_config_dir }}/config.toml'
         owner: '{{ ci_runners_uid }}'
         mode: '0600'
