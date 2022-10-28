@@ -85,7 +85,16 @@
         content: |-
           [main]
           log_level = "info"
+          [YandexCloud]
+          public_key = "sshkey.pub"
         dest: '{{ ci_runners_config_dir }}/config.toml'
+        owner: '{{ ci_runners_uid }}'
+        mode: '0600'
+
+    - name: create public key for cloud instances
+      copy:
+        src: '{{ ci_runners_pubkey }}'
+        dest: '{{ ci_runners_config_dir }}/sshkey.pub'
         owner: '{{ ci_runners_uid }}'
         mode: '0600'
 

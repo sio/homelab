@@ -18,3 +18,5 @@ all:
         - qtwebkit-opensource-src  # used by freecad
     morebooks:
       upgrade_allow_reboot: yes
+    docker:
+      ci_runners_pubkey: '{{ lookup("first_found", server_keys_public) }}'
