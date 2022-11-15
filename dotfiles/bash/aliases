@@ -354,9 +354,12 @@ record() {
 
 # Show command when using watchexec
 run() {
+    bold="$(tput bold)"
+    color="$(tput setaf 6)"
+    normal="$(tput sgr0)"
     watchexec \
         --shell="$SHELL" \
         --ignore '**.git**' \
         -- \
-        "echo -e '\n$ $@'; $@"
+        "echo -e \"${color}${bold}\n$ $@${normal}\"; $@"
 }
