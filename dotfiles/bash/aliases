@@ -354,5 +354,9 @@ record() {
 
 # Show command when using watchexec
 run() {
-    watchexec --shell="$SHELL" -- "echo -e '\n$ $@'; $@"
+    watchexec \
+        --shell="$SHELL" \
+        --ignore '**.git**' \
+        -- \
+        "echo -e '\n$ $@'; $@"
 }
