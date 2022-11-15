@@ -360,6 +360,7 @@ run() {
     watchexec \
         --shell="$SHELL" \
         --ignore .git \
+        --ignore index \
         --ignore index.lock \
         -- \
         "echo -e \"${color}${bold}\n$ $@${normal}\"; $@"
