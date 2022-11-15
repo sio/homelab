@@ -359,6 +359,7 @@ run() {
     normal="$(tput sgr0)"
     watchexec \
         --shell="$SHELL" \
+        --debounce 500 \
         --ignore .git \
         --ignore index \
         --ignore index.lock \
