@@ -31,11 +31,13 @@ platforms:
       - laptopmini
     box: potyarkin/debian12
     memory: 1024
+    disk_size: 20G
   - name: debian11-vm
     groups:
       - laptopmini
     box: potyarkin/debian11
     memory: 1024
+    disk_size: 20G
 
 dependency:
   name: shell
