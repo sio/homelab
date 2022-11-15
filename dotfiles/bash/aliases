@@ -359,7 +359,8 @@ run() {
     normal="$(tput sgr0)"
     watchexec \
         --shell="$SHELL" \
-        --ignore '**.git**' \
+        --ignore .git \
+        --ignore index.lock \
         -- \
         "echo -e \"${color}${bold}\n$ $@${normal}\"; $@"
 }
