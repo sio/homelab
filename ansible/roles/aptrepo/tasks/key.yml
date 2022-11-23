@@ -30,4 +30,3 @@
     cat {{ aptrepo_key_raw|quote }} | gpg --dearmor > {{ aptrepo_key_file|quote }}
   args:
     executable: /bin/bash
-    warn: no

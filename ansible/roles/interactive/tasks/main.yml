@@ -36,7 +36,6 @@
     'git clone --recursive "{{ interactive_repo }}" ~/.common'
   args:
     creates: '/home/{{ interactive_user }}/.common/*'
-    warn: no  # becoming unprivileged does not work in Ansible
 
 - name: initialize basic cli configuration
   command:
@@ -45,4 +44,3 @@
       'cd /home/{{ interactive_user }}/.common/dotfiles && ./bootstrap.sh topics-cli.list'
     chdir: '/home/{{ interactive_user }}/.common/dotfiles'
     creates: '/home/{{ interactive_user }}/.toprc'
-    warn: no
