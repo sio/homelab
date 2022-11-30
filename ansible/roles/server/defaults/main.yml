@@ -21,6 +21,7 @@ server_keys_public:
 server_packages:
   - git
   - chrony
+  - cron
   - python3
   - python3-pip
   - python3-venv
