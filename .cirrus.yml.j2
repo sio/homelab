@@ -16,6 +16,7 @@ task:
   timeout_in: 80m
 
   env:
+    LC_ALL: C.UTF-8
     PIP_CACHE_DIR: $HOME/cache/pip
     VENVDIR: $HOME/venv
     # VENVDIR must be absolute path for 'cd && make' approach to work
