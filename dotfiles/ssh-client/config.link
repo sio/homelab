@@ -4,3 +4,11 @@
 # Place all custom options into ~/.ssh/config.d/*.conf
 
 Include ~/.ssh/config.d/*.conf
+
+# ssh client uses the first of duplicated option values,
+# so global defaults are placed after host-specific config
+
+Host *
+    IdentitiesOnly yes
+    ForwardAgent no
+    ForwardX11 no
