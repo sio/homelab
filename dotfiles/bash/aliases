@@ -357,6 +357,7 @@ run() {
     local bold="$(tput bold)"
     local color="$(tput setaf 6)"
     local normal="$(tput sgr0)"
+    local cleanup="                  "
     watchexec \
         --shell="$SHELL" \
         --debounce 500 \
@@ -364,5 +365,5 @@ run() {
         --ignore index \
         --ignore index.lock \
         -- \
-        "echo -e \"${color}${bold}\n$ $@${normal}\"; $@"
+        "echo -e \"${cleanup}${color}${bold}\n$ $@${normal}\"; $@ && echo -ne \"${color}OK${normal}\\r\""
 }
