@@ -4,14 +4,13 @@ au Filetype make,go setlocal noexpandtab
 " Wrap lines automatically for Markdown files
 au FileType markdown setlocal textwidth=78 wrap
 
-" YAML indentation
-au FileType yaml setlocal tabstop=2 shiftwidth=2 softtabstop=2
-
-" Indentation for web pages
-au FileType html,js,css,htmldjango,xml setlocal
+" Narrow indentation
+au FileType html,js,css,htmldjango,xml,yaml,terraform setlocal
     \ tabstop=2
     \ shiftwidth=2
     \ softtabstop=2
+
+" HTML syntax highlighting
 au BufNewFile,BufRead *.htm,*html setlocal filetype=htmldjango
 
 " Syntax highlighting for Power Query
