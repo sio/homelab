@@ -14,6 +14,9 @@
 [commit]
     verbose = true  # show diff in commit message editor
 
+[help]
+    autocorrect = 10  # deciseconds
+
 [url "git@github.com:"]
     insteadOf = github://
     insteadOf = gh://
