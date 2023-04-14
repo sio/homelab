@@ -43,19 +43,19 @@
       copy:
         content: '{{ unsafe_keys.outer.private }}'
         dest: /etc/wireguard/wg_untrusted/private_key
-        mode: 0600
+        mode: '0600'
     - name: write unsafe public key for wg_untrusted
       copy:
         content: '{{ unsafe_keys.outer.public }}'
         dest: /etc/wireguard/wg_untrusted/public_key
-        mode: 0600
+        mode: '0600'
     - name: write unsafe private key for wg_trusted
       copy:
         content: '{{ unsafe_keys.outer.private }}'
         dest: /etc/wireguard/wg_trusted/private_key
-        mode: 0600
+        mode: '0600'
     - name: write unsafe public key for wg_trusted
       copy:
         content: '{{ unsafe_keys.outer.public }}'
         dest: /etc/wireguard/wg_trusted/public_key
-        mode: 0600
+        mode: '0600'
