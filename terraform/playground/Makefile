@@ -8,6 +8,5 @@ Makefile.terraform:
 HELPERS=yandex.tf yandex.tfrc
 HELPERS_SOURCE=https://github.com/sio/gitlab-runners-fleet/raw/terraform/deploy
 $(TERRAFORM_VERBS): $(HELPERS)
-.INTERMEDIATE: $(HELPERS)
 $(HELPERS):
 	curl -sSL "$(HELPERS_SOURCE)/$@" -o "$@"
