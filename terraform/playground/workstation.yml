@@ -1,0 +1,40 @@
+#cloud-config
+
+package_update: true
+packages:
+  - bc
+  - coreutils
+  - curl
+  - docker.io
+  - git
+  - make
+  - ncurses-term
+  - python3-apt
+  - python3-venv
+  - sudo
+  - tmux
+  - vim
+
+users:
+  - name: user
+    shell: /bin/bash
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    groups: docker
+
+write_files:
+  - owner: user:user
+    permissions: '0755'
+    path: /user-setup.sh
+    content: |
+      #!/bin/bash
+      set -euo pipefail; set -v
+
+      git clone --recursive "https://gitlab.com/sio/server_common.git" ~/.common
+      make -C ~/.common/dotfiles cli bash-no-tmout
+
+      mkdir -p /home/user/.ssh
+      curl -sSL https://github.com/sio.keys -o /home/user/.ssh/authorized_keys
+      chmod -R go-rwx /home/user/.ssh
+
+runcmd:
+  - sudo -u user /user-setup.sh && rm -v /user-setup.sh
