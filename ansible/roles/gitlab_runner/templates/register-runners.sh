@@ -15,9 +15,16 @@ gitlab-runner register \
     --url {{ gitlab_runner_ci_host|quote }} \
     --registration-token {{ gitlab_runner_token|quote }} \
     --executor {{ gitlab_runner_executor|quote }} \
-    {% for key, value in gitlab_runner_extra_registration_params.items() %}
+    {% for key, value in gitlab_runner_extra_registration_params.items() -%}
+    {% if value is string -%}
     --{{ key }}{{ "=" + value|quote if value else '' }} \
+    {% else -%}
+    {% for subvalue in value -%}
+    --{{ key }}{{ "=" + subvalue|quote if subvalue else '' }} \
     {% endfor -%}
-    {%- if gitlab_runner_tags: -%}
+    {% endif -%}
+    {% endfor -%}
+    {% if gitlab_runner_tags: -%}
     --tag-list "{{ gitlab_runner_tags|join(",") }}"
-    {%- endif %}
+    {% endif -%}
+
