@@ -315,6 +315,7 @@ alias ssh-add='ssh-add -t $((12*60*60))'
 git-identity() {
     local fullid
     fullid="$@"
+    [[ -z "$fullid" ]] && fullid=$(_git-identity-auto)
 
     local name
     name="${fullid% <*}"
@@ -333,6 +334,31 @@ git-identity() {
     git config --local user.name "$name"
     git config --local user.email "$email"
     { set +x; } 2>/dev/null
+}
+_git-identity-auto() {
+    local options
+    readarray -t options < <(
+        git shortlog -sne \
+        | head -n10 \
+        | awk '{ $1 = ""; print substr($0,2) }'
+    )
+    if [[ "${#options[@]}" == 0 ]]
+    then
+        return
+    fi
+    local result position i
+    while [[ -z "$result" ]]
+    do
+        for i in $(seq ${#options[@]})
+        do
+            printf "%2d: %s\n" "$i" "${options[i-1]}" >&2
+        done
+        read -p $'\n'"Select identity from the list above [1]: " position
+        [[ -z "$position" ]] && position=1
+        if ((position-1 < 0)); then continue; fi
+        result="${options[position-1]}"
+    done
+    echo "$result"
 }
 
 # Record terminal output to log file
