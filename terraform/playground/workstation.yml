@@ -22,6 +22,12 @@ users:
     groups: docker
 
 write_files:
+  - owner: root:root
+    permissions: '0700'
+    path: /apps-setup.sh
+    encoding: b64
+    content: ${setup_sh}
+
   - owner: user:user
     permissions: '0755'
     path: /user-setup.sh
@@ -38,3 +44,4 @@ write_files:
 
 runcmd:
   - sudo -u user /user-setup.sh && rm -v /user-setup.sh
+  - /apps-setup.sh && rm -v /apps-setup.sh

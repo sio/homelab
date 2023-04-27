@@ -61,7 +61,9 @@ data "yandex_compute_image" "debian" {
 }
 
 resource "terraform_data" "cloud_config" {
-  input = file("workstation.yml")
+  input = templatefile("workstation.yml", {
+    setup_sh = filebase64("setup.sh")
+  })
 }
 
 output "workstation_ip" {
