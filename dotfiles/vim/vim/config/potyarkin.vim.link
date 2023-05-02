@@ -46,11 +46,11 @@ set incsearch
 " Smart Home key
 " http://vim.wikia.com/wiki/Smart_home
 function! SmartHome()
-  let first_nonblank = match(getline('.'), '\S') + 1
-  if first_nonblank == 0
+  let l:first_nonblank = match(getline('.'), '\S') + 1
+  if l:first_nonblank == 0
     return col('.') + 1 >= col('$') ? '0' : '^'
   endif
-  if col('.') == first_nonblank
+  if col('.') == l:first_nonblank
     return '0'  " if at first nonblank, go to start line
   endif
   return &wrap && wincol() > 1 ? 'g^' : '^'
