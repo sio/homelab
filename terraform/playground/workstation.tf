@@ -69,3 +69,11 @@ resource "terraform_data" "cloud_config" {
 output "workstation_ip" {
   value = yandex_compute_instance.workstation.network_interface[0].nat_ip_address
 }
+
+resource "local_file" "ssh_client" {
+  content = templatefile("ssh_client.conf", {
+    hostname = var.hostname,
+    address  = yandex_compute_instance.workstation.network_interface[0].nat_ip_address
+  })
+  filename = pathexpand("~/.ssh/config.d/playground-${var.hostname}.conf")
+}
