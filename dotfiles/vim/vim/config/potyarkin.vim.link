@@ -14,7 +14,12 @@ set softtabstop=4  " backspace deletes 4 spaces if present
 set nowrap
 
 " Do not write trailing whitespace
-autocmd BufWritePre * :%s/\s\+$//e
+function! TrimSpace()
+    let l:view = winsaveview()
+    %s/\s\+$//e
+    call winrestview(l:view)
+endfunction
+autocmd BufWritePre * call TrimSpace()
 
 " Automatically continue comment blocks
 set formatoptions+=cro
