@@ -26,7 +26,7 @@ set formatoptions+=cro
 
 " Highlight search matches (use :noh or :nohlsearch to clear marks)
 set hlsearch
-let b:HLstopped = 0
+autocmd BufEnter * let b:HLstopped = 0
 function! StopHL()
     if b:HLstopped == 1
         let b:HLstopped = 0
