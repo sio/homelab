@@ -27,7 +27,7 @@ debian10: export ISO_CHECKSUM_URL=https://cdimage.debian.org/cdimage/archive/lat
 debian10: PACKER_FLAGS+=-var iso_url="$$ISO_URL" -var iso_checksum_url="$$ISO_CHECKSUM_URL"
 
 debian11: build
-debian11: export ISO_URL=https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-11.6.0-amd64-netinst.iso
+debian11: export ISO_URL=https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-11.7.0-amd64-netinst.iso
 debian11: export ISO_CHECKSUM_URL=https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/SHA512SUMS
 debian11: PACKER_FLAGS+=-var iso_url="$$ISO_URL" -var iso_checksum_url="$$ISO_CHECKSUM_URL"
 
