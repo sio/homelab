@@ -35,7 +35,7 @@ function! StopHL()
     let b:HLstopped = 1
     call feedkeys(":nohlsearch\<CR>")
 endfunction
-autocmd InsertEnter * call StopHL()
+autocmd CursorHoldI * call StopHL()
 
 " Comfortable search
 set ignorecase
