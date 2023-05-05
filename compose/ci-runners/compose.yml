@@ -1,21 +1,21 @@
 version: '3.7'
 
 services:
-  fleet-manager:
-    image: ghcr.io/sio/gitlab-runners-fleet
+  gitlab-runners-fleet:
+    image: ghcr.io/sio/gitlab-runners-fleet:v3
     restart: unless-stopped
-    user: ${CONTAINER_USER}
+    user: "${CONTAINER_USER}"
     environment:
-      PULUMI_CONFIG_PASSPHRASE: "${PULUMI_CONFIG_PASSPHRASE}"
-      GITLAB_RUNNER_TOKEN: "${GITLAB_RUNNER_TOKEN}"
+      TF_VAR_ycs3_vmimage_url: "${S3_IMAGE_URL}"
+      TF_VAR_gitlab_runner_token: "${GITLAB_RUNNER_TOKEN}"
       GITLAB_API_TOKEN: "${GITLAB_API_TOKEN}"
       YC_TOKEN: "${YC_TOKEN}"
       YC_CLOUD_ID: "${YC_CLOUD_ID}"
       YC_FOLDER_ID: "${YC_FOLDER_ID}"
     volumes:
       - type: bind
-        source: {{ ci_runners_config_dir }}
-        target: /config
-      - type: bind
-        source: {{ ci_runners_state_dir }}
-        target: /state
+        source: {{ runners_state_dir }}
+        target: /infra/state
+        # Don't forget to provide /infra/state/scale.config with relevant options and
+        # "scale_state_file": "/infra/state/scale.state"
+        # (because /infra is not writable by container process and /infra/state is)

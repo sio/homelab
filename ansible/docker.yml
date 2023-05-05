@@ -62,40 +62,34 @@
       when: molecule_ephemeral_directory is not defined
 
 
-- name: ci_runners
+- name: runners
   hosts: docker
   become: yes
   vars:
-    ci_runners_uid: '28571'
-    ci_runners_config_dir: /docker/ci_runners/config
-    ci_runners_state_dir: /docker/ci_runners/state
+    runners_uid: '28071'
+    runners_state_dir: /docker/runners/state
   tasks:
-    - name: create ci_runners directories
+    - name: create runners directories
       file:
         state: directory
         path: '{{ item }}'
-        owner: '{{ ci_runners_uid }}'
+        owner: '{{ runners_uid }}'
         mode: '0700'
       loop:
-        - '{{ ci_runners_config_dir }}'
-        - '{{ ci_runners_state_dir }}'
+        - '{{ runners_state_dir }}'
 
     - name: create initial fleet-manager configuration
+      vars:
+        config:
+          debug: yes
+          gitlab_token: "env:GITLAB_API_TOKEN"
+          instance_grow_max: 2
+          runner_tag: "homeprod-yandex"
+          scale_state_file: "/infra/state/scale.state"
       copy:
-        content: |-
-          [main]
-          log_level = "info"
-          [YandexCloud]
-          public_key = "/config/sshkey.pub"
-        dest: '{{ ci_runners_config_dir }}/config.toml'
-        owner: '{{ ci_runners_uid }}'
-        mode: '0600'
-
-    - name: create public key for cloud instances
-      copy:
-        src: '{{ ci_runners_pubkey }}'
-        dest: '{{ ci_runners_config_dir }}/sshkey.pub'
-        owner: '{{ ci_runners_uid }}'
+        content: '{{ config|to_nice_json }}'
+        dest: '{{ runners_state_dir }}/scale.config'
+        owner: '{{ runners_uid }}'
         mode: '0600'
 
     - name: deploy fleet-manager
@@ -103,13 +97,13 @@
       import_role:
         name: docker_compose
       vars:
-        docker_compose_project: ci_runners
+        docker_compose_project: runners
         docker_compose_file: '{{ playbook_dir }}/../compose/ci-runners/compose.yml'
         docker_compose_env:
-          PULUMI_CONFIG_PASSPHRASE: '{{ ci_runners_state_passphrase }}'
-          GITLAB_RUNNER_TOKEN: '{{ ci_runners_gitlab_runner_token }}'
-          GITLAB_API_TOKEN: '{{ ci_runners_gitlab_api_token }}'
-          YC_TOKEN: '{{ ci_runners_yandex_token }}'
-          YC_CLOUD_ID: '{{ ci_runners_yandex_cloud_id }}'
-          YC_FOLDER_ID: '{{ ci_runners_yandex_folder_id }}'
-          CONTAINER_USER: '{{ ci_runners_uid }}:{{ ci_runners_uid }}'
+          S3_IMAGE_URL: '{{ runners_s3_image_url }}'
+          GITLAB_RUNNER_TOKEN: '{{ runners_gitlab_runner_token }}'
+          GITLAB_API_TOKEN: '{{ runners_gitlab_api_token }}'
+          YC_TOKEN: '{{ runners_yandex_token }}'
+          YC_CLOUD_ID: '{{ runners_yandex_cloud_id }}'
+          YC_FOLDER_ID: '{{ runners_yandex_folder_id }}'
+          CONTAINER_USER: '{{ runners_uid }}:{{ runners_uid }}'

@@ -18,7 +18,6 @@ provisioner:
         microblog_key: '{{ molecule_ephemeral_directory }}/keys/lab'
         microblog_users: '@fakeuser,@fakeuser2'
         microblog_token: 'faketoken'
-        ci_runners_pubkey: '{{ sshkey_only.vagrant[0] }}'
 
 driver:
   name: vagrant
