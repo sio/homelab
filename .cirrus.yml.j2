@@ -9,6 +9,9 @@ task:
   container:
     image: potyarkin/molecule:host-kvm  # Debian 10
     kvm: true
+    {% if CIRRUS_CPU is defined %}
+    cpu: "{{ CIRRUS_CPU }}"
+    {% endif %}
     {% if CIRRUS_RAM is defined %}
     memory: "{{ CIRRUS_RAM }}"
     {% endif %}

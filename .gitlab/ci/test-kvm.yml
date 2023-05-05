@@ -42,6 +42,8 @@ test-role-borg_client:
   extends: .test-ansible-role-kvm
   variables:
     ANSIBLE_ROLE: ../roles/borg_client
+    CIRRUS_CPU: 4
+    CIRRUS_RAM: 8G
   rules:
     - *option-skip-test
     - changes:
