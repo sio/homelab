@@ -36,7 +36,6 @@
         - [Base role for remotely controlled servers](ansible/roles/server/README.md)
         - [Schedule regular SMART self-tests for all disks](ansible/roles/smarttest/README.md)
         - [Definitive role for ssh key management](ansible/roles/sshkey/README.md)
-        - [Install Supysonic music server](ansible/roles/supysonic/README.md)
         - [Wait for specified systemd services to reach desired state](ansible/roles/systemctl_wait/README.md)
         - [Tweak system settings for torrenting](ansible/roles/torrents_sysctl/README.md)
         - [Install Transmission torrent client](ansible/roles/transmission/README.md)

@@ -1,9 +1,0 @@
----
-
-- name: check assertions
-  assert:
-    that:
-      - ansible_os_family == "Debian"
-      - ansible_pkg_mgr == "apt"
-      - supysonic_music_dir is defined
-      - supysonic_url is defined

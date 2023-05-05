@@ -74,7 +74,6 @@ test-playbook-mediabox-v:
         - ansible/roles/packages/**/*
         - ansible/roles/sshkey/**/*
         - ansible/roles/server/**/*
-        - ansible/roles/supysonic/**/*
         - ansible/roles/torrents_sysctl/**/*
         - ansible/roles/transmission/**/*
         - ansible/roles/upgrade/**/*

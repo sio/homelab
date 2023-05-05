@@ -202,31 +202,6 @@ test-role-sshkey:
         - ansible/roles/sshkey/**/*
 
 
-test-role-supysonic:
-  extends: .test-ansible-role-kvm
-  variables:
-    ANSIBLE_ROLE: ../roles/supysonic
-  rules:
-    - *option-skip-test
-    - changes:
-        - ansible/roles/supysonic/**/*
-        - ansible/roles/server/**/*
-
-
-test-role-supysonic-munin:
-  extends: .test-ansible-role-kvm
-  variables:
-    ANSIBLE_ROLE: ../roles/supysonic
-    MOLECULE_SCENARIO: combination-munin
-  rules:
-    - *option-skip-test
-    - changes:
-        - ansible/roles/munin_master/**/*
-        - ansible/roles/munin_node/**/*
-        - ansible/roles/server/**/*
-        - ansible/roles/supysonic/**/*
-
-
 test-role-systemctl_wait:
   extends: .test-ansible-role-kvm
   variables:
