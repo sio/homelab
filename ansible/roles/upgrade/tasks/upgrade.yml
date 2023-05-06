@@ -20,7 +20,7 @@
         upgrade: safe
         update_cache: yes
         cache_valid_time: 3600
-      async: '{{ 20*60 }}'  # allow up to 20 minutes before timeout
+      async: '{{ upgrade_timeout|default(20*60) }}'  # allow up to 20 minutes before timeout
 
 - when: molecule_ephemeral_directory is not defined  # do not execute during CI runs
   block:

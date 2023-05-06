@@ -13,6 +13,7 @@ all:
         server_force_inventory_hostname: yes
   hosts:
     laptopmini:
+      upgrade_timeout: '{{ 60 * 60 }}' # 60 minutes. This laptop is slow
       upgrade_ignore_support_status:
         - binutils  # always reported, not fixable
         - qtwebkit-opensource-src  # used by freecad
