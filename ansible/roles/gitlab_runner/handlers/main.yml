@@ -5,10 +5,4 @@
     name: gitlab-runner
     state: restarted
     daemon_reload: yes
-
-- name: register gitlab runner
-  command:
-    cmd: >-
-      su - {{ gitlab_runner_user }} --shell=/bin/sh -c
-      {{ gitlab_runner_registration_script|quote }}
   when: gitlab_runner_token|default(False)  # do not try to register in CI tests

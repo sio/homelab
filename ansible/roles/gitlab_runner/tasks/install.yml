@@ -28,7 +28,6 @@
     backup: yes
   notify:
     - restart gitlab runner
-    - register gitlab runner
 
 - name: create configuration file
   template:
@@ -37,6 +36,7 @@
     mode: '0700'
     owner: '{{ gitlab_runner_user }}'
     force: no
+  notify: restart gitlab runner
   vars:
     config_toml_paths:
       - 'templates/config-{{ gitlab_runner_executor }}.toml'
@@ -55,6 +55,7 @@
     content: |-
       [Service]
       User={{ gitlab_runner_user }}
+      ExecStartPre={{ gitlab_runner_registration_script|quote }}
       ExecStart=
       ExecStart=/usr/bin/gitlab-runner \
         run \
@@ -105,8 +106,8 @@
   systemd:
     name: gitlab-runner
     enabled: yes
-    state: started
     daemon_reload: yes
+  notify: restart gitlab runner
 
 - name: enforce directory permissions for configuration
   file:
