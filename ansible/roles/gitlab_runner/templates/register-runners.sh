@@ -10,7 +10,7 @@ IFS=$'\n\t'
 
 export CONFIG_FILE={{ gitlab_runner_config|quote }}
 
-gitlab-runner unregister --all-runners
+gitlab-runner unregister --all-runners || true
 
 gitlab-runner register \
     --non-interactive \
