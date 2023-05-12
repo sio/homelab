@@ -1,9 +1,11 @@
-#!/bin/sh
+#!/bin/bash
 #
 # {{ ansible_managed }}
 #
 # Register GitLab runners configured for this host
 #
+set -euo pipefail
+IFS=$'\n\t'
 
 
 export CONFIG_FILE={{ gitlab_runner_config|quote }}
