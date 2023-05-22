@@ -34,7 +34,7 @@ function! StopHL()
         return
     endif
     let b:HLstopped = 1
-    call feedkeys(":nohlsearch\<CR>")
+    call feedkeys(":nohlsearch\<CR>")
 endfunction
 autocmd CursorHoldI * call StopHL()
 
