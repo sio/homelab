@@ -13,6 +13,7 @@ git
 ipython
 quilt
 readline
+sqlite3
 ssh-client
 tmux
 top
