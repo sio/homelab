@@ -42,6 +42,7 @@ apt-get update
 apt-get install -y --no-install-recommends \
     gcc \
     gdb \
+    libc-dev \
     procps \
     psmisc \
     xterm \
