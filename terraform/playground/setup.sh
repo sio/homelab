@@ -40,8 +40,10 @@ install_watchexec() {
 
 apt-get update
 apt-get install -y --no-install-recommends \
+    gcc \
     gdb \
     procps \
+    psmisc \
     xterm \
 
 install_go 1.20.3
