@@ -77,7 +77,7 @@
         name: supysonic
       vars:
         supysonic_music_dir: /disks/important/music/library/
-        supysonic_url: music.potyarkin.ml
+        supysonic_url: music.potyarkin.com
 
     # DLNA server
     - import_role:

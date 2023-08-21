@@ -16,7 +16,7 @@ CI infrastructure is provided by:
 [Cirrus CI]: https://cirrus-ci.org/
 [gitlab-config]: ../.gitlab-ci.yml
 [cirrus-config]: ../.cirrus.yml.j2
-[blog post]: https://potyarkin.ml/posts/2020/cirrus-ci-integration-for-gitlab-projects/
+[blog post]: https://potyarkin.com/posts/2020/cirrus-ci-integration-for-gitlab-projects/
 
 
 ## Usage
