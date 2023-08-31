@@ -45,6 +45,8 @@ apt-get install -y --no-install-recommends \
     libc-dev \
     procps \
     psmisc \
+    strace \
+    tree \
     xterm \
 
 install_go 1.20.3
