@@ -72,13 +72,6 @@
           - name: labxeo
           - name: labtee
 
-    # Music streaming
-    - import_role:
-        name: supysonic
-      vars:
-        supysonic_music_dir: /disks/important/music/library/
-        supysonic_url: music.potyarkin.com
-
     # DLNA server
     - import_role:
         name: gerbera
