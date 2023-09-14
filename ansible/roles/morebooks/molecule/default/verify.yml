@@ -18,13 +18,13 @@
     - name: fake DNS name resolution
       lineinfile:
         dest: /etc/hosts
-        line: '127.0.0.1 morebooks.ml'
+        line: '127.0.0.1 morebooks.potyarkin.com'
       become: yes
 
     - name: fetch front page (correct DNS name)
       uri:
         validate_certs: no
-        url: https://morebooks.ml
+        url: https://morebooks.potyarkin.com
         return_content: yes
       register: page
       failed_when: >-

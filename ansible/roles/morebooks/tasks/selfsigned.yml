@@ -18,24 +18,24 @@
     path: '{{ item.path }}'
     mode: '{{ item.mode|default("0755") }}'
   with_items:
-    - path: /etc/letsencrypt/live/morebooks.ml
+    - path: /etc/letsencrypt/live/morebooks.potyarkin.com
     - path: /etc/ssl/private
       mode: '0710'
 
 # https://www.jeffgeerling.com/blog/2017/generating-self-signed-openssl-certs-ansible-24s-crypto-modules
 - name: create SSL private key
   openssl_privatekey:
-    path: '/etc/letsencrypt/live/morebooks.ml/privkey.pem'
+    path: '/etc/letsencrypt/live/morebooks.potyarkin.com/privkey.pem'
 - name: create SSL CSR
   openssl_csr:
-    path: '/etc/ssl/private/morebooks.ml.csr'
-    privatekey_path:  '/etc/letsencrypt/live/morebooks.ml/privkey.pem'
-    common_name: 'morebooks.ml'
+    path: '/etc/ssl/private/morebooks.potyarkin.com.csr'
+    privatekey_path:  '/etc/letsencrypt/live/morebooks.potyarkin.com/privkey.pem'
+    common_name: 'morebooks.potyarkin.com'
     mode: '0600'
 - name: create dummy SSL certificates
   openssl_certificate:
-    path: '/etc/letsencrypt/live/morebooks.ml/fullchain.pem'
-    privatekey_path: '/etc/letsencrypt/live/morebooks.ml/privkey.pem'
-    csr_path: '/etc/ssl/private/morebooks.ml.csr'
+    path: '/etc/letsencrypt/live/morebooks.potyarkin.com/fullchain.pem'
+    privatekey_path: '/etc/letsencrypt/live/morebooks.potyarkin.com/privkey.pem'
+    csr_path: '/etc/ssl/private/morebooks.potyarkin.com.csr'
     provider: selfsigned
     mode: '0600'

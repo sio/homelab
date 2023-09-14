@@ -66,7 +66,7 @@
     - [Git client-side configuration](dotfiles/git/README.md)
     - [Interactive shell for Python](dotfiles/ipython/README.md)
     - [Keyboard layout for Debian](dotfiles/keyboard/README.md)
-    - [Scheduled fetching of backups for morebooks.ml to local machine](dotfiles/morebooks-backup/README.md)
+    - [Scheduled fetching of backups for morebooks.potyarkin.com to local machine](dotfiles/morebooks-backup/README.md)
     - [Quilt patch manager configuration for modifying Debian source packages](dotfiles/quilt/README.md)
     - [Expandable ssh client configuration](dotfiles/ssh-client/README.md)
     - [Terminal multiplexer](dotfiles/tmux/README.md)

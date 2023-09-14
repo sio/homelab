@@ -10,7 +10,7 @@
       import_tasks: roles/morebooks/tasks/selfsigned.yml
     - name: provide local name resolution for target domain
       lineinfile:
-        line: 127.0.0.100 morebooks.ml
+        line: 127.0.0.100 morebooks.potyarkin.com
         path: /etc/hosts
         mode: '0644'
   roles:

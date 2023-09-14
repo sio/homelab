@@ -1,1 +1,1 @@
-# Scheduled fetching of backups for morebooks.ml to local machine
+# Scheduled fetching of backups for morebooks.potyarkin.com to local machine
