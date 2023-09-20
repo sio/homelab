@@ -24,3 +24,6 @@ PROMPT_COMMAND="history -a; $PROMPT_COMMAND"  # make history available to new sh
 
 # Automatically change directory without typing 'cd '
 shopt -s autocd
+
+# Enable double-star globs: ./**.go
+shopt -s globstar
