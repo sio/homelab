@@ -1,6 +1,6 @@
 # Show some context when searching within 'less'
 # similar to 'scrolloff' in vim (FRX is default from git)
-export LESS='FRXj5'
+export LESS='FRXj5 x4'
 
 # Comfortable default text editor
 export VISUAL='vim'
