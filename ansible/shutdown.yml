@@ -21,7 +21,7 @@
           delegate_to: localhost
           become: no
           shell: >-
-            ping -c 1 -w 1
+            ping -c1 -W1
             {{
             (hostvars[inventory_hostname].ansible_ssh_host
             |default(hostvars[inventory_hostname].ansible_host))

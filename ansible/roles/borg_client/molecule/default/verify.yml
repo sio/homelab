@@ -19,7 +19,7 @@
     BORG_PASSPHRASE: samplepassphrasefortests
   tasks:
     - name: ping backup server
-      command: ping -c1 -w1 {{ server }}
+      command: ping -c1 -W1 {{ server }}
       register: ping
       failed_when: ping.rc != 0
 
