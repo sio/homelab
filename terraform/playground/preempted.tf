@@ -8,7 +8,6 @@
 data "yandex_client_config" "client" {}
 
 data "http" "restart_preempted" {
-  count  = yandex_compute_instance.workstation.status == "running" ? 0 : 1
   method = "POST"
   url    = "https://compute.api.cloud.yandex.net/compute/v1/instances/${yandex_compute_instance.workstation.id}:start"
   request_headers = {
@@ -16,12 +15,23 @@ data "http" "restart_preempted" {
   }
   lifecycle {
     postcondition {
-      condition     = contains([200, 201, 204], self.status_code)
+      condition = (
+        yandex_compute_instance.workstation.status == "running" ||
+        contains([200, 201, 204], self.status_code)
+      )
       error_message = "HTTP request failed:\n${self.response_body}"
     }
   }
+  depends_on = [
+    yandex_compute_instance.workstation,
+  ]
 }
 
 output "status" {
-  value = length(data.http.restart_preempted) == 0 ? yandex_compute_instance.workstation.status : "restarting"
+  value = (
+    data.http.restart_preempted.status_code >= 200 &&
+    data.http.restart_preempted.status_code < 300
+    ? "restarting"
+    : yandex_compute_instance.workstation.status
+  )
 }
