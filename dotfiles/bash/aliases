@@ -63,7 +63,7 @@ popd() {
 
 # Pretty diff like `git diff`
 _diff_pretty() {
-    command diff --color=always "$@" | less -rXF
+    command diff -ruN --color=always "$@" | less -rXF
 }
 alias diff=_diff_pretty
 
