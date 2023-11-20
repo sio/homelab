@@ -1,14 +1,6 @@
-" Makefile and Go require Tab indentation
-au Filetype make,go setlocal noexpandtab
-
-" Wrap lines automatically for Markdown files
-au FileType markdown setlocal textwidth=78 wrap
-
-" Narrow indentation
-au FileType html,js,css,htmldjango,xml,yaml,terraform,tf setlocal
-    \ tabstop=2
-    \ shiftwidth=2
-    \ softtabstop=2
+"
+" File type detection
+"
 
 " HTML syntax highlighting
 au BufNewFile,BufRead *.htm,*html setlocal filetype=htmldjango
@@ -25,10 +17,6 @@ au BufNewFile,BufRead *.link,*.copy,*.attach,*.j2,*.template
 " E-mail messages
 au BufRead */.claws-mail/tmp/* set filetype=mail
 au BufRead *.mbox:2* set filetype=mail
-
-" Fix syntax highlighting (http://vim.wikia.com/wiki/Fix_syntax_highlighting)
-noremap <F12> <Esc>:syntax sync fromstart<CR>
-inoremap <F12> <C-o>:syntax sync fromstart<CR>
 
 " Syntax highlighting for 1C files
 "   Language definition rules can be found in `syntax/` directory of
@@ -54,3 +42,37 @@ function! Syntax1CToggle()
 endfunction
 noremap <F1> <Esc>:call Syntax1CToggle()<CR>
 inoremap <F1> <C-o>:call Syntax1CToggle()<CR>
+
+" Fallback filetype = extension
+au BufNewFile,BufRead *
+    \ if empty(&filetype)
+    \ | let &filetype = expand("%:e")
+    \ | endif
+
+
+
+"
+" Using detected filetypes
+"
+
+" Makefile and Go require Tab indentation
+au Filetype make,go setlocal noexpandtab
+
+" Wrap lines automatically for Markdown files
+au FileType markdown setlocal textwidth=78 wrap
+
+" Narrow indentation
+au FileType html,js,css,htmldjango,xml,yaml,terraform,tf,purs,elm setlocal
+    \ tabstop=2
+    \ shiftwidth=2
+    \ softtabstop=2
+
+
+
+"
+" Other filetype-related stuff
+"
+
+" Fix syntax highlighting (http://vim.wikia.com/wiki/Fix_syntax_highlighting)
+noremap <F12> <Esc>:syntax sync fromstart<CR>
+inoremap <F12> <C-o>:syntax sync fromstart<CR>
