@@ -68,7 +68,7 @@ au Filetype make,go setlocal noexpandtab
 au FileType markdown setlocal textwidth=78 wrap
 
 " Narrow indentation
-au FileType html,js,css,htmldjango,xml,yaml,terraform,tf,purs,elm setlocal
+au FileType html,js,css,htmldjango,xml,yaml,terraform,tf,purs,elm,haskell setlocal
     \ tabstop=2
     \ shiftwidth=2
     \ softtabstop=2
