@@ -43,6 +43,12 @@ endfunction
 noremap <F1> <Esc>:call Syntax1CToggle()<CR>
 inoremap <F1> <C-o>:call Syntax1CToggle()<CR>
 
+" Purescript files can be rendered with Haskell syntax as a fallback
+au BufNewFile,BufRead *.purs
+    \ if empty(&filetype)
+    \ | let &filetype = "haskell"
+    \ | endif
+
 " Fallback filetype = extension
 au BufNewFile,BufRead *
     \ if empty(&filetype)
