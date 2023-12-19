@@ -393,3 +393,69 @@ run() {
         -- \
         "echo -e \"${cleanup}${color}${bold}\n$ $@${normal}\"; $@ && echo -ne \"${color}OK${normal}\\r\""
 }
+
+# Make PDF scans smaller
+pdf-compress() {
+    local input output rc
+    rc=0
+    for input in "$@"
+    do
+        output="${input%.*}-small.${input##*.}"
+        printf "Compressing $input... "
+        if magick \
+            -density 200 \
+            "$input" \
+            -posterize 3 \
+            -compress zip \
+            -quality 98 \
+            "$output"
+        then
+            printf "done\n"
+        else
+            printf "error\n"
+            rc=1
+        fi
+    done
+    return $rc
+}
+
+# Split PDF to n-page chunks
+pdf-chunk() {
+    local size="$1"
+    shift
+    local input output rc
+    rc=0
+    for input in "$@"
+    do
+        printf "Splitting $input into $size-page chunks... "
+        local total=$(gs \
+            --permit-file-read="$input" \
+            -q \
+            -dNODISPLAY \
+            -c "($input) (r) file runpdfbegin pdfpagecount = quit" \
+            -f "$input")
+        local chunk=0
+        while [[ $((chunk*size+1)) -le $total ]]
+        do
+            output="${input%.*}-$((chunk+1)).${input##*.}"
+            if gs \
+                -dNOPAUSE \
+                -dQUIET \
+                -dBATCH \
+                -sOutputFile="$output" \
+                -dFirstPage="$((chunk*size+1))" \
+                -dLastPage="$(((chunk+1)*size))" \
+                -sDEVICE=pdfwrite \
+                "$input"
+            then
+                chunk="$((chunk+1))"
+                printf "$chunk... "
+            else
+                rc=1
+                break
+            fi
+        done
+        printf "\n"
+    done
+    return $rc
+}
