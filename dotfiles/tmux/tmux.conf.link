@@ -35,6 +35,18 @@ set -g renumber-windows on
 set -g history-limit 100000
 
 
+# UI color and style
+set -g status-style bg=grey,fg=green
+set -g status-bg grey
+set -g status-fg green
+set -g window-status-current-style bright
+set -g pane-active-border-style fg=brightgreen
+set -g pane-border-style fg=grey
+set -g pane-border-lines single
+set -g status-right "#{host_short} %H:%M "
+set -g status-left " "
+
+
 # Create new windows with vertical split by default
 #bind-key c new-window \; split-window -h \; select-pane -t1
 
