@@ -8,7 +8,7 @@ setw -g mode-keys vi
 
 
 # Ctrl+A is more convenient to press, and it doesn't interfere with VIM
-set-option -g prefix C-a
+set -g prefix C-a
 bind-key a send-prefix
 unbind-key C-b
 
@@ -18,8 +18,8 @@ bind-key s choose-tree -Z
 
 
 # Truncate long window titles
-set-option -gw window-status-format "#{window_index}:#{=-10:window_name}#{window_flags}"
-set-option -gw window-status-current-format "#{window_index}:#{=-10:window_name}#{window_flags}"
+set -gw window-status-format "#{window_index}:#{=-10:window_name}#{window_flags}"
+set -gw window-status-current-format "#{window_index}:#{=-10:window_name}#{window_flags}"
 
 
 # Start windows and panes numbering at 1, not 0
@@ -47,7 +47,7 @@ set -g history-limit 100000
 #       - dpkg-reconfigure tzdata (background)
 #    Requires adding $(dircolors) to bashrc:
 #       - ls (colors)
-set-option -g default-terminal "screen.xterm-new"
+set -g default-terminal "screen.xterm-new"
 
 # Enable mouse support: window switching, pane resizing, output scrolling
 #
