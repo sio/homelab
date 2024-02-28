@@ -36,13 +36,12 @@ set -g history-limit 100000
 
 
 # UI color and style
-set -g status-style bg=grey,fg=green
-set -g status-bg grey
+set -g status-style bg=colour250,fg=green
+set -g status-bg colour250
 set -g status-fg green
 set -g window-status-current-style bright
 set -g pane-active-border-style fg=brightgreen
-set -g pane-border-style fg=grey
-set -g pane-border-lines single
+set -g pane-border-style fg=colour250
 set -g status-right "#{host_short} %H:%M "
 set -g status-left " "
 
