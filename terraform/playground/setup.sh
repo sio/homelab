@@ -45,6 +45,7 @@ apt-get install -y --no-install-recommends \
     libc-dev \
     procps \
     psmisc \
+    qemu-kvm \
     strace \
     tree \
     xterm \
