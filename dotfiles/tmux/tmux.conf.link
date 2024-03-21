@@ -17,6 +17,13 @@ unbind-key C-b
 bind-key s choose-tree -Z
 
 
+# Make panes read-only
+unbind-key q
+bind-key q select-pane -d
+unbind-key Q
+bind-key Q select-pane -e
+
+
 # Truncate long window titles
 set -gw window-status-format "#{window_index}:#{=-10:window_name}#{window_flags}"
 set -gw window-status-current-format "#{window_index}:#{=-10:window_name}#{window_flags}"
