@@ -459,3 +459,24 @@ pdf-chunk() {
     done
     return $rc
 }
+
+# Execute command for all files with a given name in directory tree,
+# stop at first error
+forall() {
+    local filename="$1"
+    local action="$2"
+    if [[ -z "$filename" || -z "$action" ]]
+    then
+        echo -e "usage: forall FILENAME COMMAND\n\nExecute command in all subdirectories containing named file" >&2
+        return 1
+    fi
+    local bold="$(tput bold)"
+    local color="$(tput setaf 6)"
+    local normal="$(tput sgr0)"
+    find \
+        -name "$filename" \
+        -printf "\n${bold}%h\n${color}$ $2${normal}  # %f\n" \
+        ! -execdir $2 \; \
+        -exec false {} + \
+        -quit
+}
