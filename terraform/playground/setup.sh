@@ -13,9 +13,10 @@ install_go() {
     pushd "${WORKDIR}"
 
     wget "${GO_URL}" -O archive
-    rm -rf "${OPT}/go"
+    rm -rvf "${OPT}/go" "${OPT}/go${GO_VERSION}"
     tar -C "${OPT}" -axvf archive
-    ln -sf "${OPT}/go/bin/go" "${BIN}/go"
+    mv -v "${OPT}/go" "${OPT}/go${GO_VERSION}"
+    ln -svf "${OPT}/go${GO_VERSION}/bin/go" "${BIN}/go"
 
     popd
     [[ -d "${WORKDIR}" ]] && rm -rf "${WORKDIR}"
@@ -51,4 +52,5 @@ apt-get install -y --no-install-recommends \
     xterm \
 
 install_go 1.20.3
+install_go 1.22.2
 install_watchexec 1.20.5
