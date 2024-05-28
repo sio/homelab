@@ -349,6 +349,7 @@ _git-identity-auto() {
     local result position i
     while [[ -z "$result" ]]
     do
+        printf "\n" >&2
         for i in $(seq ${#options[@]})
         do
             printf "%2d: %s\n" "$i" "${options[i-1]}" >&2
