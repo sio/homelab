@@ -305,7 +305,7 @@ ssh-wait() {
 
 
 # Limit key lifetime in ssh-agent to 12 hours by default
-alias ssh-add='ssh-add -t $((12*60*60))'
+alias ssh-add='ssh-add -t 12h'
 
 
 # Set git-identity in mailmap/git-shortlog format:
