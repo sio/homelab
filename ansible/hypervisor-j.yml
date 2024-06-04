@@ -33,6 +33,15 @@
     # LAN file sharing
     - role: samba
       samba_shares:
+        - name: Cloud
+          path: /disks/important/cloudstorage
+          public: yes
+          read only: no
+          case sensitive: no
+          create mask: '0666'
+          directory mask: '2777'
+          force create mode: '0666'
+          force directory mode: '2777'
         - name: Downloads
           path: /disks/ephemeral/downloads
           public: yes
