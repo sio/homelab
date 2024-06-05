@@ -25,8 +25,8 @@ bind-key Q select-pane -e
 
 
 # Truncate long window titles
-set -gw window-status-format "#{window_index}:#{=-10:window_name}#{window_flags}"
-set -gw window-status-current-format "#{window_index}:#{=-10:window_name}#{window_flags}"
+set -gw window-status-format "#{window_index}:#{=-15:window_name}#{window_flags}"
+set -gw window-status-current-format "#{window_index}:#{=-15:window_name}#{window_flags}"
 
 
 # Start windows and panes numbering at 1, not 0
