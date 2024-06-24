@@ -57,7 +57,7 @@ resource "yandex_vpc_subnet" "subnet" {
 }
 
 data "yandex_compute_image" "debian" {
-  family = "debian-11"
+  family = "debian-12"
 }
 
 resource "terraform_data" "cloud_config" {
