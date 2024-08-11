@@ -461,6 +461,25 @@ pdf-chunk() {
     return $rc
 }
 
+# Join multiple PDF files together
+pdf-join() {
+    local dest
+    dest="$1"
+    [[ -n "$dest" ]] || {
+        echo "Destination path not specified"
+        return 1
+    }
+    [[ -f "$dest" ]] && {
+        echo "Destination file already exists: $dest"
+        return 1
+    }
+    [[ -n "$@" ]] || {
+        echo "Source file(s) not specified"
+        return 1
+    }
+    gs -dNOPAUSE -sDEVICE=pdfwrite -sOUTPUTFILE="$dest" -dBATCH "$@"
+}
+
 # Execute command for all files with a given name in directory tree,
 # stop at first error
 forall() {
