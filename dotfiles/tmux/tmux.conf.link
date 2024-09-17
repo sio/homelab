@@ -82,7 +82,9 @@ if-shell -b '[ "$(echo "$TMUX_VERSION < 2.2" | bc)" = 1 ]' \
   "set -g utf8 on; set -g status-utf8 on; set -g mouse-utf8 on"
 
 # Double click to zoom panes
-bind -T root DoubleClick1Pane select-pane -t = \; resize-pane -Z
+bind -T root         DoubleClick1Pane select-pane -t = \; resize-pane -Z
+bind -T copy-mode    DoubleClick1Pane select-pane -t = \; resize-pane -Z
+bind -T copy-mode-vi DoubleClick1Pane select-pane -t = \; resize-pane -Z
 
 
 # Enable copying to system clipboard
