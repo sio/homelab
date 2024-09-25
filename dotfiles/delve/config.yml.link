@@ -1,0 +1,6 @@
+# Delve configuration
+#
+# Use `config -list` to show all available options
+
+max-string-len: 10000
+max-array-values: 256
