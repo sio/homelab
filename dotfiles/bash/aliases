@@ -138,7 +138,7 @@ _gitall() {
         *)
             git -C "$DIR" "$@"
             ;;
-        esac || return "$?"
+        esac
     done
 }
 _gitallclone() {
