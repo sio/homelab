@@ -88,12 +88,14 @@ mktouch() {
 
 # Manipulate multiple git repos
 gitall() {
-    if [ "_$1" == "_clone" ]
-    then
+    case "$1" in
+    clone)
         _gitallclone "${@:2}"
-    else
+        ;;
+    *)
         _gitall "$@"
-    fi
+        ;;
+    esac
 }
 _gitall() {
     # Run the same git subcommand in all git repos down the tree from current
@@ -115,8 +117,28 @@ _gitall() {
         else
             FIRST=0
         fi
-        command ls --color=auto -d "${DIR::(-4)}"
-        git -C "$DIR/.." "$@"
+        DIR="${DIR::(-4)}"
+        command ls --color=auto -d "$DIR"
+        case "$1" in
+        checkout-default-branch)
+            local remote
+            remote=${2:-origin}
+            local branch
+            branch=$(git -C "$DIR" symbolic-ref "refs/remotes/$remote/HEAD")
+            branch="${branch#refs/remotes/}"
+            test -n "$branch" || return "$?"
+            if git -C "$DIR" rev-parse --verify --quiet "${branch#$remote/}"
+            then
+                git -C "$DIR" checkout "${branch#$remote/}"
+            else
+                git -C "$DIR" checkout --track "${branch}"
+            fi || return "$?"
+            git -C "$DIR" branch
+            ;;
+        *)
+            git -C "$DIR" "$@"
+            ;;
+        esac || return "$?"
     done
 }
 _gitallclone() {
