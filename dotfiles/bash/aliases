@@ -127,7 +127,7 @@ _gitall() {
             branch=$(git -C "$DIR" symbolic-ref "refs/remotes/$remote/HEAD")
             branch="${branch#refs/remotes/}"
             test -n "$branch" || return "$?"
-            if git -C "$DIR" rev-parse --verify --quiet "${branch#$remote/}"
+            if git -C "$DIR" rev-parse --verify --quiet "${branch#$remote/}" >/dev/null
             then
                 git -C "$DIR" checkout "${branch#$remote/}"
             else
