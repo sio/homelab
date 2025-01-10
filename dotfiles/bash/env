@@ -8,7 +8,8 @@ export EDITOR="$VISUAL"
 
 # Force Qt5 to mimic GTK theme
 #export QT_STYLE_OVERRIDE=gtk # this breaks smplayer
-export QT_QPA_PLATFORMTHEME=gtk2
+export QT_QPA_PLATFORMTHEME=qt5ct ## requires installing the package
+export QT_QPA_PLATFORM=xcb ## https://askubuntu.com/questions/1506715/
 # Consider QT_QPA_PLATFORMTHEME=gnome ## https://old.reddit.com/r/debian/comments/pj5lst
 
 # Treat CRLF as valid line endings: https://community.perforce.com/s/article/2973
