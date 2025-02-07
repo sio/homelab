@@ -81,4 +81,7 @@ bind -T copy-mode-vi DoubleClick1Pane select-pane -t = \; resize-pane -Z
 
 # Enable copying to system clipboard
 # https://unix.stackexchange.com/a/131187/5255
-bind -T copy-mode-vi y send-keys -X copy-pipe-and-cancel 'xclip -in -selection clipboard'
+# https://www.reddit.com/r/tmux/comments/v73005
+bind -T copy-mode-vi y                 send-keys -X copy-pipe          'xclip -in -selection clipboard'
+bind -T copy-mode-vi Enter             send-keys -X copy-pipe          'xclip -in -selection clipboard'
+bind -T copy-mode-vi MouseDragEnd1Pane send-keys -X copy-pipe-no-clear 'xclip -in -selection clipboard'
