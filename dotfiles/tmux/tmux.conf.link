@@ -84,4 +84,5 @@ bind -T copy-mode-vi DoubleClick1Pane select-pane -t = \; resize-pane -Z
 # https://www.reddit.com/r/tmux/comments/v73005
 bind -T copy-mode-vi y                 send-keys -X copy-pipe          'xclip -in -selection clipboard'
 bind -T copy-mode-vi Enter             send-keys -X copy-pipe          'xclip -in -selection clipboard'
-bind -T copy-mode-vi MouseDragEnd1Pane send-keys -X copy-pipe-no-clear 'xclip -in -selection clipboard'
+bind -T copy-mode-vi MouseDragEnd1Pane send-keys -X copy-pipe-no-clear 'xclip -in -selection primary'
+unbind -T copy-mode-vi TripleClick1Pane
