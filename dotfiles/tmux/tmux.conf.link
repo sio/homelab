@@ -71,15 +71,7 @@ set -g default-terminal "screen.xterm-new"
 #
 # https://stackoverflow.com/a/40902312/3275560
 run-shell "tmux setenv -g TMUX_VERSION $(tmux -V | cut -c 6- | tr -d '[:alpha:]')"
-if-shell -b '[ "$(echo "$TMUX_VERSION < 2.1" | bc)" = 1 ]' \
-  "set -g mouse-select-pane on; set -g mode-mouse on; \
-   set -g mouse-resize-pane on; set -g mouse-select-window on"
-# In version 2.1 "mouse" replaced the previous 4 mouse options
-if-shell -b '[ "$(echo "$TMUX_VERSION >= 2.1" | bc)" = 1 ]' \
-  "set -g mouse on"
-# UTF8 is autodetected in 2.2 onwards, but errors if explicitly set
-if-shell -b '[ "$(echo "$TMUX_VERSION < 2.2" | bc)" = 1 ]' \
-  "set -g utf8 on; set -g status-utf8 on; set -g mouse-utf8 on"
+set -g mouse on
 
 # Double click to zoom panes
 bind -T root         DoubleClick1Pane select-pane -t = \; resize-pane -Z
@@ -89,9 +81,4 @@ bind -T copy-mode-vi DoubleClick1Pane select-pane -t = \; resize-pane -Z
 
 # Enable copying to system clipboard
 # https://unix.stackexchange.com/a/131187/5255
-if-shell -b '[ "$(echo "$TMUX_VERSION < 2.5" | bc)" = 1 ]' \
-  'bind -t vi-copy y copy-pipe "xclip -in -selection clipboard"'
-if-shell -b '[ "$(echo "$TMUX_VERSION >= 2.5" | bc)" = 1 ]' \
-  "bind -T copy-mode-vi y send-keys -X copy-pipe-and-cancel 'xclip -in -selection clipboard'"
-# In newer Tmux (>=2.5) the following must be used
-#bind -T copy-mode-vi y send-keys -X copy-pipe-and-cancel 'xclip -in -selection clipboard'
+bind -T copy-mode-vi y send-keys -X copy-pipe-and-cancel 'xclip -in -selection clipboard'
