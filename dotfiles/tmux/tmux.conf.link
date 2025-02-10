@@ -86,3 +86,11 @@ bind -T copy-mode-vi y                 send-keys -X copy-pipe          'xclip -i
 bind -T copy-mode-vi Enter             send-keys -X copy-pipe          'xclip -in -selection clipboard'
 bind -T copy-mode-vi MouseDragEnd1Pane send-keys -X copy-pipe-no-clear 'xclip -in -selection primary'
 unbind -T copy-mode-vi TripleClick1Pane
+
+
+# Remember current working directory in new panes/windows
+#
+# https://news.ycombinator.com/item?id=42995101
+bind '"' split-window    -c "#{pane_current_path}"
+bind '%' split-window -h -c "#{pane_current_path}"
+bind 'c' new-window      -c "#{pane_current_path}"
