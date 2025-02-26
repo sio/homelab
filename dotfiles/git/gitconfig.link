@@ -15,6 +15,20 @@
 [commit]
     verbose = true  # show diff in commit message editor
 
+[tag]
+    sort = version:refname
+
+[diff]
+    algorithm = histogram
+    colorMoved = plain
+    mnemonicPrefix = true
+    renames = true
+
+[rebase]
+    autoSquash = true
+    autoStash = true
+    updateRefs = true
+
 [help]
     autocorrect = 10  # deciseconds
 
