@@ -32,6 +32,10 @@ set -gw window-status-current-format "#{window_index}:#{=-15:window_name}#{windo
 # Start windows and panes numbering at 1, not 0
 set -g base-index 1
 setw -g pane-base-index 1
+bind    0        select-window -t :=10
+bind -r PageUp   select-window -t :-
+bind -r PageDown select-window -t :+
+repeat-time 1000
 
 
 # Restore consecutive numbering after window deletion
