@@ -20,9 +20,13 @@
 
 [diff]
     algorithm = histogram
-    colorMoved = plain
+    colorMoved = blocks
     mnemonicPrefix = true
     renames = true
+
+[color "diff"]
+    oldMoved = magenta
+    newMoved = cyan
 
 [rebase]
     autoSquash = true
