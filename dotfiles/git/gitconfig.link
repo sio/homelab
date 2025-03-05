@@ -24,6 +24,9 @@
     mnemonicPrefix = true
     renames = true
 
+[merge]
+    conflictStyle = zdiff3
+
 [color "diff"]
     oldMoved = magenta
     newMoved = cyan
