@@ -35,7 +35,7 @@ setw -g pane-base-index 1
 bind    0        select-window -t :=10
 bind -r PageUp   select-window -t :-
 bind -r PageDown select-window -t :+
-repeat-time 1000
+set -g repeat-time 1000
 
 
 # Restore consecutive numbering after window deletion
