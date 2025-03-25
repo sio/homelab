@@ -14,7 +14,7 @@ unbind-key C-b
 
 
 # Show richer menu on Prefix+s
-bind-key s choose-tree -Z
+bind-key s choose-tree -Zw
 
 
 # Make panes read-only
