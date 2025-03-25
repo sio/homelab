@@ -17,6 +17,11 @@ unbind-key C-b
 bind-key s choose-tree -Zw
 
 
+# Send keyboard input to all panes
+unbind-key w
+bind-key w set-window-option synchronize-panes\; display-message "synchronize-panes is now #{?pane_synchronized,on,off}"
+
+
 # Make panes read-only
 unbind-key q
 bind-key q select-pane -d
