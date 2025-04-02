@@ -21,8 +21,7 @@ then
     if [[ -z "$TMUX" && -z "$TMUX_PANE" ]]
     then
         countdown 3 'Press Ctrl+C to cancel Tmux launch...' && {
-            tmux attach || tmux new
-            exit
+            exec tmux new
         }
     fi
 fi
