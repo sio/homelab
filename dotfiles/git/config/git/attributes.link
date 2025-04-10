@@ -1,0 +1,2 @@
+*.cert diff=x509-certificate
+*.crt  diff=x509-certificate

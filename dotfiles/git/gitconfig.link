@@ -51,6 +51,9 @@
     pushInsteadOf = "https://gitlab.com/"
     pushInsteadOf = "http://gitlab.com/"
 
+[diff "x509-certificate"]
+    textconv = openssl x509 -noout -text -fingerprint -sha256 -in
+
 [diff "ansible-vault"]
     textconv = ansible-vault view
 
