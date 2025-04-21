@@ -411,8 +411,12 @@ run() {
         --shell="$SHELL" \
         --debounce 500 \
         --ignore .git \
+        --ignore '*.pyc' \
+        --ignore '*.pyc.*' \
+        --ignore '__debug*' \
         --ignore index \
         --ignore index.lock \
+        $WATCHEXEC_ARG \
         -- \
         "echo -e \"${cleanup}${color}${bold}\n$ $@${normal}\"; $@ && echo -ne \"${color}OK${normal}\\r\""
 }
