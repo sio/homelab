@@ -24,9 +24,9 @@ bind-key w set-window-option synchronize-panes\; display-message "synchronize-pa
 
 # Make panes read-only
 unbind-key q
-bind-key q select-pane -d
+bind-key q select-pane -d\; display-message "pane input disabled"
 unbind-key Q
-bind-key Q select-pane -e
+bind-key Q select-pane -e\; display-message "pane input enabled"
 
 
 # Truncate long window titles
