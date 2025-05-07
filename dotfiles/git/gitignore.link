@@ -2,3 +2,6 @@
 
 *.swp
 *.pyc
+Makefile.venv
+Makefile.potyarkin
+.venv
