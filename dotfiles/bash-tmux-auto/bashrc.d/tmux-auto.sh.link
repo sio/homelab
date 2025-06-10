@@ -21,6 +21,10 @@ then
     if [[ -z "$TMUX" && -z "$TMUX_PANE" ]]
     then
         countdown 3 'Press Ctrl+C to cancel Tmux launch...' && {
+            if [[ -n "$SESSION_SCROLLBACK_RECORD" ]]
+            then
+                rm "$SESSION_SCROLLBACK_RECORD.time" "$SESSION_SCROLLBACK_RECORD.scrollback"
+            fi
             exec tmux new
         }
     fi
