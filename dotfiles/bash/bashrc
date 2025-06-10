@@ -9,6 +9,23 @@ test -z "$COMMON" && COMMON="$HOME/.common"
 export COMMON
 
 
+# All interactive shell sessions are recorded
+_record() {
+    [[ $- == *i* && -t 0 && -n "$SESSION_SCROLLBACK_RECORD" ]] && return 0
+    local dir="$HOME/.history.scrollback/$(date --utc +%Y%m)"
+    mkdir --parents --mode=0700 "$dir"
+    export SESSION_SCROLLBACK_RECORD="$(mktemp -qu "$dir/$(date --utc +%Y%m%d-%H%M)-XXXXX")"
+    exec script \
+        --append \
+        --flush \
+        --quiet \
+        --return \
+        --timing="$SESSION_SCROLLBACK_RECORD.time" \
+        "$SESSION_SCROLLBACK_RECORD.scrollback"
+}
+_record
+
+
 # This function can be used to reload settings within running bash session
 _load_shell_settings() {
     local ITEM
