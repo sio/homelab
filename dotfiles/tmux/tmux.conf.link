@@ -97,6 +97,11 @@ bind -T copy-mode-vi MouseDragEnd1Pane send-keys -X copy-pipe-no-clear 'xclip -i
 unbind -T copy-mode-vi TripleClick1Pane
 
 
+# Window renaming (with workaround for SESSION_SCROLLBACK_RECORD being switched on)
+set -g automatic-rename on
+set -g automatic-rename-format "#{?pane_in_mode,[tmux],#{s/^script$/#{b:SHELL}:pane_current_command}}#{?pane_dead,[dead],}"
+
+
 # Remember current working directory in new panes/windows
 #
 # https://news.ycombinator.com/item?id=42995101
