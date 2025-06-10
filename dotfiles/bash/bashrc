@@ -9,7 +9,7 @@ test -z "$COMMON" && COMMON="$HOME/.common"
 export COMMON
 
 
-# All interactive shell sessions are recorded
+# All interactive shell sessions should be recorded
 _record() {
     [[ $- == *i* && -t 0 && -n "$SESSION_SCROLLBACK_RECORD" ]] && return 0
     local dir="$HOME/.history.scrollback/$(date --utc +%Y%m)"
@@ -23,7 +23,12 @@ _record() {
         --timing="$SESSION_SCROLLBACK_RECORD.time" \
         "$SESSION_SCROLLBACK_RECORD.scrollback"
 }
-_record
+# FIXME: Recording is currently disabled because it messes up tmux variables:
+#        pane_current_command, pane_current_path (I use these variables a lot).
+#        Tmux reads these variables from process group leader (with a fallback
+#        to session leader in some cases): see format.c, osdep-linux.c in Tmux
+#        sources.
+#_record
 
 
 # This function can be used to reload settings within running bash session
