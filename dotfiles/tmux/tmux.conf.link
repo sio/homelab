@@ -14,7 +14,7 @@ unbind-key C-b
 
 
 # Show richer menu on Prefix+s
-bind-key s choose-tree -Zw
+bind-key s choose-tree -Zws
 
 
 # Send keyboard input to all panes
