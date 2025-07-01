@@ -67,6 +67,9 @@ au Filetype make,go setlocal noexpandtab
 " Wrap lines automatically for Markdown files
 au FileType markdown setlocal textwidth=78 wrap
 
+" Write narrow commit messages to show up nicely in Gerrit
+au FileType gitcommit setlocal textwidth=72
+
 " Narrow indentation
 au FileType html,js,css,htmldjango,xml,yaml,terraform,tf,purs,elm,haskell setlocal
     \ tabstop=2
