@@ -109,7 +109,7 @@ _gitall() {
         set -- "status" "-sb" # default subcommand when invoked without arguments
     fi
 
-    find -type d -name .git -print0 2>/dev/null | while read -d $'\0' DIR
+    find -L -type d -name .git -print0 2>/dev/null | while read -d $'\0' DIR
     do
         if [[ "$FIRST" -eq 0 ]]
         then
