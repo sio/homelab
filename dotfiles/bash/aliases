@@ -527,3 +527,42 @@ forall() {
         -exec false {} + \
         -quit
 }
+
+# Gerrit SSH CLI
+#
+# Simple `alias gerrit='ssh -p $port $server gerrit'` can not handle
+# whitespace in argument values and requires annoying '"double quoting"'
+gerrit() {
+    if [[ -z "$GERRIT_ENDPOINT" ]]
+    then
+        _gerrit_connect "$@"
+        return "$?"
+    fi
+    local server="${GERRIT_ENDPOINT%%:*}"
+    local port="${GERRIT_ENDPOINT##*:}"
+    ssh -p "$port" "$server" gerrit $(printf "%q " "$@")
+}
+_gerrit_connect() {
+    if [[ -z "$1$GERRIT_ENDPOINT" ]]
+    then
+        _gerrit_usage
+        return 1
+    fi
+    if [[ ! "$1" =~ ^[a-z0-9:\._-]+$ ]]
+    then
+        echo -e "Invalid \$GERRIT_ENDPOINT: $1\n" >&2
+        _gerrit_usage
+        return 2
+    fi
+    if [[ ! "$1" =~ : ]]
+    then
+        echo -e "Port not specified in \$GERRIT_ENDPOINT: $1\n" >&2
+        _gerrit_usage
+        return 3
+    fi
+    GERRIT_ENDPOINT="$1"
+}
+_gerrit_usage() {
+    echo -e '$GERRIT_ENDPOINT not set. You may specify it via the first argument:\n\tgerrit server.tld:29418' >&2
+    return 1
+}
