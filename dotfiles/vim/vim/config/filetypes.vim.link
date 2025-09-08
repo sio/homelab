@@ -71,7 +71,7 @@ au FileType markdown setlocal textwidth=78 wrap
 au FileType gitcommit setlocal textwidth=72
 
 " Narrow indentation
-au FileType html,js,css,htmldjango,xml,yaml,terraform,tf,purs,elm,haskell setlocal
+au FileType html,js,css,htmldjango,xml,yaml,terraform,tf,purs,elm,haskell,tex setlocal
     \ tabstop=2
     \ shiftwidth=2
     \ softtabstop=2
