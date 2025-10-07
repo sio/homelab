@@ -28,6 +28,9 @@
 [merge]
     conflictStyle = zdiff3
 
+[color]
+    ui = auto
+
 [color "diff"]
     oldMoved = magenta
     newMoved = cyan
