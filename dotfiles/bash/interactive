@@ -31,7 +31,7 @@ shopt -s globstar
 # Exit interactive sessions that were never used (forgotten tmux panes,
 # VSCode terminals, etc).
 # If shell session was used for at least one command TMOUT will be disabled.
-TMOUT_EXIT_FORGOTTEN_SHELL=900 # 15 minutes
+TMOUT_EXIT_FORGOTTEN_SHELL="${TMOUT_EXIT_FORGOTTEN_SHELL:-900}" # 15 minutes
 TMOUT="$TMOUT_EXIT_FORGOTTEN_SHELL"
 _exit_forgotten_shell() {
     if [[ -n "$_INTERACTIVE_COMMANDS_ENTERED" ]]
