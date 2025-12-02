@@ -54,6 +54,9 @@
     pushInsteadOf = "https://gitlab.com/"
     pushInsteadOf = "http://gitlab.com/"
 
+[gitreview]
+    notopic = true
+
 [diff "x509-certificate"]
     textconv = openssl x509 -noout -text -fingerprint -sha256 -in
 
