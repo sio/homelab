@@ -1,0 +1,14 @@
+#!/bin/bash
+#
+# Highlight screen area under cursor.
+#
+# Bind this script to a convenient keyboard shortcut.
+# Unfortunately, cold start on Wayland pops up a configuration window (TODO).
+#
+set -euo pipefail
+projecteur -c spot=toggle || {
+    projecteur &
+    disown
+    sleep 0.5
+    projecteur -c spot=toggle
+}
