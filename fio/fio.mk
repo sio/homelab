@@ -33,6 +33,11 @@ read write rw all:
 	$(FIO) --filename=$(FILENAME) $(OPTIONS) $(CONFIG) | tee --append $(LOG)
 	@$(MAKE) results-$@
 
+.PHONY: $(SECTIONS)
+$(SECTIONS):
+	@$(MAKE) all SECTIONS=$@ --no-print-directory
+	@$(MAKE) results PREFIX=$@ --no-print-directory
+
 .PHONY: results results-%
 results:
 	@echo '\nBENCHMARK RESULTS\n--'; grep -P "$(subst all,,$(PREFIX))[\w-]*:.*groupid=.*jobs=" -A1 $(LOG)
