@@ -117,3 +117,21 @@ set undofile
 set undodir=$HOME/.vim/undo
 set undolevels=1000
 set undoreload=10000
+
+" Fine tune 256-color syntax highlighing
+map <F3> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">" . " FG:" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"fg#")<CR>
+colorscheme default
+set background=light
+set t_Co=256
+highlight MatchParen ctermbg=Grey ctermfg=Black
+highlight Pmenu ctermbg=LightGrey
+highlight PmenuSel ctermbg=Grey
+highlight Search ctermbg=Grey ctermfg=Black
+highlight Title cterm=bold
+highlight Todo cterm=bold ctermbg=Grey ctermfg=Black
+highlight diffFile cterm=bold ctermfg=2
+highlight diffSubname cterm=bold
+highlight gitcommitDiscardedType ctermfg=4
+highlight gitcommitSelectedType ctermfg=4
+highlight gitcommitSummary cterm=bold ctermfg=130
+highlight yamlBlockMappingKey cterm=bold ctermfg=6
