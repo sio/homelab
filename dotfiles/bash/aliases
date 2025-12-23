@@ -566,3 +566,13 @@ _gerrit_usage() {
     echo -e '$GERRIT_ENDPOINT not set. You may specify it via the first argument:\n\tgerrit server.tld:29418' >&2
     return 1
 }
+
+# View environment variables for another process
+environ() {
+    local pid="$@"
+    if [[ -z "$pid" ]]
+    then
+        pid="$$"
+    fi
+    cat "/proc/$pid/environ" | tr '\0' '\n' | sort | less
+}
