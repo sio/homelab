@@ -61,6 +61,12 @@ popd() {
 }
 
 
+# Change worktree to another suffix
+cw() {
+    cd "${PWD%.*}.$@"
+}
+
+
 # Pretty diff like `git diff`
 _diff_pretty() {
     command diff -ruN --color=always "$@" | less -rXF
