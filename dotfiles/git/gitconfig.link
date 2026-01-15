@@ -1,6 +1,6 @@
 [core]
     quotepath = false  # proper display of UTF-8 filepaths
-    pager = less -x1,5 # tab width = 4 spaces
+    pager = less -S -x1,5 # tab width = 4 spaces
 
 [user]
     useConfigOnly
