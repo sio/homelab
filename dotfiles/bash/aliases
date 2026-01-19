@@ -63,6 +63,11 @@ popd() {
 
 # Change worktree to another suffix
 cw() {
+    if [[ -z "$@" ]]
+    then
+        cd "${PWD%.*}"
+        return
+    fi
     cd "${PWD%.*}.$@"
 }
 
