@@ -1,5 +1,9 @@
 # BASH CONFIGURATION FILE
 
+# Source this file only once (most useful when linked to from ~/.profile and ~/.bash_profile)
+if [[ -n "$COMMON_LOADED" ]]; then return; fi
+COMMON_LOADED=yes
+
 # Load configuration from Git repo
 COMMON="$HOME/.common"
 . "$COMMON/dotfiles/bash/bashrc"

@@ -31,14 +31,27 @@ shopt -s globstar
 # Exit interactive sessions that were never used (forgotten tmux panes,
 # VSCode terminals, etc).
 # If shell session was used for at least one command TMOUT will be disabled.
-TMOUT_EXIT_FORGOTTEN_SHELL="${TMOUT_EXIT_FORGOTTEN_SHELL:-900}" # 15 minutes
-TMOUT="$TMOUT_EXIT_FORGOTTEN_SHELL"
-_exit_forgotten_shell() {
-    if [[ -n "$_INTERACTIVE_COMMANDS_ENTERED" ]]
-    then
-        return
-    fi
-    _INTERACTIVE_COMMANDS_ENTERED=some
-    TMOUT=0
-}
-PROMPT_COMMAND="_exit_forgotten_shell; $PROMPT_COMMAND"
+TMOUT_FORGOTTEN_SHELL="${TMOUT_FORGOTTEN_SHELL:-900}" # 15 minutes
+if [[ "$TMOUT_FORGOTTEN_SHELL" -gt 0 ]]
+then
+    TMOUT="$TMOUT_FORGOTTEN_SHELL"
+    unset TMOUT_FORGOTTEN_SHELL
+
+    PROMPT_COMMAND_FORGOTTEN_SHELL="$PROMPT_COMMAND"
+    _reset_forgotten_shell_detection() {
+        if [[ -v PROMPT_COMMAND_FORGOTTEN_SHELL ]]
+        then
+            PROMPT_COMMAND="$PROMPT_COMMAND_FORGOTTEN_SHELL"
+            unset PROMPT_COMMAND_FORGOTTEN_SHELL
+        fi
+        unset -f _reset_forgotten_shell_detection
+        unset -f _this_shell_is_not_forgotten
+    }
+
+    _this_shell_is_not_forgotten() {
+        TMOUT=0
+        PROMPT_COMMAND="trap - DEBUG; _reset_forgotten_shell_detection; $PROMPT_COMMAND_FORGOTTEN_SHELL"
+        trap - DEBUG # trap does not really untrap from trap, hence the delegation to PROMPT_COMMAND above
+    }
+    PROMPT_COMMAND="trap _this_shell_is_not_forgotten DEBUG; $PROMPT_COMMAND"
+fi
