@@ -5,6 +5,9 @@
 " HTML syntax highlighting
 au BufNewFile,BufRead *.htm,*html setlocal filetype=htmldjango
 
+" Syntax highlighting for Jenkins
+au BufNewFile,BufRead *jenkinsfile set filetype=groovy
+
 " Syntax highlighting for Power Query
 au BufNewFile,BufRead *.pq set filetype=javascript
 au BufNewFile,BufRead *.m set filetype=javascript
