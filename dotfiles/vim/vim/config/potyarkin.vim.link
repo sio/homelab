@@ -136,3 +136,6 @@ highlight gitcommitDiscardedType ctermfg=4
 highlight gitcommitSelectedType ctermfg=4
 highlight gitcommitSummary cterm=bold ctermfg=130
 highlight yamlBlockMappingKey cterm=bold ctermfg=6
+
+" Select block past line endings
+set virtualedit=block
