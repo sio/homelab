@@ -85,6 +85,10 @@ set imsearch=0
 " Enable cursor movement with mouse clicks
 set mouse=a
 
+" Ctrl+click opens path under cursor in new tab
+nnoremap <C-LeftMouse> <C-w>gF
+inoremap <C-LeftMouse> <Esc><C-w>gF
+
 " Use system clipboard by default
 " (requires vim-gtk, use vim --version | grep clipboard to check for support)
 "set clipboard=unnamedplus  " disabled because this causes issues with vim's usual copy-paste
