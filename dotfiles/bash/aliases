@@ -327,6 +327,27 @@ retab() {
 }
 
 
+# SSH client forcefully sends user environment to remote host,
+# and this is not easy to override without root privileges:
+#    https://stackoverflow.com/q/29609371
+alias ssh='\
+    LANG=C \
+    LANGUAGE=C \
+    LC_ALL=C \
+    LC_ADDRESS=C \
+    LC_COLLATE=C \
+    LC_CTYPE=C \
+    LC_IDENTIFICATION=C \
+    LC_MEASUREMENT=C \
+    LC_MONETARY=C \
+    LC_NAME=C \
+    LC_NUMERIC=C \
+    LC_PAPER=C \
+    LC_TELEPHONE=C \
+    LC_TIME=C \
+    ssh'
+
+
 # Patient ssh for reboots <https://old.reddit.com/r/linuxadmin/comments/o2rw19/w/h27y2pd/>
 #   ConnectTimeout=1800 didn't work for some reason
 ssh-wait() {

@@ -10,6 +10,7 @@
 #   some may require generating or installing extra terminfo files.
 #   My usecase: screen.xterm-new looks nice in tmux, but is not supported
 #   without a separate Debian package (ncurses-term)
-Host *
-    SetEnv TERM=xterm
-    SendEnv -LANG -LC_*
+SetEnv TERM=xterm
+
+# Setting locale here does not work (https://stackoverflow.com/q/29609371),
+# see dotfiles/bash/aliases instead.
