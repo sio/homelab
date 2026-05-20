@@ -2,3 +2,7 @@ old_credentials="$HOME/.gitconfig.d/user.conf"
 [[ -s "$old_credentials" ]] && {
     rm -v "$old_credentials"
 } || true
+
+LOCAL_CONF=~/.config/git/config.d/local.conf
+mkdir -p $(dirname "$LOCAL_CONF")
+touch "$LOCAL_CONF"

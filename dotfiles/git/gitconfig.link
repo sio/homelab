@@ -63,4 +63,9 @@
 [diff "ansible-vault"]
     textconv = ansible-vault view
 
+[include]
+    # git does not support wildcard includes, so all extra files must be
+    # referenced from local.conf explicitly.
+    path = ~/.config/git/config.d/local.conf
+
 # vim: syntax=gitconfig
