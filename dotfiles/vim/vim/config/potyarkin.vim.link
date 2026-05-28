@@ -89,8 +89,8 @@ set imsearch=0
 set mouse=a
 
 " Ctrl+click opens path under cursor in new tab
-nnoremap <C-LeftMouse> <C-w>gF
-inoremap <C-LeftMouse> <Esc><C-w>gF
+nnoremap <C-LeftMouse> :tabedit <cfile><CR>
+inoremap <C-LeftMouse> <Esc>:tabedit <cfile><CR>
 
 " Use system clipboard by default
 " (requires vim-gtk, use vim --version | grep clipboard to check for support)
