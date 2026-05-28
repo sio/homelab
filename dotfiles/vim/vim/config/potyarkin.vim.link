@@ -15,6 +15,9 @@ set nowrap
 
 " Do not write trailing whitespace
 function! TrimSpace()
+    if expand('%:t') =~ '.*-hunk-edit\.diff$'
+        return
+    endif
     let l:view = winsaveview()
     %s/\s\+$//e
     call winrestview(l:view)
