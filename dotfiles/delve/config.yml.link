@@ -2,5 +2,11 @@
 #
 # Use `config -list` to show all available options
 
-max-string-len: 10000
 max-array-values: 256
+max-string-len: 10000
+source-list-line-count: 15
+substitute-path:
+  - from: /var/cache/jenkins-agent/go/mod
+    to: /home/user/go/pkg/mod
+  - from: /usr/local/go/src/
+    to: /opt/go1.26.4/src
