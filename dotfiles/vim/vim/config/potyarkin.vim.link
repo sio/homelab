@@ -89,8 +89,21 @@ set imsearch=0
 set mouse=a
 
 " Ctrl+click opens path under cursor in new tab
-nnoremap <C-LeftMouse> :tabedit <cfile><CR>
-inoremap <C-LeftMouse> <Esc>:tabedit <cfile><CR>
+function! RelativeTo(target, base)
+    if a:target =~# '^/'
+        return a:target
+    endif
+    return a:base . '/' . a:target
+endfunction
+function! OpenNeighbor()
+    let l:target = expand('<cfile>')
+    if empty(glob(l:target))
+        let l:target = RelativeTo(l:target, expand('%:h'))
+    endif
+    execute 'tabedit ' . l:target
+endfunction
+nnoremap <silent> <C-LeftMouse> <LeftMouse>:call OpenNeighbor()<CR>
+inoremap <silent> <C-LeftMouse> <Esc><LeftMouse>:call OpenNeighbor()<CR>
 
 " Use system clipboard by default
 " (requires vim-gtk, use vim --version | grep clipboard to check for support)
