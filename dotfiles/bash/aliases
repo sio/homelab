@@ -442,10 +442,14 @@ run() {
     watchexec \
         --shell="$SHELL" \
         --debounce 500 \
+        --no-global-ignore \
+        --no-project-ignore \
+        --no-vcs-ignore \
         --ignore .git \
         --ignore '*.pyc' \
         --ignore '*.pyc.*' \
         --ignore '__debug*' \
+        --ignore 'debug.test*' \
         --ignore index \
         --ignore index.lock \
         $WATCHEXEC_ARG \
