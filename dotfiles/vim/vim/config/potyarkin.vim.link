@@ -159,3 +159,8 @@ highlight yamlBlockMappingKey cterm=bold ctermfg=6
 
 " Select block past line endings
 set virtualedit=block
+
+" Highlight tab characters
+highlight SpecialKey ctermfg=242 guifg=#8c8c8c
+set listchars=tab:\⸱\ |
+set list
