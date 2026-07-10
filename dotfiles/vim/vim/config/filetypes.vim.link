@@ -79,7 +79,8 @@ au FileType html,js,css,htmldjango,xml,yaml,terraform,tf,purs,elm,haskell,tex,ma
     \ shiftwidth=2
     \ softtabstop=2
 
-
+" Gerrit project configuration
+au BufNewFile,BufRead project.config,reviewers.config setlocal noexpandtab
 
 "
 " Other filetype-related stuff
