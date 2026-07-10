@@ -612,3 +612,5 @@ environ() {
     fi
     cat "/proc/$pid/environ" | tr '\0' '\n' | sort | less
 }
+
+alias code="code --force-device-scale-factor=1"
