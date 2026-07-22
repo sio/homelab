@@ -613,4 +613,6 @@ environ() {
     cat "/proc/$pid/environ" | tr '\0' '\n' | sort | less
 }
 
+# Electron apps look ugly with fractional scaling
 alias code="code --force-device-scale-factor=1"
+alias obsidian="obsidian --force-device-scale-factor=1"
