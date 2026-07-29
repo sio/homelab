@@ -80,7 +80,7 @@ au FileType html,js,css,htmldjango,xml,yaml,terraform,tf,purs,elm,haskell,tex,ma
     \ softtabstop=2
 
 " Gerrit project configuration
-au BufNewFile,BufRead project.config,reviewers.config setlocal noexpandtab
+au BufNewFile,BufRead project.config,reviewers.config setlocal noexpandtab filetype=dosini
 
 "
 " Other filetype-related stuff
