@@ -58,6 +58,9 @@ au BufNewFile,BufRead *
     \ | let &filetype = expand("%:e")
     \ | endif
 
+" Check file modification time more often than by default
+au FocusGained,BufEnter,CursorHold,CursorHoldI *
+    \ if mode() != 'c' | checktime | endif
 
 
 "
@@ -81,6 +84,9 @@ au FileType html,js,css,htmldjango,xml,yaml,terraform,tf,purs,elm,haskell,tex,ma
 
 " Gerrit project configuration
 au BufNewFile,BufRead project.config,reviewers.config setlocal noexpandtab filetype=dosini
+
+" Reload markdown documents automatically (if changed on disk while opened in vim)
+au FileType markdown setlocal autoread
 
 "
 " Other filetype-related stuff
