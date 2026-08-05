@@ -120,15 +120,19 @@ _gitall() {
         set -- "status" "-sb" # default subcommand when invoked without arguments
     fi
 
-    find -L -type d -name .git -print0 2>/dev/null | while read -d $'\0' DIR
+    find -L -name .git -print0 2>/dev/null | while read -d $'\0' DIR
     do
+        DIR="${DIR::(-4)}"
+        if [[ -n $(git -C "$DIR" rev-parse --show-superproject-working-tree) ]]
+        then
+            continue # skip submodules
+        fi
         if [[ "$FIRST" -eq 0 ]]
         then
             echo -ne "\n\n"
         else
             FIRST=0
         fi
-        DIR="${DIR::(-4)}"
         command ls --color=auto -d "$DIR"
         case "$1" in
         checkout-default-branch)
