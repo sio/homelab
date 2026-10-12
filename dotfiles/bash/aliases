@@ -63,12 +63,18 @@ popd() {
 
 # Change worktree to another suffix
 cw() {
+    local worktree
     if [[ -z "$@" ]]
     then
-        cd "${PWD%.*}"
-        return
+        worktree="${PWD%.*}"
+    else
+        worktree="${PWD%.*}.$@"
     fi
-    cd "${PWD%.*}.$@"
+    if [[ ! -e "$worktree" ]]
+    then
+        git worktree add --detach "$worktree"
+    fi
+    cd "$worktree"
 }
 
 
