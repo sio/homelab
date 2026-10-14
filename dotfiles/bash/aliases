@@ -63,17 +63,25 @@ popd() {
 
 # Change worktree to another suffix
 cw() {
+    local current
+    current=$(git rev-parse --show-toplevel)
+    if [[ -z "$current" ]]
+    then
+        return 1
+    fi
     local worktree
     if [[ -z "$@" ]]
     then
-        worktree="${PWD%.*}"
+        worktree="${current%.*}"
     else
-        worktree="${PWD%.*}.$@"
+        worktree="${current%.*}.$@"
     fi
     if [[ ! -e "$worktree" ]]
     then
         git worktree add --detach "$worktree"
     fi
+    git worktree list --verbose
+    echo -e "\n$worktree:"
     cd "$worktree"
 }
 
