@@ -634,3 +634,14 @@ environ() {
 # Electron apps look ugly with fractional scaling
 alias code="code --force-device-scale-factor=1"
 alias obsidian="obsidian --force-device-scale-factor=1"
+
+# Open Obsidian files from terminal
+obsi() {
+    local target
+    while [[ -n "$1" ]]
+    do
+        target=$(realpath "$1")
+        start "obsidian://open?path=${target}&paneType=window" # https://obsidian.md/help/uri
+        shift
+    done
+}
