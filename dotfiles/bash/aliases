@@ -644,5 +644,5 @@ obsi() {
         start "obsidian://open?path=${target}&paneType=window" # https://obsidian.md/help/uri
         shift
     done
-    sleep 0.5 # delay next prompt until after any stdout/stderr from `start` commands
+    sleep 1.5 # delay next prompt until after any stdout/stderr from `start` commands
 }
