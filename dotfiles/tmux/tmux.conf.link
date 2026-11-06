@@ -97,6 +97,13 @@ bind -T copy-mode-vi MouseDragEnd1Pane send-keys -X copy-pipe-no-clear 'xclip -i
 unbind -T copy-mode-vi TripleClick1Pane
 
 
+# Enter copy mode automatically on Alt+Mouse selection
+unbind -n M-MouseDown1Pane
+bind-key -n M-MouseDrag1Pane select-pane -t= \; copy-mode -M
+bind-key -T copy-mode-vi M-MouseDrag1Pane select-pane -t= \; send-keys -X begin-selection
+bind-key -T copy-mode    M-MouseDrag1Pane select-pane -t= \; send-keys -X begin-selection
+
+
 # Window renaming (with workaround for SESSION_SCROLLBACK_RECORD being switched on)
 set -g automatic-rename on
 set -g automatic-rename-format "#{?pane_in_mode,[tmux],#{s/^script$/#{b:SHELL}:pane_current_command}}#{?pane_dead,[dead],}"
