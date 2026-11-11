@@ -17,7 +17,7 @@ define section_names_awk
 endef
 
 ifneq (,$(findstring /dev/,$(FILENAME)))
-OPTIONS+=--allow-file-create=0
+OPTIONS+=--allow_file_create=0
 else
 OPTIONS+=--size=$(SIZE)
 endif
