@@ -30,7 +30,10 @@ all: SECTIONS=
 
 .PHONY: read write rw all
 read write rw all:
-	$(FIO) --filename=$(FILENAME) $(OPTIONS) $(CONFIG) | tee --append $(LOG)
+	@tail -n0 -F "$(LOG)" & bg=$$!; trap '{ set +x; } 2>/dev/null; trap - EXIT INT TERM HUP; sleep 0.5; printf "\n\n"; kill $$bg' EXIT INT TERM HUP; \
+	exec >>$(LOG) 2>&1; set -x; \
+	$(FIO) --version; \
+	$(FIO) --filename=$(FILENAME) $(OPTIONS) $(CONFIG)
 	@$(MAKE) results-$@
 
 .PHONY: $(SECTIONS)
