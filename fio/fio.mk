@@ -3,6 +3,7 @@ FILENAME?=/tmp/fio.bin
 SIZE=10G
 
 .DEFAULT_GOAL=read
+OPTIONS+=$(ARGS)
 OPTIONS+=$(foreach section,$(SECTIONS),--section=$(section))
 CONFIG?=$(patsubst %.mk,%.config,$(lastword $(MAKEFILE_LIST)))
 LOG?=$(patsubst %.config,%.log,$(CONFIG))
