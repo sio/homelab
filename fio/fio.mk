@@ -40,9 +40,26 @@ read write rw all:
 $(SECTIONS):
 	@$(MAKE) all SECTIONS=$@ --no-print-directory
 
+define results_filter_awk
+BEGIN {
+	print "\nBENCHMARK RESULTS\n--";
+}
+/^$(subst all,,$(PREFIX))[a-zA-Z0-9_\.-]*:.*groupid=.*jobs=/ {
+	print;
+	in_section=1;
+	next;
+}
+/:.*groupid=.*jobs=/ {
+	in_section=0;
+}
+/^  (read|write):/ {
+	if (in_section) print;
+}
+endef
+export results_filter_awk
+
 .PHONY: results results-%
 results:
-	@echo '\nBENCHMARK RESULTS\n--'; \
-	grep -P "($(subst all,,$(PREFIX))[\w-]*:.*groupid=.*jobs=|^  (read|write):)" $(LOG)
+	@awk "$$results_filter_awk" "$(LOG)"
 results-%:
 	@$(MAKE) results PREFIX=$* --no-print-directory
