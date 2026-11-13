@@ -55,6 +55,10 @@ results:
 results-%:
 	@$(MAKE) results PREFIX=$* --no-print-directory
 
+.PHONY: errors
+errors:
+	@grep -P '\berr=\s*[^0\s]' "$(LOG)" || echo "$(LOG): no fio errors"
+
 define results_filter_awk
 BEGIN {
 	print "\nBENCHMARK RESULTS\n--";
