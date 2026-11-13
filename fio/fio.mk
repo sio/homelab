@@ -40,7 +40,7 @@ read write rw all:
 	$(FIO) --version; \
 	$(FIO) --parse-only --showcmd $(CONFIG) --filename=$(FILENAME) $(OPTIONS); \
 	$(FIO)                        $(CONFIG) --filename=$(FILENAME) $(OPTIONS)
-	@$(MAKE) results-$@
+	@$(MAKE) results-$(if $(word 2,$(SECTIONS)),$@,$(SECTIONS))
 
 .PHONY: $(SECTIONS)
 $(SECTIONS):
@@ -69,6 +69,9 @@ BEGIN {
 }
 /^  (read|write):/ {
 	if (in_section) print;
+}
+END {
+	printf "\n";
 }
 endef
 export results_filter_awk
