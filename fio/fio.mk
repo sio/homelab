@@ -39,10 +39,10 @@ read write rw all:
 .PHONY: $(SECTIONS)
 $(SECTIONS):
 	@$(MAKE) all SECTIONS=$@ --no-print-directory
-	@$(MAKE) results PREFIX=$@ --no-print-directory
 
 .PHONY: results results-%
 results:
-	@echo '\nBENCHMARK RESULTS\n--'; grep -P "$(subst all,,$(PREFIX))[\w-]*:.*groupid=.*jobs=" -A1 $(LOG)
+	@echo '\nBENCHMARK RESULTS\n--'; \
+	grep -P "($(subst all,,$(PREFIX))[\w-]*:.*groupid=.*jobs=|^  (read|write):)" $(LOG)
 results-%:
 	@$(MAKE) results PREFIX=$* --no-print-directory
