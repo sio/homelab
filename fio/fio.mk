@@ -26,7 +26,7 @@ OPTIONS+=--eta=always --eta-interval=2s --eta-newline=10s
 read: SECTIONS:=$(filter read-%,$(SECTIONS))
 write: SECTIONS:=$(filter write-%,$(SECTIONS))
 rw: SECTIONS:=$(filter rw-%,$(SECTIONS))
-all: SECTIONS=
+all: SECTIONS:=$(filter-out .%,$(SECTIONS))
 
 .PHONY: read write rw all
 read write rw all:
