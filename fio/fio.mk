@@ -1,13 +1,6 @@
 FIO?=fio
 FILENAME?=/tmp/fio.bin
-SIZE=10G
-
 .DEFAULT_GOAL=read
-OPTIONS+=$(ARGS)
-OPTIONS+=$(foreach section,$(SECTIONS),--section=$(section))
-CONFIG?=$(patsubst %.mk,%.config,$(lastword $(MAKEFILE_LIST)))
-LOG?=$(patsubst %.config,%.log,$(CONFIG))
-SECTIONS?=$(shell awk '$(section_names_awk)' $(CONFIG))
 
 define section_names_awk
 /^\s*\[[^\]]+\]/ {
@@ -17,12 +10,23 @@ define section_names_awk
 }
 endef
 
+CONFIG?=$(patsubst %.mk,%.config,$(lastword $(MAKEFILE_LIST)))
+LOG?=$(patsubst %.config,%.log,$(CONFIG))
+SECTIONS?=$(shell awk '$(section_names_awk)' $(CONFIG))
+
+OPTIONS+=$(ARGS)
+
+SIZE?=10G
+OFFSET?=0
+export SIZE OFFSET
 ifneq (,$(findstring /dev/,$(FILENAME)))
 OPTIONS+=--allow_file_create=0
 else
 OPTIONS+=--size=$(SIZE)
 endif
+
 OPTIONS+=--eta=always --eta-interval=2s --eta-newline=10s
+OPTIONS+=$(foreach section,$(SECTIONS),--section=$(section))
 
 read: SECTIONS:=$(filter read-%,$(SECTIONS))
 write: SECTIONS:=$(filter write-%,$(SECTIONS))
@@ -32,14 +36,24 @@ all: SECTIONS:=$(filter-out .%,$(SECTIONS))
 .PHONY: read write rw all
 read write rw all:
 	@tail -n0 -F "$(LOG)" & bg=$$!; trap '{ set +x; } 2>/dev/null; trap - EXIT INT TERM HUP; sleep 0.5; printf "\n\n"; kill $$bg' EXIT INT TERM HUP; \
-	exec >>$(LOG) 2>&1; set -x; \
+	exec >>$(LOG) 2>&1; set -eux; \
 	$(FIO) --version; \
-	$(FIO) --filename=$(FILENAME) $(OPTIONS) $(CONFIG)
+	$(FIO) --parse-only --showcmd $(CONFIG) --filename=$(FILENAME) $(OPTIONS); \
+	$(FIO)                        $(CONFIG) --filename=$(FILENAME) $(OPTIONS)
 	@$(MAKE) results-$@
 
 .PHONY: $(SECTIONS)
 $(SECTIONS):
 	@$(MAKE) all SECTIONS=$@ --no-print-directory
+
+.PHONY: verify
+verify: .write-verify .verify
+
+.PHONY: results results-%
+results:
+	@awk "$$results_filter_awk" "$(LOG)"
+results-%:
+	@$(MAKE) results PREFIX=$* --no-print-directory
 
 define results_filter_awk
 BEGIN {
@@ -58,9 +72,3 @@ BEGIN {
 }
 endef
 export results_filter_awk
-
-.PHONY: results results-%
-results:
-	@awk "$$results_filter_awk" "$(LOG)"
-results-%:
-	@$(MAKE) results PREFIX=$* --no-print-directory
