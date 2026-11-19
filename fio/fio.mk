@@ -21,6 +21,7 @@ OFFSET?=0
 export SIZE OFFSET
 ifneq (,$(findstring /dev/,$(FILENAME)))
 OPTIONS+=--allow_file_create=0
+DISK_INFO=fdisk -l $(FILENAME); lsblk --json --output-all $(FILENAME);
 else
 OPTIONS+=--size=$(SIZE)
 endif
@@ -37,7 +38,7 @@ all: SECTIONS:=$(filter-out .%,$(SECTIONS))
 read write rw all:
 	@tail -n0 -F "$(LOG)" & bg=$$!; trap '{ set +x; } 2>/dev/null; trap - EXIT INT TERM HUP; sleep 0.5; printf "\n\n"; kill $$bg' EXIT INT TERM HUP; \
 	exec >>$(LOG) 2>&1; set -eux; \
-	$(FIO) --version; \
+	$(FIO) --version; $(DISK_INFO) \
 	$(FIO) --parse-only --showcmd $(CONFIG) --filename=$(FILENAME) $(OPTIONS); \
 	$(FIO)                        $(CONFIG) --filename=$(FILENAME) $(OPTIONS)
 	@$(MAKE) results-$(if $(word 2,$(SECTIONS)),$@,$(SECTIONS))
