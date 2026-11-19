@@ -89,6 +89,7 @@ set imsearch=0
 set mouse=a
 
 " Ctrl+click opens path under cursor in new tab
+set isfname+=@-@ " capture literal @ as part of path
 function! RelativeTo(target, base)
     if a:target =~# '^/'
         return a:target
