@@ -1,0 +1,45 @@
+{
+     "vim.hlsearch": true,
+     "vim.incsearch": true,
+     "vim.ignorecase": true,
+     "vim.smartcase": true,
+     "vim.scrolloff": 5,
+     "vim.showmode": true,
+     "editor.matchBrackets": "always",
+
+     "vim.normalModeKeyBindingsNonRecursive": [
+       { "before": ["o"], "after": ["A", "<CR>"] },
+       { "before": ["O"], "after": ["k", "A", "<CR>"] },
+       {
+         "before": ["J"],
+         "after": [],
+         "commands": [{ "command": "joinCommentAware.join", "args": [] }]
+       }
+     ],
+
+     "files.trimTrailingWhitespace": true,
+     "files.trimFinalNewlines": true,
+     "editor.renderWhitespace": "all",
+
+     "editor.tabSize": 4,
+     "editor.insertSpaces": true,
+     "editor.detectIndentation": true,
+     "[html]":       { "editor.tabSize": 2 },
+     "[javascript]": { "editor.tabSize": 2 },
+     "[typescript]": { "editor.tabSize": 2 },
+     "[css]":        { "editor.tabSize": 2 },
+     "[yaml]":       { "editor.tabSize": 2 },
+     "[terraform]":  { "editor.tabSize": 2 },
+     "[markdown]":   { "editor.tabSize": 2 },
+     "[makefile]":   { "editor.insertSpaces": false },
+     "[go]":         { "editor.insertSpaces": false },
+
+    "editor.cursorStyle": "block",
+    "editor.fontFamily": "'Jetbrains Mono', 'Droid Sans Mono', monospace",
+    "editor.fontSize": 15,
+    "explorer.confirmDelete": false,
+    "go.toolsManagement.autoUpdate": true,
+    "markdown.marp.exportAutoOpen": false,
+    "workbench.colorTheme": "GitHub Light",
+    "editor.cursorSurroundingLines": 5
+}
