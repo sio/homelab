@@ -37,7 +37,7 @@ tmux-ps() {
     tmux list-panes -a -F '#{session_name}:#{window_index}.#{pane_index}	#{pane_pid}' \
     | while IFS=$'\t' read -r pane pid; do
         echo -e "$bold$pane$normal"
-        ps --forest --format pid,args --ppid "$pid" --pid "$pid" --no-headers | sed 's/^/  /'
+        ps --forest --format pid,args --no-headers --pid $(pstree -clpT "$pid" | grep -oP '(?<=\()\d+(?=\))') | sed 's/^/  /'
         echo ""
     done \
     | less
